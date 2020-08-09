@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.dms.web.mapper.Mapper">
+  
+ 	<select id="getTime" resultType="string">
+ 		select now()
+ 	</select>
+ 	
+ 	<!-- 회원 -->
+     <insert id="user_insert"> <!-- 수정해주세요 -->
+   		insert into student (id, passwd, username, snum, depart, mobile, email) values
+ 		(#{id}, #{passwd}, #{username}, #{snum}, #{depart}, #{mobile}, #{email})
+     </insert> 
+ 	
+ 	<!-- 수정해주세요 -->
+     <select id="user_selectByid" resultType="StudentVO">
+ 		select * from student where id = #{id}
+     </select>
+ 	
+ 	<!-- 수정해주세요 -->
+     <select id="user_selectAll" resultType="UserVO">
+     <![CDATA[
+ 		select * from user
+      ]]> 
+     </select>
+ 	
+     <update id="user_update"> <!-- 수정해주세요 -->
+	 	update student set id =#{id}, passwd =#{passwd}, username =#{username}, 
+			snum =#{snum}, depart =#{depart}, mobile =#{mobile}, email =#{email} 
+		 where id = #{id}
+     </update>
+ 
+ 	<!-- 수정해주세요 -->
+    <delete id="user_delete">
+		delete from student where id = #{id}
+    </delete>
+    
+    <!-- 게시판 -->
+    <insert id="board_insert"></insert>
+    <select id="board_selectByid"></select>
+    <select id="board_selectAll"></select>
+    <update id="board_update"></update>
+    <delete id="board_delete"></delete>
+    
+    <!-- 카테고리 -->
+    <select id="category_selectAll" resultType="CategoryVO">
+    <![CDATA[
+ 		select * from category
+      ]]> 
+    
+    </select>
+    <!-- 문제 -->
+    <select id="problem_selectAll" resultType="ProblemVO">
+    	select * from problem where problem_level = #{problem_level} and category_id = #{category_id}
+    </select>
+    <select id="problem_selectByid" resultType="ProblemVO">
+    	select * from problem where problem_id = #{problem_id}
+    </select>
+    <insert id="problem_insert">
+    <!-- private int problem_id;
+	private String problem_title;
+	private String problem_content;
+	private String problem_hint;
+	private int problem_time;
+	
+	private int problem_submitnum;
+	private int problem_sucessnum;
+	private int problem_failnum;
+	private int problem_level;
+	private String category_id; -->
+    
+    	insert into problem (problem_id, problem_title, problem_content, problem_hint, problem_time,
+    	problem_submitnum, problem_successnum, problem_failnum, problem_level, category_id )
+    	values (#{problem_id}, #{problem_title}, #{problem_content}, #{problem_hint}, #{problem_time},
+    	#{problem_submitnum}, #{problem_successnum}, #{problem_failnum}, #{problem_level}, #{category_id})
+    </insert>
+    <!-- 테스트케이스 -->
+    <select id="testcase_selectByid" resultType="TestcaseVO">
+    	<!-- 테스트케이스 하나만 갖고옴 -->
+    	select * from testcase where problem_id = #{problem_id} limit 1;
+    </select>
+    <insert id="testcase_insert">
+    	insert into testcase (testcase_input, testcase_output, problem_id) values (#{testcase_input}, #{testcase_output}, #{problem_id})
+    </insert>
+	
+</mapper>  

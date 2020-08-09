@@ -1,0 +1,98 @@
+section.profile {
+  height: 30em;
+}
+
+section.profile div.profile_img {
+  width: 40%;
+  height: 100%;
+  text-align: center;
+  float: left;
+}
+
+section.profile div.profile_img img.img {
+  width: 20em;
+  height: 20em;
+  border-radius: 25%;
+}
+
+section.profile div.profile_img button.btn_img {
+  width: 20em;
+}
+
+section.profile div.profile_name {
+  width: 60%;
+  height: 50%;
+  padding-top: 2em;
+  padding-bottom: 2em;
+  float: left;
+}
+
+section.profile div.profile_name input#input_name {
+  display: none;
+  width: 30%;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
+section.profile div.profile_name button.btn_name {
+  font-size: 0.6em;
+}
+
+section.profile div.profile_introduce {
+  width: 60%;
+  height: 50%;
+  float: left;
+}
+section.profile div.profile_introduce input#input_introduce {
+  display: none;
+  width: 40%;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
+section.profile div.profile_introduce button.btn_introduce {
+  font-size: 0.6em;
+}
+
+footer.footer_btns {
+  padding-top: 2em;
+  margin-bottom: 3.5em;
+  border-top: 2px solid rgba(210, 215, 217, 0.75);
+  text-align: right;
+}
+
+footer.footer_btns button.btn_withdraw {
+  margin-left: 1em;
+}
+
+footer.footer_btns button.btn_withdraw:hover {
+  background: #f56a6a;
+}
+
+footer.footer_btns button.btn_change_pwd:hover {
+  background: #f56a6a;
+}
+
+@media (max-width: 800px){
+
+  section.profile div.profile_img {
+    margin-right: 1em;
+  }
+
+  section.profile div.profile_img button.btn_img {
+    width: 25em;
+  }
+
+  section.profile div.profile_name {
+    width: 100%;
+    padding-top: 5em;
+  }
+
+  section.profile div.profile_introduce {
+    width: 100%;
+    height: 10em;
+    border-bottom: 2px solid rgba(210, 215, 217, 0.75);
+    margin-bottom: 3.5em;
+  }
+
+}
