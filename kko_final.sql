@@ -37,7 +37,7 @@ create table problem -- 문제 테이블 생성
     problem_submitnum int not null default 0, -- 제출횟수 / ex) 5
     problem_successnum int not null default 0, -- 정답횟수 / ex) 1
     problem_failnum int not null default 0, -- 오답횟수 / ex) 100
-    level varchar(50) not null default "브론즈",  -- 난이도 / ex) 브론즈, 실버, 골드
+    problem_level int not null default 1,  -- 난이도 / ex) 브론즈, 실버, 골드
     category_id varchar(10) not null, -- FK / problem의 code_id는 category의 code_id를 참조한다!
 	primary key (problem_id), -- PK는 문제 번호
     constraint fk_problem_category foreign key (category_id) references category (category_id) on update cascade on delete cascade -- FK는 code_id 
@@ -47,8 +47,8 @@ create table problem -- 문제 테이블 생성
 create table testcase -- 테스트케이스 테이블 생성
 (
 	testcase_id int not null auto_increment unique, -- PK / 테스트케이스 번호 / ex) 1
-    testcase_input varchar(100) not null, -- 입력값 / ex) 1 2 3
-    testcase_output varchar(50) not null default "error", -- 출력값 / ex) 5
+    testcase_input varchar(500) not null, -- 입력값 / ex) 1 2 3
+    testcase_output varchar(500) not null default "error", -- 출력값 / ex) 5
     problem_id int not null, -- FK / 문제번호 / ex) 1516
     primary key (testcase_id), -- PK는 테스트케이스 번호
 	constraint fk_testcase_problem foreign key (problem_id) references problem (problem_id) on update cascade on delete cascade -- FK는 problem_id 
@@ -58,10 +58,10 @@ create table testcase -- 테스트케이스 테이블 생성
 create table code -- 코드 테이블 생성
 ( 
 	code_id int not null auto_increment unique, -- PK / 코드 번호 / ex) 124
-    code varchar(3000) not null, -- 코드 / ex) #include<stdio.h> int main(void)...
+    code_code varchar(3000) not null, -- 코드 / ex) #include<stdio.h> int main(void)...
     code_language varchar(10) not null default "c++", -- 언어 / ex) c++
     code_success boolean not null default false, -- 성공여부 / ex) O
-    code_like int not null default 0, -- 좋아요 / ex) 5
+    -- code_like int not null default 0, -- 좋아요 / ex) 5
     code_open boolean not null default false, -- 공개여부 / ex) X
     user_id varchar(30) not null, --  회원 id / ex) admin
     problem_id int not null, -- FK / 문제번호 / ex) 1516
@@ -87,7 +87,7 @@ create table board  -- 게시글 테이블 생성
     board_title varchar(500) not null, -- 게시글 제목 / ex) 코드 질문합니다 ㅜㅜㅠㅠ
 	board_content varchar(3000) not null, -- 내용 / ex) 화이팅! 풀스텍 개발자~~
 	board_upload date not null, -- 게시일 / ex) 2020.07.07
-    board_like int not null default 0, -- 좋아요 / ex) 0
+    -- board_like int not null default 0, -- 좋아요 / ex) 0
     user_id varchar(30) not null, -- FK / 사용자 아이디 / ex) admin
     problem_id int, -- FK / 문제번호 / ex) 1516
     primary key(board_id), -- PK는 게시글 id

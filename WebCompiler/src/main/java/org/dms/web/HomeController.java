@@ -34,7 +34,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * Handles requests for the application home page.
  */
-//@Component
+@Component
 @Controller
 public class HomeController {
 	
@@ -53,7 +53,8 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 * @throws Exception 
 	 */
-	/*@RequestMapping(value = "/", method = RequestMethod.GET)
+	/*
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) throws Exception {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
@@ -70,8 +71,8 @@ public class HomeController {
 		model.addAttribute("user", vo);
 			
 		return "home";
-	}*/
-	
+	}
+	*/
 	/* 카테고리 */
 	@RequestMapping(value = "/category", method = RequestMethod.GET)
 	public String categoryGet(Locale locale, Model model) throws Exception {
@@ -92,14 +93,14 @@ public class HomeController {
         return userService.readUser(1);
     }
 	
-	@RequestMapping(value="/p", method = RequestMethod.GET)
+	@RequestMapping(value="/problem/insert", method = RequestMethod.GET)
 	public String problemInsert(Locale locale, Model model) throws Exception {
 		List<CategoryVO> vo = categoryService.readCategoryList();
 		model.addAttribute("category", vo);
 		return "problem_insert";
 	}
 	
-	@RequestMapping(value="/p.do", method = RequestMethod.POST)
+	@RequestMapping(value="/problem/insert.do", method = RequestMethod.POST)
 	public String problemInsertPost(@ModelAttribute("problem") ProblemVO pvo /*, @ModelAttribute("testcase") TestcaseVO tvo*/) throws Exception {
 		logger.info("문제내용: "+pvo.getProblem_content());
 		logger.info("성공횟수: " + pvo.getProblem_successnum());

@@ -12,8 +12,8 @@
  	
  	<!-- 회원 -->
      <insert id="user_insert"> <!-- 수정해주세요 -->
-   		insert into student (id, passwd, username, snum, depart, mobile, email) values
- 		(#{id}, #{passwd}, #{username}, #{snum}, #{depart}, #{mobile}, #{email})
+   		insert into user (user_id, user_passwd, user_name, user_introduce, user_authority) values
+ 		(#{user_id}, #{user_passwd}, #{user_name}, #{user_introduce}, #{user_authority})
      </insert> 
  	
  	<!-- 수정해주세요 -->

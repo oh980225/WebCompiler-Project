@@ -15,7 +15,6 @@
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_main.css" type="text/css"/>
 	</head>
 	<body class="is-preload">
-
 		<!-- Wrapper -->
 			<div id="wrapper">
 
@@ -28,7 +27,7 @@
 									<a href="/web" class="logo"><strong>FULL STACK</strong> DEVELOPER</a>
 									<ul class="icons">
 										<li><a href="#">로그인</a></li>
-										<li><a href="#">회원가입</a></li>
+										<li><a href="/web/join">회원가입</a></li>
 									</ul>
 								</header>
 

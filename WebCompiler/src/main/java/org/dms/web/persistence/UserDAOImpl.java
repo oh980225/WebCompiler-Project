@@ -15,8 +15,9 @@ public class UserDAOImpl implements UserDAO {
 	private static final String namespace = "org.dms.web.mapper.Mapper";
 
 	@Override
-	public void insert(UserDAO user) throws Exception {
+	public void insert(UserVO user) throws Exception {
 		// TODO Auto-generated method stub
+		sqlSession.insert(namespace + ".user_insert", user);
 		
 	}
 

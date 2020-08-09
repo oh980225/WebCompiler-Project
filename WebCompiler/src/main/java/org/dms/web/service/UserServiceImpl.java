@@ -27,6 +27,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void insertUser(UserVO vo) throws Exception {
 		// TODO Auto-generated method stub
+		
+		/* 암호화*/ 
+        //String encode_password = LoginUtil.encryptPassword(vo.getUser_id(), vo.getUser_passwd());
+        //vo.setMbrPw(encode_password);
+        //vo.setMbrPw_check(encode_password);
+        //memberDAOService.insertMembership(memberVO);
+		vo.setUser_authority("USER");
+		userDAO.insert(vo);
 
 	}
 
