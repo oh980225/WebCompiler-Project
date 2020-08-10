@@ -46,6 +46,8 @@ public class HomeController {
 	ProblemService problemService;
 	@Autowired(required=true)
 	TestcaseService testcaseService;
+	@Autowired(required=true)
+	VulService vulService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 		
@@ -81,7 +83,16 @@ public class HomeController {
 		model.addAttribute("category", vo);
 		return "category";
 	}
+	/* 은지 */
 	
+	@RequestMapping(value = "/vul_check", method = RequestMethod.GET)
+	public String vulGet(Model model) throws Exception {
+		
+		List<VulVO> vo = vulService.readVulList();
+		model.addAttribute("vul_check", vo);
+		return "vul_check";
+	}
+
 	@RequestMapping(value="/requestObject")
     @ResponseBody
     public UserVO simpleWithObject(HttpServletRequest request
