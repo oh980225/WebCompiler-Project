@@ -5,6 +5,7 @@ import org.dms.web.domain.UserVO;
 
 public interface UserService {
 	public UserVO readUser(int id) throws Exception;
+	public UserVO readUser(UserVO vo) throws Exception;
 	public void insertUser(UserVO vo) throws Exception;
 	public List<UserVO> readUserList() throws Exception;
 	public void deleteUser(int id) throws Exception;

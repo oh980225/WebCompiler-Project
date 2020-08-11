@@ -22,9 +22,8 @@
  		(#{user_id}, #{user_passwd}, #{user_name}, #{user_introduce}, #{user_authority})
      </insert> 
  	
- 	<!-- 수정해주세요 -->
-     <select id="user_selectByid" resultType="StudentVO">
- 		select * from student where id = #{id}
+     <select id="user_selectForLogin" resultType="UserVO">
+ 		select * from user where user_id = #{user_id} and user_passwd = #{user_passwd}
      </select>
  	
  	<!-- 수정해주세요 -->

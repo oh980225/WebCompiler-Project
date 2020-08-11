@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE HTML>
 <!--
 	Editorial by HTML5 UP
@@ -25,10 +26,20 @@
 							<!-- Header -->
 								<header id="header">
 									<a href="/web" class="logo"><strong>FULL STACK</strong> DEVELOPER</a>
-									<ul class="icons">
-										<li><a href="#">로그인</a></li>
-										<li><a href="/web/join">회원가입</a></li>
-									</ul>
+									<!-- 바꾸기 -->																
+									<c:if test="${user.user_id == null}">
+										<ul class="icons">
+											<li><a href="/web/login">로그인</a></li>
+											<li><a href="/web/join">회원가입</a></li>
+										</ul>
+									</c:if>
+									<c:if test="${user.user_id != null}">
+										<ul class="icons">
+											<li><a href="/web/logout.do">로그아웃</a></li>
+									
+										</ul>
+									</c:if>
+																	
 								</header>
 
 							<!-- Banner -->
@@ -154,7 +165,12 @@
 									<header class="major">
 										<img class="icon" src="<%=request.getContextPath()%>/resources/images/user.png">
 										<!-- 사용자의 닉네임 클릭시 마이페이지로 이동 -->
-										<h3 class="name"><a href="/web/mypage">MR.O</a></h3>
+										<c:if test="${user.user_id == null}">
+										<h3 class="name"><a href="/web/login">먼저 로그인 해주세요!</a></h3>
+										</c:if>
+										<c:if test="${user.user_id != null}">
+											<h3 class="name"><a href="/web/mypage">${user_user_id}</a></h3>
+										</c:if>
 									</header>
 									<ul>
 										<!-- 사이드 메뉴바에 Main Page 클릭시 메인페이지로 이동 -->

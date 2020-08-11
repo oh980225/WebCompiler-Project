@@ -56,4 +56,10 @@ public class UserServiceImpl implements UserService {
 
 	}
 
+	@Override
+	public UserVO readUser(UserVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return userDAO.read(vo);
+	}
+
 }

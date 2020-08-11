@@ -1,7 +1,9 @@
 package org.dms.web.persistence;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.dms.web.domain.UserVO;
 import org.apache.ibatis.session.SqlSession;
@@ -38,6 +40,8 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public UserVO read(String id) throws Exception {
 		// TODO Auto-generated method stub
+		
+		
 		return null;
 	}
 
@@ -51,6 +55,13 @@ public class UserDAOImpl implements UserDAO {
 	public void update(UserVO user) throws Exception {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public UserVO read(UserVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		UserVO user = sqlSession.selectOne(namespace + ".user_selectForLogin", vo);
+		return user;	
 	}
 
 }
