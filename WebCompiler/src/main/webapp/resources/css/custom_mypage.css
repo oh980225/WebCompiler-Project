@@ -19,6 +19,10 @@ section.profile div.profile_img button.btn_img {
   width: 20em;
 }
 
+section.profile div.profile_img form#img_form {
+	display : none;
+}
+
 section.profile div.profile_name {
   width: 60%;
   height: 50%;

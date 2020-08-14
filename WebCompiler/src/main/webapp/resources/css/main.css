@@ -1949,7 +1949,7 @@ button,
         margin-bottom: 0;
         padding-bottom: 0; }
     #sidebar > .inner > .alt {
-      background-color: #414344; /* ì™¼ìª½ ìƒë‹¨ ê²€ìƒ‰*/
+      background-color: #414344; /* ¿ÞÂÊ »ó´Ü °Ë»ö*/
       border-bottom: 0;
       margin: -2.22222em 0 4.44444em -2.22222em;
       padding: 2.22222em;
@@ -2199,7 +2199,7 @@ button,
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  color: #c2bdbd; /*ë²„íŠ¼ìƒ‰*/
+  color: #c2bdbd; /*¹öÆ°»ö*/
   font-family: "Roboto Slab", serif;
   font-weight: 400;
   letter-spacing: 0.075em;
@@ -2215,7 +2215,7 @@ button,
     font-size: 0.9em;
     padding: 0.625em 0; }
     #menu ul a:hover, #menu ul span:hover {
-      color: #c2bdbd; } /*í•˜ë‹¨ ë‚´ë ¤ê°€ëŠ” ë²„íŠ¼ì˜ ìƒ‰*/
+      color: #c2bdbd; } /*ÇÏ´Ü ³»·Á°¡´Â ¹öÆ°ÀÇ »ö*/
     #menu ul a.opener, #menu ul span.opener {
       -moz-transition: color 0.2s ease-in-out;
       -webkit-transition: color 0.2s ease-in-out;
@@ -2240,12 +2240,12 @@ button,
         -webkit-transition: color 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
         -ms-transition: color 0.2s ease-in-out, -ms-transform 0.2s ease-in-out;
         transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
-        color: #c2bdbd; /*ë²„íŠ¼ ì˜†ì— ë°‘ìœ¼ë¡œ ë‚´ë¦¬ëŠ” ê±°*/
+        color: #c2bdbd; /*¹öÆ° ¿·¿¡ ¹ØÀ¸·Î ³»¸®´Â °Å*/
         content: '\f078';
         position: absolute;
         right: 0; }
       #menu ul a.opener:hover:before, #menu ul span.opener:hover:before {
-        color:#c2bdbd; } /*ë²„íŠ¼ ì˜†ì— ë°‘ìœ¼ë¡œ ë‚´ë¦¬ëŠ” ê±°*/
+        color:#c2bdbd; } /*¹öÆ° ¿·¿¡ ¹ØÀ¸·Î ³»¸®´Â °Å*/
       #menu ul a.opener.active + ul, #menu ul span.opener.active + ul {
         display: block; }
       #menu ul a.opener.active:before, #menu ul span.opener.active:before {
@@ -2255,11 +2255,11 @@ button,
         transform: rotate(-180deg); }
 
 #menu > ul > li {
-  border-top: solid 1px #c2bdbd; /* ë²„íŠ¼ ë°‘ì— ì¤„*/
+  border-top: solid 1px #c2bdbd; /* ¹öÆ° ¹Ø¿¡ ÁÙ*/
   margin: 0.5em 0 0 0;
   padding: 0.5em 0 0 0; }
   #menu > ul > li > ul {
-    color: #c2bdbd; /* ë²„íŠ¼ ìƒ‰ */
+    color: #c2bdbd; /* ¹öÆ° »ö */
     display: none;
     margin: 0.5em 0 1.5em 0;
     padding-left: 1em; }

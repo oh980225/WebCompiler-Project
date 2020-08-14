@@ -13,8 +13,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css" type="text/css"/>
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_main.css" type="text/css"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" /> <!-- 이게 Font Awesome 5 Free를 사용하게 해주는거 같아요. 이거덕에 사이드바 모양이 보여요! -->
 	</head>
 	<body class="is-preload">
+
 		<!-- Wrapper -->
 			<div id="wrapper">
 
@@ -27,7 +29,7 @@
 									<a href="/web" class="logo"><strong>FULL STACK</strong> DEVELOPER</a>
 									<ul class="icons">
 										<li><a href="#">로그인</a></li>
-										<li><a href="/web/join">회원가입</a></li>
+										<li><a href="#">회원가입</a></li>
 									</ul>
 								</header>
 

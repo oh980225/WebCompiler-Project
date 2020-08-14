@@ -1,12 +1,25 @@
 package org.dms.web.domain;
 
+import java.io.IOException;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class UserVO {
 	private String user_id;
 	private String user_passwd;
 	private String user_name;
 	private String user_introduce;
 	private String user_authority;
-	
+	private byte[] user_img;
+
+	public byte[] getUser_img() {
+		return user_img;
+	}
+
+	public void setUser_img(byte[] user_img) {
+		this.user_img = user_img;
+	}
+
 	public String getUser_id() {
 		return user_id;
 	}

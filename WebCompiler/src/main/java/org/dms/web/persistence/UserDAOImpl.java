@@ -3,10 +3,11 @@ package org.dms.web.persistence;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dms.web.domain.UserVO;
 import org.apache.ibatis.session.SqlSession;
+import org.dms.web.domain.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -15,9 +16,8 @@ public class UserDAOImpl implements UserDAO {
 	private static final String namespace = "org.dms.web.mapper.Mapper";
 
 	@Override
-	public void insert(UserVO user) throws Exception {
+	public void insert(UserDAO user) throws Exception {
 		// TODO Auto-generated method stub
-		sqlSession.insert(namespace + ".user_insert", user);
 		
 	}
 
@@ -28,7 +28,7 @@ public class UserDAOImpl implements UserDAO {
 		userList = sqlSession.selectList(namespace + ".user_selectAll");
 		for(int i = 0; i<userList.size(); i++) {
 			String introduce = userList.get(i).getUser_introduce();
-			introduce.replace("입니다", "바꿨다");
+//			introduce.replace("�엯�땲�떎", "諛붽엥�떎");
 			System.out.println(i + ": " + introduce);
 			userList.get(i).setUser_introduce(introduce);
 		}
@@ -37,8 +37,8 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public UserVO read(String id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		UserVO user = sqlSession.selectOne(namespace + ".user_selectByid", id);
+		return user;
 	}
 
 	@Override
@@ -48,9 +48,15 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void update(UserVO user) throws Exception {
-		// TODO Auto-generated method stub
-
+	@Transactional
+	public int update(UserVO user) throws Exception {		
+		return sqlSession.update(namespace + ".user_update", user);
+	}
+	
+	@Override
+	public int saveImg(UserVO user) throws Exception {
+		return sqlSession.update(namespace + ".save_img", user);
+		
 	}
 
 }

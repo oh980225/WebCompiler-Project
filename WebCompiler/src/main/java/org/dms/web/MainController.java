@@ -23,7 +23,7 @@ public class MainController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	
-	// main.jsp를 불러온다.
+
 	@RequestMapping(value = "/")
 	public String getMainPage(Model model) throws Exception {
 		return "main";

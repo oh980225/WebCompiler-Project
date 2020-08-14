@@ -34,7 +34,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * Handles requests for the application home page.
  */
-@Component
+//@Component
 @Controller
 public class HomeController {
 	
@@ -46,8 +46,6 @@ public class HomeController {
 	ProblemService problemService;
 	@Autowired(required=true)
 	TestcaseService testcaseService;
-	@Autowired(required=true)
-	VulService vulService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 		
@@ -55,8 +53,7 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 * @throws Exception 
 	 */
-	/*
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) throws Exception {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
@@ -73,8 +70,8 @@ public class HomeController {
 		model.addAttribute("user", vo);
 			
 		return "home";
-	}
-	*/
+	}*/
+	
 	/* 카테고리 */
 	@RequestMapping(value = "/category", method = RequestMethod.GET)
 	public String categoryGet(Locale locale, Model model) throws Exception {
@@ -83,16 +80,7 @@ public class HomeController {
 		model.addAttribute("category", vo);
 		return "category";
 	}
-	/* 은지 */
 	
-	@RequestMapping(value = "/vul_check", method = RequestMethod.GET)
-	public String vulGet(Model model) throws Exception {
-		
-		List<VulVO> vo = vulService.readVulList();
-		model.addAttribute("vul_check", vo);
-		return "vul_check";
-	}
-
 	@RequestMapping(value="/requestObject")
     @ResponseBody
     public UserVO simpleWithObject(HttpServletRequest request
@@ -101,17 +89,17 @@ public class HomeController {
         //필요한 로직 처리
 		logger.info(problem_level);
 
-        return userService.readUser(1);
+        return userService.readUser("1");
     }
 	
-	@RequestMapping(value="/problem/insert", method = RequestMethod.GET)
+	@RequestMapping(value="/p", method = RequestMethod.GET)
 	public String problemInsert(Locale locale, Model model) throws Exception {
 		List<CategoryVO> vo = categoryService.readCategoryList();
 		model.addAttribute("category", vo);
 		return "problem_insert";
 	}
 	
-	@RequestMapping(value="/problem/insert.do", method = RequestMethod.POST)
+	@RequestMapping(value="/p.do", method = RequestMethod.POST)
 	public String problemInsertPost(@ModelAttribute("problem") ProblemVO pvo /*, @ModelAttribute("testcase") TestcaseVO tvo*/) throws Exception {
 		logger.info("문제내용: "+pvo.getProblem_content());
 		logger.info("성공횟수: " + pvo.getProblem_successnum());

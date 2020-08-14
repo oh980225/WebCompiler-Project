@@ -11,9 +11,19 @@
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_main.css" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css" />
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_mypage.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" /> <!-- 이게 Font Awesome 5 Free를 사용하게 해주는거 같아요. 이거덕에 사이드바 모양이 보여요! -->
 </head>
 
 <body class="is-preload">
+<%	
+	String imgURL = "";
+	UserVO user = (UserVO)request.getAttribute("user");
+	if(user.getUser_img() == null) {
+		imgURL = (String)request.getContextPath() + "/resources/images/user.png";
+	} else {
+		imgURL = "/web/getByteImage/" + user.getUser_id();
+	}
+%>
 	<!-- Wrapper -->
 	<div id="wrapper">
 		<!-- Main -->
@@ -30,26 +40,32 @@
 				<!-- Content -->
 				<section class="profile">
 					<div class="profile_img">
-						<img class="img" src="<%=request.getContextPath()%>/resources/images/user.png">
-						<button class="btn_img" type="button" name="button">사진 변경</button>
+						<img class="img" src=<%=imgURL%>>
+						<form id="img_form" action="/web/mypage/saveImage" enctype="multipart/form-data" method="post">
+							<input type="hidden" name="user_id" value="1" />
+    						<input type="file" onChange="endImageSave();" name="user_image" />
+						</form>
+						<button class="btn_img" type="button" name="button" onClick="changeImageSaveMode();">사진 변경</button>
 					</div>
 					<div class="profile_name">
 						<h3 id="user_name">${user.user_name}</h3>
 						<form id="name_form" method="post">
-							<input id="input_name" type="text" name="name" value="" />
+							<input id="input_name" type="text" name="user_name" value="" />
+							<input type="hidden" name="user_introduce" value="${user.user_introduce}" />
+							<input type="hidden" name="user_id" value="${user.user_id}" />
 						</form>
 						<button class="btn_name" type="button" name="닉네임 변경" onClick="changeName();">닉네임 변경</button>
 					</div>
 					<div class="profile_introduce">
 						<h3 id="user_introduce">${user.user_introduce}</h3>
-						<input id="input_introduce" type="text" name="자기소개" value="" />
+						<form id="introduce_form" method="post">
+							<input id="input_introduce" type="text" name="user_introduce" value="" />
+							<input type="hidden" name="user_name" value="${user.user_name}" />
+							<input type="hidden" name="user_id" value="${user.user_id}" />
+						</form>
 						<button class="btn_introduce" type="button" name="소개 변경" onClick="changeIntroduce();">소개 변경</button>
 					</div>
 				</section>
-				
-				<%
-					String name = request.getParameter("name");
-				%>
 
 				<section>
 					<!-- Break -->
@@ -134,7 +150,6 @@
 				<footer class="footer_btns">
 					<button class="btn_change_pwd" type="button" name="button">비밀번호 변경</button>
 					<button class="btn_withdraw" type="button" name="button">회원 탈퇴</button>
-					<h3><%=name %></h3>
 				</footer>
 
 			</div>
