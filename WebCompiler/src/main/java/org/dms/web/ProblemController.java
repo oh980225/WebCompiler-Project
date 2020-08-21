@@ -28,5 +28,10 @@ public class ProblemController {
 		//logger.info(vo.getProblem_title() + " " + vo.getProblem_id() + " " + vo.getProblem_content());		
 		return "problem2";	
 	}
-
+	
+	@RequestMapping(value="/solve", method=RequestMethod.GET)
+	public String getSolvePage(Model model) throws Exception {
+		return "solve_page";
+	}
+		
 }

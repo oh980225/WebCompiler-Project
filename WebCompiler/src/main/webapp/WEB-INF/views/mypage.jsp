@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css" />
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_mypage.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" /> <!-- 이게 Font Awesome 5 Free를 사용하게 해주는거 같아요. 이거덕에 사이드바 모양이 보여요! -->
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/modal.css" />
 </head>
 
 <body class="is-preload">
@@ -28,15 +29,15 @@
 	<div id="wrapper">
 		<!-- Main -->
 		<div id="main">
+			<!-- Header -->
+			<header id="header">
+				<a href="/web" class="logo"><strong>FULL STACK</strong> DEVELOPER</a>
+				<ul class="icons">
+					<li><a href="#">로그인</a></li>
+					<li><a href="#">회원가입</a></li>
+				</ul>
+			</header>
 			<div class="inner">
-				<!-- Header -->
-				<header id="header">
-					<a href="/web" class="logo"><strong>FULL STACK</strong> DEVELOPER</a>
-					<ul class="icons">
-						<li><a href="#">로그인</a></li>
-						<li><a href="#">회원가입</a></li>
-					</ul>
-				</header>
 				<!-- Content -->
 				<section class="profile">
 					<div class="profile_img">
@@ -111,11 +112,109 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>Item1</td>
-									<td>Ante turpis integer aliquet porttitor.</td>
-									<td>29.99</td>
+								<tr id="open">
+									<td>2842번</td>
+									<td>유기농 배추</td>
+									<td>Level 3</td>
 								</tr>
+								<div class="modal hidden">
+				          			<div class="modal_overlay">
+				          			</div>
+				          			<div class="modal_content">
+				            			<header class="modal_header">
+											<span class="title">코드조회</span>
+											<img class="close" src="<%=request.getContextPath()%>/resources/images/close.png" width="15em" height="15em" alt="닫기">
+				            			</header>
+										<div class="modal_left">
+											<h3 class="problem_name">2842. 유기농 배추</h3>
+											<div class="problem_level">
+												LEVEL 3
+											</div>
+											<div class="modal_wrap">
+												<div id="table">
+													<div class="row">
+														<span class="head col1">제출</span>
+														<span class="head col2">언어</span>
+														<span class="head col3">AC/WA</span>
+														<span class="head col4">공개</span>
+													</div>
+													<div id="1" class="row">
+														<span class="cell col1">2020.08.01</span>
+														<span class="cell col2">Python</span>
+														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/check.png" width="25em" height="25em" alt="O"></span>
+														<span class="cell col4">O</span>
+													</div>
+													<div id="2" class="row">
+														<span class="cell col1">2020.08.01</span>
+														<span class="cell col2">C++</span>
+														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X"></span>
+														<span class="cell col4">X</span>
+													</div>
+													<div id="3" class="row">
+														<span class="cell col1">2020.07.31</span>
+														<span class="cell col2">Javascript</span>
+														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/check.png" width="25em" height="25em" alt="O" width="25em" height="25em" alt="O"></span>
+														<span class="cell col4">O</span>
+													</div>
+													<div id="4" class="row">
+														<span class="cell col1">2020.08.01</span>
+														<span class="cell col2">C++</span>
+														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X" width="25em" height="25em" alt="X"></span>
+														<span class="cell col4">X</span>
+													</div>
+													<div id="1" class="row">
+														<span class="cell col1">2020.08.01</span>
+														<span class="cell col2">C++</span>
+														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X" width="25em" height="25em" alt="X"></span>
+														<span class="cell col4">X</span>
+													</div>
+													<div id="1" class="row">
+														<span class="cell col1">2020.08.01</span>
+														<span class="cell col2">C++</span>
+														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X" width="25em" height="25em" alt="X"></span>
+														<span class="cell col4">X</span>
+													</div>
+													<div id="1" class="row">
+														<span class="cell col1">2020.08.01</span>
+														<span class="cell col2">C++</span>
+														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X" width="25em" height="25em" alt="X"></span>
+														<span class="cell col4">X</span>
+													</div>
+													<div id="1" class="row">
+														<span class="cell col1">2020.08.01</span>
+														<span class="cell col2">C++</span>
+														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X" width="25em" height="25em" alt="X"></span>
+														<span class="cell col4">X</span>
+													</div>
+													<div id="1" class="row">
+														<span class="cell col1">2020.08.01</span>
+														<span class="cell col2">C++</span>
+														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X" width="25em" height="25em" alt="X"></span>
+														<span class="cell col4">X</span>
+													</div>
+													<div id="1" class="row">
+														<span class="cell col1">2020.08.01</span>
+														<span class="cell col2">C++</span>
+														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X" width="25em" height="25em" alt="X"></span>
+														<span class="cell col4">X</span>
+													</div>
+													<div id="1" class="row">
+														<span class="cell col1">2020.08.01</span>
+														<span class="cell col2">C++</span>
+														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X"></span>
+														<span class="cell col4">X</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="modal_right">
+											<iframe src="<%=request.getContextPath()%>/resources/html/modal_editor.html" width="100%" height="100%"></iframe>
+										</div>
+										<div class="open_check">
+											<span>코드를 다른 사용자에게도 공개합니다.</span> <input type="checkbox" id="check" name="open_check" value="open" /> <label for="check"></label>
+										</div>
+				          			</div>
+				        		</div>
 								<tr>
 									<td>Item2</td>
 									<td>Vis ac commodo adipiscing arcu aliquet.</td>
@@ -204,7 +303,8 @@
 	<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/test.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/profile.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/modal.js"></script>
 
 </body>
 </html>

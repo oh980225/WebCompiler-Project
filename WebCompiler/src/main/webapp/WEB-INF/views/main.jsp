@@ -22,17 +22,15 @@
 
 				<!-- Main -->
 					<div id="main">
+						<!-- Header -->
+						<header id="header">
+							<a href="/web" class="logo"><strong>FULL STACK</strong> DEVELOPER</a>
+							<ul class="icons">
+								<li><a href="#">로그인</a></li>
+								<li><a href="#">회원가입</a></li>
+							</ul>
+						</header>
 						<div class="inner">
-
-							<!-- Header -->
-								<header id="header">
-									<a href="/web" class="logo"><strong>FULL STACK</strong> DEVELOPER</a>
-									<ul class="icons">
-										<li><a href="#">로그인</a></li>
-										<li><a href="#">회원가입</a></li>
-									</ul>
-								</header>
-
 							<!-- Banner -->
 								<section id="banner">
 									<div class="content">

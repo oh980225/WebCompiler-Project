@@ -35,23 +35,16 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value = "/mypage", method = RequestMethod.POST)
-	public String updateUserName(UserVO user, Model model) throws Exception {
-		System.out.println("hello post");
-		System.out.println(user.getUser_introduce());
+	public String updateUser(UserVO user) throws Exception {
 		userService.updateUser(user);
-		System.out.println(user.getUser_introduce());
-		
-		model.addAttribute("user", user);
-		
-		return "mypage";
+		return "redirect:/mypage";
 	}
 	
 	@RequestMapping(value= "/mypage/saveImage",  method = RequestMethod.POST)
 	public String saveImage(@RequestParam("user_id") String userId,
 			@RequestParam("user_image") MultipartFile imgFile) throws Exception {
-		System.out.println("Hello saveImage!");
-		
 		UserVO user = new UserVO();
+		
 		user.setUser_id(userId);
 		user.setUser_img(imgFile.getBytes());
 		

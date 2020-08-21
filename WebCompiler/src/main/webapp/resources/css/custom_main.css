@@ -1,4 +1,34 @@
 /* Header */
+header#header {
+  padding-top: 1em;
+  background-color: rgb(17, 20, 31);
+}
+
+header#header .logo {
+  margin-left: 4em;
+}
+header#header .icons {
+  margin-right: 4em;
+}
+
+#sidebar .toggle {
+  margin-top: -1em;
+}
+
+@media screen and (max-width: 736px) {
+    #header .logo {
+      font-size: 1.25em;
+    }
+    #header .icons {
+      font-size: 1em;
+      line-height: 4em;
+    }
+    #sidebar .toggle {
+      margin-top: -0.5em;
+      margin-left: -0.7em;
+    }
+}
+
 header#header ul.icons li a {
   color: white;
   border: 0;
