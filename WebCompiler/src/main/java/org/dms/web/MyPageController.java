@@ -1,5 +1,8 @@
 package org.dms.web;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
 import org.dms.web.domain.UserVO;
 import org.dms.web.service.UserService;
 import org.slf4j.Logger;
@@ -26,9 +29,10 @@ public class MyPageController {
 	private static final Logger logger = LoggerFactory.getLogger(MyPageController.class);
 
 	@RequestMapping(value = "/mypage")
-	public String getMyPage(Model model) throws Exception {
-		String id = "1";
-		UserVO user = userService.readUser(id);
+	public String getMyPage(Model model, HttpSession session) throws Exception {
+		//int id = 2;
+		//UserVO user = userService.readUser(id);
+		UserVO user = (UserVO)session.getAttribute("user");
 		model.addAttribute("user", user);
 		
 		return "mypage";

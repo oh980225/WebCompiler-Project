@@ -29,7 +29,7 @@ function a(){
 	private int problem_level;
 	private String category_id; 냉-->
 	<div style="align:center">
-	<form action="p.do" method="post">
+	<form action="insert.do" method="post">
 		<div width="50%" >
 		
 			
