@@ -9,7 +9,7 @@
 -->
 <html>
 	<head>
-		<title>Full-Stack</title>
+		<title>코드 스페이스</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css" type="text/css"/>
@@ -169,7 +169,7 @@
 										<h3 class="name"><a href="/web/login">먼저 로그인 해주세요!</a></h3>
 										</c:if>
 										<c:if test="${user.user_id != null}">
-											<h3 class="name"><a href="/web/mypage">${user_user_id}</a></h3>
+											<h3 class="name"><a href="/web/mypage">${user.user_id}</a></h3>
 										</c:if>
 									</header>
 									<ul>

@@ -8,9 +8,6 @@
 
 
 
-	<select id = "getVul_list" resultType="VulVO">
-		select * from vul_check
-	</select>
   
  	<select id="getTime" resultType="string">
  		select now()
@@ -59,11 +56,31 @@
     
     </select>
     <!-- 문제 -->
-    <select id="problem_selectAll" resultType="ProblemVO">
+     <select id="problem_selectAll" resultType="ProblemVO">
+    	select * from problem
+    </select>
+    <select id="problem_selectBylevel" resultType="ProblemVO">
     	select * from problem where problem_level = #{problem_level} and category_id = #{category_id}
     </select>
     <select id="problem_selectByid" resultType="ProblemVO">
     	select * from problem where problem_id = #{problem_id}
+    </select>
+    
+    <select id="listPaging" resultType="ProblemVO">
+    	select * from problem limit #{page}, 10
+    </select>
+    <select id="listCount" resultType="int">
+    	select COUNT(problem_id) from problem
+    </select>
+    <select id="listCountFilter" resultType="int">
+    	select COUNT(problem_id) from problem where problem_level = #{problem_level} and category_id = #{category_id} 
+    </select>
+    
+    <select id="listCriteria" resultType="ProblemVO">
+    	select * from problem limit #{pageStart}, #{perPageNum}
+    </select>
+    <select id="listCriteriaFilter" resultType="ProblemVO">
+    	select * from problem where problem_level = #{problem_level} and category_id = #{category_id}  limit #{pageStart}, #{perPageNum}
     </select>
     <insert id="problem_insert">
     <!-- private int problem_id;

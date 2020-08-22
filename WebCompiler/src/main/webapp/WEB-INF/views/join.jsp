@@ -27,9 +27,7 @@
 				msg.style.visibility = "visible";
 			}
 		}
-
-		
-		
+	
 		function validate(){
 			var id=document.getElementById("user_id");
 			var passwd=document.getElementById("user_passwd");
