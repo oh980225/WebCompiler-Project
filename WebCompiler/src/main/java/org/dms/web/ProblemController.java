@@ -37,7 +37,7 @@ public class ProblemController {
 		model.addAttribute("problem", pvo);
 		model.addAttribute("testcase", tvo);
 		//logger.info(vo.getProblem_title() + " " + vo.getProblem_id() + " " + vo.getProblem_content());		
-		return "problem";	
+		return "solve_page";	
 	}
 	
 	@RequestMapping(value="/problem/insert", method = RequestMethod.GET)

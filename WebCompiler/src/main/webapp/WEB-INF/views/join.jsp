@@ -97,7 +97,7 @@
 
 				<!-- Main -->
 					<div id="main">
-							<form action="/web/join" method="post" onsubmit="return validate()">
+							<form action="/join" method="post" onsubmit="return validate()">
 							<div>		
 		
 								아이디 <input type="text" name="user_id" id="user_id" /> <p id="id_alert" style="color:red; visibility:hidden"> </p> 
@@ -144,7 +144,7 @@
 					<nav id="menu">
 						<header class="major">
 							<img class="icon" src="<%=request.getContextPath()%>/resources/images/user.png">
-							<h3 class="name"><a href="/web/mypage">MR.O</a></h3>
+							<h3 class="name"><a href="/mypage">MR.O</a></h3>
 						</header>
 						<ul>
 							<li><a href="/web"><img class="icon" src="<%=request.getContextPath()%>/resources/images/main_icon.png" alt="Main Page" />Main Page</a></li>

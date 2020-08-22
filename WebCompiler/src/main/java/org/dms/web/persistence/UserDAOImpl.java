@@ -50,7 +50,6 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	@Transactional
 	public int update(UserVO user) throws Exception {		
 		return sqlSession.update(namespace + ".user_update", user);
 	}

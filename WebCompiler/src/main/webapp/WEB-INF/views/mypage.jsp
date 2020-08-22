@@ -22,7 +22,7 @@
 	if(user.getUser_img() == null) {
 		imgURL = (String)request.getContextPath() + "/resources/images/user.png";
 	} else {
-		imgURL = "/web/getByteImage/" + user.getUser_id();
+		imgURL = "/getByteImage/" + user.getUser_id();
 	}
 %>
 	<!-- Wrapper -->
@@ -30,19 +30,27 @@
 		<!-- Main -->
 		<div id="main">
 			<!-- Header -->
-			<header id="header">
-				<a href="/web" class="logo"><strong>FULL STACK</strong> DEVELOPER</a>
-				<ul class="icons">
-					<li><a href="#">로그인</a></li>
-					<li><a href="#">회원가입</a></li>
-				</ul>
-			</header>
+								<header id="header">
+									<a href="/web" class="logo"><strong>FULL STACK</strong> DEVELOPER</a>
+									<!-- 바꾸기 -->																
+									<c:if test="${user.user_id == null}">
+										<ul class="icons">
+											<li><a href="/login">로그인</a></li>
+											<li><a href="/join">회원가입</a></li>
+										</ul>
+									</c:if>
+									<c:if test="${user.user_id != null}">
+										<ul class="icons">
+											<li><a href="/logout.do">로그아웃</a></li>
+										</ul>
+									</c:if>				
+								</header>
 			<div class="inner">
 				<!-- Content -->
 				<section class="profile">
 					<div class="profile_img">
 						<img class="img" src=<%=imgURL%>>
-						<form id="img_form" action="/web/mypage/saveImage" enctype="multipart/form-data" method="post">
+						<form id="img_form" action="/mypage/saveImage" enctype="multipart/form-data" method="post">
 							<input type="hidden" name="user_id" value="1" />
     						<input type="file" onChange="endImageSave();" name="user_image" />
 						</form>
@@ -278,16 +286,16 @@
 				<nav id="menu">
 					<header class="major">
 						<img class="icon" src="<%=request.getContextPath()%>/resources/images/user.png">
-						<h3 class="name"><a href="/web/mypage">MR.O</a></h3>
+						<h3 class="name"><a href="/mypage">MR.O</a></h3>
 					</header>
 					<ul>
 						<li><a href="/web"><img class="icon" src="<%=request.getContextPath()%>/resources/images/main_icon.png" alt="Main Page" />Main Page</a></li>
-						<li><a href="/web/problem"><img class="icon" src="<%=request.getContextPath()%>/resources/images/problem_icon.png" alt="Problem Page" />Problem</a></li>
+						<li><a href="/problem"><img class="icon" src="<%=request.getContextPath()%>/resources/images/problem_icon.png" alt="Problem Page" />Problem</a></li>
 						<li>
 							<span class="opener"><img class="icon" src="<%=request.getContextPath()%>/resources/images/board_icon.png" alt="Board Page" />Board</span>
 							<ul>
-								<li><a href="/web/question">Q & A</a></li>
-								<li><a href="/web/freeboard">Free Board</a></li>
+								<li><a href="/question">Q & A</a></li>
+								<li><a href="/freeboard">Free Board</a></li>
 							</ul>
 						</li>
 					</ul>

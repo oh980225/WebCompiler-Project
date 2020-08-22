@@ -180,10 +180,10 @@
 						<header class="major">
 							<img class="icon" src="<%=request.getContextPath()%>/resources/images/user.png">							
 								<c:if test="${user.user_id == null}">
-										<h3 class="name"><a href="/web/login">먼저 로그인 해주세요!</a></h3>
+										<h3 class="name"><a href="/login">먼저 로그인 해주세요!</a></h3>
 								</c:if>
 								<c:if test="${user.user_id != null}">
-									<h3 class="name"><a href="/web/mypage">${user.user_id}</a></h3>
+									<h3 class="name"><a href="/mypage">${user.user_id}</a></h3>
 								</c:if>
 						</header>
 						<ul>

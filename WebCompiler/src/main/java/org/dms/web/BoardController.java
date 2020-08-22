@@ -16,8 +16,8 @@ public class BoardController {
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	// free_board.jsp를 불러온다.
-	@RequestMapping(value = "/freeboard")
+	@RequestMapping(value = "/board")
 	public String getFreeBoardPage(Model model) throws Exception {
-		return "free_board";
+		return "board";
 	}
 }

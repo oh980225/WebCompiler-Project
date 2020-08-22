@@ -13,7 +13,7 @@ function btn(){
 	
 	$.ajax({
 		type: "POST", 
-		url: "http://localhost:8080/web/test", 
+		url: "http://localhost:8080/test", 
 		data: { 
 			"username" : $('#login-id').val(), 
 			"password" : $('#login-pw').val()

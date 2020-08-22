@@ -17,7 +17,7 @@
 <body>
 	<div id="wrap">
 		<header>
-			<a class="back_btn" href="/web/category"><img src="<%=request.getContextPath()%>/resources/images/back_btn.png" alt="뒤로가기"></a>
+			<a class="back_btn" href="/category"><img src="<%=request.getContextPath()%>/resources/images/back_btn.png" alt="뒤로가기"></a>
 			<div class="problem_title">
 				[ ${problem.problem_id} ] ${problem.problem_title}
 			</div>

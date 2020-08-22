@@ -1,8 +1,7 @@
 package org.dms.web;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
+
 import org.dms.web.domain.UserVO;
 import org.dms.web.service.UserService;
 import org.slf4j.Logger;
@@ -39,8 +38,12 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value = "/mypage", method = RequestMethod.POST)
-	public String updateUser(UserVO user) throws Exception {
+	public String updateUser(UserVO user, HttpSession session) throws Exception {
 		userService.updateUser(user);
+		
+		UserVO newUser = userService.readUser(user.getUser_id());
+		session.setAttribute("user", newUser);
+		
 		return "redirect:/mypage";
 	}
 	

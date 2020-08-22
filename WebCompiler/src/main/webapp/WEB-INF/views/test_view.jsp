@@ -13,6 +13,6 @@
     	<input type="submit" value="이미지저장"/>
 	</form>
 	
-	<img src="/web/getByteImage/1" width="100px" height= "100px"/>
+	<img src="/getByteImage/1" width="100px" height= "100px"/>
 </body>
 </html>

@@ -15,7 +15,7 @@
 </script>
 </head>
 <body>
-<form method="post" action="/web/login.do" >
+<form method="post" action="/login.do" >
 아이디 <br>
 <input type="text" name="user_id" onclick="alert_event()">
 <p> 비밀번호 <br>

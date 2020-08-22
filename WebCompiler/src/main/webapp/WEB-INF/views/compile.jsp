@@ -15,7 +15,7 @@
 		var form = document.createElement("form");
         form.setAttribute("charset", "UTF-8");
         form.setAttribute("method", "Post");  //Post 방식
-        form.setAttribute("action", "http://localhost:8080/web/code"); //요청 보낼 주소
+        form.setAttribute("action", "http://localhost:8080/code"); //요청 보낼 주소
 
         var hiddenField = document.createElement("input");
         hiddenField.setAttribute("type", "text");

@@ -24,37 +24,22 @@
 				<!-- Main -->
 					<div id="main">
 						<!-- Header -->
-						<header id="header">
-							<a href="/web" class="logo"><strong>FULL STACK</strong> DEVELOPER</a>
-							<ul class="icons">
-								<li><a href="#">로그인</a></li>
-								<li><a href="#">회원가입</a></li>
-							</ul>
-						</header>
-						<div class="inner">
-<<<<<<< HEAD
-=======
-
-							<!-- Header -->
 								<header id="header">
 									<a href="/web" class="logo"><strong>FULL STACK</strong> DEVELOPER</a>
 									<!-- 바꾸기 -->																
 									<c:if test="${user.user_id == null}">
 										<ul class="icons">
-											<li><a href="/web/login">로그인</a></li>
-											<li><a href="/web/join">회원가입</a></li>
+											<li><a href="/login">로그인</a></li>
+											<li><a href="/join">회원가입</a></li>
 										</ul>
 									</c:if>
 									<c:if test="${user.user_id != null}">
 										<ul class="icons">
-											<li><a href="/web/logout.do">로그아웃</a></li>
-									
+											<li><a href="/logout.do">로그아웃</a></li>
 										</ul>
-									</c:if>
-																	
+									</c:if>				
 								</header>
-
->>>>>>> mindi
+						<div class="inner">
 							<!-- Banner -->
 								<section id="banner">
 									<div class="content">
@@ -179,24 +164,24 @@
 										<img class="icon" src="<%=request.getContextPath()%>/resources/images/user.png">
 										<!-- 사용자의 닉네임 클릭시 마이페이지로 이동 -->
 										<c:if test="${user.user_id == null}">
-										<h3 class="name"><a href="/web/login">먼저 로그인 해주세요!</a></h3>
+										<h3 class="name"><a href="/login">먼저 로그인 해주세요!</a></h3>
 										</c:if>
 										<c:if test="${user.user_id != null}">
-											<h3 class="name"><a href="/web/mypage">${user.user_id}</a></h3>
+											<h3 class="name"><a href="/mypage">${user.user_id}</a></h3>
 										</c:if>
 									</header>
 									<ul>
 										<!-- 사이드 메뉴바에 Main Page 클릭시 메인페이지로 이동 -->
 										<li><a href="/web"><img class="icon" src="<%=request.getContextPath()%>/resources/images/main_icon.png" alt="Main Page" />Main Page</a></li>
 										<!-- 사이드 메뉴바에 Problem 클릭시 문제 페이지로 이동 -->
-										<li><a href="/web/problem"><img class="icon" src="<%=request.getContextPath()%>/resources/images/problem_icon.png" alt="Problem Page" />Problem</a></li>
+										<li><a href="/problem"><img class="icon" src="<%=request.getContextPath()%>/resources/images/problem_icon.png" alt="Problem Page" />Problem</a></li>
 										<li>
 											<span class="opener"><img class="icon" src="<%=request.getContextPath()%>/resources/images/board_icon.png" alt="Board Page" />Board</span>
 											<ul>
 												<!-- 사이드 메뉴바에 Q & A 클릭시 QnA 페이지로 이동 -->
-												<li><a href="/web/question">Q & A</a></li>
+												<li><a href="/question">Q & A</a></li>
 												<!-- 사이드 메뉴바에 Free Board 클릭시 자유게시판 페이지로 이동 -->
-												<li><a href="/web/freeboard">Free Board</a></li>
+												<li><a href="/freeboard">Free Board</a></li>
 											</ul>
 										</li>
 									</ul>
