@@ -52,6 +52,7 @@ public class MyPageController {
 			@RequestParam("user_image") MultipartFile imgFile) throws Exception {
 		UserVO user = new UserVO();
 		
+		
 		user.setUser_id(userId);
 		user.setUser_img(imgFile.getBytes());
 		

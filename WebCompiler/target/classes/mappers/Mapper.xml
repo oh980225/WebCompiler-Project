@@ -46,7 +46,9 @@
 		delete from student where id = #{id}
     </delete>
     
-    <insert id="board_insert"></insert>
+    <insert id="board_insert">
+    	insert into board (board_title, board_content, board_upload, user_id, problem_id) values (#{board_title}, #{board_content}, #{board_upload}, #{user_id}, #{problem_id})
+    </insert>
     <select id="board_selectByid"></select>
     <select id="board_selectAll"></select>
     <update id="board_update"></update>
@@ -112,6 +114,8 @@
     <insert id="testcase_insert">
     	insert into testcase (testcase_input, testcase_output, problem_id) values (#{testcase_input}, #{testcase_output}, #{problem_id})
     </insert>
+    <!-- 게시판 -->
+   
     
 	
 </mapper>  
