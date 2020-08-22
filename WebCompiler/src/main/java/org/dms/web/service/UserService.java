@@ -6,7 +6,10 @@ import java.util.Map;
 import org.dms.web.domain.UserVO;
 
 public interface UserService {
+
 	public UserVO readUser(String id) throws Exception;
+	public UserVO readUser(UserVO vo) throws Exception;
+
 	public void insertUser(UserVO vo) throws Exception;
 	public List<UserVO> readUserList() throws Exception;
 	public void deleteUser(String id) throws Exception;

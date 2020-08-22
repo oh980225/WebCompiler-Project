@@ -46,41 +46,133 @@ public class HomeController {
 	ProblemService problemService;
 	@Autowired(required=true)
 	TestcaseService testcaseService;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 		
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 * @throws Exception 
 	 */
-	/*@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) throws Exception {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		
-		List<UserVO> vo = userService.readUserList();
-		List<CategoryVO> cvo = categoryService.readCategoryList();
-		model.addAttribute("category", cvo);
-		model.addAttribute("serverTime", formattedDate );
-		model.addAttribute("user", vo);
-			
-		return "home";
-	}*/
+
 	
-	/* 카테고리 */
-	@RequestMapping(value = "/category", method = RequestMethod.GET)
-	public String categoryGet(Locale locale, Model model) throws Exception {
+	/* 문제리스트 */
+	@RequestMapping(value = "/problemlist", method = RequestMethod.GET)
+	public String problemListGet(Locale locale, Model model, Criteria cri) throws Exception {
+		logger.info("page:" +  cri.getPage());
+		logger.info("perPageNum:" +  cri.getPerPageNum());
+		List<CategoryVO> cvo = categoryService.readCategoryList();
+		List<ProblemVO> pvo = problemService.readProblemList(cri);
+
 		
-		List<CategoryVO> vo = categoryService.readCategoryList();
-		model.addAttribute("category", vo);
-		return "category";
+		
+		PageMaker pageMaker = new PageMaker();
+		cri.setPerPageNum(2);
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(problemService.ProblemCount());
+		
+		logger.info("page: " +  cri.getPage());
+		
+		model.addAttribute("category", cvo);
+
+		model.addAttribute("problem", pvo);
+		model.addAttribute("pageMaker", pageMaker);
+		return "problemList";
 	}
 	
+	/* 문제리스트 */
+	/* 페이지 전환 시 호출 */
+	@RequestMapping(value = "/category_test.do", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> categorytest_test(Locale locale, Model model, Criteria cri) throws Exception {		
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		
+		List<CategoryVO> cvo = categoryService.readCategoryList();
+		List<ProblemVO> pvo = problemService.readProblemList(cri);
+		//model.addAttribute("category", cvo);
+		//model.addAttribute("problem", pvo);
+		
+		PageMaker pageMaker = new PageMaker();
+		cri.setPerPageNum(2);
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(problemService.ProblemCount());
+		
+		logger.info("page: " +  cri.getPage());
+		logger.info("perPageNum:" +  cri.getPerPageNum());
+		logger.info("startPage:" +  pageMaker.getStartPage() + "endPage: " +  pageMaker.getEndPage());
+		//model.addAttribute("pageMaker", pageMaker);
+		//map.put("")
+		
+		map.put("pageMaker", pageMaker);
+		map.put("list", pvo);
+		
+		for(ProblemVO vo : pvo) {
+			logger.info(vo.getProblem_id() + " : " + vo.getProblem_title());
+		}
+		return map;
+	}
+	
+
+	/* 문제리스트 */
+	/* 분류, 레벨 선택 시 호출 */
+	@RequestMapping(value="problemList_test.do")
+	@ResponseBody
+	public Map<String, Object> problemList_test(int problem_level, String category_name, Criteria cri, HttpSession session, Locale locale) throws Exception {
+		logger.info("레벨:" + problem_level + "  분류:" + category_name);		
+		logger.info("현재페이지: ", cri.getPage());
+
+		if(problem_level == 0 && category_name.equals("unselected")) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			List<ProblemVO> vo = problemService.readProblemList(cri);
+			
+			PageMaker pageMaker = new PageMaker();
+			cri.setPerPageNum(2);
+			pageMaker.setCri(cri);
+			
+			pageMaker.setTotalCount(problemService.ProblemCount());
+			logger.info("현재페이지: ", cri.getPage());
+			logger.info("시작페이지: ", cri.getPage());
+			map.put("pageMaker", pageMaker);
+			map.put("list", vo);
+			return map;
+		}
+		else {
+			Map<String, Object> map = new HashMap<String, Object>();
+			List<ProblemVO> vo = problemService.readProblemList(problem_level, category_name, cri);
+			
+			PageMaker pageMaker = new PageMaker();
+			cri.setPerPageNum(2);
+			pageMaker.setCri(cri);
+			
+			pageMaker.setTotalCount(problemService.ProblemCount(problem_level, category_name));
+			logger.info("현재페이지: ", cri.getPage());
+			logger.info("시작페이지: ", cri.getPage());
+			map.put("pageMaker", pageMaker);
+			map.put("list", vo);
+			return map;
+		}
+		
+
+		//return map;
+	}
+	
+	
+
+	/* 카테고리 */
+	/*@RequestMapping(value = "/category", method = RequestMethod.GET)
+	public String categoryGet(Locale locale, Model model) throws Exception {
+		
+		List<ProblemVO> test = problemService.test();
+		List<CategoryVO> cvo = categoryService.readCategoryList();
+		List<ProblemVO> pvo = problemService.readProblemList();
+		model.addAttribute("category", cvo);
+		model.addAttribute("problem", pvo);
+		for(ProblemVO vo : test) {
+			logger.info(vo.getProblem_id() + " : " + vo.getProblem_title());
+		}
+		return "category";
+	}*/
+
 	@RequestMapping(value="/requestObject")
     @ResponseBody
     public UserVO simpleWithObject(HttpServletRequest request
@@ -92,41 +184,6 @@ public class HomeController {
         return userService.readUser("1");
     }
 	
-	@RequestMapping(value="/p", method = RequestMethod.GET)
-	public String problemInsert(Locale locale, Model model) throws Exception {
-		List<CategoryVO> vo = categoryService.readCategoryList();
-		model.addAttribute("category", vo);
-		return "problem_insert";
-	}
-	
-	@RequestMapping(value="/p.do", method = RequestMethod.POST)
-	public String problemInsertPost(@ModelAttribute("problem") ProblemVO pvo /*, @ModelAttribute("testcase") TestcaseVO tvo*/) throws Exception {
-		logger.info("문제내용: "+pvo.getProblem_content());
-		logger.info("성공횟수: " + pvo.getProblem_successnum());
-		pvo.setProblem_content(pvo.getProblem_content().replace("\r\n", "<br>"));
-		pvo.setProblem_hint("정답코드 업슴");
-		pvo.setProblem_failnum(pvo.getProblem_submitnum() - pvo.getProblem_successnum());
-		problemService.insertProblem(pvo);
-		return "redirect:/p";
-	}
-	@RequestMapping(value="/t", method = RequestMethod.GET)
-	public String testcaseInsert(Locale locale, Model model) throws Exception {
-		return "testcase_insert";
-	}
-	
-	@RequestMapping(value="/t.do", method = RequestMethod.POST)
-	public String testcaseInsertPost(@ModelAttribute("testcase") TestcaseVO tvo) throws Exception {
-		//tvo.setProblem_id(pvo.getProblem_id());
-		logger.info("문제번호: "+tvo.getProblem_id());
-		logger.info("input: " +tvo.getTestcase_input());
-		logger.info("output:" +tvo.getTestcase_output());
-		
-		tvo.setTestcase_input(tvo.getTestcase_input().replace("\r\n", "<br>"));
-		tvo.setTestcase_output(tvo.getTestcase_output().replace("\r\n", "<br>"));
-		
-		testcaseService.insertTestcase(tvo);
-		return "testcase_insert";
-	}
 	
 	/*
 	@RequestMapping(value = "/requestObject", method = RequestMethod.POST)
@@ -142,11 +199,6 @@ public class HomeController {
 	}
 	*/
 	
-	@RequestMapping(value = "/code", method = RequestMethod.GET)
-	public String code(Locale locale, Model model) throws Exception {			
-		return "compile";
-	}
-	
 	/*
 	@RequestMapping(value="/requestObject", method=RequestMethod.GET)
     
@@ -158,30 +210,6 @@ public class HomeController {
     }
     */
 	
-	
-	
-	@RequestMapping(value = "/code", method = RequestMethod.POST)
-	//@ResponseBody
-	public String logincheck(HttpServletRequest request) {    
-		String code = request.getParameter("content");
-        return "compile";
-	}
-	
-	/* 문제 조회 */
-/*	
-	
-	@RequestMapping(value="/problem/{problem_id}", method=RequestMethod.GET)
-	public String problemGet(@PathVariable("problem_id") int problem_id, Model model) throws Exception {
-		//logger.info("번호: "+ problem_id);
-		ProblemVO pvo = problemService.readProblem(problem_id);
-		TestcaseVO tvo= testcaseService.readTestcase(problem_id);
-		
-		model.addAttribute("problem", pvo);
-		model.addAttribute("testcase", tvo);
-		//logger.info(vo.getProblem_title() + " " + vo.getProblem_id() + " " + vo.getProblem_content());		
-		return "problem";	
-	}
-*/
 //	1
 	@RequestMapping("hello.do")
 	public String hello(Model model) {
@@ -224,14 +252,28 @@ public class HomeController {
 		logger.info("hole " + new Date());
 		logger.info("레벨:" + problem_level + "  분류:" + category_name);
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<ProblemVO> vo = problemService.readProblemList(problem_level, category_name);
+		if(problem_level == 0 && category_name.equals("unselected")) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			List<ProblemVO> vo = problemService.readProblemList();
+			
+			map.put("list", vo);
+			return map;
+		}
+		else {
+			Map<String, Object> map = new HashMap<String, Object>();
+			List<ProblemVO> vo = problemService.readProblemList(problem_level, category_name);
+			
+			map.put("list", vo);
+			return map;
+		}
 		
+		/*
 		for(int i = 0; i < vo.size(); i++) {
 			logger.info(vo.get(i).getProblem_title() + vo.get(i).getProblem_level() + vo.get(i).getCategory_id());
 		}
 		map.put("list", vo);
-		return map;
+		*/
+		//return map;
 	}
 	
 	
@@ -267,8 +309,6 @@ public class HomeController {
 		rmap.put("age", "24");
 		
 		return rmap;
-	}
-	
-	
+	}	
 
 }

@@ -1,7 +1,9 @@
 package org.dms.web.persistence;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.dms.web.domain.UserVO;
@@ -57,6 +59,13 @@ public class UserDAOImpl implements UserDAO {
 	public int saveImg(UserVO user) throws Exception {
 		return sqlSession.update(namespace + ".save_img", user);
 		
+	}
+
+	@Override
+	public UserVO read(UserVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		UserVO user = sqlSession.selectOne(namespace + ".user_selectForLogin", vo);
+		return user;	
 	}
 
 }

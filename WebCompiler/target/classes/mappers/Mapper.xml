@@ -5,6 +5,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.dms.web.mapper.Mapper">
+
   
  	<select id="getTime" resultType="string">
  		select now()
@@ -14,10 +15,17 @@
    		insert into student (id, passwd, username, snum, depart, mobile, email) values
  		(#{id}, #{passwd}, #{username}, #{snum}, #{depart}, #{mobile}, #{email})
      </insert> 
+
      
 
      <select id="user_selectByid" resultType="UserVo">
  		select * from user where user_id = #{id}
+ 	</select>
+
+ 	
+     <select id="user_selectForLogin" resultType="UserVO">
+ 		select * from user where user_id = #{user_id} and user_passwd = #{user_passwd}
+
      </select>
  	
 
@@ -52,11 +60,31 @@
     
     </select>
     <!-- 문제 -->
-    <select id="problem_selectAll" resultType="ProblemVO">
+     <select id="problem_selectAll" resultType="ProblemVO">
+    	select * from problem
+    </select>
+    <select id="problem_selectBylevel" resultType="ProblemVO">
     	select * from problem where problem_level = #{problem_level} and category_id = #{category_id}
     </select>
     <select id="problem_selectByid" resultType="ProblemVO">
     	select * from problem where problem_id = #{problem_id}
+    </select>
+    
+    <select id="listPaging" resultType="ProblemVO">
+    	select * from problem limit #{page}, 10
+    </select>
+    <select id="listCount" resultType="int">
+    	select COUNT(problem_id) from problem
+    </select>
+    <select id="listCountFilter" resultType="int">
+    	select COUNT(problem_id) from problem where problem_level = #{problem_level} and category_id = #{category_id} 
+    </select>
+    
+    <select id="listCriteria" resultType="ProblemVO">
+    	select * from problem limit #{pageStart}, #{perPageNum}
+    </select>
+    <select id="listCriteriaFilter" resultType="ProblemVO">
+    	select * from problem where problem_level = #{problem_level} and category_id = #{category_id}  limit #{pageStart}, #{perPageNum}
     </select>
     <insert id="problem_insert">
     <!-- private int problem_id;

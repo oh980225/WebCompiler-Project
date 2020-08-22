@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
+
 import org.dms.web.domain.UserVO;
 import org.dms.web.service.UserService;
 import org.slf4j.Logger;
@@ -25,9 +27,9 @@ public class MainController {
 	
 
 	@RequestMapping(value = "/")
-	public String getMainPage(Model model) throws Exception {
-		return "main";
-	}
-	
-	
+	public String getMainPage(Model model, HttpSession session) throws Exception {
+		UserVO user = (UserVO) session.getAttribute("user");
+		model.addAttribute("user", user);
+		return "main";		
+	}	
 }
