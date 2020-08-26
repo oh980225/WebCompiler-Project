@@ -51,7 +51,7 @@
 					<div class="profile_img">
 						<img class="img" src=<%=imgURL%>>
 
-						<form id="img_form" action="/web/mypage/saveImage" enctype="multipart/form-data" method="post">
+						<form id="img_form" action="/mypage/saveImage" enctype="multipart/form-data" method="post">
 							<input type="hidden" name="user_id" value="${user.user_id}" />
 
     						<input type="file" onChange="endImageSave();" name="user_image" />

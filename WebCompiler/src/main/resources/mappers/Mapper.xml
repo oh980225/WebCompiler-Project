@@ -46,19 +46,49 @@
 		delete from student where id = #{id}
     </delete>
     
-    <insert id="board_insert">
+    <insert id="board_insert_free">
     	insert into board (board_title, board_content, board_upload, user_id, problem_id) values (#{board_title}, #{board_content}, #{board_upload}, #{user_id}, #{problem_id})
     </insert>
-    <select id="board_selectByid"></select>
-    <select id="board_selectAll"></select>
-    <update id="board_update"></update>
-    <delete id="board_delete"></delete>
+    <insert id="board_insert_question">
+    	insert into board (board_title, board_content, board_upload, user_id) values (#{board_title}, #{board_content}, #{board_upload}, #{user_id})
+    </insert>
+    <select id="board_selectByid" resultType="BoardVO">
+    	select * from board where board_id=#{board_id}
+    </select>
+    <select id="board_selectAll" resultType="BoardVO">
+    <![CDATA[
+    	select * from board limit #{pageStart}, #{perPageNum}
+    ]]> 
+    </select>
+    <update id="update test">
+    	update board set board_content =
+    </update>
+    <update id="board_update_free">
+    	update board set board_id = #{board_id}, board_title = #{board_title}, board_content= #{board_content} , board_upload = #{board_upload}, user_id = #{user_id} where board_id = #{board_id}
+    </update>
+    <update id="board_update_question">
+    	update board set board_id = #{board_id}, board_title = #{board_title}, board_content= #{board_content} , board_upload = #{board_upload}, user_id = #{user_id}, problem_id = #{problem_id} where board_id = #{board_id}
+    </update>
+    <delete id="board_delete">
+    	delete from board where board_id=#{board_id}
+    </delete>
+    <select id="board_count" resultType="int">
+    	<![CDATA[
+    	select COUNT(board_id) from board
+    	]]>	
+    </select>
+    <!-- 댓글 -->
+    <select id="comment_selectAll" resultType="CommentsVO">
+    	<![CDATA[
+ 			select * from comments where board_id = ${board_id}
+     	]]> 	
+    </select>
     
     <!-- 카테고리 -->
     <select id="category_selectAll" resultType="CategoryVO">
     <![CDATA[
- 		select * from category
-      ]]> 
+ 		select * from category limit #{pageStart}, #{perPageNum}
+     ]]> 
     
     </select>
     <!-- 문제 -->

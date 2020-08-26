@@ -1,0 +1,120 @@
+section h3.board_title {
+  display: inline-block;
+  color: black;
+  font-family: none;
+  padding: 0.3em;
+  border-bottom: 2.5px solid black;
+}
+
+section div.level {
+  float: left;
+  width: 10em;
+  margin-right: 0.5em;
+}
+
+section div.kind {
+  float: left;
+  width: 10em;
+}
+
+section div.table-wrapper {
+  width: 100%;
+}
+
+div.col-12 select {
+  background: white;
+  border-color: black;
+  font-weight: bold;
+}
+
+select option {
+  color: black;
+  font-weight: bold;
+}
+
+section div.name {
+  float: right;
+  width: 8em;
+}
+
+div.name select {
+  height: 2em;
+}
+
+section input.search {
+  float: right;
+  width: 6em;
+  height: 2em;
+  background: white;
+  border-color: black;
+  font-weight: bold;
+  margin-right: 0.5em;
+}
+
+div.table-wrapper {
+  margin-top: 3em;
+  text-align: center;
+}
+
+div.table-wrapper table thead th {
+  color: black;
+  text-align: center;
+  font-weight: bold;
+}
+
+div.table-wrapper table thead {
+  border-bottom: 1px solid black;
+  text-align: center;
+}
+
+div.table-wrapper table tbody tr{
+  background: white;
+}
+
+div.table-wrapper table tbody tr {
+  border: none;
+}
+
+div.table-wrapper table tbody tr {
+  border-bottom: 1px dashed black;
+}
+
+div.table-wrapper table tbody tr:last-child {
+  border-bottom: 1px solid black;
+}
+
+td div.problem_level {
+  text-align: center;
+  width: 5.5em;
+  color: white;
+  background-color: rgb(64, 186, 218);
+  border-radius: 5%;
+  font-weight: bolder;
+  padding: 0.8em;
+  line-height: 0.4em;
+  font-size: 0.7em;
+}
+
+td img {
+  padding: 0;
+  margin-bottom: -0.3em;
+}
+
+div.page {
+  margin: auto;
+}
+
+ul.paging {
+  /* padding-left: 25em; */
+}
+
+li.page_num {
+  list-style: none;
+  float: left;
+  padding: 6px;
+}
+
+li.page_num a {
+  color: black;
+  border: 0;
+}

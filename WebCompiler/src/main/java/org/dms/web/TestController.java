@@ -66,7 +66,7 @@ public class TestController {
 		
 		
 		PageMaker pageMaker = new PageMaker();
-		cri.setPerPageNum(2);
+		cri.setPerPageNum(10);
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(problemService.ProblemCount());
 		

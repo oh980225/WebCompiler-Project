@@ -1,3 +1,8 @@
+/* Body */
+body {
+  background: white;
+  color: black;
+}
 /* Header */
 header#header {
   padding-top: 1em;

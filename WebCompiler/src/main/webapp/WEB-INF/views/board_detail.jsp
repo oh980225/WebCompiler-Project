@@ -16,6 +16,100 @@
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_main.css" type="text/css"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" /> <!-- 이게 Font Awesome 5 Free를 사용하게 해주는거 같아요. 이거덕에 사이드바 모양이 보여요! -->
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_board.css" />
+		<style>
+			a {
+				color:black;
+				border:0;
+				
+			}
+			a:hover {
+			   color: none;  
+			}
+			#comment_list {
+				width:auto;				
+				overflow: auto;
+			}
+			#comment_image {
+				float: left;
+				margin-left:10px;
+				
+			}
+			.comment_content{
+				margin: 0 0 0 0;
+				display:block;
+				float: left;
+				width: 850px;
+				margin-left:20px;
+			}
+			.comment_content p{
+				margin: 0 0 0 0;
+				font-size: 12px;
+			}
+			.comment_content #comment_user{
+				font-weight:bold;
+				margin: 0 0 6px 0;
+			}
+			.comment_info{
+				margin: 0 15px 0 0;
+				
+				float: right;
+				width: 80px;
+			
+			}
+			.comment_info a{
+				color:red;
+				margin: 0 0 0 0;
+				border:0;
+			}
+			.comment_info #comment_edit{
+				float:right;
+				font-size: 10px;
+			}
+			.comment_info #comment_date {
+				float:right;
+			font-size: 12px;
+				margin: 0 0 0 0;
+			}
+			.comment_line {
+				overflow: auto;
+				margin:15px 0 15px 0;
+				border-top:solid 1px #cccccc;
+			}
+			.comment_typing{
+				padding:10px;
+				width:auto;				
+				overflow: auto;
+			}
+			
+			.comment_typing #comments_content{
+				margin:10px 10px 10px 30px;
+			}
+			
+			input[type="text"], textarea {
+			    -moz-appearance: none;
+			    -webkit-appearance: none;
+			    -ms-appearance: none;
+			    appearance: none;
+			    background: #ffffff;
+			    border-radius: 0.375em;
+			    border: none;
+			    border: solid 1px rgba(210, 215, 217, 0.75);
+			    color: inherit;
+			    display: block;
+			    outline: 0;
+			    padding: 0 1em;
+			    text-decoration: none;
+			    height:5em;
+			    width: 85%;
+			    font-size:12px;
+			}
+			
+			input[type="text"]:focus, textarea:focus {
+			     border-color: rgba(210, 215, 217, 0.75);
+			    /* box-shadow: 0 0 0 1px #ffffff; */
+			}
+		
+		</style>
 	</head>
 	<body class="is-preload">
 
@@ -42,77 +136,51 @@
 								</header>
 						<div class="inner">
 							<section>
-					<h3 class="board_title">자유게시판</h3>
-					<br>
-					<!-- Break -->
-						<form method="post" action="#">
-							<div class="col-12 name">
-								<select name="demo-category" id="demo-category">
-									<option value="">- 선택 -</option>
-									<option value="board_title">제목</option>
-									<option value="user_id">작성자</option>
-									<option value="problem_id">문제 번호</option>
-		
-								</select>
-							</div>
-							<input class="search" type="text" name="search" value="검색">
-						</form>
-							
-
-							<br>
-							<!-- Table -->
-							<div class="table-wrapper">
-								<table>
-									<thead>
-										<tr>
+								<a href="edit?id=${board.board_id}">수정</a>
+								 <form method="post" action="delete">
+									<a onclick="return alert('정말로 삭제하시겠습니까?')"
+									href="delete?board_id=${board.board_id}" value="${board.board_id}">삭제</a>
+								</form>
+								<a href="delete">삭제</a>
+							<h3 class="board_title"></h3>
+								<c:if test="${board.problem_id > 0}">
+									<p>${board.problem_id}
+								</c:if>
+								<p>${board.board_title}
+								<p>${board.board_upload}   ${board.user_id}<br>
+								<p>${board.board_content}<br>
+								
+								
+								<div>
+								
+									
+									<c:forEach var="comments" items="${comments}" >
+										<div id="comment_list">
+											<div class="comment_line"></div>
+											<div id="comment_image"><img src="<%=request.getContextPath()%>/resources/images/check.png" width="50px" heigth="50px"></div>
 											
-											<th style="text-align: left;">제목</th>
-											<th>작성자</th>
-											<th>게시일</th>
-											<th>문제번호</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach var="board" items="${board}" >
-									      
-												 <tr>
-
-												    <td style="text-align: left;">
-												    	<a href="/board/${board.board_id}" style="color:black; border:0"><c:out value="${board.board_title}"/></a>
-												    </td>
-												    <td><c:out value="${board.user_id}"/></td>
-												    <td><c:out value="${board.board_upload}"/></td>
-												   	<c:if test="${board.problem_id > 0}">
-														<td><a href="/problem/${board.problem_id}" style="color:black; border:0"><c:out value="${board.problem_id}"/></a></td>
-													</c:if>
-													<c:if test="${board.problem_id == 0}">
-														<td><c:out value=""/></td>
-													</c:if>	
-												    
-												  </tr>
-												  </c:forEach>
+											<div class="comment_content">
+												<p id="comment_user">${comments.user_id}
+												<p> ${comments.comments_content}
+											</div>
+												<div class="comment_info">
+													<p id="comment_date">${comments.comments_upload} <br>
+													<div id="comment_edit">
+														<a href="#" style="color:black">수정         </a><a href="#" style="color:black">삭제</a>
+													</div>
+												</div>
+												
+										</div>
 										
-									</tbody>
-								</table>
 
-							</div>
-							<a href="/board/insert" style="color: black; border:0">글쓰기</a>
-							<div class="page">
-								<ul class="paging">
-									<li class="page_num"><a href="#">1</a></li>
-									<li class="page_num"><a href="#">2</a></li>
-									<li class="page_num"><a href="#">3</a></li>
-									<li class="page_num"><a href="#">4</a></li>
-									<li class="page_num"><a href="#">5</a></li>
-									<li class="page_num"><a href="#">6</a></li>
-									<li class="page_num"><a href="#">7</a></li>
-									<li class="page_num"><a href="#">8</a></li>
-								</ul>
-							</div>
-
-
-						</form>
-				</section>
+									</c:forEach>
+									<div class="comment_typing">
+										<textarea id="comments_content" name="comments_content"></textarea><input type="submit" value="ㅂ버튼">
+									</div>
+									
+								</div>
+							
+				
 								
 
 						</div>
