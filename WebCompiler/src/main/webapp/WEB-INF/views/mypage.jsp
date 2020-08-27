@@ -80,7 +80,7 @@
 					<!-- Break -->
 					<form method="post" action="#">
 						<div class="col-12">
-							<select name="demo-category" id="demo-category">
+							<select name="demo-category" id="demo-category2">
 								<option value="">- Level -</option>
 								<option value="1">Bronze</option>
 								<option value="1">Silver</option>
@@ -90,7 +90,7 @@
 						<br>
 						<!-- Break -->
 						<div class="col-12">
-							<select name="demo-category" id="demo-category">
+							<select name="demo-category" id="demo-category1">
 								<option value="">- Kind -</option>
 								<option value="1">Sort</option>
 								<option value="1">Tree</option>
@@ -105,11 +105,7 @@
 							<li><a href="#" class="button">Search</a></li>
 						</ul>
 					</form>
-
-					<!-- Table -->
-					<h3>Table</h3>
-
-					<h4>Default</h4>
+					
 					<div class="table-wrapper">
 						<table>
 							<thead>
@@ -264,44 +260,30 @@
 
 		<!-- Sidebar -->
 		<div id="sidebar">
-			<div class="inner">
-				<!-- Menu -->
-				<!-- <nav id="menu">
-							<header class="major">
-								<h2><a href="index.html">Home</a></h2>
-							</header>
-							<ul>
-								<li><span class="opener">Mypage</span>
+						<div class="inner">
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<img class="icon" src="<%=request.getContextPath()%>/resources/images/user.png">
+										<!-- 사용자의 닉네임 클릭시 마이페이지로 이동 -->
+										<c:if test="${user.user_id == null}">
+										<h3 class="name"><a href="/login">먼저 로그인 해주세요!</a></h3>
+										</c:if>
+										<c:if test="${user.user_id != null}">
+											<h3 class="name"><a href="/mypage">${user.user_id}</a></h3>
+										</c:if>
+									</header>
 									<ul>
-										<li><a href="#">MyPage</a></li>
-										<li><a href="mycode.html">MyCode</a></li>
-										<li><a href="#">PlayGround</a></li>
-									</ul></li>
-
-								<li><a href="Q&A.html">Q & A</a></li>
-								<li><a href="search.html">Code Table</a></li>
-								<li><a href="explain.html">How to use it</a></li>
-							</ul>
-						</nav> -->
-				<nav id="menu">
-					<header class="major">
-						<img class="icon" src="<%=request.getContextPath()%>/resources/images/user.png">
-						<h3 class="name"><a href="/mypage">MR.O</a></h3>
-					</header>
-					<ul>
-						<li><a href="/web"><img class="icon" src="<%=request.getContextPath()%>/resources/images/main_icon.png" alt="Main Page" />Main Page</a></li>
-						<li><a href="/problem"><img class="icon" src="<%=request.getContextPath()%>/resources/images/problem_icon.png" alt="Problem Page" />Problem</a></li>
-						<li>
-							<span class="opener"><img class="icon" src="<%=request.getContextPath()%>/resources/images/board_icon.png" alt="Board Page" />Board</span>
-							<ul>
-								<li><a href="/question">Q & A</a></li>
-								<li><a href="/freeboard">Free Board</a></li>
-							</ul>
-						</li>
-					</ul>
-				</nav>
-			</div>
-		</div>
+										<!-- 사이드 메뉴바에 Main Page 클릭시 메인페이지로 이동 -->
+										<li><a href="/"><img class="icon" src="<%=request.getContextPath()%>/resources/images/main_icon.png" alt="Main Page" />Main Page</a></li>
+										<!-- 사이드 메뉴바에 Problem 클릭시 문제 페이지로 이동 -->
+										<li><a href="/problem"><img class="icon" src="<%=request.getContextPath()%>/resources/images/problem_icon.png" alt="Problem Page" />Problem</a></li>
+										<li><a href="/board"><img class="icon" src="<%=request.getContextPath()%>/resources/images/board_icon.png" alt="Board Page" />Board</a>
+										</li>
+									</ul>
+								</nav>
+						</div>
+					</div>
 
 	</div>
 
