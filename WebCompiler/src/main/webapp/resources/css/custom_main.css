@@ -1,3 +1,8 @@
+/* H */
+h1, h2, h3 {
+  color: black;
+}
+
 /* Body */
 body {
   background: white;
@@ -7,6 +12,10 @@ body {
 header#header {
   padding-top: 1em;
   background-color: rgb(17, 20, 31);
+}
+
+header#header a {
+  color: white !important;
 }
 
 header#header .logo {
@@ -50,7 +59,7 @@ header.major {
   text-align: center;
   border-bottom: 0.15em solid white;
   padding-bottom: 2em;
-  margin-bottom: 3.5em;
+  margin-bottom: 3em;
 }
 
 header.major img.icon {
@@ -66,7 +75,7 @@ header.major img.icon {
 }
 
 header.major h3.name {
-  display: inline-block;
+  display: block;
   color: white;
   margin: auto;
   margin-top: 1em;
@@ -75,16 +84,33 @@ header.major h3.name {
   padding-right: 10%;
 }
 
+header.major h3.name a:hover {
+  color: white !important;
+}
+
+header.major h5.intro {
+  margin-top: 0.5em;
+  font-family: 'Jua', sans-serif;
+}
+
 nav#menu header.major > :last-child {
   border-bottom: 0;
 }
 
 #sidebar .inner {
-  background: #414344 !important;
+  background: rgb(17, 20, 31) !important;
 }
 
 #sidebar .inner #menu li{
   color: white !important;
+}
+
+#sidebar > a {
+  color: rgb(255, 87, 125) !important;
+}
+
+#sidebar > a:hover {
+  color: rgb(255, 87, 125) !important;
 }
 
 nav#menu ul li img.icon {
@@ -97,3 +123,16 @@ nav#menu ul li img.icon {
 #menu ul {
   text-transform: none !important;
 }
+
+#menu > ul > li {
+  border-top: solid 1px white;
+}
+
+li a:hover {
+	color: rgb(255, 87, 125) !important;
+}
+
+li a.button:hover {
+	color: black !important;
+}
+

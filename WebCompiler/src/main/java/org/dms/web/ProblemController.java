@@ -1,5 +1,7 @@
 package org.dms.web;
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Locale;
 
@@ -30,7 +32,7 @@ public class ProblemController {
 	
 	@RequestMapping(value="/problem/{problem_id}", method=RequestMethod.GET)
 	public String problemGet(@PathVariable("problem_id") int problem_id, Model model) throws Exception {
-		//logger.info("번호: "+ problem_id);
+		//logger.info("踰덊샇: "+ problem_id);
 		ProblemVO pvo = problemService.readProblem(problem_id);
 		TestcaseVO tvo= testcaseService.readTestcase(problem_id);
 		
@@ -49,10 +51,10 @@ public class ProblemController {
 	
 	@RequestMapping(value="/problem/insert.do", method = RequestMethod.POST)
 	public String problemInsertPost(@ModelAttribute("problem") ProblemVO pvo /*, @ModelAttribute("testcase") TestcaseVO tvo*/) throws Exception {
-		logger.info("문제내용: "+pvo.getProblem_content());
-		logger.info("성공횟수: " + pvo.getProblem_successnum());
+		logger.info("臾몄젣�궡�슜: "+pvo.getProblem_content());
+		logger.info("�꽦怨듯슏�닔: " + pvo.getProblem_successnum());
 		pvo.setProblem_content(pvo.getProblem_content().replace("\r\n", "<br>"));
-		pvo.setProblem_hint("정답코드 업슴");
+		pvo.setProblem_hint("�젙�떟肄붾뱶 �뾽�뒾");
 		pvo.setProblem_failnum(pvo.getProblem_submitnum() - pvo.getProblem_successnum());
 		problemService.insertProblem(pvo);
 		return "redirect:/problem/insert";
@@ -65,7 +67,7 @@ public class ProblemController {
 	@RequestMapping(value="/testcase.do", method = RequestMethod.POST)
 	public String testcaseInsertPost(@ModelAttribute("testcase") TestcaseVO tvo) throws Exception {
 		//tvo.setProblem_id(pvo.getProblem_id());
-		logger.info("문제번호: "+tvo.getProblem_id());
+		logger.info("臾몄젣踰덊샇: "+tvo.getProblem_id());
 		logger.info("input: " +tvo.getTestcase_input());
 		logger.info("output:" +tvo.getTestcase_output());
 		
@@ -76,9 +78,23 @@ public class ProblemController {
 		return "testcase_insert";
 	}
 	
-	@RequestMapping(value="/solve", method=RequestMethod.GET)
-	public String getSolvePage(Model model) throws Exception {
-		return "solve_page";
+	@ResponseBody
+	@RequestMapping(value="/submit", method = RequestMethod.POST)
+	public void getCode(String code, String lang) {
+		System.out.println("DATA!");
+		System.out.println(code);
+		System.out.println(lang);
+		try {
+		    OutputStream output = new FileOutputStream("C:\\Users\\ohseu\\Desktop\\test.txt");
+		    String str = code + '\n' + lang;
+		    byte[] by=str.getBytes();
+		    output.write(by);
+		    output.flush();
+		    output.close();
+				
+		} catch (Exception e) {
+	            e.getStackTrace();
+		}
 	}
 		
 }
