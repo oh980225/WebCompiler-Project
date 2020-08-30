@@ -13,7 +13,6 @@
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_mypage.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" /> <!-- 이게 Font Awesome 5 Free를 사용하게 해주는거 같아요. 이거덕에 사이드바 모양이 보여요! -->
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/modal.css" />
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_code.css" />
 </head>
 
 <body class="is-preload">
@@ -78,71 +77,51 @@
 				</section>
 
 				<section>
-					<h3 class="board_title">코드 조회</h3>
-					<br>
 					<!-- Break -->
-						<div class="col-12 level">
-							<select name="demo-category" id="demo-category">
+					<form method="post" action="#">
+						<div class="col-12">
+							<select name="demo-category" id="demo-category2">
 								<option value="">- Level -</option>
 								<option value="1">Bronze</option>
 								<option value="1">Silver</option>
 								<option value="1">Gold</option>
 							</select>
-							<div class="select_arrow"></div>
 						</div>
+						<br>
 						<!-- Break -->
-							<div class="col-12 kind">
-								<select name="demo-category" id="demo-category1">
-									<option value="">- AC/WA -</option>
-									<option value="1">Sort</option>
-									<option value="1">Tree</option>
-									<option value="1">For</option>
-									<option value="1">While</option>
-									<option value="1">If</option>
-									<option value="1">DP</option>
-								</select>
-								<div class="select_arrow"></div>
-							</div>
-							<div class="col-12 name">
-								<select name="demo-category" id="demo-category2">
-									<option value="">- 제목 -</option>
-									<option value="1">Sort</option>
-									<option value="1">Tree</option>
-									<option value="1">For</option>
-									<option value="1">While</option>
-									<option value="1">If</option>
-									<option value="1">DP</option>
-								</select>
-								<div class="small_arrow"></div>
-							</div>
-							<input class="search" type="text" name="search" placeholder="검색">
-
-							<br>
-							<!-- Table -->
-							<div class="table-wrapper">
-								<table>
-									<thead>
-										<tr>
-											<th>번호</th>
-											<th>제목</th>
-											<th>레벨</th>
-											<th>제출</th>
-											<th>AC/WA</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr id="open">
-											<td>1012</td>
-											<td>친구 네트워크</td>
-											<td>
-												<div class="problem_level1">
-													LEVEL 1
-												</div>
-											</td>
-											<td>2019.02.26</td>
-											<td><img src="<%=request.getContextPath()%>/resources/images/check.png" width="20em" height="20em" alt="O"></td>
-										</tr>
-										<div class="modal hidden">
+						<div class="col-12">
+							<select name="demo-category" id="demo-category1">
+								<option value="">- Kind -</option>
+								<option value="1">Sort</option>
+								<option value="1">Tree</option>
+								<option value="1">For</option>
+								<option value="1">While</option>
+								<option value="1">If</option>
+								<option value="1">DP</option>
+							</select>
+						</div>
+						<br>
+						<ul class="actions">
+							<li><a href="#" class="button">Search</a></li>
+						</ul>
+					</form>
+					
+					<div class="table-wrapper">
+						<table>
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Description</th>
+									<th>Price</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr id="open">
+									<td>2842번</td>
+									<td>유기농 배추</td>
+									<td>Level 3</td>
+								</tr>
+								<div class="modal hidden">
 				          			<div class="modal_overlay">
 				          			</div>
 				          			<div class="modal_content">
@@ -240,67 +219,35 @@
 										</div>
 				          			</div>
 				        		</div>
-										<tr onClick="location.href='#'">
-											<td>1012</td>
-											<td>친구 네트워크</td>
-											<td>
-												<div class="problem_level2">
-													LEVEL 2
-												</div>
-											</td>
-											<td>2019.02.26</td>
-											<td><img src="<%=request.getContextPath()%>/resources/images/check.png" width="20em" height="20em" alt="O"></td>
-										</tr>
-										<tr onClick="location.href='#'">
-											<td>1012</td>
-											<td>친구 네트워크</td>
-											<td>
-												<div class="problem_level3">
-													LEVEL 3
-												</div>
-											</td>
-											<td>2019.02.26</td>
-											<td><img src="<%=request.getContextPath()%>/resources/images/check.png" width="20em" height="20em" alt="O"></td>
-										</tr>
-										<tr onClick="location.href='#'">
-											<td>1012</td>
-											<td>친구 네트워크</td>
-											<td>
-												<div class="problem_level1">
-													LEVEL 1
-												</div>
-											</td>
-											<td>2019.02.26</td>
-											<td><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="20em" height="20em" alt="O"></td>
-										</tr>
-										<tr onClick="location.href='#'">
-											<td>1012</td>
-											<td>친구 네트워크</td>
-											<td>
-												<div class="problem_level2">
-													LEVEL 2
-												</div>
-											</td>
-											<td>2019.02.26</td>
-											<td><img src="<%=request.getContextPath()%>/resources/images/check.png" width="20em" height="20em" alt="O"></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-							<div class="page">
-								<ul class="paging">
-									<li class="page_num"><a href="#"><</a></li>
-									<li class="page_num"><a href="#">1</a></li>
-									<li class="page_num"><a href="#">2</a></li>
-									<li class="page_num"><a href="#">3</a></li>
-									<li class="page_num">...</li>
-									<li class="page_num"><a href="#">8</a></li>
-									<li class="page_num"><a href="#">9</a></li>
-									<li class="page_num"><a href="#">10</a></li>
-									<li class="page_num"><a href="#">></a></li>
-								</ul>
-							</div>
-						</form>
+								<tr>
+									<td>Item2</td>
+									<td>Vis ac commodo adipiscing arcu aliquet.</td>
+									<td>19.99</td>
+								</tr>
+								<tr>
+									<td>Item3</td>
+									<td> Morbi faucibus arcu accumsan lorem.</td>
+									<td>29.99</td>
+								</tr>
+								<tr>
+									<td>Item4</td>
+									<td>Vitae integer tempus condimentum.</td>
+									<td>19.99</td>
+								</tr>
+								<tr>
+									<td>Item5</td>
+									<td>Ante turpis integer aliquet porttitor.</td>
+									<td>29.99</td>
+								</tr>
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="2"></td>
+									<td>100.00</td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
 				</section>
 
 				<footer class="footer_btns">
