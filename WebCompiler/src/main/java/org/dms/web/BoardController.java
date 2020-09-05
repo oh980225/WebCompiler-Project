@@ -99,10 +99,11 @@ public class BoardController {
 		return "redirect:/board";
 	}
 	@RequestMapping(value="/board/{board_id}", method=RequestMethod.GET)
-	public String asdf(@PathVariable("board_id") int board_id, Model model) throws Exception {		
+	public String asdf(@PathVariable("board_id") int board_id,HttpSession session, Model model) throws Exception {		
 		BoardVO bvo = boardService.readBoard(board_id);
 		List<CommentsVO> cvo = commentsService.readCommentList(board_id);
-		
+		UserVO user = (UserVO)session.getAttribute("user");
+		model.addAttribute("user", user);
 		model.addAttribute("comments", cvo);
 		model.addAttribute("board", bvo);
 		//logger.info("번호: "+ problem_id);

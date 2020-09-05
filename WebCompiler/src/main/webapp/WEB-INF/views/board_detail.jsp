@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="org.dms.web.domain.UserVO"%>
 <!DOCTYPE HTML>
 <!--
 	Editorial by HTML5 UP
@@ -25,6 +26,77 @@
 			a:hover {
 			   color: none;  
 			}
+			.title_header{
+				overflow:auto;
+			}
+			.header_problemid{
+				float:left;
+			}
+			.title_header #problem_id{
+				text-align:left;
+				font-size: 13.5px;
+				font-weight:600;
+				color: #3AB6BC;
+			}
+			.title_box{
+				font-size: 13.5px;
+				font-weight:600;
+				color: #484848;
+				margin:10px 0 0 0;
+				padding:10px;
+				border-top:solid 0.5px #222629;
+				border-bottom:solid 0.5px #222629;
+			}
+			.content{
+				overflow:auto;
+				font-size: 12px;
+				color: #707070;
+				margin: 0 0 20px 0px;
+				border-bottom:solid 2px #aaaaaa;
+				padding: 10px 10px 0 10px;
+			}
+			.content #board_upload{
+				
+				text-align:right;
+			}
+			
+			.content_box{
+				margin: 0 10px 20px 10px;
+				font-size: 13.5px;
+				color: #484848;
+			}
+			.comment_count{
+				float:left;
+			}
+			.board_info{
+				float:right;
+			}
+			.board_info img{
+				vertical-align:middle;
+				margin:3px;
+				width:16.5px;
+				height:16.5px;
+			}
+			
+			
+			.content_date{
+				float:right;
+				margin: 0;
+				display:block;
+			}
+			.content_date p{
+				float:right;
+				margin: 0;
+			}
+			.info_box img{
+				vertical-align:middle;
+				margin:3px;
+				width:16.5px;
+				height:16.5px;
+			}
+			.title_box #info_id{
+				float:right;
+			}
 			#comment_list {
 				width:auto;				
 				overflow: auto;
@@ -44,6 +116,7 @@
 			.comment_content p{
 				margin: 0 0 0 0;
 				font-size: 12px;
+				color: #707070;
 			}
 			.comment_content #comment_user{
 				font-weight:bold;
@@ -61,28 +134,48 @@
 				margin: 0 0 0 0;
 				border:0;
 			}
+			.comment_info img{
+				margin:2px;
+				width:16.5px;
+				height:16.5px;
+			}
 			.comment_info #comment_edit{
 				float:right;
 				font-size: 10px;
 			}
 			.comment_info #comment_date {
+				color: #707070;
 				float:right;
-			font-size: 12px;
+				font-size: 12px;
 				margin: 0 0 0 0;
+			}
+			.comment_dashline {
+				overflow: auto;
+				margin:12px 0 12px 0;
+				border-top:dashed 1px #cccccc;
 			}
 			.comment_line {
 				overflow: auto;
-				margin:15px 0 15px 0;
+				margin:12px 0 12px 0;
 				border-top:solid 1px #cccccc;
 			}
 			.comment_typing{
+				position:relative;
+				padding:10px 30px 10px 30px;
+				width:auto;				
+				overflow: auto;
+			}
+			.comment_typing_button{
+				position:absolute;
+				bottom: 10px;
+    			right: 25px;
 				padding:10px;
 				width:auto;				
 				overflow: auto;
 			}
 			
 			.comment_typing #comments_content{
-				margin:10px 10px 10px 30px;
+				margin: 10px 0px 10px 0px;
 			}
 			
 			input[type="text"], textarea {
@@ -91,7 +184,7 @@
 			    -ms-appearance: none;
 			    appearance: none;
 			    background: #ffffff;
-			    border-radius: 0.375em;
+			    border-radius: 20px 0px 20px 20px;
 			    border: none;
 			    border: solid 1px rgba(210, 215, 217, 0.75);
 			    color: inherit;
@@ -99,20 +192,32 @@
 			    outline: 0;
 			    padding: 0 1em;
 			    text-decoration: none;
-			    height:5em;
-			    width: 85%;
+			    width: 100%;
 			    font-size:12px;
+			    min-height: 70px;
 			}
 			
 			input[type="text"]:focus, textarea:focus {
 			     border-color: rgba(210, 215, 217, 0.75);
 			    /* box-shadow: 0 0 0 1px #ffffff; */
 			}
+			input.submit-button{
+				border:none;
+				width:30px;
+				heigth:30px;
+				cursor:pointer;
+			}
 		
 		</style>
+		
+		<script>
+			function resize(obj) {
+			  obj.style.height = "1px";
+			  obj.style.height = (12+obj.scrollHeight)+"px";
+			}
+			</script>
 	</head>
 	<body class="is-preload">
-
 		<!-- Wrapper -->
 			<div id="wrapper">
 
@@ -136,28 +241,69 @@
 								</header>
 						<div class="inner">
 							<section>
-								<a href="edit?id=${board.board_id}">수정</a>
-								 <form method="post" action="delete">
-									<a onclick="return alert('정말로 삭제하시겠습니까?')"
-									href="delete?board_id=${board.board_id}" value="${board.board_id}">삭제</a>
-								</form>
-								<a href="delete">삭제</a>
-							<h3 class="board_title"></h3>
-								<c:if test="${board.problem_id > 0}">
-									<p>${board.problem_id}
-								</c:if>
-								<p>${board.board_title}
-								<p>${board.board_upload}   ${board.user_id}<br>
-								<p>${board.board_content}<br>
+								
+								
+								<div class="title_header">
+									<div class="header_problemid">
+										<c:if test="${board.problem_id > 0}">
+											<span id="problem_id">${board.problem_id}</span>
+										</c:if>
+									
+									</div>
+									<div class="board_info">
+										<a href="edit?id=${board.board_id}" style="color:black"><img src="<%=request.getContextPath()%>/resources/images/edit.png">글쓰기</a>
+										<a href="delete" style="color:black"><img src="<%=request.getContextPath()%>/resources/images/delete.png">목록</a>
+									</div>
+									
+								</div>
+								<div class="title_box">
+									<span>${board.board_title}</span>
+									<span id="info_id">${board.user_id}</span>
+								</div>
+								<div>
+									
+								</div>
+								<div class="content">
+									<p id="board_upload">${board.board_upload}</p>
+
+									<div class="content_box">
+										<p>${board.board_content}<br>
+									</div>
+									
+									<div class="info_box">
+											<div class="comment_count">
+												<img src="<%=request.getContextPath()%>/resources/images/comment.png"><span>2개</span>
+											</div>
+											<div class="board_info">
+											
+													<c:if test="${user.user_id == board.user_id}">
+															<a href="edit?id=${board.board_id}" style="color:black"><img src="<%=request.getContextPath()%>/resources/images/edit.png"></a>
+															<a href="delete" style="color:black"><img src="<%=request.getContextPath()%>/resources/images/delete.png"></a>
+													</c:if>
+												
+											</div>
+											
+											<!-- <form method="post" action="delete">
+												<a onclick="return alert('정말로 삭제하시겠습니까?')"
+												href="delete?board_id=${board.board_id}" value="${board.board_id}">삭제</a>
+											</form> -->
+									</div>
+									
+								</div>
+								
 								
 								
 								<div>
-								
+									<%int i = 0; %>
 									
-									<c:forEach var="comments" items="${comments}" >
+									<c:forEach var="comments" items="${comments}">
 										<div id="comment_list">
-											<div class="comment_line"></div>
-											<div id="comment_image"><img src="<%=request.getContextPath()%>/resources/images/check.png" width="50px" heigth="50px"></div>
+											<%if(i!=0){ %>
+												<div class="comment_dashline"></div>
+											<% } %>
+									
+										
+											<div id="comment_image"><img src="/getByteImage/${comments.user_id}" width="50px" height="50px"></div>
 											
 											<div class="comment_content">
 												<p id="comment_user">${comments.user_id}
@@ -166,16 +312,24 @@
 												<div class="comment_info">
 													<p id="comment_date">${comments.comments_upload} <br>
 													<div id="comment_edit">
-														<a href="#" style="color:black">수정         </a><a href="#" style="color:black">삭제</a>
+														<c:if test="${user.user_id == comments.user_id}">
+															<a href="#" style="color:black"><img src="<%=request.getContextPath()%>/resources/images/edit.png"></a>
+															<a href="#" style="color:black"><img src="<%=request.getContextPath()%>/resources/images/delete.png"></a>
+														</c:if>	
 													</div>
 												</div>
 												
+												<% i++; %>
 										</div>
 										
 
 									</c:forEach>
 									<div class="comment_typing">
-										<textarea id="comments_content" name="comments_content"></textarea><input type="submit" value="ㅂ버튼">
+										<textarea id="comments_content" name="comments_content" onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
+										<div class="comment_typing_button">
+											<input type="image" src="<%=request.getContextPath()%>/resources/images/submit.png" class="submit-button" onclick="DoSomething();">
+										</div>
+										
 									</div>
 									
 								</div>

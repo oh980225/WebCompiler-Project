@@ -31,5 +31,10 @@ public class HomeController {
 		UserVO user = (UserVO) session.getAttribute("user");
 		model.addAttribute("user", user);
 		return "main";		
-	}	
+	}
+	
+	@RequestMapping(value = "/vulcheck")
+	public String getVulcheck(Model model, HttpSession session) throws Exception {
+		return "main";		
+	}
 }

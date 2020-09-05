@@ -87,7 +87,7 @@
     <!-- 카테고리 -->
     <select id="category_selectAll" resultType="CategoryVO">
     <![CDATA[
- 		select * from category limit #{pageStart}, #{perPageNum}
+ 		select * from category
      ]]> 
     
     </select>

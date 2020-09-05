@@ -2073,15 +2073,12 @@ button,
   display: -moz-flex;
   display: -webkit-flex;
   display: -ms-flex;
-  display: flex;
   border-bottom: solid 5px #ffffff;
   padding: 6em 0 1em 0;
   position: relative; }
   #header > * {
     -moz-flex: 1;
-    -webkit-flex: 1;
     -ms-flex: 1;
-    flex: 1;
     margin-bottom: 0; }
   #header .logo {
     border-bottom: 0;
