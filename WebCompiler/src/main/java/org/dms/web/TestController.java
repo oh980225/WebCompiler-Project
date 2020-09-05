@@ -322,6 +322,11 @@ public class TestController {
 	public String getProblemRef() {
 		return "problem_ref";
 	}
+	
+	@RequestMapping(value="/signin")
+	public String getSignin() {
+		return "signin";
+	}
 
 
 }
