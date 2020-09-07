@@ -199,3 +199,70 @@ li a.button:hover {
 	color: black !important;
 }
 
+/*여기 부터 추가되는 부분*(헤더쪽 로그인후)*/
+
+header#header a.header_signout {
+  float: right;
+  width: 3em;
+  height: 1em;
+  margin-top: 0.4em;
+  margin-right: 1em;
+}
+
+a.header_signout img {
+  display: block;
+  width: 100%;
+  height: 95%;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+}
+
+a.header_signout span {
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  height: 5%;
+  font-size: 0.1px;
+  padding-right: 2px;
+}
+
+header#header div.header_profile {
+  display: inline-block;
+  float: right;
+  width: 13em;
+  height: 100%;
+}
+
+div.header_profile img {
+  float: left;
+  width: 3.3em;
+  height: 3.3em;
+  padding: 0.5em;
+  border-radius: 100%;
+}
+
+div.header_profile div.name_intro {
+  display: inline-block;
+  float: left;
+  width: 9.7em;
+  height: 100%;
+}
+
+div.name_intro div.header_name {
+  box-sizing: border-box;
+  padding-top: 1em;
+  width: 100%;
+  height: 50%;
+  color: white;
+  font-size: 0.5em;
+}
+
+div.name_intro div.header_intro {
+  font-size: 0.3em;
+  box-sizing: border-box;
+  width: 100%;
+  height: 50%;
+  color: rgb(116, 116, 116);
+  overflow: hidden;
+}
+

@@ -25,8 +25,10 @@ section.profile {
 }
 
 section.profile div.profile_img {
-  width: 40%;
-  height: 100%;
+  box-sizing: border-box;
+  position: relative;
+  width: 20em;
+  height: 30em;
   text-align: center;
   float: left;
 }
@@ -51,11 +53,13 @@ form#img_form input {
 }
 
 section.profile div.profile_name {
-  width: 60%;
-  height: 50%;
+  box-sizing: border-box;
+  width: 50%;
+  height: 15em;
   padding-top: 2em;
   padding-bottom: 2em;
   float: left;
+  margin-left: 5em;
 }
 
 section.profile div.profile_name input#input_name {
@@ -70,10 +74,14 @@ section.profile div.profile_name button.btn_name {
 }
 
 section.profile div.profile_introduce {
-  width: 60%;
-  height: 50%;
+  box-sizing: border-box;
+  width: 50%;
+  height: 15em;
   float: left;
+  margin-left: 5em;
+  margin-top: -5em;
 }
+
 section.profile div.profile_introduce input#input_introduce {
   display: none;
   width: 40%;
@@ -144,14 +152,47 @@ form input[type="text"]:enabled {
 
   section.profile div.profile_name {
     width: 100%;
-    padding-top: 5em;
+    margin: 0;
+    padding-top: 0;
   }
 
   section.profile div.profile_introduce {
     width: 100%;
     height: 10em;
+    margin: 0;
     border-bottom: 2px solid rgb(24, 30, 40);
     margin-bottom: 3.5em;
+    margin-top: -4em;
   }
 
+}
+
+/*여기 부터 추가되는 부분*(마이페이지 프로필)*/
+
+div.profile_img input#pictureBtn {
+  display: none;
+}
+
+/*이거 쓸때는 div.profile_img relative로 바꿔줘야함*/
+
+div.profile_img label {
+  position: absolute;
+  cursor: pointer;
+  width: 4em;
+  height: 4em;
+  background: url('../../images/change_pic.png') no-repeat;
+  background-size: cover;
+  top: 17.8em;
+  right: 1em;
+}
+
+section.profile h3.head {
+  display: inline-block;
+  float: left;
+  border-bottom: 3px solid black;
+  font-weight: lighter;
+}
+
+br.clear {
+  clear: both;
 }

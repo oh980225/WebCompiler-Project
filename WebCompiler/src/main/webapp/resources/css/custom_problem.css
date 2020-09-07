@@ -164,12 +164,14 @@ div.problem_item h5 {
 div.problem_item div.problem_level1 {
   display: inline-block;
   text-align: center;
-  width: 5.5em;
+  width: 4.5em;
   color: white;
   background-color: rgb(255, 211, 85);
   border-radius: 5%;
   font-weight: bolder;
   padding: 0.8em;
+  padding-left: 0;
+  padding-right: 0;
   line-height: 0.4em;
   font-size: 0.7em;
 }
@@ -177,12 +179,14 @@ div.problem_item div.problem_level1 {
 div.problem_item div.problem_level2 {
   display: inline-block;
   text-align: center;
-  width: 5.5em;
+  width: 4.5em;
   color: white;
   background-color: #f56a6a;
   border-radius: 5%;
   font-weight: bolder;
   padding: 0.8em;
+  padding-left: 0;
+  padding-right: 0;
   line-height: 0.4em;
   font-size: 0.7em;
 }
@@ -190,12 +194,14 @@ div.problem_item div.problem_level2 {
 div.problem_item div.problem_level3 {
   display: inline-block;
   text-align: center;
-  width: 5.5em;
+  width: 4.5em;
   color: white;
   background-color: rgb(64, 186, 218);
   border-radius: 5%;
   font-weight: bolder;
   padding: 0.8em;
+  padding-left: 0;
+  padding-right: 0;
   line-height: 0.4em;
   font-size: 0.7em;
 }
