@@ -9,6 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css" type="text/css"/>
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_main.css" type="text/css"/>
+			<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_problem.css" />
 		
 		<link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css"/>
 		
@@ -147,46 +148,60 @@
 
 				<!-- Main -->
 					<div id="main">
+						<header id="header">
+
+							<a class="main_logo" href="index.html"><img src="<%=request.getContextPath()%>/resources/images/main_logo.png" alt="메인페이지" /></a>
+							<a class="header_problem" href="mycode.html"><img src="<%=request.getContextPath()%>/resources/images/header_problem.png" alt="문제 페이지" />문제풀기</a>
+							<a class="header_board" href="Q&A.html"><img src="<%=request.getContextPath()%>/resources/images/header_board.png" alt="게시판 페이지" />자유게시판</a>
+							<a class="header_signup" href="#"><img src="<%=request.getContextPath()%>/resources/images/header_signup.png" alt="회원가입" /><span>회원가입</span></a>
+							<a class="header_signin" href="signin.html"><img src="<%=request.getContextPath()%>/resources/images/header_signin.png" alt="로그인" /><span>로그인</span></a>
+						</header>
+						
 						<div class="inner">
-
-							<!-- Header -->
-							<!-- <header id="header">
-									<a href="index.html" class="logo"><strong>Editorial</strong> by HTML5 UP</a>
-									<ul class="icons">
-										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-										<li><a href="#" class="icon brands fa-snapchat-ghost"><span class="label">Snapchat</span></a></li>
-										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-										<li><a href="#" class="icon brands fa-medium-m"><span class="label">Medium</span></a></li>
-									</ul>
-								</header>-->
-								
-
 							<!-- Content -->
 								<section>
 									<!-- Break -->
-									<div>
+
 										<label> 레벨 </label>
-											<select id="problem_level" onchange="a()">
+											<div class="col-12 level">
+												<select id="problem_level" onchange="a()">
 													<option value="0">------ 선택 ------</option>
 													<option value="1">LEVEL 1</option>
 													<option value="2">LEVEL 2</option>
 													<option value="3">LEVEL 3</option>
 													<option value="4">LEVEL 4</option>
 													<option value="5">LEVEL 5</option>
-											</select>
+												</select>
+												<div class="select_arrow"></div>
+											</div>
 											
-											<label style="margin-top: 30px">  분류 </label>
+											<div class="col-12 kind">
 												<select id="category_name" onchange="a()">
 													<option value="unselected">------ 선택 ------</option>
 													<c:forEach var="category" items="${category}">
 														<option value="${category.category_id}">${category.category_name}</option>
 													</c:forEach>
 												</select>
-									</div>
-									<br>
-
-									<div class="table-wrapper">
+												<div class="select_arrow"></div>
+											</div>
+											<div class="col-12 name">
+												<select name="demo-category" id="demo-category2">
+													<option value="">-- 선택 --</option>
+													<option value="problem_title">제목</option>
+													<option value="problem_id">문제번호</option>
+												</select>
+												<div class="small_arrow"></div>
+											</div>
+											
+											<div class="container-1">
+											      <span class="icon"><i class="fa fa-search"></i></span>
+											      <input type="search" id="search" placeholder="Search..." />
+											</div>
+											
+											
+											<span class="icon"><i class="fa fa-search"></i></span>
+											<input class="search" type="text" name="search" placeholder="검색">
+											<div class="table-wrapper">
 										<table id="problem">
 											<thead>
 												<tr>
@@ -238,96 +253,81 @@
 												    </c:if> 
 												</ul>
 												-->
-												<ul id="pagenav" >
+												<div class="page">
+													<ul class="paging">
+														<li class="page_num"><a href="#">
+																< </a>
+														</li>
+														<li class="page_num"><a href="#">1</a></li>
+														<li class="page_num"><a href="#">2</a></li>
+														<li class="page_num"><a href="#">3</a></li>
+														<li class="page_num">...</li>
+														<li class="page_num"><a href="#">8</a></li>
+														<li class="page_num"><a href="#">9</a></li>
+														<li class="page_num"><a href="#">10</a></li>
+														<li class="page_num"><a href="#">></a></li>
+													</ul>
+												</div>
+												<div class="page">
+													<ul class="paging" id="pagenav" >
 													   <c:if test="$test{pageMaker.prev}">
-															<li><a href="javascript:getBoardList(pageMaker.startPage - 1)">이전</a></li>
+															<li class="page_num"><a href="javascript:getBoardList(pageMaker.startPage - 1)"><</a></li>
 														</c:if> 
 														<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="page">
-	    													<li onclick="javascript:getBoardList(this.value)" value="${page}">${page}</li>
+	    													<li class="page_num" onclick="javascript:getBoardList(this.value)" value="${page}"><a>${page}</a></li>
 													    </c:forEach>
 													    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-													    	<li><a href="javascript:getBoardList(pageMaker.endPage + 1)">다음</a></li>
+													    	<li class="page_num"><a href="javascript:getBoardList(pageMaker.endPage + 1)">></a></li>
 													    </c:if>
-														
-												</ul>
+													</ul>
+												</div>
+												
 												
 											</div>
 									</div>
+									
+									<br>
+
+									
 								</section>
 
 						</div>
 					</div>
 
 				<!-- Sidebar -->
+				<!-- 
 					<div id="sidebar">
 						<div class="inner">
-
-
-					<!-- Menu -->
-					<!-- <nav id="menu">
-						<header class="major">
-							<h2><a href="index.html">Home</a></h2>
-						</header>
-						<ul>
-							<li><span class="opener">Mypage</span>
+							<nav id="menu">
+								<header class="major">
+									<img class="icon" src="<%=request.getContextPath()%>/resources/images/user.png">							
+										<c:if test="${user.user_id == null}">
+												<h3 class="name"><a href="/login">먼저 로그인 해주세요!</a></h3>
+										</c:if>
+										<c:if test="${user.user_id != null}">
+											<h3 class="name"><a href="/mypage">${user.user_id}</a></h3>
+										</c:if>
+								</header>
 								<ul>
-									<li><a href="#">MyPage</a></li>
-									<li><a href="mycode.html">MyCode</a></li>
-									<li><a href="#">PlayGround</a></li>
-								</ul></li>
-
-							<li><a href="Q&A.html">Q & A</a></li>
-							<li><a href="search.html">Code Table</a></li>
-							<li><a href="explain.html">How to use it</a></li>
-						</ul>
-					</nav> -->
-					<nav id="menu">
-						<header class="major">
-							<img class="icon" src="<%=request.getContextPath()%>/resources/images/user.png">							
-								<c:if test="${user.user_id == null}">
-										<h3 class="name"><a href="/login">먼저 로그인 해주세요!</a></h3>
-								</c:if>
-								<c:if test="${user.user_id != null}">
-									<h3 class="name"><a href="/mypage">${user.user_id}</a></h3>
-								</c:if>
-						</header>
-						<ul>
-							<li><a href="index.html"><img class="icon" src="<%=request.getContextPath()%>/resources/images/main_icon.png" alt="Main Page" />Main Page</a></li>
-							<!-- <li>
-								<span class="opener">Mypage</span>
-								<ul>
-									<li><a href="#">MyPage</a></li>
-									<li><a href="mycode.html">MyCode</a></li>
-									<li><a href="#">PlayGround</a></li>
+									<li><a href="index.html"><img class="icon" src="<%=request.getContextPath()%>/resources/images/main_icon.png" alt="Main Page" />Main Page</a></li>
+									
+									<li><a href="search.html"><img class="icon" src="<%=request.getContextPath()%>/resources/images/problem_icon.png" alt="Problem Page" />Problem</a></li>
+									<li>
+										<span class="opener"><img class="icon" src="<%=request.getContextPath()%>/resources/images/board_icon.png" alt="Board Page" />Board</span>
+										<ul>
+											<li><a href="Q&A.html">Q & A</a></li>
+											<li><a href="#">Free Board</a></li>
+										</ul>
+									</li>
 								</ul>
-							</li> -->
-							<!-- <li><a href="Q&A.html">Q & A</a></li> -->
-							<li><a href="search.html"><img class="icon" src="<%=request.getContextPath()%>/resources/images/problem_icon.png" alt="Problem Page" />Problem</a></li>
-							<!-- <li><a href="explain.html">How to use it</a></li> -->
-							<li>
-								<span class="opener"><img class="icon" src="<%=request.getContextPath()%>/resources/images/board_icon.png" alt="Board Page" />Board</span>
-								<ul>
-									<li><a href="Q&A.html">Q & A</a></li>
-									<li><a href="#">Free Board</a></li>
-								</ul>
-							</li>
-						</ul>
-					</nav>
-
-
-							<!-- Section -->
-
-
-
-							<!-- Footer -->
-								<footer id="footer">
-									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-								</footer>
+							</nav>
 
 						</div>
 					</div>
+				 -->
 
 			</div>
+			
 
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>

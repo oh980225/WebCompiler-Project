@@ -70,12 +70,7 @@ public class ProblemDAOImpl implements ProblemDAO {
 		return sqlSession.selectList(namespace + ".listPaging", page);
 	}
 
-	@Override
-	public List<ProblemVO> listCriteria(Criteria criteria) throws Exception {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace + ".listCriteria", criteria);
-	}
-
+	
 	@Override
 	public int ProblemCount() throws Exception {
 		// TODO Auto-generated method stub
@@ -92,6 +87,11 @@ public class ProblemDAOImpl implements ProblemDAO {
 		return sqlSession.selectOne(namespace + ".listCountFilter", map);
 		
 	}
+	@Override
+	public List<ProblemVO> listCriteria(Criteria criteria) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + ".listCriteria", criteria);
+	}
 
 	@Override
 	public List<ProblemVO> readList(int level, String category, Criteria criteria) throws Exception {
@@ -100,11 +100,12 @@ public class ProblemDAOImpl implements ProblemDAO {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("problem_level", level);
 				map.put("category_id", category);
+				map.put("category_id", category);
 				map.put("pageStart", criteria.getPageStart());
 				map.put("perPageNum", criteria.getPerPageNum());
 				
 				List<ProblemVO> problemList = new ArrayList<ProblemVO>();
-				problemList = sqlSession.selectList(namespace + ".problem_selectBylevel", map);
+				problemList = sqlSession.selectList(namespace + ".listCriteriaFilter", map);
 				return problemList;
 	}
 

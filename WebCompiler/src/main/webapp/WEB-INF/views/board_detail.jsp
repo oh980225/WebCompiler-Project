@@ -18,6 +18,11 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" /> <!-- 이게 Font Awesome 5 Free를 사용하게 해주는거 같아요. 이거덕에 사이드바 모양이 보여요! -->
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_board.css" />
 		<style>
+			#main > .inner {
+			    padding: 0 6em 0.1em 6em;
+			    margin: 0 auto;
+			    max-width: 85em;
+			}
 			a {
 				color:black;
 				border:0;
@@ -335,7 +340,7 @@
 								</div>
 							
 				
-								
+								</section>
 
 						</div>
 					</div>

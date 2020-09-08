@@ -46,7 +46,7 @@
 	<div style="align:center">
 	<form action="insert.do" method="post" onsubmit="return b()">
 		<div width="50%" >
-				<label>ProblemVO 비이이상사건 등록하기이</label><br><br><br>
+				
 				제목   <input type="text" id="board_title" name="board_title"/> <p id="title_alert" style="color:red; visibility:hidden"> *제목을 입력하세요.</p> <br>
 				
 				문제번호   <input type="text" id="problem_id" name="problem_id" value=""/><br>

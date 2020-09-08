@@ -9,7 +9,7 @@
 -->
 <html>
 
-<head>
+<head>rm 
 	<title>JAVA 버전 컴파일러 화면</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />

@@ -103,7 +103,7 @@
     </select>
     
     <select id="listPaging" resultType="ProblemVO">
-    	select * from problem limit #{page}, 10
+    	select * from problem limit #{page}, 8
     </select>
     <select id="listCount" resultType="int">
     	select COUNT(problem_id) from problem

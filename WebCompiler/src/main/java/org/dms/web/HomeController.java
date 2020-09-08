@@ -33,8 +33,5 @@ public class HomeController {
 		return "main";		
 	}
 	
-	@RequestMapping(value = "/vulcheck")
-	public String getVulcheck(Model model, HttpSession session) throws Exception {
-		return "main";		
-	}
+	
 }
