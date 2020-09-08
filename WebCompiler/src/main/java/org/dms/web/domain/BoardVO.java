@@ -1,10 +1,12 @@
 package org.dms.web.domain;
 
+import java.sql.Timestamp;
+
 public class BoardVO {
 	private int board_id;
 	private String board_title;
 	private String board_content;
-	private String board_upload;
+	private Timestamp board_upload;
 	private String user_id;
 	private int problem_id;
 	
@@ -26,10 +28,10 @@ public class BoardVO {
 	public void setBoard_content(String board_content) {
 		this.board_content = board_content;
 	}
-	public String getBoard_upload() {
+	public Timestamp getBoard_upload() {
 		return board_upload;
 	}
-	public void setBoard_upload(String board_upload) {
+	public void setBoard_upload(Timestamp board_upload) {
 		this.board_upload = board_upload;
 	}
 	public String getUser_id() {
@@ -45,5 +47,4 @@ public class BoardVO {
 		this.problem_id = problem_id;
 	}
 	
-
 }

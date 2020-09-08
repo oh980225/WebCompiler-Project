@@ -29,7 +29,7 @@
 			var level_value = level.options[level.selectedIndex].value;
 			var category_value = category.options[category.selectedIndex].value;
 			$.ajax({
-	            url: "./category_test.do",
+	            url: "./problem.do",
 	            type: "GET",
 	            //data: "page="+page,
 	            data: {
@@ -104,91 +104,7 @@
 	        });
 
 		}
-		
-		function a(page, cri){
-			var level = document.getElementById("problem_level")
-			var category = document.getElementById("category_name");
 
-			var level_value = level.options[level.selectedIndex].value;
-			var category_value = category.options[category.selectedIndex].value;
-
-			if((level_value != 0 && category_value != 0) || (level_value == 0 && category_value == "unselected")){
-				//document.getElementById("result").innerHTML = form.problem_level + form.category_name;
-				alert("hello~");
-				$.ajax({
-		            url: "./problemList_test.do",
-		            type: "GET",
-		            data: {
-			            "problem_level": level_value,
-			            "category_name": category_value,
-			            "cri": cri,
-			            "page": page//page
-			        },
-		            success: function(data){			            
-			            var problem = data.list;
-			            var pageMaker = data.pageMaker;
-			            
-			            for(var i=0; i< problem.length; i++) {
-			            	var temp = problem[i].problem_successnum / problem[i].problem_submitnum * 100;
-			            	var percent= temp.toFixed(1); // 99.98765 출력
-							var str= "location.href='/problem/" + problem[i].problem_id + "'";
-				
-				            var idx = i + 1;
-				           
-			            	$("#item_title_"+idx).html(problem[i].problem_id + ". " + problem[i].problem_title);
-			            	$("#item_submit_"+idx).html(problem[i].problem_submitnum);
-			            	$("#item_level_"+idx).html("LEVEL " +problem[i].problem_level);
-
-			            	if(problem[i].problem_level == 1){ $("#item_level_"+idx).css("background-color", "#FFCC80"); }
-			            	if(problem[i].problem_level == 2){ $("#item_level_"+idx).css("background-color", "#7BC379"); }
-			            	if(problem[i].problem_level == 3){ $("#item_level_"+idx).css("background-color", "#79BCC3"); }
-			            	if(problem[i].problem_level == 4){ $("#item_level_"+idx).css("background-color", "#EA7862"); }
-			            	if(problem[i].problem_level == 5){ $("#item_level_"+idx).css("background-color", "#8C699B"); }
-			            	
-			            	
-			            	$("#item_success_"+idx).html("맞은사람: " + problem[i].problem_successnum);
-			            	$("#item_percent_"+idx).html("정답률: " + percent + "%");
-			            	//$("#item_check_"+(i+1)).html(problem[i].problem_id);
-			            	$("#item_submit_"+ idx).html("제출: " + problem[i].problem_submitnum);
-			            	$("#problem_item_"+ idx).css("display","inline-block");
-			            }
-			            // 나머지 요소 숨기기
-						if(problem.length < 8){
-							for(var i=problem.length + 1; i <= 8; i++){
-								$("#problem_item_"+i).css("display","none");
-								
-								}
-						}
-			            var elem = '';
-			            //var num = 0;
-			            // start
-			            /*if(pageMaker.prev){
-				            elem = elem + '<li><a href="javascript:getBoardList(' + pageMaker.startPage - 1 + ') "> ◀  </a></li>';
-				            }
-			            */
-			            $("#pagenav").empty();
-			            
-			            for(var i=pageMaker.startPage; i < pageMaker.endPage + 1; i++) {
-				            if(page == i){
-				            	var txt = '<li onclick="a(' + i + ')" value="' + i + '"></li>';
-				            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '" style="border:0; color:blue">' + i + '</li>');
-				     
-					        }
-				            else{
-				            	var txt ='<li onclick="a(' + i + ')" value="' + i + '"></li>';
-				            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + i+ '</li>');
-					        }       
-			            }
-
-		            },
-		            error: function(){
-		                alert("simpleWithObject err");
-		            }
-		        });
-			}
-			
-			
-		}
 		</script>
 </head>
 
@@ -200,12 +116,13 @@
         <div id="main">
             <!-- Header -->
             <header id="header">
-                <a href="/" class="logo"><strong>FULL STACK</strong> DEVELOPER</a>
-                <ul class="icons">
-                    <li><a href="#">로그인</a></li>
-                    <li><a href="#">회원가입</a></li>
-                </ul>
-            </header>
+
+							<a class="main_logo" href="/"><img src="<%=request.getContextPath()%>/resources/images/main_logo.png" alt="메인페이지" /></a>
+							<a class="header_problem" href="/problem"><img src="<%=request.getContextPath()%>/resources/images/header_problem.png" alt="문제 페이지" />문제풀기</a>
+							<a class="header_board" href="/board"><img src="<%=request.getContextPath()%>/resources/images/header_board.png" alt="게시판 페이지" />자유게시판</a>
+							<a class="header_signup" href="/join"><img src="<%=request.getContextPath()%>/resources/images/header_signup.png" alt="회원가입" /><span>회원가입</span></a>
+							<a class="header_signin" href="/signin"><img src="<%=request.getContextPath()%>/resources/images/header_signin.png" alt="로그인" /><span>로그인</span></a>
+						</header>
             <div class="inner">
                 <!-- Content -->
                 

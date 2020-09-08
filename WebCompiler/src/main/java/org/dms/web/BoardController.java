@@ -1,6 +1,8 @@
 package org.dms.web;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -78,10 +80,7 @@ public class BoardController {
 	@RequestMapping(value = "/board/insert.do", method=RequestMethod.POST)
 	public String boardInsertPost(@ModelAttribute("board") BoardVO bvo, Model model, HttpSession session) throws Exception {
 		
-		SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");		
-		Date time = new Date();		
-		String upload = format.format(time);
-		bvo.setBoard_upload(upload);
+		bvo.setBoard_upload(Timestamp.valueOf(LocalDateTime.now()));
 		logger.info("문제번호:" + (int)bvo.getProblem_id());
 		
 		
