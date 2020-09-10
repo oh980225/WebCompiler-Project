@@ -196,3 +196,58 @@ section.profile h3.head {
 br.clear {
   clear: both;
 }
+
+/*여기 부터 추가되는 부분*(이름, 소개 입력창)*/
+
+form#name_form div.editBox {
+  width: 30em;
+  position: relative;
+}
+
+div.editBox input[type="text"] {
+  border: 1px solid grey;
+  background: white;
+  border-radius: 0 20px 20px 10px;
+}
+
+div.editBox button {
+  content: '';
+  position: absolute;
+  cursor: pointer;
+  width: 1.5em;
+  height: 1.5em;
+  background: url('resources/images/edit_icon.png') no-repeat;
+  background-size: contain;
+  border: none;
+  top: 1em;
+  right: 1em;
+  padding: 0;
+}
+
+form#intro_form div.editBox {
+  width: 100%;
+  position: relative;
+}
+
+form#intro_form div.editBox textarea {
+  width: 100%;
+  border: 1px solid grey;
+  background: white;
+  border-radius: 0 20px 20px 10px;
+}
+
+form#intro_form div.editBox button {
+  content: '';
+  position: absolute;
+  cursor: pointer;
+  width: 1.5em;
+  height: 1.5em;
+  background: url('../../images/edit_icon.png') no-repeat;
+  background-size: contain;
+  border: none;
+  top: 80%;
+  right: 2%;
+  padding: 0;
+  z-index: 10;
+}
+

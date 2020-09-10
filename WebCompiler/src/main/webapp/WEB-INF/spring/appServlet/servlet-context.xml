@@ -37,6 +37,4 @@
 	
 	<context:component-scan base-package="org.dms.web" />
 	
-	
-	
 </beans:beans>
