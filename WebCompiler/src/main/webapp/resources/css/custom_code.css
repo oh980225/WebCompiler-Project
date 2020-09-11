@@ -1,23 +1,25 @@
-section h3.board_title {
+section.code h3.board_title {
+  clear: both;
   display: inline-block;
   color: black;
-  font-family: none;
-  padding: 0.3em;
   border-bottom: 2.5px solid black;
+  padding: 0.3em;
+  font-family: none;
+  float: left;
 }
 
-section div.level {
+section.code div.level {
   float: left;
   width: 10em;
   margin-right: 0.5em;
 }
 
-section div.kind {
+section.code div.kind {
   float: left;
   width: 10em;
 }
 
-section div.table-wrapper {
+section.code div.table-wrapper {
   width: 100%;
 }
 
@@ -39,7 +41,7 @@ select option {
   font-weight: bold;
 }
 
-section div.name {
+section.code div.name {
   float: right;
   width: 8em;
 }
@@ -72,7 +74,7 @@ div.small_arrow {
   border-color: black transparent transparent transparent;
 }
 
-section input.search {
+section.code input.search {
   float: right;
   width: 12em;
   height: 2em;
@@ -82,11 +84,11 @@ section input.search {
   margin-right: 0.5em;
 }
 
-section input.search:enabled {
+section.code input.search:enabled {
   border-color: black;
 }
 
-section input.search::placeholder {
+section.code input.search::placeholder {
   color: black !important;
 }
 

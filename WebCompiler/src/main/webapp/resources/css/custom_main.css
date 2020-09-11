@@ -14,6 +14,7 @@ header#header {
   display: block;
   padding: 0;
   background-color: rgb(17, 20, 31);
+  margin-bottom: 3em;
 }
 
 header#header a {

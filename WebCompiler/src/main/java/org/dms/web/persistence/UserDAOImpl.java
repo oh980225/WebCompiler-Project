@@ -39,14 +39,13 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public UserVO read(String id) throws Exception {
-		UserVO user = sqlSession.selectOne(namespace + ".user_selectByid", id);
+		UserVO user = sqlSession.selectOne(namespace + ".user_selectById", id);
 		return user;
 	}
 
 	@Override
 	public void delete(String id) throws Exception {
-		// TODO Auto-generated method stub
-
+		sqlSession.delete(namespace + ".user_deleteById", id);
 	}
 
 	@Override

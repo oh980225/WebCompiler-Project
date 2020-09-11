@@ -1,6 +1,20 @@
+<%@page import="org.dms.web.domain.UserVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%	
+	String imgURL = "";
+	if(request.getAttribute("user") !=null) {
+		UserVO user = (UserVO)request.getAttribute("user");
+		if(user.getUser_img() == null) {
+			imgURL = (String)request.getContextPath() + "/resources/images/user.png";
+		} else {
+			imgURL = "/getByteImage/" + user.getUser_id();
+		}
+	}
+%>
+
 <!DOCTYPE HTML>
 <!--
 	Editorial by HTML5 UP
@@ -41,12 +55,29 @@
 								</header> -->
 						<!-- -->
 						<!-- Header -->
+						<!-- Header -->
 						<header id="header">
-							<a class="main_logo" href="index.html"><img src="<%=request.getContextPath()%>/resources/images/main_logo.png" alt="메인페이지" /></a>
-							<a class="header_problem" href="mycode.html"><img src="<%=request.getContextPath()%>/resources/images/header_problem.png" alt="문제 페이지" />문제풀기</a>
-							<a class="header_board" href="Q&A.html"><img src="<%=request.getContextPath()%>/resources/images/header_board.png" alt="게시판 페이지" />자유게시판</a>
+							<a class="main_logo" href="/"><img src="<%=request.getContextPath()%>/resources/images/main_logo.png" alt="메인페이지" /></a>
+							<a class="header_problem" href="#"><img src="<%=request.getContextPath()%>/resources/images/header_problem.png" alt="문제 페이지" />문제풀기</a>
+							<a class="header_board" href="#"><img src="<%=request.getContextPath()%>/resources/images/header_board.png" alt="게시판 페이지" />자유게시판</a>
+							<c:if test="${user.user_id == null}">
 							<a class="header_signup" href="#"><img src="<%=request.getContextPath()%>/resources/images/header_signup.png" alt="회원가입" /><span>회원가입</span></a>
-							<a class="header_signin" href="signin.html"><img src="<%=request.getContextPath()%>/resources/images/header_signin.png" alt="로그인" /><span>로그인</span></a>
+							<a class="header_signin" href="/login"><img src="<%=request.getContextPath()%>/resources/images/header_signin.png" alt="로그인" /><span>로그인</span></a>
+							</c:if>
+							<c:if test="${user.user_id != null}">
+							<a class="header_signout" href="/logout.do"><img src="<%=request.getContextPath()%>/resources/images/header_signout.png" alt="로그아웃" /><span>로그아웃</span></a>
+							<div class="header_profile" style="cursor: pointer;" onClick="location.href='/mypage'">
+								<img class="img" src=<%=imgURL%> alt="사용자 사진">
+								<div class="name_intro">
+									<div class="header_name">
+										<a href="?name=Mr.O">${user.user_name}</a>
+									</div>
+									<div class="header_intro">
+										${user.user_introduce}
+									</div>
+								</div>
+							</div>
+							</c:if>
 						</header>
 						<div class="inner">
 							<!-- Banner -->
@@ -165,7 +196,7 @@
 					</div>
 
 				<!-- Sidebar -->
-					<div id="sidebar">
+					<%-- <div id="sidebar">
 						<div class="inner">
 							<!-- Menu -->
 								<nav id="menu">
@@ -189,7 +220,7 @@
 									</ul>
 								</nav>
 						</div>
-					</div>
+					</div> --%>
 			</div>
 
 		<!-- Scripts -->

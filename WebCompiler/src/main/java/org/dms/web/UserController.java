@@ -33,7 +33,7 @@ public class UserController {
 		
 		@RequestMapping(value = "/login", method=RequestMethod.GET)
 		public String loginGet() throws Exception{
-			return "login";
+			return "signin";
 		}
 		
 		@RequestMapping(value = "/login.do", method=RequestMethod.POST)

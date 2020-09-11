@@ -2,6 +2,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
+
+<%	
+	String imgURL = "";
+	UserVO user = (UserVO)request.getAttribute("user");
+	if(user.getUser_img() == null) {
+		imgURL = (String)request.getContextPath() + "/resources/images/user.png";
+	} else {
+		imgURL = "/getByteImage/" + user.getUser_id();
+	}
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,31 +28,22 @@
 </head>
 
 <body class="is-preload">
-<%	
-	String imgURL = "";
-	UserVO user = (UserVO)request.getAttribute("user");
-	if(user.getUser_img() == null) {
-		imgURL = (String)request.getContextPath() + "/resources/images/user.png";
-	} else {
-		imgURL = "/getByteImage/" + user.getUser_id();
-	}
-%>
 	<!-- Wrapper -->
 	<div id="wrapper">
 		<!-- Main -->
 		<div id="main">
 		<!-- Header -->
 						<header id="header">
-							<a class="main_logo" href="index.html"><img src="<%=request.getContextPath()%>/resources/images/main_logo.png" alt="메인페이지" /></a>
-							<a class="header_problem" href="mycode.html"><img src="<%=request.getContextPath()%>/resources/images/header_problem.png" alt="문제 페이지" />문제풀기</a>
-							<a class="header_board" href="Q&A.html"><img src="<%=request.getContextPath()%>/resources/images/header_board.png" alt="게시판 페이지" />자유게시판</a>
+							<a class="main_logo" href="/"><img src="<%=request.getContextPath()%>/resources/images/main_logo.png" alt="메인페이지" /></a>
+							<a class="header_problem" href="#"><img src="<%=request.getContextPath()%>/resources/images/header_problem.png" alt="문제 페이지" />문제풀기</a>
+							<a class="header_board" href="#"><img src="<%=request.getContextPath()%>/resources/images/header_board.png" alt="게시판 페이지" />자유게시판</a>
 							<c:if test="${user.user_id == null}">
 							<a class="header_signup" href="#"><img src="<%=request.getContextPath()%>/resources/images/header_signup.png" alt="회원가입" /><span>회원가입</span></a>
-							<a class="header_signin" href="signin.html"><img src="<%=request.getContextPath()%>/resources/images/header_signin.png" alt="로그인" /><span>로그인</span></a>
+							<a class="header_signin" href="/login"><img src="<%=request.getContextPath()%>/resources/images/header_signin.png" alt="로그인" /><span>로그인</span></a>
 							</c:if>
 							<c:if test="${user.user_id != null}">
-							<a class="header_signout" href="#"><img src="<%=request.getContextPath()%>/resources/images/header_signout.png" alt="로그아웃" /><span>로그아웃</span></a>
-							<div class="header_profile">
+							<a class="header_signout" href="/logout.do"><img src="<%=request.getContextPath()%>/resources/images/header_signout.png" alt="로그아웃" /><span>로그아웃</span></a>
+							<div class="header_profile" style="cursor: pointer;" onClick="location.href='/mypage'">
 								<img class="img" src=<%=imgURL%> alt="사용자 사진">
 								<div class="name_intro">
 									<div class="header_name">
@@ -74,39 +76,61 @@
 			<div class="inner">
 				<!-- Content -->
 				<section class="profile">
+					<h3 class="head">마이페이지</h3>
+					<br class="clear">
 					<div class="profile_img">
 						<img class="img" src=<%=imgURL%>>
-						<form id="img_form" action="/mypage/saveImage" enctype="multipart/form-data" method="post">
-							<input type="hidden" name="user_id" value="1" />
+						<%-- <form id="img_form" action="/mypage/saveImage" enctype="multipart/form-data" method="post">
+							<input type="hidden" name="user_id" value="${user.user_id}" />
     						<input type="file" onChange="endImageSave();" name="user_image" />
 						</form>
-						<button class="btn_img" type="button" name="button" onClick="changeImageSaveMode();">사진 변경</button>
+						<button class="btn_img" type="button" name="button" onClick="changeImageSaveMode();">사진 변경</button> --%>
+						<label for="pictureBtn"></label>
+						<form id="img_form" action="/mypage/saveImage" enctype="multipart/form-data" method="post">
+							<input type="hidden" name="user_id" value="${user.user_id}" />
+							<input id="pictureBtn" type="file" name="user_img" onChange="document.getElementById('img_form').submit(); console.log(this.files);">
+						</form>
 					</div>
 					<div class="profile_name">
-						<h3 id="user_name">${user.user_name}</h3>
-						<form id="name_form" method="post">
+						<%-- <h3 id="user_name">${user.user_name}</h3> --%>
+						<%-- <form id="name_form" method="post">
 							<input id="input_name" type="text" name="user_name" value="" />
 							<input type="hidden" name="user_introduce" value="${user.user_introduce}" />
 							<input type="hidden" name="user_id" value="${user.user_id}" />
 						</form>
-						<button class="btn_name" type="button" name="닉네임 변경" onClick="changeName();">닉네임 변경</button>
+						<button class="btn_name" type="button" name="닉네임 변경" onClick="changeName();">닉네임 변경</button> --%>
+						<form id="name_form" method="post">
+							<div class="editBox">
+								<input type="text" name="user_name" value="${user.user_name}">
+								<input type="hidden" name="user_introduce" value="${user.user_introduce}" />
+								<input type="hidden" name="user_id" value="${user.user_id}" />
+								<button  type="button" name="button" onClick="submit();"></button>
+							</div>
+						</form>
 					</div>
 					<div class="profile_introduce">
-						<h3 id="user_introduce">${user.user_introduce}</h3>
+						<%-- <h3 id="user_introduce">${user.user_introduce}</h3>
 						<form id="introduce_form" method="post">
 							<input id="input_introduce" type="text" name="user_introduce" value="" />
 							<input type="hidden" name="user_name" value="${user.user_name}" />
 							<input type="hidden" name="user_id" value="${user.user_id}" />
 						</form>
-						<button class="btn_introduce" type="button" name="소개 변경" onClick="changeIntroduce();">소개 변경</button>
+						<button class="btn_introduce" type="button" name="소개 변경" onClick="changeIntroduce();">소개 변경</button> --%>
+						<form id="intro_form" method="post">
+							<div class="editBox">
+								<textarea name="user_introduce" rows="4" cols="50">${user.user_introduce}</textarea>
+								<input type="hidden" name="user_name" value="${user.user_name}" />
+								<input type="hidden" name="user_id" value="${user.user_id}" />
+								<button type="button" name="button" onClick="submit();"></button>
+							</div>
+						</form>
 					</div>
 				</section>
 
-				<section>
-					<h3 class="board_title">코드 조회</h3>
-					<br>
+				<section class="code">
+					<h3 class="board_title"><span>코드 조회</span></h3>
 					<!-- Break -->
-						<div class="col-12 level">
+						<div style="clear: both;" class="col-12 level">
 							<select name="demo-category" id="demo-category">
 								<option value="">- Level -</option>
 								<option value="1">Bronze</option>
@@ -330,7 +354,13 @@
 
 				<footer class="footer_btns">
 					<button class="btn_change_pwd" type="button" name="button">비밀번호 변경</button>
-					<button class="btn_withdraw" type="button" name="button">회원 탈퇴</button>
+					<button class="btn_withdraw" type="button" name="button" onClick="location.href='/mypage/delete/${user.user_id}'">회원 탈퇴</button>
+					<!-- <div class="modal hidden">
+				    	<div class="modal_overlay">
+				        </div>
+				        <div class="withdrwa_check">
+				        </div>
+				    </div> -->
 				</footer>
 
 			</div>

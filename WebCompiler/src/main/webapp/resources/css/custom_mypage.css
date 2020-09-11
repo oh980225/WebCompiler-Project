@@ -36,7 +36,7 @@ section.profile div.profile_img {
 section.profile div.profile_img img.img {
   width: 20em;
   height: 20em;
-  border-radius: 25%;
+  border-radius: 100%;
 }
 
 section.profile div.profile_img button.btn_img {
@@ -180,7 +180,7 @@ div.profile_img label {
   cursor: pointer;
   width: 4em;
   height: 4em;
-  background: url('../../images/change_pic.png') no-repeat;
+  background: url('/resources/images/change_pic.png') no-repeat;
   background-size: cover;
   top: 17.8em;
   right: 1em;
@@ -216,7 +216,7 @@ div.editBox button {
   cursor: pointer;
   width: 1.5em;
   height: 1.5em;
-  background: url('resources/images/edit_icon.png') no-repeat;
+  background: url('/resources/images/edit_icon.png') no-repeat; 
   background-size: contain;
   border: none;
   top: 1em;
@@ -242,7 +242,7 @@ form#intro_form div.editBox button {
   cursor: pointer;
   width: 1.5em;
   height: 1.5em;
-  background: url('../../images/edit_icon.png') no-repeat;
+/*  background: url('/resources/images/edit_icon.png') no-repeat; */
   background-size: contain;
   border: none;
   top: 80%;
@@ -251,3 +251,10 @@ form#intro_form div.editBox button {
   z-index: 10;
 }
 
+section.profile {
+	padding-top: 0 !important;
+}
+
+section.code {
+	padding-top: 0 !important;
+}
