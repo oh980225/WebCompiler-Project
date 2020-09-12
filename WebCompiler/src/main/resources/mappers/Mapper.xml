@@ -6,46 +6,45 @@
 
 <mapper namespace="org.dms.web.mapper.Mapper">
 
-
-
-	<select id = "getVul_list" resultType="VulVO">
-		select * from vul_check
-	</select>
   
  	<select id="getTime" resultType="string">
  		select now()
  	</select>
  	
- 	<!-- 회원 -->
      <insert id="user_insert"> <!-- 수정해주세요 -->
-   		insert into user (user_id, user_passwd, user_name, user_introduce, user_authority) values
- 		(#{user_id}, #{user_passwd}, #{user_name}, #{user_introduce}, #{user_authority})
+   		insert into student (id, passwd, username, snum, depart, mobile, email) values
+ 		(#{id}, #{passwd}, #{username}, #{snum}, #{depart}, #{mobile}, #{email})
      </insert> 
+
+     
+
+     <select id="user_selectById" resultType="UserVo">
+ 		select * from user where user_id = #{id}
+ 	</select>
+
  	
- 	<!-- 수정해주세요 -->
-     <select id="user_selectByid" resultType="StudentVO">
- 		select * from student where id = #{id}
+     <select id="user_selectForLogin" resultType="UserVO">
+ 		select * from user where user_id = #{user_id} and user_passwd = #{user_passwd}
+
      </select>
  	
- 	<!-- 수정해주세요 -->
+
      <select id="user_selectAll" resultType="UserVO">
-     <![CDATA[
  		select * from user
-      ]]> 
      </select>
  	
-     <update id="user_update"> <!-- 수정해주세요 -->
-	 	update student set id =#{id}, passwd =#{passwd}, username =#{username}, 
-			snum =#{snum}, depart =#{depart}, mobile =#{mobile}, email =#{email} 
-		 where id = #{id}
+     <update id="user_update" parameterType="UserVO"> <!-- 수정해주세요 -->
+ 		update user set user_name = #{user_name}, user_introduce = #{user_introduce} where user_id = #{user_id}
      </update>
+     
+     <update id="save_img" parameterType="UserVO"> 
+   		update user set user_img = #{user_img} where user_id = #{user_id}
+     </update> 
  
- 	<!-- 수정해주세요 -->
-    <delete id="user_delete">
-		delete from student where id = #{id}
+    <delete id="user_deleteById">
+		delete from user where user_id = #{id}
     </delete>
     
-    <!-- 게시판 -->
     <insert id="board_insert"></insert>
     <select id="board_selectByid"></select>
     <select id="board_selectAll"></select>
@@ -60,11 +59,31 @@
     
     </select>
     <!-- 문제 -->
-    <select id="problem_selectAll" resultType="ProblemVO">
+     <select id="problem_selectAll" resultType="ProblemVO">
+    	select * from problem
+    </select>
+    <select id="problem_selectBylevel" resultType="ProblemVO">
     	select * from problem where problem_level = #{problem_level} and category_id = #{category_id}
     </select>
     <select id="problem_selectByid" resultType="ProblemVO">
     	select * from problem where problem_id = #{problem_id}
+    </select>
+    
+    <select id="listPaging" resultType="ProblemVO">
+    	select * from problem limit #{page}, 10
+    </select>
+    <select id="listCount" resultType="int">
+    	select COUNT(problem_id) from problem
+    </select>
+    <select id="listCountFilter" resultType="int">
+    	select COUNT(problem_id) from problem where problem_level = #{problem_level} and category_id = #{category_id} 
+    </select>
+    
+    <select id="listCriteria" resultType="ProblemVO">
+    	select * from problem limit #{pageStart}, #{perPageNum}
+    </select>
+    <select id="listCriteriaFilter" resultType="ProblemVO">
+    	select * from problem where problem_level = #{problem_level} and category_id = #{category_id}  limit #{pageStart}, #{perPageNum}
     </select>
     <insert id="problem_insert">
     <!-- private int problem_id;
@@ -92,5 +111,13 @@
     <insert id="testcase_insert">
     	insert into testcase (testcase_input, testcase_output, problem_id) values (#{testcase_input}, #{testcase_output}, #{problem_id})
     </insert>
+    
+    <select id="testcase_input_selectList" resultType="String"> 
+    	select testcase_input from testcase where problem_id= #{problem_id} 
+    </select>
+    
+    <select id="testcase_output_selectList" resultType="String"> 
+    	select testcase_output from testcase where problem_id= #{problem_id} 
+    </select>
 	
 </mapper>  

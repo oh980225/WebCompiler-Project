@@ -50,7 +50,7 @@ header div.problem_level {
   font-weight: bolder;
 }
 
-/*ì´ ìª½ ì–¸ì–´ ì„ íƒ ì˜ì—­! ê³ ì³ì•¼í•¨*/
+/*ÀÌ ÂÊ ¾ğ¾î ¼±ÅÃ ¿µ¿ª! °íÃÄ¾ßÇÔ*/
 header div.problem_lang {
   float: right;
   height: 2em;
@@ -77,7 +77,7 @@ aside {
 }
 
 aside div.problem {
-  height: 25em;
+  height: 100%;
   box-sizing: border-box;
   padding: 1em;
   padding-top: 2em;
@@ -85,58 +85,32 @@ aside div.problem {
   overflow: auto;
   width: 100%;
   background: white;
-}
-aside div.problem div.problem_main {
   font-size: 0.8em;
+  line-height: 20px;
 }
 
-aside div.input {
-  box-sizing: border-box;
-  padding: 1em;
-  padding-right: 0;
-  border-top: 0.2em dotted #d9e1e8;
-  border-bottom: 0.2em dotted #d9e1e8;
-  width: 100%;
-  height: 10em;
-  background: white;
-}
 
-aside div.input div.input_title {
+aside div.problem h2.input_title {
   font-size: 1.2em;
   font-weight: bolder;
-  height: 1.2em;
-  margin-bottom: 0.8em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  border-top: 0.2em dotted rgb(215, 215, 215);
+  padding-top: 0.5em;
 }
 
-aside div.input div.input_main {
-  height: 6em;
-  overflow: auto;
-  color: #6e6e6e;
-  font-size: 0.8em;
-}
 
-aside div.output {
-  box-sizing: border-box;
-  padding: 1em;
-  width: 100%;
-  height: 10em;
-  background: white;
-}
-
-aside div.output div.output_title {
+aside div.problem h2.output_title {
   font-size: 1.2em;
   font-weight: bolder;
-  height: 1.2em;
-  margin-bottom: 0.8em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  border-top: 0.2em dotted rgb(215, 215, 215);
+  padding-top: 0.5em;
 }
 
-aside div.output div.output_main {
-  height: 6em;
-  overflow: auto;
-  color: #6e6e6e;
-}
 
-section.code {float: left; width: 70%; height: 25em; background: #4caf50;}
+section.code {float: left; width: 70%; height: 25em; background: rgb(43, 42, 43);}
 
 section.result {color:white; float: left; width: 70%; height: 20em; background: black;}
 
@@ -156,6 +130,22 @@ section.result div.result_header div.result_title {
   border-bottom: 0.1em solid white;
   margin-top: 0.3em;
   margin-left: 1em;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+  padding-bottom: 2em;
+  font-weight: bolder;
+}
+
+section.result div.result_header div.result_help {
+  float: right;
+  height: 1.9em;
+  line-height: 1.9em;
+  font-size: 0.6em;
+  color: white;
+  box-sizing: border-box;
+  border-bottom: 0.1em solid white;
+  margin-top: 1em;
+  margin-right: 1em;
   padding-left: 0.6em;
   padding-right: 0.6em;
   padding-bottom: 2em;
@@ -205,15 +195,9 @@ section.result div.result_footer button.submit_btn {
 
 /* footer {clear: both; width: 100%; height: 150px; background: #388e3c;} */
 
-/* í™”ë©´ ë„ˆë¹„ 0 ~ 1200px */
-@media (max-width: 1200px){
-    aside {width: 100%; height: 30em;}
-    aside div.problem {float: left; width: 60%; height: 30em;}
-    aside div.input {border: 0; border-bottom: 0.2em dotted #a3a1a1; background: #d9e1e8; float: left; width: 40%; height: 15em;}
-    aside div.output {float: left; width: 40%; height: 15em; background: #d9e1e8;}
-    aside div.output::after {
-      clear: both;
-    }
+/* È­¸é ³Êºñ 0 ~ 768px */
+@media (max-width: 768px){
+    aside {width: 100%; height: 40em;}
     section.code {float: left; width: 60%; height: 30em;}
     section.result {float: left; width: 40%; height: 30em;}
     section.result div.result_main {
@@ -223,13 +207,13 @@ section.result div.result_footer button.submit_btn {
       clear: both;
     }
 }
-/* ì´ ë°‘ì— ë¶€í„°ëŠ” í•„ìš”í• ê¹Œ ì‹¶ì–´ì„œ ì¼ë‹¨ ë»‡ì–´ìš” ã…‡.ã…‡ */
-/* í™”ë©´ ë„ˆë¹„ 0 ~ 768px */
+/* ÀÌ ¹Ø¿¡ ºÎÅÍ´Â ÇÊ¿äÇÒ±î ½Í¾î¼­ ÀÏ´Ü –P¾î¿ä ¤·.¤· */
+/* È­¸é ³Êºñ 0 ~ 768px */
 /* @media (max-width: 768px){
     aside {width: 100%; height: 40em;}
     section.code {width: 100%; height: 20em;}
     section.result {width: 100%; height: 20em;}
 } */
-/* í™”ë©´ ë„ˆë¹„ 0 ~ 480px */
+/* È­¸é ³Êºñ 0 ~ 480px */
 /* @media (max-width: 480px){
 } */

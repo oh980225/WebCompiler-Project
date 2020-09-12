@@ -23,8 +23,19 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<beans:bean id="LoginInterceptor" class="org.dms.web.interceptor.LoginInterceptor">
+	</beans:bean>
+		
+	<interceptors>
+		<interceptor>
+			<mapping path="/category"/>
+			<mapping path="/vul_check"/>
+			<mapping path="/problem/{problem_id}"/>
+			<mapping path="/mypage"/>
+			<beans:ref bean="LoginInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
 	<context:component-scan base-package="org.dms.web" />
-	
-	
 	
 </beans:beans>

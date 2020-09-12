@@ -1,6 +1,7 @@
 package org.dms.web.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.dms.web.domain.UserVO;
 import org.dms.web.persistence.UserDAO;
@@ -19,22 +20,13 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public UserVO readUser(int id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public UserVO readUser(String id) throws Exception {
+		return userDAO.read(id);
 	}
 
 	@Override
 	public void insertUser(UserVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		
-		/* 암호화*/ 
-        //String encode_password = LoginUtil.encryptPassword(vo.getUser_id(), vo.getUser_passwd());
-        //vo.setMbrPw(encode_password);
-        //vo.setMbrPw_check(encode_password);
-        //memberDAOService.insertMembership(memberVO);
-		vo.setUser_authority("USER");
-		userDAO.insert(vo);
 
 	}
 
@@ -45,15 +37,27 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteUser(int id) throws Exception {
-		// TODO Auto-generated method stub
+	public void deleteUser(String id) throws Exception {
+		userDAO.delete(id);
 
 	}
 
 	@Override
-	public void updateUser(UserVO vo) throws Exception {
-		// TODO Auto-generated method stub
-
+	public void updateUser(UserVO user) throws Exception {
+		userDAO.update(user);
 	}
+	
+	@Override
+	public void saveImage(UserVO user) throws Exception {
+		userDAO.saveImg(user);
+		
+	}
+
+	@Override
+	public UserVO readUser(UserVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return userDAO.read(vo);
+	}
+
 
 }

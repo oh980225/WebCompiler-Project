@@ -1,5 +1,6 @@
 @import url(fontawesome-all.min.css);
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,400italic,600italic|Roboto+Slab:400,700");
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 /*
 	Editorial by HTML5 UP
 	html5up.net | @ajlkn
@@ -92,7 +93,7 @@ body {
 /* Type */
 body, input, select, textarea {
   color: #dee0e0;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Jua', sans-serif;
   font-size: 13pt;
   font-weight: 400;
   line-height: 1.65; }
@@ -111,12 +112,10 @@ a {
   -webkit-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
   -ms-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
   transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
-  border-bottom: dotted 1px;
-  color: #ffffff;
+  color: black;
   text-decoration: none; }
   a:hover {
-    border-bottom-color: #ffffff;
-    color: #ffffff !important; }
+    color: black !important; }
     a:hover strong {
       color: inherit; }
 
@@ -132,7 +131,7 @@ p {
 
 h1, h2, h3, h4, h5, h6 {
   color: #d9dcdf;
-  font-family: "Roboto Slab", serif;
+  font-family: 'Jua', sans-serif;
   font-weight: 700;
   line-height: 1.5;
   margin: 0 0 1em 0; }
@@ -196,14 +195,14 @@ code {
   background: rgba(151, 153, 155, 0.699);
   border-radius: 0.375em;
   border: solid 1px rgba(210, 215, 217, 0.75);
-  font-family: "Courier New", monospace;
+  font-family: 'Jua', sans-serif;
   font-size: 0.9em;
   margin: 0 0.25em;
   padding: 0.25em 0.65em; }
 
 pre {
   -webkit-overflow-scrolling: touch;
-  font-family: "Courier New", monospace;
+  font-family: 'Jua', sans-serif;
   font-size: 0.9em;
   margin: 0 0 2em 0; }
   pre code {
@@ -990,7 +989,7 @@ section.special, article.special {
   text-align: center; }
 
 header p {
-  font-family: "Roboto Slab", serif;
+  font-family: 'Jua', sans-serif;
   font-size: 1em;
   font-weight: 400;
   letter-spacing: 0.075em;
@@ -1499,7 +1498,7 @@ button,
   color: #fcfcfc !important;
   cursor: pointer;
   display: inline-block;
-  font-family: "Roboto Slab", serif;
+  font-family: 'Jua', sans-serif;
   font-size: 0.8em;
   font-weight: 700;
   height: 3.5em;
@@ -2074,20 +2073,17 @@ button,
   display: -moz-flex;
   display: -webkit-flex;
   display: -ms-flex;
-  display: flex;
   border-bottom: solid 5px #ffffff;
   padding: 6em 0 1em 0;
   position: relative; }
   #header > * {
     -moz-flex: 1;
-    -webkit-flex: 1;
     -ms-flex: 1;
-    flex: 1;
     margin-bottom: 0; }
   #header .logo {
     border-bottom: 0;
     color: inherit;
-    font-family: "Roboto Slab", serif;
+    font-family: 'Jua', sans-serif;
     font-size: 1.125em; }
   #header .icons {
     text-align: right; }
@@ -2200,7 +2196,7 @@ button,
   -ms-user-select: none;
   user-select: none;
   color: #c2bdbd; /*버튼색*/
-  font-family: "Roboto Slab", serif;
+  font-family: 'Jua', sans-serif;
   font-weight: 400;
   letter-spacing: 0.075em;
   list-style: none;

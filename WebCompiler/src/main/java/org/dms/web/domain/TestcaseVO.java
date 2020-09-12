@@ -1,5 +1,6 @@
 package org.dms.web.domain;
 
+// 나중에 수정 필요할듯?
 public class TestcaseVO {
 	private String testcase_input;
 	private String testcase_output;

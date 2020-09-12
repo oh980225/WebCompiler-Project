@@ -1,0 +1,208 @@
+section.code h3.board_title {
+  clear: both;
+  display: inline-block;
+  color: black;
+  border-bottom: 2.5px solid black;
+  padding: 0.3em;
+  font-family: none;
+  float: left;
+}
+
+section.code div.level {
+  float: left;
+  width: 10em;
+  margin-right: 0.5em;
+}
+
+section.code div.kind {
+  float: left;
+  width: 10em;
+}
+
+section.code div.table-wrapper {
+  width: 100%;
+}
+
+div.col-12 {
+  position: relative;
+  display: inline-block;
+}
+
+div.col-12 select {
+  background: white;
+  border-color: black;
+  font-weight: bold;
+  /* text-align-last: center;
+  padding: 0 !important; */
+}
+
+select option {
+  color: black;
+  font-weight: bold;
+}
+
+section.code div.name {
+  float: right;
+  width: 8em;
+}
+
+div.name select {
+  height: 2em;
+}
+
+div.select_arrow{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  border-style: solid;
+  border-width: 8px 5px 0 5px;
+  border-color: black transparent transparent transparent;
+}
+
+div.small_arrow {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  border-style: solid;
+  border-width: 8px 5px 0 5px;
+  border-color: black transparent transparent transparent;
+}
+
+section.code input.search {
+  float: right;
+  width: 12em;
+  height: 2em;
+  background: white;
+  border-color: black;
+  font-weight: bold;
+  margin-right: 0.5em;
+}
+
+section.code input.search:enabled {
+  border-color: black;
+}
+
+section.code input.search::placeholder {
+  color: black !important;
+}
+
+div.table-wrapper {
+  margin-top: 3em;
+  text-align: center;
+}
+
+div.table-wrapper table thead th {
+  color: black;
+  text-align: center;
+  font-weight: bold;
+}
+
+div.table-wrapper table thead {
+  border-bottom: 1px solid black;
+  text-align: center;
+}
+
+div.table-wrapper table tbody tr{
+  background: white;
+  border: none;
+  border-bottom: 1px dashed black;
+  cursor: pointer;
+}
+
+div.table-wrapper table tbody tr:last-child {
+  border-bottom: 1px solid black;
+}
+
+div.table-wrapper table tbody tr:hover {
+  background: rgb(212, 212, 212);
+}
+
+td div.problem_level1 {
+  text-align: center;
+  width: 5.5em;
+  color: white;
+  background-color: rgb(255, 211, 85);
+  border-radius: 5%;
+  font-weight: bolder;
+  padding: 0.8em;
+  line-height: 0.4em;
+  font-size: 0.7em;
+  margin: auto;
+}
+
+td div.problem_level2 {
+  text-align: center;
+  width: 5.5em;
+  color: white;
+  background-color: #f56a6a;
+  border-radius: 5%;
+  font-weight: bolder;
+  padding: 0.8em;
+  line-height: 0.4em;
+  font-size: 0.7em;
+  margin: auto;
+}
+
+td div.problem_level3 {
+  text-align: center;
+  width: 5.5em;
+  color: white;
+  background-color: rgb(64, 186, 218);
+  border-radius: 5%;
+  font-weight: bolder;
+  padding: 0.8em;
+  line-height: 0.4em;
+  font-size: 0.7em;
+  margin: auto;
+}
+
+td img {
+  padding: 0;
+  margin-bottom: -0.3em;
+}
+
+div.page {
+  margin: auto;
+}
+
+ul.paging {
+  text-align: center;
+  padding: 0;
+}
+
+li.page_num {
+  width: 1.5em;
+  padding: 0;
+  display: inline-block;
+  list-style: none;
+  text-align: center;
+}
+
+li.page_num:first-child a{
+  color:rgb(180, 180, 180);
+}
+
+li.page_num:last-child a{
+  color:rgb(180, 180, 180);
+}
+
+li.page_num a {
+  width: 1.5em;
+  color: black;
+  border: 0;
+}
+
+li.page_num a:hover {
+  font-weight: bold;
+  font-size: 1em;
+  display: inline-block;
+  color: white !important;
+  background: rgb(0, 157, 191);
+  border-radius: 5px;
+}
