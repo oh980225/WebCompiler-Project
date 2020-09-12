@@ -32,12 +32,11 @@
 			<mapping path="/vul_check"/>
 			<mapping path="/problem/{problem_id}"/>
 			<!-- <mapping path="/board/**"/> -->
+			<mapping path="/mypage"/>
 			<beans:ref bean="LoginInterceptor"/>
 		</interceptor>
 	</interceptors>
 	
 	<context:component-scan base-package="org.dms.web" />
-	
-	
 	
 </beans:beans>

@@ -1,0 +1,277 @@
+section h3.problem_title {
+  display: inline-block;
+  color: black;
+  font-family: none;
+  padding: 0.3em;
+  border-bottom: 2.5px solid black;
+}
+
+section div.level {
+  float: left;
+  box-sizing: border-box;
+  width: 50%;
+  padding-right: 0.5em;
+}
+
+section div.kind {
+  float: left;
+  box-sizing: border-box;
+  width: 50%;
+  padding-left: 0.5em;
+  margin-bottom: 1em;
+}
+
+div.col-12 {
+  position: relative;
+  display: inline-block;
+}
+
+div.col-12 select {
+  background: white;
+  border-color: black;
+  font-weight: bold;
+  /* text-align-last: center;
+  padding: 0 !important; */
+}
+
+select option {
+  color: black;
+  font-weight: bold;
+}
+
+section div.name {
+  float: right;
+  width: 8em;
+}
+
+div.name select {
+  height: 2em;
+}
+
+div.select_arrow{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  border-style: solid;
+  border-width: 8px 5px 0 5px;
+  border-color: black transparent transparent transparent;
+}
+
+div.small_arrow {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  border-style: solid;
+  border-width: 8px 5px 0 5px;
+  border-color: black transparent transparent transparent;
+}
+
+section input.search {
+  float: right;
+  width: 12em;
+  height: 2em;
+  background: white;
+  border-color: black;
+  font-weight: bold;
+  margin-right: 0.5em;
+}
+
+section input.search:enabled {
+  border-color: black;
+}
+
+section input.search::placeholder {
+  color: black !important;
+}
+
+section div.container {
+  box-sizing: border-box;
+  margin-top: 6em;
+  margin-bottom: 33em;
+}
+
+section div.problem_container_left {
+  box-sizing: border-box;
+  float: left;
+  width: 50%;
+  margin: 0;
+  padding: 0;
+}
+
+section div.problem_container_right {
+  box-sizing: border-box;
+  float: left;
+  width: 50%;
+  margin: 0;
+  padding: 0;
+}
+
+div.problem_container_left div.problem_item {
+  width: 100%;
+  margin: auto;
+  margin-right: 1.2em;
+  margin-top: 0;
+  margin-bottom: 0;
+  border-top: 1px dashed rgb(190, 190, 190);
+  box-sizing: border-box;
+  padding: 1em;
+  cursor: pointer;
+}
+
+div.problem_container_left div.problem_item:hover {
+  background: rgb(212, 212, 212);
+}
+
+div.problem_container_left div.problem_item:last-child {
+  border-bottom: 1px dashed rgb(190, 190, 190);
+  margin-bottom: 1em;
+}
+
+div.problem_container_right div.problem_item {
+  width: 100%;
+  margin: auto;
+  margin-left: 1.2em;
+  margin-top: 0;
+  margin-bottom: 0;
+  border-top: 1px dashed rgb(190, 190, 190);
+  box-sizing: border-box;
+  padding: 1em;
+  cursor: pointer;
+}
+
+div.problem_container_right div.problem_item:hover {
+  background: rgb(212, 212, 212);
+}
+
+div.problem_container_right div.problem_item:last-child {
+  border-bottom: 1px dashed rgb(190, 190, 190);
+  margin-bottom: 1em;
+}
+
+div.problem_item h5 {
+  display: inline-block;
+  color: black;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+div.problem_item div.problem_level1 {
+  display: inline-block;
+  text-align: center;
+  width: 4.5em;
+  color: white;
+  background-color: rgb(255, 211, 85);
+  border-radius: 5%;
+  font-weight: bolder;
+  padding: 0.8em;
+  padding-left: 0;
+  padding-right: 0;
+  line-height: 0.4em;
+  font-size: 0.7em;
+}
+
+div.problem_item div.problem_level2 {
+  display: inline-block;
+  text-align: center;
+  width: 4.5em;
+  color: white;
+  background-color: #f56a6a;
+  border-radius: 5%;
+  font-weight: bolder;
+  padding: 0.8em;
+  padding-left: 0;
+  padding-right: 0;
+  line-height: 0.4em;
+  font-size: 0.7em;
+}
+
+div.problem_item div.problem_level3 {
+  display: inline-block;
+  text-align: center;
+  width: 4.5em;
+  color: white;
+  background-color: rgb(64, 186, 218);
+  border-radius: 5%;
+  font-weight: bolder;
+  padding: 0.8em;
+  padding-left: 0;
+  padding-right: 0;
+  line-height: 0.4em;
+  font-size: 0.7em;
+}
+
+div.problem_item div.problem_percent {
+  float: right;
+  display: inline-block;
+  color: rgb(102, 102, 102);
+  font-size: 0.8em;
+}
+
+div.problem_item div.problem_submit {
+  display: inline-block;
+  color: rgb(102, 102, 102);
+  margin-right: 1em;
+  font-size: 0.9em;
+}
+
+div.problem_item div.problem_answer {
+  display: inline-block;
+  color: rgb(102, 102, 102);
+}
+
+div.problem_item div.problem_check{
+  float: right;
+  display: inline-block;
+}
+
+div.problem_check img {
+  padding: 0;
+  margin-bottom: -0.5em;
+}
+
+div.page {
+  margin: auto;
+}
+
+ul.paging {
+  text-align: center;
+  padding: 0;
+  width: 100%;
+}
+
+li.page_num {
+  width: 1.5em;
+  padding: 0;
+  display: inline-block;
+  list-style: none;
+  text-align: center;
+}
+
+li.page_num:first-child a{
+  color:rgb(180, 180, 180);
+}
+
+li.page_num:last-child a{
+  color:rgb(180, 180, 180);
+}
+
+li.page_num a {
+  width: 1.5em;
+  color: black;
+  border: 0;
+}
+
+li.page_num a:hover {
+  font-weight: bold;
+  font-size: 1em;
+  display: inline-block;
+  color: white !important;
+  background: rgb(0, 157, 191);
+  border-radius: 5px;
+}

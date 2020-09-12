@@ -2,17 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
-
-<%	
-	String imgURL = "";
-	UserVO user = (UserVO)request.getAttribute("user");
-	if(user.getUser_img() == null) {
-		imgURL = (String)request.getContextPath() + "/resources/images/user.png";
-	} else {
-		imgURL = "/getByteImage/" + user.getUser_id();
-	}
-%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,44 +13,27 @@
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_mypage.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" /> <!-- 이게 Font Awesome 5 Free를 사용하게 해주는거 같아요. 이거덕에 사이드바 모양이 보여요! -->
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/modal.css" />
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_code.css" />
 </head>
 
 <body class="is-preload">
+<%	
+	String imgURL = "";
+	UserVO user = (UserVO)request.getAttribute("user");
+	if(user.getUser_img() == null) {
+		imgURL = (String)request.getContextPath() + "/resources/images/user.png";
+	} else {
+		imgURL = "/getByteImage/" + user.getUser_id();
+	}
+%>
 	<!-- Wrapper -->
 	<div id="wrapper">
 		<!-- Main -->
 		<div id="main">
-		<!-- Header -->
-						<header id="header">
-							<a class="main_logo" href="/"><img src="<%=request.getContextPath()%>/resources/images/main_logo.png" alt="메인페이지" /></a>
-							<a class="header_problem" href="#"><img src="<%=request.getContextPath()%>/resources/images/header_problem.png" alt="문제 페이지" />문제풀기</a>
-							<a class="header_board" href="#"><img src="<%=request.getContextPath()%>/resources/images/header_board.png" alt="게시판 페이지" />자유게시판</a>
-							<c:if test="${user.user_id == null}">
-							<a class="header_signup" href="#"><img src="<%=request.getContextPath()%>/resources/images/header_signup.png" alt="회원가입" /><span>회원가입</span></a>
-							<a class="header_signin" href="/login"><img src="<%=request.getContextPath()%>/resources/images/header_signin.png" alt="로그인" /><span>로그인</span></a>
-							</c:if>
-							<c:if test="${user.user_id != null}">
-							<a class="header_signout" href="/logout.do"><img src="<%=request.getContextPath()%>/resources/images/header_signout.png" alt="로그아웃" /><span>로그아웃</span></a>
-							<div class="header_profile" style="cursor: pointer;" onClick="location.href='/mypage'">
-								<img class="img" src=<%=imgURL%> alt="사용자 사진">
-								<div class="name_intro">
-									<div class="header_name">
-										<a href="?name=Mr.O">${user.user_name}</a>
-									</div>
-									<div class="header_intro">
-										${user.user_introduce}
-									</div>
-								</div>
-							</div>
-							</c:if>
-						</header>
 			<!-- Header -->
-			<!--  
 								<header id="header">
 									<a href="/web" class="logo"><strong>FULL STACK</strong> DEVELOPER</a>
 									<!-- 바꾸기 -->																
-									<!--<c:if test="${user.user_id == null}">
+									<c:if test="${user.user_id == null}">
 										<ul class="icons">
 											<li><a href="/login">로그인</a></li>
 											<li><a href="/join">회원가입</a></li>
@@ -72,126 +44,84 @@
 											<li><a href="/logout.do">로그아웃</a></li>
 										</ul>
 									</c:if>				
-								</header> -->
+								</header>
 			<div class="inner">
 				<!-- Content -->
 				<section class="profile">
-					<h3 class="head">마이페이지</h3>
-					<br class="clear">
 					<div class="profile_img">
 						<img class="img" src=<%=imgURL%>>
-						<%-- <form id="img_form" action="/mypage/saveImage" enctype="multipart/form-data" method="post">
-							<input type="hidden" name="user_id" value="${user.user_id}" />
+						<form id="img_form" action="/mypage/saveImage" enctype="multipart/form-data" method="post">
+							<input type="hidden" name="user_id" value="1" />
     						<input type="file" onChange="endImageSave();" name="user_image" />
 						</form>
-						<button class="btn_img" type="button" name="button" onClick="changeImageSaveMode();">사진 변경</button> --%>
-						<label for="pictureBtn"></label>
-						<form id="img_form" action="/mypage/saveImage" enctype="multipart/form-data" method="post">
-							<input type="hidden" name="user_id" value="${user.user_id}" />
-							<input id="pictureBtn" type="file" name="user_img" onChange="document.getElementById('img_form').submit(); console.log(this.files);">
-						</form>
+						<button class="btn_img" type="button" name="button" onClick="changeImageSaveMode();">사진 변경</button>
 					</div>
 					<div class="profile_name">
-						<%-- <h3 id="user_name">${user.user_name}</h3> --%>
-						<%-- <form id="name_form" method="post">
+						<h3 id="user_name">${user.user_name}</h3>
+						<form id="name_form" method="post">
 							<input id="input_name" type="text" name="user_name" value="" />
 							<input type="hidden" name="user_introduce" value="${user.user_introduce}" />
 							<input type="hidden" name="user_id" value="${user.user_id}" />
 						</form>
-						<button class="btn_name" type="button" name="닉네임 변경" onClick="changeName();">닉네임 변경</button> --%>
-						<form id="name_form" method="post">
-							<div class="editBox">
-								<input type="text" name="user_name" value="${user.user_name}">
-								<input type="hidden" name="user_introduce" value="${user.user_introduce}" />
-								<input type="hidden" name="user_id" value="${user.user_id}" />
-								<button  type="button" name="button" onClick="submit();"></button>
-							</div>
-						</form>
+						<button class="btn_name" type="button" name="닉네임 변경" onClick="changeName();">닉네임 변경</button>
 					</div>
 					<div class="profile_introduce">
-						<%-- <h3 id="user_introduce">${user.user_introduce}</h3>
+						<h3 id="user_introduce">${user.user_introduce}</h3>
 						<form id="introduce_form" method="post">
 							<input id="input_introduce" type="text" name="user_introduce" value="" />
 							<input type="hidden" name="user_name" value="${user.user_name}" />
 							<input type="hidden" name="user_id" value="${user.user_id}" />
 						</form>
-						<button class="btn_introduce" type="button" name="소개 변경" onClick="changeIntroduce();">소개 변경</button> --%>
-						<form id="intro_form" method="post">
-							<div class="editBox">
-								<textarea name="user_introduce" rows="4" cols="50">${user.user_introduce}</textarea>
-								<input type="hidden" name="user_name" value="${user.user_name}" />
-								<input type="hidden" name="user_id" value="${user.user_id}" />
-								<button type="button" name="button" onClick="submit();"></button>
-							</div>
-						</form>
+						<button class="btn_introduce" type="button" name="소개 변경" onClick="changeIntroduce();">소개 변경</button>
 					</div>
 				</section>
 
-				<section class="code">
-					<h3 class="board_title"><span>코드 조회</span></h3>
+				<section>
 					<!-- Break -->
-						<div style="clear: both;" class="col-12 level">
-							<select name="demo-category" id="demo-category">
+					<form method="post" action="#">
+						<div class="col-12">
+							<select name="demo-category" id="demo-category2">
 								<option value="">- Level -</option>
 								<option value="1">Bronze</option>
 								<option value="1">Silver</option>
 								<option value="1">Gold</option>
 							</select>
-							<div class="select_arrow"></div>
 						</div>
+						<br>
 						<!-- Break -->
-							<div class="col-12 kind">
-								<select name="demo-category" id="demo-category1">
-									<option value="">- AC/WA -</option>
-									<option value="1">Sort</option>
-									<option value="1">Tree</option>
-									<option value="1">For</option>
-									<option value="1">While</option>
-									<option value="1">If</option>
-									<option value="1">DP</option>
-								</select>
-								<div class="select_arrow"></div>
-							</div>
-							<div class="col-12 name">
-								<select name="demo-category" id="demo-category2">
-									<option value="">- 제목 -</option>
-									<option value="1">Sort</option>
-									<option value="1">Tree</option>
-									<option value="1">For</option>
-									<option value="1">While</option>
-									<option value="1">If</option>
-									<option value="1">DP</option>
-								</select>
-								<div class="small_arrow"></div>
-							</div>
-							<input class="search" type="text" name="search" placeholder="검색">
-
-							<br>
-							<!-- Table -->
-							<div class="table-wrapper">
-								<table>
-									<thead>
-										<tr>
-											<th>번호</th>
-											<th>제목</th>
-											<th>레벨</th>
-											<th>제출</th>
-											<th>AC/WA</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr id="open">
-											<td>1012</td>
-											<td>친구 네트워크</td>
-											<td>
-												<div class="problem_level1">
-													LEVEL 1
-												</div>
-											</td>
-											<td>2019.02.26</td>
-											<td><img src="<%=request.getContextPath()%>/resources/images/check.png" width="20em" height="20em" alt="O"></td>
-										</tr>
-										<div class="modal hidden">
+						<div class="col-12">
+							<select name="demo-category" id="demo-category1">
+								<option value="">- Kind -</option>
+								<option value="1">Sort</option>
+								<option value="1">Tree</option>
+								<option value="1">For</option>
+								<option value="1">While</option>
+								<option value="1">If</option>
+								<option value="1">DP</option>
+							</select>
+						</div>
+						<br>
+						<ul class="actions">
+							<li><a href="#" class="button">Search</a></li>
+						</ul>
+					</form>
+					
+					<div class="table-wrapper">
+						<table>
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Description</th>
+									<th>Price</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr id="open">
+									<td>2842번</td>
+									<td>유기농 배추</td>
+									<td>Level 3</td>
+								</tr>
+								<div class="modal hidden">
 				          			<div class="modal_overlay">
 				          			</div>
 				          			<div class="modal_content">
@@ -289,85 +219,47 @@
 										</div>
 				          			</div>
 				        		</div>
-										<tr onClick="location.href='#'">
-											<td>1012</td>
-											<td>친구 네트워크</td>
-											<td>
-												<div class="problem_level2">
-													LEVEL 2
-												</div>
-											</td>
-											<td>2019.02.26</td>
-											<td><img src="<%=request.getContextPath()%>/resources/images/check.png" width="20em" height="20em" alt="O"></td>
-										</tr>
-										<tr onClick="location.href='#'">
-											<td>1012</td>
-											<td>친구 네트워크</td>
-											<td>
-												<div class="problem_level3">
-													LEVEL 3
-												</div>
-											</td>
-											<td>2019.02.26</td>
-											<td><img src="<%=request.getContextPath()%>/resources/images/check.png" width="20em" height="20em" alt="O"></td>
-										</tr>
-										<tr onClick="location.href='#'">
-											<td>1012</td>
-											<td>친구 네트워크</td>
-											<td>
-												<div class="problem_level1">
-													LEVEL 1
-												</div>
-											</td>
-											<td>2019.02.26</td>
-											<td><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="20em" height="20em" alt="O"></td>
-										</tr>
-										<tr onClick="location.href='#'">
-											<td>1012</td>
-											<td>친구 네트워크</td>
-											<td>
-												<div class="problem_level2">
-													LEVEL 2
-												</div>
-											</td>
-											<td>2019.02.26</td>
-											<td><img src="<%=request.getContextPath()%>/resources/images/check.png" width="20em" height="20em" alt="O"></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-							<div class="page">
-								<ul class="paging">
-									<li class="page_num"><a href="#"><</a></li>
-									<li class="page_num"><a href="#">1</a></li>
-									<li class="page_num"><a href="#">2</a></li>
-									<li class="page_num"><a href="#">3</a></li>
-									<li class="page_num">...</li>
-									<li class="page_num"><a href="#">8</a></li>
-									<li class="page_num"><a href="#">9</a></li>
-									<li class="page_num"><a href="#">10</a></li>
-									<li class="page_num"><a href="#">></a></li>
-								</ul>
-							</div>
-						</form>
+								<tr>
+									<td>Item2</td>
+									<td>Vis ac commodo adipiscing arcu aliquet.</td>
+									<td>19.99</td>
+								</tr>
+								<tr>
+									<td>Item3</td>
+									<td> Morbi faucibus arcu accumsan lorem.</td>
+									<td>29.99</td>
+								</tr>
+								<tr>
+									<td>Item4</td>
+									<td>Vitae integer tempus condimentum.</td>
+									<td>19.99</td>
+								</tr>
+								<tr>
+									<td>Item5</td>
+									<td>Ante turpis integer aliquet porttitor.</td>
+									<td>29.99</td>
+								</tr>
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="2"></td>
+									<td>100.00</td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
 				</section>
 
 				<footer class="footer_btns">
 					<button class="btn_change_pwd" type="button" name="button">비밀번호 변경</button>
-					<button class="btn_withdraw" type="button" name="button" onClick="location.href='/mypage/delete/${user.user_id}'">회원 탈퇴</button>
-					<!-- <div class="modal hidden">
-				    	<div class="modal_overlay">
-				        </div>
-				        <div class="withdrwa_check">
-				        </div>
-				    </div> -->
+					<button class="btn_withdraw" type="button" name="button">회원 탈퇴</button>
 				</footer>
 
 			</div>
 		</div>
 
 		<!-- Sidebar -->
-		<%-- <div id="sidebar">
+		<div id="sidebar">
 						<div class="inner">
 							<!-- Menu -->
 								<nav id="menu">
@@ -391,7 +283,7 @@
 									</ul>
 								</nav>
 						</div>
-					</div> --%>
+					</div>
 
 	</div>
 

@@ -19,7 +19,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		UserVO user = (UserVO)session.getAttribute("user");
 		if(user == null) {
 			PrintWriter writer=response.getWriter();
-			writer.println("<script>alert('Login First'); location.href='/web/login';</script>");
+			writer.println("<script>alert('Login First'); location.href='/login';</script>");
 			writer.flush();
 			writer.close();          
             return false;

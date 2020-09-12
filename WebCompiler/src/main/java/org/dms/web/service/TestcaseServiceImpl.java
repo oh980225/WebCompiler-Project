@@ -1,5 +1,7 @@
 package org.dms.web.service;
 
+import java.util.List;
+
 import org.dms.web.domain.TestcaseVO;
 import org.dms.web.persistence.TestcaseDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,16 @@ public class TestcaseServiceImpl implements TestcaseService {
 	public void insertTestcase(TestcaseVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		testcaseDAO.insert(vo);
+	}
+	
+	@Override
+	public List<String> getTestCaseInput(int problem_id) throws Exception {
+		return testcaseDAO.getInputList(problem_id);
+	}
+	
+	@Override
+	public List<String> getTestCaseOutput(int problem_id) throws Exception {
+		return testcaseDAO.getOutputList(problem_id);
 	}
 
 }

@@ -1,10 +1,34 @@
+button {
+  border: 1px solid rgb(24, 30, 40);
+  color: rgb(24, 30, 40) !important;
+  font-weight: bolder !important;
+  font-family: 'Jua', sans-serif;
+  box-shadow: none;
+}
+
+button:hover {
+  background: rgba(48, 89, 110, 0.5);
+}
+
+a.button {
+  border: 1px solid rgb(24, 30, 40);
+  color: rgb(24, 30, 40) !important;
+  box-shadow: none;
+}
+
+a.button:hover {
+  background: rgba(48, 89, 110, 0.5);
+}
+
 section.profile {
   height: 30em;
 }
 
 section.profile div.profile_img {
-  width: 40%;
-  height: 100%;
+  box-sizing: border-box;
+  position: relative;
+  width: 20em;
+  height: 30em;
   text-align: center;
   float: left;
 }
@@ -12,24 +36,30 @@ section.profile div.profile_img {
 section.profile div.profile_img img.img {
   width: 20em;
   height: 20em;
-  border-radius: 25%;
+  border-radius: 100%;
 }
 
 section.profile div.profile_img button.btn_img {
-	margin: auto;
-	width: 20em;
+  width: 20em;
+  margin: auto;
 }
 
 form#img_form {
-	display:none;
+	display: none;
+}
+
+form#img_form input {
+	color: black !important;
 }
 
 section.profile div.profile_name {
-  width: 60%;
-  height: 50%;
+  box-sizing: border-box;
+  width: 50%;
+  height: 15em;
   padding-top: 2em;
   padding-bottom: 2em;
   float: left;
+  margin-left: 5em;
 }
 
 section.profile div.profile_name input#input_name {
@@ -40,14 +70,18 @@ section.profile div.profile_name input#input_name {
 }
 
 section.profile div.profile_name button.btn_name {
-  font-size: 0.6em;
+  font-size: 0.7em;
 }
 
 section.profile div.profile_introduce {
-  width: 60%;
-  height: 50%;
+  box-sizing: border-box;
+  width: 50%;
+  height: 15em;
   float: left;
+  margin-left: 5em;
+  margin-top: -5em;
 }
+
 section.profile div.profile_introduce input#input_introduce {
   display: none;
   width: 40%;
@@ -56,13 +90,29 @@ section.profile div.profile_introduce input#input_introduce {
 }
 
 section.profile div.profile_introduce button.btn_introduce {
-  font-size: 0.6em;
+  font-size: 0.7em;
+}
+
+#main > .inner > section {
+  border-top: 2px solid rgb(24, 30, 40);
+}
+
+h3#user_name {
+  color: black;
+  font-family: 'Jua', sans-serif;
+  font-weight: lighter;
+}
+
+h3#user_introduce {
+  color: black;
+  font-family: 'Jua', sans-serif;
+  font-weight: lighter;
 }
 
 footer.footer_btns {
   padding-top: 2em;
   margin-bottom: 3.5em;
-  border-top: 2px solid rgba(210, 215, 217, 0.75);
+  border-top: 2px solid rgb(24, 30, 40);
   text-align: right;
 }
 
@@ -78,6 +128,18 @@ footer.footer_btns button.btn_change_pwd:hover {
   background: #f56a6a;
 }
 
+form input[type="text"] {
+	color: black;
+	border: 1px solid rgb(17, 20, 31);
+	background: white;
+}
+
+form input[type="text"]:enabled {
+	color: black;
+	border: 1px solid rgb(17, 20, 31) !important;
+	background: white;
+}
+
 @media (max-width: 800px){
 
   section.profile div.profile_img {
@@ -90,14 +152,109 @@ footer.footer_btns button.btn_change_pwd:hover {
 
   section.profile div.profile_name {
     width: 100%;
-    padding-top: 5em;
+    margin: 0;
+    padding-top: 0;
   }
 
   section.profile div.profile_introduce {
     width: 100%;
     height: 10em;
-    border-bottom: 2px solid rgba(210, 215, 217, 0.75);
+    margin: 0;
+    border-bottom: 2px solid rgb(24, 30, 40);
     margin-bottom: 3.5em;
+    margin-top: -4em;
   }
 
+}
+
+/*여기 부터 추가되는 부분*(마이페이지 프로필)*/
+
+div.profile_img input#pictureBtn {
+  display: none;
+}
+
+/*이거 쓸때는 div.profile_img relative로 바꿔줘야함*/
+
+div.profile_img label {
+  position: absolute;
+  cursor: pointer;
+  width: 4em;
+  height: 4em;
+  background: url('/resources/images/change_pic.png') no-repeat;
+  background-size: cover;
+  top: 17.8em;
+  right: 1em;
+}
+
+section.profile h3.head {
+  display: inline-block;
+  float: left;
+  border-bottom: 3px solid black;
+  font-weight: lighter;
+}
+
+br.clear {
+  clear: both;
+}
+
+/*여기 부터 추가되는 부분*(이름, 소개 입력창)*/
+
+form#name_form div.editBox {
+  width: 30em;
+  position: relative;
+}
+
+div.editBox input[type="text"] {
+  border: 1px solid grey;
+  background: white;
+  border-radius: 0 20px 20px 10px;
+}
+
+div.editBox button {
+  content: '';
+  position: absolute;
+  cursor: pointer;
+  width: 1.5em;
+  height: 1.5em;
+  background: url('/resources/images/edit_icon.png') no-repeat; 
+  background-size: contain;
+  border: none;
+  top: 1em;
+  right: 1em;
+  padding: 0;
+}
+
+form#intro_form div.editBox {
+  width: 100%;
+  position: relative;
+}
+
+form#intro_form div.editBox textarea {
+  width: 100%;
+  border: 1px solid grey;
+  background: white;
+  border-radius: 0 20px 20px 10px;
+}
+
+form#intro_form div.editBox button {
+  content: '';
+  position: absolute;
+  cursor: pointer;
+  width: 1.5em;
+  height: 1.5em;
+/*  background: url('/resources/images/edit_icon.png') no-repeat; */
+  background-size: contain;
+  border: none;
+  top: 80%;
+  right: 2%;
+  padding: 0;
+  z-index: 10;
+}
+
+section.profile {
+	padding-top: 0 !important;
+}
+
+section.code {
+	padding-top: 0 !important;
 }

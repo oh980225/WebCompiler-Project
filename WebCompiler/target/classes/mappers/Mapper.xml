@@ -18,7 +18,7 @@
 
      
 
-     <select id="user_selectByid" resultType="UserVo">
+     <select id="user_selectById" resultType="UserVo">
  		select * from user where user_id = #{id}
  	</select>
 
@@ -41,9 +41,8 @@
    		update user set user_img = #{user_img} where user_id = #{user_id}
      </update> 
  
- 	<!-- 수정해주세요 -->
-    <delete id="user_delete">
-		delete from student where id = #{id}
+    <delete id="user_deleteById">
+		delete from user where user_id = #{id}
     </delete>
     
     <insert id="board_insert_free">
@@ -147,5 +146,12 @@
     <!-- 게시판 -->
    
     
+    <select id="testcase_input_selectList" resultType="String"> 
+    	select testcase_input from testcase where problem_id= #{problem_id} 
+    </select>
+    
+    <select id="testcase_output_selectList" resultType="String"> 
+    	select testcase_output from testcase where problem_id= #{problem_id} 
+    </select>
 	
 </mapper>  

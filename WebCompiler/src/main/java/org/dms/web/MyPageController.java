@@ -49,7 +49,7 @@ public class MyPageController {
 	
 	@RequestMapping(value= "/mypage/saveImage",  method = RequestMethod.POST)
 	public String saveImage(@RequestParam("user_id") String userId,
-			@RequestParam("user_image") MultipartFile imgFile) throws Exception {
+			@RequestParam("user_img") MultipartFile imgFile) throws Exception {
 		UserVO user = new UserVO();
 		
 		
@@ -71,6 +71,15 @@ public class MyPageController {
 		headers.setContentType(MediaType.IMAGE_PNG);
 		
 		return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
+	}
+	
+	// 회원 탈퇴 기능
+	@RequestMapping(value="/mypage/delete/{user_id}")
+	public String withdrawUser(@PathVariable("user_id") String userId, HttpSession session) throws Exception {
+		userService.deleteUser(userId);
+		session.invalidate();
+		
+		return "redirect:/mypage";
 	}
 	
 }

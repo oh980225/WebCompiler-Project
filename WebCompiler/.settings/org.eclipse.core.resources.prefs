@@ -1,3 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/main/java/org/dms/web/ProblemController.java=UTF-8
+encoding//src/main/java/org/dms/web/TestController.java=UTF-8
 encoding//src/main/webapp/WEB-INF/views/category.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/home.jsp=UTF-8
+encoding//src/main/webapp/resources/css/custom_main.css=UTF-8

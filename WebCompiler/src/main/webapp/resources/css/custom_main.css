@@ -1,3 +1,8 @@
+/* H */
+h1, h2, h3 {
+  color: black;
+}
+
 /* Body */
 body {
   background: white;
@@ -5,44 +10,112 @@ body {
 }
 /* Header */
 header#header {
-  padding-top: 1em;
+  height: 3.5em;
+  display: block;
+  padding: 0;
   background-color: rgb(17, 20, 31);
+  margin-bottom: 3em;
 }
 
-header#header .logo {
-  margin-left: 4em;
-}
-header#header .icons {
-  margin-right: 4em;
+header#header a {
+  color: white !important;
 }
 
-#sidebar .toggle {
-  margin-top: -1em;
+header#header a:hover {
+  color: #f56a6a !important;
 }
 
-@media screen and (max-width: 736px) {
-    #header .logo {
-      font-size: 1.25em;
-    }
-    #header .icons {
-      font-size: 1em;
-      line-height: 4em;
-    }
-    #sidebar .toggle {
-      margin-top: -0.5em;
-      margin-left: -0.7em;
-    }
+header#header a.main_logo {
+  display: inline-block !important;
+  float: left;
+  padding: 0;
+  margin: 0;
 }
 
-header#header ul.icons li a {
-  color: white;
-  border: 0;
-  padding-bottom: 0.1em;
-  border-bottom: 0.1em solid white;
+a.main_logo img {
+  transform:rotate(90deg);
+  margin-top: 0.4em;
+  width: 2em;
+  height: 2em;
+  margin-left: 0.5em;
 }
 
-header#header ul.icons li a:hover {
-  border-bottom: 0.1em solid #f56a6a;
+header#header a.header_problem {
+  display: inline-block !important;
+  float: left;
+  margin-left: 2.5em;
+  margin-top: 0.8em;
+}
+
+a.header_problem img {
+  width: 1em;
+  height: 1em;
+  padding: 0;
+  margin-right: 0.5em;
+}
+
+header#header a.header_board {
+  display: inline-block !important;
+  float: left;
+  margin-top: 0.8em;
+  margin-left: 1em;
+}
+
+a.header_board img {
+  width: 1em;
+  height: 1em;
+  padding: 0;
+  margin-right: 0.5em;
+}
+
+header#header a.header_signin {
+  float: right;
+  width: 2em;
+  height: 1em;
+  margin-top: 0.4em;
+  margin-right: 1em;
+}
+
+a.header_signin img {
+  display: block;
+  width: 100%;
+  height: 95%;
+  padding-left: 0.3em;
+  padding-right: 0.3em;
+}
+
+a.header_signin span {
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  height: 5%;
+  font-size: 0.1px;
+  padding-left: 2px;
+}
+
+header#header a.header_signup {
+  float: right;
+  width: 3em;
+  height: 1em;
+  margin-top: 0.4em;
+  margin-right: 1em;
+}
+
+a.header_signup img {
+  display: block;
+  width: 100%;
+  height: 95%;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+}
+
+a.header_signup span {
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  height: 5%;
+  font-size: 0.1px;
+  padding-left: 2px;
 }
 
 /* Sidebar */
@@ -50,7 +123,7 @@ header.major {
   text-align: center;
   border-bottom: 0.15em solid white;
   padding-bottom: 2em;
-  margin-bottom: 3.5em;
+  margin-bottom: 3em;
 }
 
 header.major img.icon {
@@ -66,7 +139,7 @@ header.major img.icon {
 }
 
 header.major h3.name {
-  display: inline-block;
+  display: block;
   color: white;
   margin: auto;
   margin-top: 1em;
@@ -75,16 +148,33 @@ header.major h3.name {
   padding-right: 10%;
 }
 
+header.major h3.name a:hover {
+  color: white !important;
+}
+
+header.major h5.intro {
+  margin-top: 0.5em;
+  font-family: 'Jua', sans-serif;
+}
+
 nav#menu header.major > :last-child {
   border-bottom: 0;
 }
 
 #sidebar .inner {
-  background: #414344 !important;
+  background: rgb(17, 20, 31) !important;
 }
 
 #sidebar .inner #menu li{
   color: white !important;
+}
+
+#sidebar > a {
+  color: rgb(255, 87, 125) !important;
+}
+
+#sidebar > a:hover {
+  color: rgb(255, 87, 125) !important;
 }
 
 nav#menu ul li img.icon {
@@ -97,3 +187,83 @@ nav#menu ul li img.icon {
 #menu ul {
   text-transform: none !important;
 }
+
+#menu > ul > li {
+  border-top: solid 1px white;
+}
+
+li a:hover {
+	color: rgb(255, 87, 125) !important;
+}
+
+li a.button:hover {
+	color: black !important;
+}
+
+/*�뿬湲� 遺��꽣 異붽��릺�뒗 遺�遺�*(�뿤�뜑履� 濡쒓렇�씤�썑)*/
+
+header#header a.header_signout {
+  float: right;
+  width: 3em;
+  height: 1em;
+  margin-top: 0.4em;
+  margin-right: 1em;
+}
+
+a.header_signout img {
+  display: block;
+  width: 100%;
+  height: 95%;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+}
+
+a.header_signout span {
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  height: 5%;
+  font-size: 0.1px;
+  padding-right: 2px;
+}
+
+header#header div.header_profile {
+  display: inline-block;
+  float: right;
+  width: 13em;
+  height: 100%;
+}
+
+div.header_profile img {
+  float: left;
+  width: 3.3em;
+  height: 3.3em;
+  padding: 0.5em;
+  border-radius: 100%;
+}
+
+div.header_profile div.name_intro {
+  display: inline-block;
+  float: left;
+  width: 9.7em;
+  height: 100%;
+}
+
+div.name_intro div.header_name {
+  box-sizing: border-box;
+  padding-top: 1em;
+  width: 100%;
+  height: 50%;
+  color: white;
+  font-size: 0.5em;
+}
+
+div.name_intro div.header_intro {
+  font-size: 0.3em;
+  box-sizing: border-box;
+  width: 100%;
+  height: 50%;
+  color: rgb(116, 116, 116);
+  overflow: hidden;
+}
+
