@@ -16,211 +16,40 @@
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css" type="text/css"/>
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_main.css" type="text/css"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" /> <!-- 이게 Font Awesome 5 Free를 사용하게 해주는거 같아요. 이거덕에 사이드바 모양이 보여요! -->
-		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_board.css" />
-		<style>
-			#main > .inner {
-			    padding: 0 6em 0.1em 6em;
-			    margin: 0 auto;
-			    max-width: 85em;
-			}
-			a {
-				color:black;
-				border:0;
-				
-			}
-			a:hover {
-			   color: none;  
-			}
-			.title_header{
-				overflow:auto;
-			}
-			.header_problemid{
-				float:left;
-			}
-			.title_header #problem_id{
-				text-align:left;
-				font-size: 13.5px;
-				font-weight:600;
-				color: #3AB6BC;
-			}
-			.title_box{
-				font-size: 13.5px;
-				font-weight:600;
-				color: #484848;
-				margin:10px 0 0 0;
-				padding:10px;
-				border-top:solid 0.5px #222629;
-				border-bottom:solid 0.5px #222629;
-			}
-			.content{
-				overflow:auto;
-				font-size: 12px;
-				color: #707070;
-				margin: 0 0 20px 0px;
-				border-bottom:solid 2px #aaaaaa;
-				padding: 10px 10px 0 10px;
-			}
-			.content #board_upload{
-				
-				text-align:right;
-			}
-			
-			.content_box{
-				margin: 0 10px 20px 10px;
-				font-size: 13.5px;
-				color: #484848;
-			}
-			.comment_count{
-				float:left;
-			}
-			.board_info{
-				float:right;
-			}
-			.board_info img{
-				vertical-align:middle;
-				margin:3px;
-				width:16.5px;
-				height:16.5px;
-			}
-			
-			
-			.content_date{
-				float:right;
-				margin: 0;
-				display:block;
-			}
-			.content_date p{
-				float:right;
-				margin: 0;
-			}
-			.info_box img{
-				vertical-align:middle;
-				margin:3px;
-				width:16.5px;
-				height:16.5px;
-			}
-			.title_box #info_id{
-				float:right;
-			}
-			#comment_list {
-				width:auto;				
-				overflow: auto;
-			}
-			#comment_image {
-				float: left;
-				margin-left:10px;
-				
-			}
-			.comment_content{
-				margin: 0 0 0 0;
-				display:block;
-				float: left;
-				width: 850px;
-				margin-left:20px;
-			}
-			.comment_content p{
-				margin: 0 0 0 0;
-				font-size: 12px;
-				color: #707070;
-			}
-			.comment_content #comment_user{
-				font-weight:bold;
-				margin: 0 0 6px 0;
-			}
-			.comment_info{
-				margin: 0 15px 0 0;
-				
-				float: right;
-				width: 80px;
-			
-			}
-			.comment_info a{
-				color:red;
-				margin: 0 0 0 0;
-				border:0;
-			}
-			.comment_info img{
-				margin:2px;
-				width:16.5px;
-				height:16.5px;
-			}
-			.comment_info #comment_edit{
-				float:right;
-				font-size: 10px;
-			}
-			.comment_info #comment_date {
-				color: #707070;
-				float:right;
-				font-size: 12px;
-				margin: 0 0 0 0;
-			}
-			.comment_dashline {
-				overflow: auto;
-				margin:12px 0 12px 0;
-				border-top:dashed 1px #cccccc;
-			}
-			.comment_line {
-				overflow: auto;
-				margin:12px 0 12px 0;
-				border-top:solid 1px #cccccc;
-			}
-			.comment_typing{
-				position:relative;
-				padding:10px 30px 10px 30px;
-				width:auto;				
-				overflow: auto;
-			}
-			.comment_typing_button{
-				position:absolute;
-				bottom: 10px;
-    			right: 25px;
-				padding:10px;
-				width:auto;				
-				overflow: auto;
-			}
-			
-			.comment_typing #comments_content{
-				margin: 10px 0px 10px 0px;
-			}
-			
-			input[type="text"], textarea {
-			    -moz-appearance: none;
-			    -webkit-appearance: none;
-			    -ms-appearance: none;
-			    appearance: none;
-			    background: #ffffff;
-			    border-radius: 20px 0px 20px 20px;
-			    border: none;
-			    border: solid 1px rgba(210, 215, 217, 0.75);
-			    color: inherit;
-			    display: block;
-			    outline: 0;
-			    padding: 0 1em;
-			    text-decoration: none;
-			    width: 100%;
-			    font-size:12px;
-			    min-height: 70px;
-			}
-			
-			input[type="text"]:focus, textarea:focus {
-			     border-color: rgba(210, 215, 217, 0.75);
-			    /* box-shadow: 0 0 0 1px #ffffff; */
-			}
-			input.submit-button{
-				border:none;
-				width:30px;
-				heigth:30px;
-				cursor:pointer;
-			}
-		
-		</style>
+		<!--  <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_board.css" /> 우선 주석처리 해봄 -->
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_board_detail.css" />
 		
 		<script>
 			function resize(obj) {
 			  obj.style.height = "1px";
 			  obj.style.height = (12+obj.scrollHeight)+"px";
 			}
-			</script>
+			function comment_register(){
+				if($("#comments_content").val() == ""){
+						alert("hello");
+						return false;
+					}
+				return true;
+				/* var id=document.getElementById("user_id");
+				var passwd=document.getElementById("user_passwd");
+				var passwd_check=document.getElementById("passwd_check");
+				아이디와 패스워드 값 데이터 정규화 공식
+			     var regul_id = /^[a-zA-Z0-9]{4,12}$/;
+			     var regul_passwd = /^[a-zA-Z0-9]{4,12}$/;
+
+					
+				 if ((id.value)=="") {
+					 var msg = document.getElementById("id_alert");
+					 msg.innerHTML="*필수 항목 입니다.";
+					 msg.style.visibility = "visible";
+			         id.focus();
+			         return false;
+			      }
+			      */
+				}
+		</script>
+		
+		
 	</head>
 	<body class="is-preload">
 		<!-- Wrapper -->
@@ -322,15 +151,18 @@
 										
 
 									</c:forEach>
+									<form action="/" method="POST" onsubmit="return comment_register()">
 									<div class="comment_typing">
-										<textarea id="comments_content" name="comments_content" onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
-										<div class="comment_typing_button">
-											<input type="image" src="<%=request.getContextPath()%>/resources/images/submit.png" class="submit-button" onclick="DoSomething();">
-										</div>
 										
-									</div>
+											<textarea id="comments_content" name="comments_content" onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
+											<div class="comment_typing_button">
+												<input type="image" src="<%=request.getContextPath()%>/resources/images/submit.png" class="submit-button">
+											</div>
 									
-								</div>
+									</div>
+									</form>
+									
+									</div>
 							
 				
 								</section>

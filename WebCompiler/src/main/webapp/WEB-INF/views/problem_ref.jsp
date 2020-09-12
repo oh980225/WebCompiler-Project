@@ -41,7 +41,7 @@
 					<h3 class="problem_title">코드 조회</h3>
 					<br>
 					<!-- Break -->
-					<div class="col-12 level">
+					<div class="col-12 lvel">
 						<select name="demo-category" id="demo-category">
 							<option value="">- Level -</option>
 							<option value="1">Bronze</option>
