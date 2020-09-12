@@ -30,11 +30,47 @@ public class ProblemController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
+	// 여기가 id 받아서 해당문제
 	@RequestMapping(value="/problem/{problem_id}", method=RequestMethod.GET)
 	public String problemGet(@PathVariable("problem_id") int problem_id, Model model) throws Exception {
 		//logger.info("踰덊샇: "+ problem_id);
 		ProblemVO pvo = problemService.readProblem(problem_id);
 		TestcaseVO tvo= testcaseService.readTestcase(problem_id);
+		
+		// input, output 리스트를 받아온다.
+		List<String> tvoInput = testcaseService.getTestCaseInput(problem_id);
+		List<String> tvoOutput = testcaseService.getTestCaseOutput(problem_id);
+		
+		// console 창 출력
+		for(String input : tvoInput) {
+			System.out.println(input);
+		}
+		for(String output : tvoOutput) {
+			System.out.println(output);
+		}
+		
+		// file로 만들기
+		try {
+		    OutputStream file = new FileOutputStream("C:\\Users\\ohseu\\Desktop\\testcase.txt");
+		    
+		    String str = "input\n";
+		    for(String input : tvoInput) {
+				str += input + "\n";
+			}
+		    
+		    str += "output\n";
+		    for(String output : tvoOutput) {
+				str += output + "\n";
+			}
+		    
+		    byte[] by=str.getBytes();
+		    file.write(by);
+		    file.flush();
+		    file.close();
+				
+		} catch (Exception e) {
+	            e.getStackTrace();
+		}
 		
 		model.addAttribute("problem", pvo);
 		model.addAttribute("testcase", tvo);

@@ -112,5 +112,12 @@
     	insert into testcase (testcase_input, testcase_output, problem_id) values (#{testcase_input}, #{testcase_output}, #{problem_id})
     </insert>
     
+    <select id="testcase_input_selectList" resultType="String"> 
+    	select testcase_input from testcase where problem_id= #{problem_id} 
+    </select>
+    
+    <select id="testcase_output_selectList" resultType="String"> 
+    	select testcase_output from testcase where problem_id= #{problem_id} 
+    </select>
 	
 </mapper>  
