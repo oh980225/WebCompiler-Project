@@ -31,5 +31,7 @@ public class HomeController {
 		UserVO user = (UserVO) session.getAttribute("user");
 		model.addAttribute("user", user);
 		return "main";		
-	}	
+	}
+	
+	
 }

@@ -86,7 +86,7 @@
     <!-- 카테고리 -->
     <select id="category_selectAll" resultType="CategoryVO">
     <![CDATA[
- 		select * from category limit #{pageStart}, #{perPageNum}
+ 		select * from category
      ]]> 
     
     </select>
@@ -102,7 +102,7 @@
     </select>
     
     <select id="listPaging" resultType="ProblemVO">
-    	select * from problem limit #{page}, 10
+    	select * from problem limit #{page}, 8
     </select>
     <select id="listCount" resultType="int">
     	select COUNT(problem_id) from problem

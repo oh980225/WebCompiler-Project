@@ -2,10 +2,14 @@ package org.dms.web;
 
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.dms.web.domain.CategoryVO;
+import org.dms.web.domain.Criteria;
+import org.dms.web.domain.PageMaker;
 import org.dms.web.domain.ProblemVO;
 import org.dms.web.domain.TestcaseVO;
 import org.dms.web.service.CategoryService;
@@ -29,8 +33,78 @@ public class ProblemController {
 	CategoryService categoryService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+
+	@RequestMapping(value = "/problem", method = RequestMethod.GET)
+	public String test(Locale locale, Model model, Criteria cri) throws Exception {
+		logger.info("page:" +  cri.getPage());
+		logger.info("perPageNum:" +  cri.getPerPageNum());
+		List<CategoryVO> cvo = categoryService.readCategoryList();
+		List<ProblemVO> pvo = problemService.readProblemList(cri);
+
+		PageMaker pageMaker = new PageMaker();
+		cri.setPerPageNum(8);
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(problemService.ProblemCount());
+		
+		logger.info("page: " +  cri.getPage());
+		
+		model.addAttribute("category", cvo);
+
+		model.addAttribute("problem", pvo);
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("cri", cri);
+		return "problem_list";
+	}
 	
-	// 여기가 id 받아서 해당문제
+	@RequestMapping(value = "/problem.do", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> categorytest_test(Locale locale, Model model, Criteria cri, int problem_level, String category_name) throws Exception {		
+		logger.info("categorytest_test");
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(problem_level == 0 && category_name.equals("unselected")) {
+			logger.info("level: " + problem_level);
+			logger.info("category: " + category_name);
+			
+			List<ProblemVO> pvo = problemService.readProblemList(cri);
+			int count = problemService.ProblemCount();
+			PageMaker pageMaker = new PageMaker();
+			cri.setPerPageNum(8);
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(count);
+			
+			map.put("pageMaker", pageMaker);
+			map.put("list", pvo);
+			
+			for(ProblemVO vo : pvo) {
+				logger.info(vo.getProblem_id() + " : " + vo.getProblem_title());
+			}
+			return map;
+		}
+		else {
+			logger.info("level: " + problem_level);
+			logger.info("category: " + category_name);
+			logger.info("page:" +  cri.getPage());
+			logger.info("perPageNum:" +  cri.getPerPageNum());
+			
+			List<ProblemVO> pvo = problemService.readProblemList(problem_level, category_name, cri); // 추가
+			int count = problemService.ProblemCount(problem_level, category_name);
+			PageMaker pageMaker = new PageMaker();
+			cri.setPerPageNum(8);
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(count);
+			
+			
+			map.put("pageMaker", pageMaker);
+			map.put("list", pvo);
+			
+			for(ProblemVO vo : pvo) {
+				logger.info(vo.getProblem_id() + " : " + vo.getProblem_title());
+			}
+			return map;
+		}
+	}
+	
 	@RequestMapping(value="/problem/{problem_id}", method=RequestMethod.GET)
 	public String problemGet(@PathVariable("problem_id") int problem_id, Model model) throws Exception {
 		//logger.info("踰덊샇: "+ problem_id);

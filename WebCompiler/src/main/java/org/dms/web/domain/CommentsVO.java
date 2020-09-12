@@ -8,6 +8,8 @@ public class CommentsVO {
 	private int board_id;
 	
 	
+	
+	
 	public int getComments_id() {
 		return comments_id;
 	}

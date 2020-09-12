@@ -49,9 +49,8 @@ public class MyPageController {
 	
 	@RequestMapping(value= "/mypage/saveImage",  method = RequestMethod.POST)
 	public String saveImage(@RequestParam("user_id") String userId,
-			@RequestParam("user_img") MultipartFile imgFile) throws Exception {
+    @RequestParam("user_img") MultipartFile imgFile) throws Exception {
 		UserVO user = new UserVO();
-		
 		
 		user.setUser_id(userId);
 		user.setUser_img(imgFile.getBytes());

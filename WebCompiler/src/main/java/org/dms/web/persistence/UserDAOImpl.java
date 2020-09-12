@@ -1,9 +1,16 @@
 package org.dms.web.persistence;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import org.apache.ibatis.session.SqlSession;
 import org.dms.web.domain.UserVO;
@@ -18,9 +25,19 @@ public class UserDAOImpl implements UserDAO {
 	private static final String namespace = "org.dms.web.mapper.Mapper";
 
 	@Override
-	public void insert(UserDAO user) throws Exception {
-		// TODO Auto-generated method stub
+	public void insert(UserVO user) throws Exception {
+		// TODO Auto-generated method stub		
+		/*byte[] imageInByte;
+        
+		BufferedImage originalImage = ImageIO.read(new File("C:/ddonggov.png"));
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ImageIO.write(originalImage, "png", baos);
+		baos.flush();
+		 
+		imageInByte = baos.toByteArray();
 		
+		user.setUser_img(imageInByte);
+		*/
 	}
 
 	@Override

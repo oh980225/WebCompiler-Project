@@ -58,17 +58,15 @@ public class TestController {
 
 	
 	/* �눧紐꾩젫�뵳�딅뮞占쎈뱜 */
-	@RequestMapping(value = "/problemlist", method = RequestMethod.GET)
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public String problemListGet(Locale locale, Model model, Criteria cri) throws Exception {
 		logger.info("page:" +  cri.getPage());
 		logger.info("perPageNum:" +  cri.getPerPageNum());
 		List<CategoryVO> cvo = categoryService.readCategoryList();
 		List<ProblemVO> pvo = problemService.readProblemList(cri);
 
-		
-		
 		PageMaker pageMaker = new PageMaker();
-		cri.setPerPageNum(10);
+		cri.setPerPageNum(8);
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(problemService.ProblemCount());
 		
@@ -78,82 +76,9 @@ public class TestController {
 
 		model.addAttribute("problem", pvo);
 		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("cri", cri);
 		return "problemList";
 	}
-	
-	@RequestMapping(value = "/category_test.do", method = RequestMethod.GET)
-	@ResponseBody
-	public Map<String, Object> categorytest_test(Locale locale, Model model, Criteria cri) throws Exception {		
-		Map<String, Object> map = new HashMap<String, Object>();
-
-		
-		List<CategoryVO> cvo = categoryService.readCategoryList();
-		List<ProblemVO> pvo = problemService.readProblemList(cri);
-		//model.addAttribute("category", cvo);
-		//model.addAttribute("problem", pvo);
-		
-		PageMaker pageMaker = new PageMaker();
-		cri.setPerPageNum(2);
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(problemService.ProblemCount());
-		
-		logger.info("page: " +  cri.getPage());
-		logger.info("perPageNum:" +  cri.getPerPageNum());
-		logger.info("startPage:" +  pageMaker.getStartPage() + "endPage: " +  pageMaker.getEndPage());
-		//model.addAttribute("pageMaker", pageMaker);
-		//map.put("")
-		
-		map.put("pageMaker", pageMaker);
-		map.put("list", pvo);
-		
-		for(ProblemVO vo : pvo) {
-			logger.info(vo.getProblem_id() + " : " + vo.getProblem_title());
-		}
-		return map;
-	}
-	
-	@RequestMapping(value="problemList_test.do")
-	@ResponseBody
-	public Map<String, Object> problemList_test(int problem_level, String category_name, Criteria cri, HttpSession session, Locale locale) throws Exception {
-		logger.info("占쎌쟿甕곤옙:" + problem_level + "  �겫袁⑥첒:" + category_name);		
-		logger.info("占쎌겱占쎌삺占쎈읂占쎌뵠筌욑옙: ", cri.getPage());
-
-		if(problem_level == 0 && category_name.equals("unselected")) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			List<ProblemVO> vo = problemService.readProblemList(cri);
-			
-			PageMaker pageMaker = new PageMaker();
-			cri.setPerPageNum(2);
-			pageMaker.setCri(cri);
-			
-			pageMaker.setTotalCount(problemService.ProblemCount());
-			logger.info("占쎌겱占쎌삺占쎈읂占쎌뵠筌욑옙: ", cri.getPage());
-			logger.info("占쎈뻻占쎌삂占쎈읂占쎌뵠筌욑옙: ", cri.getPage());
-			map.put("pageMaker", pageMaker);
-			map.put("list", vo);
-			return map;
-		}
-		else {
-			Map<String, Object> map = new HashMap<String, Object>();
-			List<ProblemVO> vo = problemService.readProblemList(problem_level, category_name, cri);
-			
-			PageMaker pageMaker = new PageMaker();
-			cri.setPerPageNum(2);
-			pageMaker.setCri(cri);
-			
-			pageMaker.setTotalCount(problemService.ProblemCount(problem_level, category_name));
-			logger.info("占쎌겱占쎌삺占쎈읂占쎌뵠筌욑옙: ", cri.getPage());
-			logger.info("占쎈뻻占쎌삂占쎈읂占쎌뵠筌욑옙: ", cri.getPage());
-			map.put("pageMaker", pageMaker);
-			map.put("list", vo);
-			return map;
-		}
-		
-
-		//return map;
-	}
-	
-	
 
 	/* 燁삳똾�믤�⑥쥓�봺 */
 	/*@RequestMapping(value = "/category", method = RequestMethod.GET)

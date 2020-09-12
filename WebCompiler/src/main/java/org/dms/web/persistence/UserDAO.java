@@ -6,7 +6,7 @@ import java.util.Map;
 import org.dms.web.domain.UserVO;
 
 public interface UserDAO {
-	public void insert(UserDAO user) throws Exception;
+	public void insert(UserVO user) throws Exception;
 	public UserVO read(String id) throws Exception;
 	public UserVO read(UserVO user) throws Exception;
 	public List<UserVO> readList() throws Exception;	

@@ -9,7 +9,7 @@
 -->
 <html>
 
-<head>
+<head>rm 
 	<title>JAVA 버전 컴파일러 화면</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -41,7 +41,7 @@
 					<h3 class="problem_title">코드 조회</h3>
 					<br>
 					<!-- Break -->
-					<div class="col-12 level">
+					<div class="col-12 lvel">
 						<select name="demo-category" id="demo-category">
 							<option value="">- Level -</option>
 							<option value="1">Bronze</option>
