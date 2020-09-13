@@ -3,6 +3,7 @@ package org.dms.web.persistence;
 import java.util.List;
 import java.util.Map;
 
+import org.dms.web.domain.CodeVO;
 import org.dms.web.domain.UserVO;
 
 public interface UserDAO {
@@ -13,4 +14,5 @@ public interface UserDAO {
 	public void delete(String id) throws Exception;
 	public int update(UserVO user) throws Exception;
 	public int saveImg(UserVO user) throws Exception;
+	public List<CodeVO> getCodeList(String id) throws Exception;
 }

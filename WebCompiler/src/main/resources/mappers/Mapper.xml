@@ -25,15 +25,17 @@
  	
      <select id="user_selectForLogin" resultType="UserVO">
  		select * from user where user_id = #{user_id} and user_passwd = #{user_passwd}
-
      </select>
  	
-
      <select id="user_selectAll" resultType="UserVO">
  		select * from user
      </select>
+     
+     <select id="user_selectCodeList" resultType="CodeVO">
+     	select * from code where user_id = #{id} order by code_date desc
+     </select>
  	
-     <update id="user_update" parameterType="UserVO"> <!-- 수정해주세요 -->
+     <update id="user_update" parameterType="UserVO"> 
  		update user set user_name = #{user_name}, user_introduce = #{user_introduce} where user_id = #{user_id}
      </update>
      

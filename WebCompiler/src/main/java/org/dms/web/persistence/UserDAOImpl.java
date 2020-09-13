@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import org.apache.ibatis.session.SqlSession;
+import org.dms.web.domain.CodeVO;
 import org.dms.web.domain.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -81,6 +82,12 @@ public class UserDAOImpl implements UserDAO {
 		// TODO Auto-generated method stub
 		UserVO user = sqlSession.selectOne(namespace + ".user_selectForLogin", vo);
 		return user;	
+	}
+	
+	@Override
+	public List<CodeVO> getCodeList(String id) throws Exception {
+		List<CodeVO> codeList = sqlSession.selectList(namespace + ".user_selectCodeList", id);
+		return codeList;
 	}
 
 }

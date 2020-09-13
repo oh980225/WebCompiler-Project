@@ -1,7 +1,10 @@
 package org.dms.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
+import org.dms.web.domain.CodeVO;
 import org.dms.web.domain.UserVO;
 import org.dms.web.service.UserService;
 import org.slf4j.Logger;
@@ -29,10 +32,15 @@ public class MyPageController {
 
 	@RequestMapping(value = "/mypage")
 	public String getMyPage(Model model, HttpSession session) throws Exception {
-		//int id = 2;
-		//UserVO user = userService.readUser(id);
 		UserVO user = (UserVO)session.getAttribute("user");
+		List<CodeVO> codeList = userService.getCodeList(user.getUser_id());
+		
 		model.addAttribute("user", user);
+		model.addAttribute("codeList", codeList);
+			
+		for(CodeVO code : codeList) {
+			System.out.println(code);
+		}
 		
 		return "mypage";
 	}
@@ -49,13 +57,17 @@ public class MyPageController {
 	
 	@RequestMapping(value= "/mypage/saveImage",  method = RequestMethod.POST)
 	public String saveImage(@RequestParam("user_id") String userId,
-    @RequestParam("user_img") MultipartFile imgFile) throws Exception {
+							@RequestParam("user_img") MultipartFile imgFile,
+							HttpSession session) throws Exception {
 		UserVO user = new UserVO();
 		
 		user.setUser_id(userId);
 		user.setUser_img(imgFile.getBytes());
 		
 		userService.saveImage(user);
+		
+		UserVO newUser = userService.readUser(user.getUser_id());
+		session.setAttribute("user", newUser);
 		
 		return "redirect:/mypage";
 	}
