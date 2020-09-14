@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" /> <!-- 이게 Font Awesome 5 Free를 사용하게 해주는거 같아요. 이거덕에 사이드바 모양이 보여요! -->
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/modal.css" />
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_code.css" />
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 
 <%	
@@ -215,7 +216,7 @@
 																<span class="head col4">공개</span>
 															</div>
 															<c:forEach items="${codeList}" var="code" varStatus="st">
-															<div id="${st.index}" class="row">
+															<div id="${st.index}" class="history row">
 																<span class="cell col1"><fmt:formatDate pattern="yyyy.MM.dd" value="${code.code_date}"/></span>
 																<span class="cell col2">${code.code_language}</span>
 																<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/${code.code_success == 1 ? 'check.png' : 'notCheck.png'}" width="25em" height="25em" alt="O"></span>
@@ -287,7 +288,7 @@
 													</div>
 												</div>
 												<div class="modal_right">
-													<iframe src="<%=request.getContextPath()%>/resources/html/modal_editor.html" width="100%" height="100%"></iframe>
+													<iframe src="<%=request.getContextPath()%>/resources/html/modal_editor.html" id="iframe" width="100%" height="100%"></iframe>
 												</div>
 												<div class="open_check">
 													<span>코드를 다른 사용자에게도 공개합니다.</span> <input type="checkbox" id="check" name="open_check" value="open" /> <label for="check"></label>
@@ -409,6 +410,63 @@
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/profile.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/modal.js"></script>
+	<script type="text/javascript">
+		const iframe = document.getElementById("iframe");
+		const codeHistoryList = document.querySelectorAll('.history');
+
+		const historyClick = () => {
+			console.log("click!!")
+			let index = '#'+this.id;
+			$(index).css('color', 'red');	
+			console.log(index);		
+		}
+		
+		let innerDoc = null;
+		/* const submit_btn = document.querySelector(".submit_btn"); */
+		
+		const access = () => {
+		    innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+		}
+
+		/* const codeSubmit = () => {
+			let getCodeBtn = innerDoc.getElementById("getCode");
+			getCodeBtn.click();
+			
+			let code = innerDoc.getElementById("code").value;
+			console.log(code);
+
+			let lang = innerDoc.getElementById("lang").value;
+			console.log(lang);
+			
+			$.ajax({ 
+				  url: '/submit',  
+				  type: 'POST',
+				  data: "code=" + encodeURIComponent(code) + "&lang=" + encodeURIComponent(lang),  
+				  success: function(code) {
+					  console.log("성공");
+				  },
+				  error: function() {
+					  console.log("실패!");
+				  }
+			}); 
+		} */
+
+		const chageCodeSelect = () =>{
+		    /* const langSelect = document.querySelector(".lang_list");
+		    let selectValue = langSelect.options[langSelect.selectedIndex].value; */
+		    innerDoc.getElementById("lang").value = ${code.code_language};
+		    innerDoc.getElementById("code").value = ${code.code_code};
+		    innerDoc.getElementById("getLangAndCode").click();
+		}
+
+		for (let i = 0; i < codeHistoryList.length; i++) {
+			codeHistoryList[i].addEventListener("click", historyClick);
+		 }
+
+		codeHistoryList.addEventListener("click", historyClick);
+		
+		/* submit_btn.addEventListener("click", codeSubmit); */
+	</script>
 
 </body>
 </html>

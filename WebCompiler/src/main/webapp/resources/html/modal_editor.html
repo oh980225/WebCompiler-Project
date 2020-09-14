@@ -8,12 +8,109 @@
 <body style="margin:0;">
 
   <div id="monaco" style="height:100vh"></div>
+  
+  <!-- <input id="code" type="hidden" value="" style="display:none;"/>
+  
+  <button id="getCode" style="display:none;"></button> -->
+  
+  <form id="lang_form" method="post" action="">
+  	<input id="lang" type="hidden" name="lang" value="" style="display:none;" />
+  	<input id="code" type="hidden" name="code" value="" style="display:none;" />
+  	<input id="getLangAndCode" type="submit" value="" style="display:none;" />
+  </form> 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs/loader.js"></script>
 
   <script>
+  
+  function Request(valuename)
+  {
+      var rtnval;
+      var nowAddress = unescape(location.href);
+      var parameters = new Array();
+      parameters = (nowAddress.slice(nowAddress.indexOf("?")+1,nowAddress.length)).split("&");
+      for(var i = 0 ; i < parameters.length ; i++){
+          if(parameters[i].split("=")[0] == valuename){
+              rtnval = parameters[i].split("=")[1];
+              if(rtnval == undefined || rtnval == null){
+                  rtnval = "";
+              }
+              return rtnval;
+          }
+      }
+      return null;
+  }
+  	
+  	let lang = Request('lang');
+  	let code = Request('code');
+  	if(lang === null || code === null) {
+  		lang = 'java';
+  		code = [
+  	    	'public class HelloWorld {',
+  	        '	public static void main(String args[]) {',
+  	        '		System.out.println("코드 기록을 선택해주세요.");',
+  	        '	}',
+  	        '}'
+  	    ].join('\n');
+  	} 
+  	/* let code = '';
+  	if(lang === null || lang === 'java') {
+  		lang = 'java';
+  		code = [
+  	    	'public class HelloWorld {',
+  	        '	public static void main(String args[]) {',
+  	        '		System.out.println("Hello World");',
+  	        '	}',
+  	        '}'
+  	    ].join('\n');
+  	} else if(lang === 'c') {
+  		code = [
+  	    	'#include <stdio.h>',
+  	        '',
+  	        'int main() {',
+  	    	'    printf("Hello, world!\\n");',
+  	    	'',
+  	    	'    return 0;',
+  	        '}'
+  	    ].join('\n');
+  	} else if(lang === 'c++') {
+  		code = [
+  	    	'#include <iostream>',
+  	        '',
+  	        'int main(int argc, char* argv[]) {',
+  	    	'    std::cout << "Hello World" << std::endl;',
+  	    	'',
+  	    	'    return 0;',
+  	        '}'
+  	    ].join('\n');
+  	} else if(lang === 'python') {
+  		code = [
+  	    	'print("Hello!")',
+  	        'print("Go Python!")'
+  	    ].join('\n');
+  	} else if(lang === 'javascript') {
+  		code = [
+  	    	'console.log("Hello!");',
+  	        'console.log("Go JS!");'
+  	    ].join('\n');
+  	} else {
+  		code = [
+  	    	'사이트에 문제가 있습니다.',
+  	        '다시 접속하여주십시오.'
+  	    ].join('\n');
+  	} */
+  	
+  	/* document.getElementById("lang").value = lang;
+  	document.getElementById("code").value = code; */
+  	
+  	if(lang === 'c++') {
+  		lang = 'c';
+  	}
+  			
     var editor;
+    /* const input_code = document.getElementById("code");
+    const btn_code = document.getElementById("getCode"); */
 
     require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs' }});
     require(['vs/editor/editor.main'], function() {
@@ -21,15 +118,16 @@
         theme: 'vs-white',
         fontFamily: 'Nanum Gothic Coding',
         automaticLayout: true,
-        language: 'c',
-        value: [
-          '# Monaco 코드 편집기',
-          '** 유기농 배추 문제의 코드입니다!',
-          '자신이 푼 문제의 코드를 살펴보세요.',
-          '현재 언어설정은 markdown입니다.'
-        ].join('\n')
+        language: lang,
+        value: code
       });
     });
+    
+    /* const getCode = () => {
+    	input_code.value = editor.getValue();
+    } 지금은 필요한지 의문...*/
+    
+    /* btn_code.addEventListener("click", getCode); */
   </script>
 </body>
 </html>
