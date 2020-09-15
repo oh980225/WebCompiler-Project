@@ -125,6 +125,10 @@ header.modal_header img.close {
   color: rgb(46, 173, 179);
 }
 
+#table .head_row:hover {
+  color: black !important;
+}
+
 .row .head {
   display: table-cell;
   height: inherit;
@@ -133,7 +137,8 @@ header.modal_header img.close {
   padding: 3px;
   padding-top: 1em;
   padding-bottom: 1em;
-  border-bottom: 1px solid rgb(136, 136, 136);
+  border-bottom: 1px solid rgb(136, 136, 136) !important;
+  cursor: default;
 }
 
 .row .cell {
@@ -143,7 +148,7 @@ header.modal_header img.close {
   padding: 3px;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
-  border-bottom: 1px dashed rgb(184, 184, 184);
+  border-bottom: 1px dashed rgb(184, 184, 184) !important;
 }
 
 .cell img {

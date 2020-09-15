@@ -83,7 +83,7 @@
 				</a>
 			</div>
 			<div class="result_main">
-
+				<%-- ${result == null ? 'null' : result} --%>
 			</div>
 			<div class="result_footer">
 				<button class="submit_btn" type="button" name="button">제출</button>
@@ -114,8 +114,11 @@
 				  url: '/submit',  
 				  type: 'POST',
 				  data: "code=" + encodeURIComponent(code) + "&lang=" + encodeURIComponent(lang),  
-				  success: function(code) {
-					  console.log("성공");
+				  success: function(data) {
+					  const result = data.result;
+					  const printResult = document.querySelector(".result_main");
+					  printResult.innerText = result;
+					  console.log(data.result);
 				  },
 				  error: function() {
 					  console.log("실패!");

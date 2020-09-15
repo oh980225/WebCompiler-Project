@@ -30,6 +30,6 @@ const selectCell = (event) => {
 overlay.addEventListener("click", closeModal);
 closeBtn.addEventListener("click", closeModal);
 openBtn.addEventListener("click", openModal);
-modalCell1.addEventListener("click", selectCell);
-modalCell2.addEventListener("click", selectCell);
-modalCell3.addEventListener("click", selectCell);
+//modalCell1.addEventListener("click", selectCell);
+//modalCell2.addEventListener("click", selectCell);
+//modalCell3.addEventListener("click", selectCell);

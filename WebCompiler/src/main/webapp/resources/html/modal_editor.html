@@ -13,7 +13,7 @@
   
   <button id="getCode" style="display:none;"></button> -->
   
-  <form id="lang_form" method="post" action="">
+  <form id="lang_form" method="get">
   	<input id="lang" type="hidden" name="lang" value="" style="display:none;" />
   	<input id="code" type="hidden" name="code" value="" style="display:none;" />
   	<input id="getLangAndCode" type="submit" value="" style="display:none;" />
@@ -43,8 +43,8 @@
   }
   	
   	let lang = Request('lang');
-  	let code = Request('code');
-  	if(lang === null || code === null) {
+  	let code = decodeURIComponent(Request('code'));
+  	if(lang == null || code == null) {
   		lang = 'java';
   		code = [
   	    	'public class HelloWorld {',

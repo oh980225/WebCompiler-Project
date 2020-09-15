@@ -203,13 +203,13 @@
 													<img class="close" src="<%=request.getContextPath()%>/resources/images/close.png" width="15em" height="15em" alt="닫기">
 				            					</header>
 												<div class="modal_left">
-													<h3 class="problem_name">2842. 유기농 배추</h3>
+													<h3 class="problem_name">${code.problem_id}. 유기농 배추</h3>
 													<div class="problem_level">
 														LEVEL 3
 													</div>
 													<div class="modal_wrap">
 														<div id="table">
-															<div class="row">
+															<div class="head_row row">
 																<span class="head col1">제출</span>
 																<span class="head col2">언어</span>
 																<span class="head col3">AC/WA</span>
@@ -288,7 +288,7 @@
 													</div>
 												</div>
 												<div class="modal_right">
-													<iframe src="<%=request.getContextPath()%>/resources/html/modal_editor.html" id="iframe" width="100%" height="100%"></iframe>
+													<iframe src="<%=request.getContextPath()%>/resources/html/modal_editor.html" id="iframe" onload="access()" width="100%" height="100%"></iframe>
 												</div>
 												<div class="open_check">
 													<span>코드를 다른 사용자에게도 공개합니다.</span> <input type="checkbox" id="check" name="open_check" value="open" /> <label for="check"></label>
@@ -414,12 +414,6 @@
 		const iframe = document.getElementById("iframe");
 		const codeHistoryList = document.querySelectorAll('.history');
 
-		const historyClick = () => {
-			console.log("click!!")
-			let index = '#'+this.id;
-			$(index).css('color', 'red');	
-			console.log(index);		
-		}
 		
 		let innerDoc = null;
 		/* const submit_btn = document.querySelector(".submit_btn"); */
@@ -451,19 +445,53 @@
 			}); 
 		} */
 
-		const chageCodeSelect = () =>{
-		    /* const langSelect = document.querySelector(".lang_list");
-		    let selectValue = langSelect.options[langSelect.selectedIndex].value; */
-		    innerDoc.getElementById("lang").value = ${code.code_language};
-		    innerDoc.getElementById("code").value = ${code.code_code};
-		    innerDoc.getElementById("getLangAndCode").click();
+		function Request(valuename)
+		  {
+		      var rtnval;
+		      var nowAddress = unescape(location.href);
+		      var parameters = new Array();
+		      parameters = (nowAddress.slice(nowAddress.indexOf("?")+1,nowAddress.length)).split("&");
+		      for(var i = 0 ; i < parameters.length ; i++){
+		          if(parameters[i].split("=")[0] == valuename){
+		              rtnval = parameters[i].split("=")[1];
+		              if(rtnval == undefined || rtnval == null){
+		                  rtnval = "";
+		              }
+		              return rtnval;
+		          }
+		      }
+		      return null;
+		  }
+
+		const chageCodeSelect = (id) =>{
+			let codeList = new Array();
+			<c:forEach items="${codeList}" var="code">
+			codeList.push({code: `${code.code_code}`,
+				lang: '${code.code_language}' });
+			</c:forEach> 
+			innerDoc.getElementById("lang").value = codeList[id].lang;
+			console.log(codeList[id].code);
+		    innerDoc.getElementById("code").value = encodeURIComponent(codeList[id].code);
+		    innerDoc.getElementById("getLangAndCode").click(); 
 		}
+
+		const historyClick = (event) => {
+			console.log("click!!")
+			let index = '#'+ event.target.parentNode.id;
+			$(index).css('color', 'rgb(46, 173, 179)'); 	
+			$(index).css('background-color', 'rgb(231, 251, 255)');
+			$(index).css('border-bottom', '1px dashed rgb(184, 184, 184)');
+			$('.history').not(index).css('color', 'black');
+			$('.history').not(index).css('background', 'transparent');
+			$('.history').not(index).css('border-bottom', '1px dashed rgb(184, 184, 184)');
+			chageCodeSelect(event.target.parentNode.id);
+		}
+
 
 		for (let i = 0; i < codeHistoryList.length; i++) {
 			codeHistoryList[i].addEventListener("click", historyClick);
 		 }
 
-		codeHistoryList.addEventListener("click", historyClick);
 		
 		/* submit_btn.addEventListener("click", codeSubmit); */
 	</script>

@@ -1,23 +1,29 @@
 package org.dms.web;
 
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.dms.web.domain.CategoryVO;
 import org.dms.web.domain.Criteria;
 import org.dms.web.domain.PageMaker;
 import org.dms.web.domain.ProblemVO;
 import org.dms.web.domain.TestcaseVO;
+import org.dms.web.domain.UserVO;
 import org.dms.web.service.CategoryService;
 import org.dms.web.service.ProblemService;
 import org.dms.web.service.TestcaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -106,49 +112,20 @@ public class ProblemController {
 	}
 	
 	@RequestMapping(value="/problem/{problem_id}", method=RequestMethod.GET)
-	public String problemGet(@PathVariable("problem_id") int problem_id, Model model) throws Exception {
+	public String problemGet(@PathVariable("problem_id") int problem_id, Model model, HttpSession session) throws Exception {
 		//logger.info("踰덊샇: "+ problem_id);
+		session.setAttribute("problem_id", problem_id);
+		
 		ProblemVO pvo = problemService.readProblem(problem_id);
 		TestcaseVO tvo= testcaseService.readTestcase(problem_id);
 		
-		// input, output 리스트를 받아온다.
-		List<String> tvoInput = testcaseService.getTestCaseInput(problem_id);
-		List<String> tvoOutput = testcaseService.getTestCaseOutput(problem_id);
-		
-		// console 창 출력
-		for(String input : tvoInput) {
-			System.out.println(input);
-		}
-		for(String output : tvoOutput) {
-			System.out.println(output);
-		}
-		
-		// file로 만들기
-		try {
-		    OutputStream file = new FileOutputStream("C:\\Users\\ohseu\\Desktop\\testcase.txt");
-		    
-		    String str = "input\n";
-		    for(String input : tvoInput) {
-				str += input + "\n";
-			}
-		    
-		    str += "output\n";
-		    for(String output : tvoOutput) {
-				str += output + "\n";
-			}
-		    
-		    byte[] by=str.getBytes();
-		    file.write(by);
-		    file.flush();
-		    file.close();
-				
-		} catch (Exception e) {
-	            e.getStackTrace();
-		}
-		
 		model.addAttribute("problem", pvo);
 		model.addAttribute("testcase", tvo);
-		//logger.info(vo.getProblem_title() + " " + vo.getProblem_id() + " " + vo.getProblem_content());		
+		//logger.info(vo.getProblem_title() + " " + vo.getProblem_id() + " " + vo.getProblem_content());	
+//		String result = "";
+		
+//		model.addAttribute("result", result);
+
 		return "solve_page";	
 	}
 	
@@ -188,23 +165,78 @@ public class ProblemController {
 		return "testcase_insert";
 	}
 	
-	@ResponseBody
 	@RequestMapping(value="/submit", method = RequestMethod.POST)
-	public void getCode(String code, String lang) {
-		System.out.println("DATA!");
-		System.out.println(code);
-		System.out.println(lang);
-		try {
-		    OutputStream output = new FileOutputStream("C:\\Users\\ohseu\\Desktop\\test.txt");
-		    String str = code + '\n' + lang;
-		    byte[] by=str.getBytes();
-		    output.write(by);
-		    output.flush();
-		    output.close();
+	@ResponseBody
+	public Map<String, Object> getCode(String code, String lang, HttpSession session) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserVO user = (UserVO)session.getAttribute("user");
+		//problem_id
+		int problem_id = (Integer) session.getAttribute("problem_id");
+		
+		//user_id
+		String user_id = user.getUser_id();
+		
+		// input, output 리스트를 받아온다.
+		List<String> tvoInput = testcaseService.getTestCaseInput(problem_id);
+		List<String> tvoOutput = testcaseService.getTestCaseOutput(problem_id);
 				
-		} catch (Exception e) {
-	            e.getStackTrace();
+		// console 창 출력
+		System.out.println("<UserID>");
+		System.out.println(user_id);
+	
+		System.out.println("<ProblemID>");
+		System.out.println(problem_id);
+		
+		System.out.println("<TestCase Input>");
+		for(String input : tvoInput) {
+			System.out.println(input);
 		}
+		System.out.println("<TestCase Output>");
+		for(String output : tvoOutput) {
+			System.out.println(output);
+		}
+				
+		System.out.println("<Code>");
+		System.out.println(code);
+		System.out.println("<Lang>");
+		System.out.println(lang);
+		
+		String result = code;
+		
+		map.put("result", result);
+		
+		
+		//누르면 txt파일 생성되고, 거기에 내용 쓰고
+//		try {
+//		    OutputStream output = new FileOutputStream("C:\\Users\\ohseu\\Desktop\\test.txt");
+//		    String str = code + '\n' + lang; // 이걸 혀제
+//		    byte[] by=str.getBytes();
+//		    output.write(by);
+//		    output.flush();
+//		    output.close();
+//				
+//		} catch (Exception e) {
+//	            e.getStackTrace();
+//		}
+//		
+//		
+//		try{
+//            //파일 객체 생성
+//            File file = new File("C:\\Users\\ohseu\\Desktop\\result.txt");
+//            //입력 스트림 생성
+//            FileReader filereader = new FileReader(file);
+//            int singleCh = 0;
+//            while((singleCh = filereader.read()) != -1){
+//            	result += (char)singleCh;
+//                System.out.print((char)singleCh);
+//            }
+//            filereader.close();
+//        }catch (Exception e) {
+//        	System.out.println(e);
+//        }
+		
+		return map;
 	}
 		
 }
