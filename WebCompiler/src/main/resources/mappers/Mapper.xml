@@ -155,5 +155,10 @@
     <select id="testcase_output_selectList" resultType="String"> 
     	select testcase_output from testcase where problem_id= #{problem_id} 
     </select>
+    
+    <!-- 코드조회 게시판 -->
+    <select id="codeboard_problem_id_list" resultType="Integer"> 
+    	select distinct problem_id  from code where user_id = #{user_id};
+    </select>
 	
 </mapper>  
