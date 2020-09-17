@@ -1,6 +1,6 @@
 package org.dms.web.domain;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class CodeBoardVO {
 	
@@ -8,8 +8,18 @@ public class CodeBoardVO {
 	private String user_id; // O
 	private String category_id; //O
 	private String problem_title; //O
-	private Timestamp code_date; // O
+	private Date code_date; // O
 	private byte code_success; // O
+	
+	public CodeBoardVO(int problem_id, String user_id, String category_id, String problem_title, Date code_date,
+			byte code_success) {
+		this.problem_id = problem_id;
+		this.user_id = user_id;
+		this.category_id = category_id;
+		this.problem_title = problem_title;
+		this.code_date = code_date;
+		this.code_success = code_success;
+	}
 	
 	public int getProblem_id() {
 		return problem_id;
@@ -35,10 +45,10 @@ public class CodeBoardVO {
 	public void setProblem_title(String problem_title) {
 		this.problem_title = problem_title;
 	}
-	public Timestamp getCode_date() {
+	public Date getCode_date() {
 		return code_date;
 	}
-	public void setCode_date(Timestamp code_date) {
+	public void setCode_date(Date code_date) {
 		this.code_date = code_date;
 	}
 	public byte getCode_success() {

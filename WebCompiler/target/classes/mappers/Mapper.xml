@@ -160,5 +160,25 @@
     <select id="codeboard_problem_id_list" resultType="Integer"> 
     	select distinct problem_id  from code where user_id = #{user_id};
     </select>
+    
+    <select id="codeboard_problem_title" resultType="String"> 
+    	select problem_title from problem where problem_id = #{problem_id};
+    </select>
+    
+    <select id="codeboard_category_id" resultType="String"> 
+    	select category_id from problem where problem_id = #{problem_id};
+    </select>
+    
+    <select id="codeboard_code_success" resultType="byte"> 
+    	select code_success from code where problem_id = #{problem_id} and code_success=1;
+    </select>
 	
+	<select id="codeboard_code_date_success" resultType="Date"> 
+    	select code_date from code where code_success=1 and problem_id = #{problem_id} order by code_date desc limit 1;
+    </select>
+    
+    <select id="codeboard_code_date_fail" resultType="Date"> 
+    	select code_date from code where code_success=0 and problem_id = #{problem_id} order by code_date desc limit 1;
+    </select>
+    
 </mapper>  

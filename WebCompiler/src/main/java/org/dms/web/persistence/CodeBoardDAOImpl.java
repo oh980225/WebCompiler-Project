@@ -1,5 +1,7 @@
 package org.dms.web.persistence;
 
+import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -18,10 +20,31 @@ public class CodeBoardDAOImpl implements CodeBoardDAO {
 	@Override
 	public List<CodeBoardVO> getCodeBoardList(String user_id) throws Exception {
 		List<Integer> problemIdList = sqlSession.selectList(namespace + ".codeboard_problem_id_list", user_id); // 1번 부분 완료
+		List<CodeBoardVO> codeBoardVOList = new ArrayList<CodeBoardVO>();
+		
+		for(int problem_id : problemIdList) {
+			System.out.println(problemIdList);
+			
+			String category_id = sqlSession.selectOne(namespace + ".codeboard_category_id", problem_id); // 2번 부분 완료
+			String problem_title = sqlSession.selectOne(namespace + ".codeboard_problem_title", problem_id); // 2번 부분 완료
+			byte code_success = sqlSession.selectOne(namespace + ".codeboard_code_success", problem_id);
+			Date code_date;
+			
+			if(code_success == 1) { // 성공이 존재할 경우
+				code_date = sqlSession.selectOne(namespace + ".codeboard_code_date_success", problem_id);
+			} else { // 한번도 성공하지 못한 경우
+				code_success = 0;
+				code_date = sqlSession.selectOne(namespace + ".codeboard_code_date_fail", problem_id);
+			}
+			
+			CodeBoardVO codeBoardVO = new CodeBoardVO(problem_id, user_id, category_id, problem_title, code_date, code_success);
+			codeBoardVOList.add(codeBoardVO);
+			
+		}
 		/*
-		1. 중복되지않게 problem_id를 다 가져와 List<Integer>
+		1. 중복되지않게 problem_id를 다 가져와 List<Integer> (O)
 
-		2. problem_id를 통해 각각에 대한 category_id, problem_title 가져와
+		2. problem_id를 통해 각각에 대한 category_id, problem_title 가져와 (O)
 
 		3. problem_id별 성공여부를 갈라
 
@@ -35,7 +58,7 @@ public class CodeBoardDAOImpl implements CodeBoardDAO {
 		각 변수들로 CodeBoardVO생성
 		}
 		*/ 
-		return null;
+		return codeBoardVOList;
 	}
 
 }
