@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.dms.web.domain.CodeBoardVO;
 import org.dms.web.domain.CodeVO;
 import org.dms.web.domain.UserVO;
+import org.dms.web.service.CodeBoardService;
 import org.dms.web.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,18 +30,23 @@ public class MyPageController {
 	@Autowired(required=true)
 	UserService userService;
 	
+	@Autowired(required=true)
+	CodeBoardService codeBoardService;
+	
 	private static final Logger logger = LoggerFactory.getLogger(MyPageController.class);
 
 	@RequestMapping(value = "/mypage")
 	public String getMyPage(Model model, HttpSession session) throws Exception {
 		UserVO user = (UserVO)session.getAttribute("user");
 		List<CodeVO> codeList = userService.getCodeList(user.getUser_id());
+		List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id());
 		
 		model.addAttribute("user", user);
 		model.addAttribute("codeList", codeList);
-			
-		for(CodeVO code : codeList) {
-			System.out.println(code);
+		model.addAttribute("codeBoardList", codeBoardList);
+		
+		for(CodeBoardVO codeBoard : codeBoardList) {
+			System.out.println(codeBoard);
 		}
 		
 		return "mypage";

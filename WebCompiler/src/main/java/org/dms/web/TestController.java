@@ -263,13 +263,17 @@ public class TestController {
 	
 	// codeBoard 테스트
 	@RequestMapping(value="/codeBoard")
-	public void getCodeBoard(HttpSession session) throws Exception {
+	public String getCodeBoard(HttpSession session, Model model) throws Exception {
 		UserVO user = (UserVO) session.getAttribute("user");
 		List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id());
+		
+		model.addAttribute("codeBoardList", codeBoardList);
 		
 		for(CodeBoardVO codeBoard : codeBoardList) {
 			System.out.println(codeBoard);
 		}
+		
+		return "test_view";
 	}
 
 

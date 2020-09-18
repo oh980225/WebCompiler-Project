@@ -1,11 +1,15 @@
 package org.dms.web.persistence;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.dms.web.domain.CodeBoardVO;
+import org.dms.web.domain.CodeVO;
+import org.dms.web.domain.ParamVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,17 +31,22 @@ public class CodeBoardDAOImpl implements CodeBoardDAO {
 			
 			String category_id = sqlSession.selectOne(namespace + ".codeboard_category_id", problem_id); // 2번 부분 완료
 			String problem_title = sqlSession.selectOne(namespace + ".codeboard_problem_title", problem_id); // 2번 부분 완료
-			byte code_success = sqlSession.selectOne(namespace + ".codeboard_code_success", problem_id);
-			Date code_date;
-			
-			if(code_success == 1) { // 성공이 존재할 경우
-				code_date = sqlSession.selectOne(namespace + ".codeboard_code_date_success", problem_id);
-			} else { // 한번도 성공하지 못한 경우
+			byte code_success;
+			if(sqlSession.selectOne(namespace + ".codeboard_code_success", problem_id) == null) {
 				code_success = 0;
-				code_date = sqlSession.selectOne(namespace + ".codeboard_code_date_fail", problem_id);
+			} else {
+				code_success = 1;
 			}
+			int problem_level = sqlSession.selectOne(namespace + ".codeboard_problem_level", problem_id);
 			
-			CodeBoardVO codeBoardVO = new CodeBoardVO(problem_id, user_id, category_id, problem_title, code_date, code_success);
+			Map<String, Object> param = new HashMap<String,Object>();
+			param.put("user_id", user_id);
+			param.put("problem_id", problem_id);
+			
+			List<CodeVO> codeList = sqlSession.selectList(namespace + ".codeboard_codeList", param);
+			Date code_date = sqlSession.selectOne(namespace + ".codeboard_code_date", problem_id);
+			
+			CodeBoardVO codeBoardVO = new CodeBoardVO(problem_id, user_id, category_id, problem_title, code_date, code_success, problem_level, codeList);
 			codeBoardVOList.add(codeBoardVO);
 			
 		}

@@ -80,7 +80,33 @@ header.modal_header img.close {
   font-size: 1.5em;
 }
 
-.modal_left div.problem_level {
+.modal_left div.modal_level1 {
+  float: left;
+  color: white;
+  background-color: rgb(255, 211, 85);
+  border-radius: 5%;
+  font-weight: bolder;
+  padding: 0.8em;
+  line-height: 0.4em;
+  font-size: 0.6em;
+  margin-top: 1.3em;
+  margin-left: 1em;
+}
+
+.modal_left div.modal_level2 {
+  float: left;
+  color: white;
+  background-color: #f56a6a;
+  border-radius: 5%;
+  font-weight: bolder;
+  padding: 0.8em;
+  line-height: 0.4em;
+  font-size: 0.6em;
+  margin-top: 1.3em;
+  margin-left: 1em;
+}
+
+.modal_left div.modal_level3 {
   float: left;
   color: white;
   background-color: rgb(64, 186, 218);
@@ -113,6 +139,7 @@ header.modal_header img.close {
 
 .modal_left #table {
   display: table;
+  border-collapse: collapse;
   width: 100%;
 }
 
@@ -121,12 +148,13 @@ header.modal_header img.close {
   cursor: pointer;
 }
 
-#table .row:hover {
-  color: rgb(46, 173, 179);
+/* #table .history:hover {
+	color: rgb(46, 173, 179);
 }
-
-#table .head_row:hover {
-  color: black !important;
+ */
+#table > .head {
+	margin-bottom: 1em !important;
+	border-bottom: 1px solid rgb(136, 136, 136) !important;
 }
 
 .row .head {
@@ -136,8 +164,7 @@ header.modal_header img.close {
   font-weight: bolder;
   padding: 3px;
   padding-top: 1em;
-  padding-bottom: 1em;
-  border-bottom: 1px solid rgb(136, 136, 136) !important;
+  padding-bottom: 0.5em !important; 
   cursor: default;
 }
 
@@ -147,7 +174,6 @@ header.modal_header img.close {
   box-sizing: border-box;
   padding: 3px;
   padding-top: 0.5em;
-  padding-bottom: 0.5em;
   border-bottom: 1px dashed rgb(184, 184, 184) !important;
 }
 

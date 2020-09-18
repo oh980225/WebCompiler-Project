@@ -182,17 +182,29 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="code" items="${codeList}">
+										<c:forEach var="codeBoard" items="${codeBoardList}">
 										<tr id="open">
-											<td>${code.problem_id}</td>
-											<td>${code.code_language}</td>
+											<td>${codeBoard.problem_id}</td>
+											<td>${codeBoard.problem_title}</td>
 											<td>
+												<c:if test="${codeBoard.problem_level == 1}">
 												<div class="problem_level1">
 													LEVEL 1
 												</div>
+												</c:if>
+												<c:if test="${codeBoard.problem_level == 2}">
+												<div class="problem_level2">
+													LEVEL 2
+												</div>
+												</c:if>
+												<c:if test="${codeBoard.problem_level == 3}">
+												<div class="problem_level3">
+													LEVEL 3
+												</div>
+												</c:if>
 											</td>
-											<td><fmt:formatDate pattern="yyyy.MM.dd" value="${code.code_date}"/></td>
-											<td><img src="<%=request.getContextPath()%>/resources/images/check.png" width="20em" height="20em" alt="O"></td>
+											<td><fmt:formatDate pattern="yyyy.MM.dd" value="${codeBoard.code_date}"/></td>
+											<td><img src="<%=request.getContextPath()%>/resources/images/${codeBoard.code_success == 1 ? 'check.png' : 'notCheck.png'}" width="20em" height="20em" alt=""></td>
 										</tr>
 										<div class="modal hidden">
 				          					<div class="modal_overlay">
@@ -203,13 +215,25 @@
 													<img class="close" src="<%=request.getContextPath()%>/resources/images/close.png" width="15em" height="15em" alt="닫기">
 				            					</header>
 												<div class="modal_left">
-													<h3 class="problem_name">${code.problem_id}. 유기농 배추</h3>
-													<div class="problem_level">
-														LEVEL 3
+													<h3 class="problem_name">${codeBoard.problem_id}. ${codeBoard.problem_title}</h3>
+													<c:if test="${codeBoard.problem_level == 3}">
+													<div class="modal_level3">
+													LEVEL 3
 													</div>
+													</c:if>
+													<c:if test="${codeBoard.problem_level == 2}">
+													<div class="modal_level2">
+													LEVEL 2
+													</div>
+													</c:if>
+													<c:if test="${codeBoard.problem_level == 1}">
+													<div class="modal_level1">
+													LEVEL 1
+													</div>
+													</c:if>
 													<div class="modal_wrap">
 														<div id="table">
-															<div class="head_row row">
+															<div class="head row">
 																<span class="head col1">제출</span>
 																<span class="head col2">언어</span>
 																<span class="head col3">AC/WA</span>
@@ -219,7 +243,7 @@
 															<div id="${st.index}" class="history row">
 																<span class="cell col1"><fmt:formatDate pattern="yyyy.MM.dd" value="${code.code_date}"/></span>
 																<span class="cell col2">${code.code_language}</span>
-																<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/${code.code_success == 1 ? 'check.png' : 'notCheck.png'}" width="25em" height="25em" alt="O"></span>
+																<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/${code.code_success == 1 ? 'check.png' : 'notCheck.png'}" width="25em" height="25em" alt=""></span>
 																<span class="cell col4">${code.code_open == 1 ? 'O' : 'X'}</span>
 															</div>
 															</c:forEach>
@@ -479,10 +503,10 @@
 			console.log("click!!")
 			let index = '#'+ event.target.parentNode.id;
 			$(index).css('color', 'rgb(46, 173, 179)'); 	
-			$(index).css('background-color', 'rgb(231, 251, 255)');
+			$(index).css('background-color', 'rgb(231, 251, 255)'); 
 			$(index).css('border-bottom', '1px dashed rgb(184, 184, 184)');
 			$('.history').not(index).css('color', 'black');
-			$('.history').not(index).css('background', 'transparent');
+			$('.history').not(index).css('background', 'transparent'); 
 			$('.history').not(index).css('border-bottom', '1px dashed rgb(184, 184, 184)');
 			chageCodeSelect(event.target.parentNode.id);
 		}

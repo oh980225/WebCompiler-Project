@@ -10,6 +10,7 @@ public class CodeVO {
 				+ ", code_language=" + code_language + ", code_open=" + code_open + ", code_success=" + code_success
 				+ ", problem_id=" + problem_id + ", user_id=" + user_id + "]";
 	}
+	
 	private int code_id;
 	private String code_code;
 	private Timestamp code_date;
