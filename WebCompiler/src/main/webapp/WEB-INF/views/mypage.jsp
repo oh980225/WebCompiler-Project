@@ -182,8 +182,8 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="codeBoard" items="${codeBoardList}">
-										<tr id="open">
+										<c:forEach var="codeBoard" items="${codeBoardList}" varStatus="st_">
+										<tr id="open" name="${st_.index}">
 											<td>${codeBoard.problem_id}</td>
 											<td>${codeBoard.problem_title}</td>
 											<td>
@@ -206,7 +206,8 @@
 											<td><fmt:formatDate pattern="yyyy.MM.dd" value="${codeBoard.code_date}"/></td>
 											<td><img src="<%=request.getContextPath()%>/resources/images/${codeBoard.code_success == 1 ? 'check.png' : 'notCheck.png'}" width="20em" height="20em" alt=""></td>
 										</tr>
-										<div class="modal hidden">
+				        				</c:forEach>
+				        				<div class="modal hidden">
 				          					<div class="modal_overlay">
 				          					</div>
 				          					<div class="modal_content">
@@ -239,7 +240,7 @@
 																<span class="head col3">AC/WA</span>
 																<span class="head col4">공개</span>
 															</div>
-															<c:forEach items="${codeList}" var="code" varStatus="st">
+															<c:forEach items="${codeBoard.codeList}" var="code" varStatus="st">
 															<div id="${st.index}" class="history row">
 																<span class="cell col1"><fmt:formatDate pattern="yyyy.MM.dd" value="${code.code_date}"/></span>
 																<span class="cell col2">${code.code_language}</span>
@@ -247,67 +248,6 @@
 																<span class="cell col4">${code.code_open == 1 ? 'O' : 'X'}</span>
 															</div>
 															</c:forEach>
-															
-															<%-- <div id="2" class="row">
-																<span class="cell col1">2020.08.01</span>
-																<span class="cell col2">C++</span>
-																<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X"></span>
-																<span class="cell col4">X</span>
-															</div>
-															<div id="3" class="row">
-																<span class="cell col1">2020.07.31</span>
-																<span class="cell col2">Javascript</span>
-																<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/check.png" width="25em" height="25em" alt="O" width="25em" height="25em" alt="O"></span>
-																<span class="cell col4">O</span>
-															</div>
-															<div id="4" class="row">
-																<span class="cell col1">2020.08.01</span>
-																<span class="cell col2">C++</span>
-																<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X" width="25em" height="25em" alt="X"></span>
-																<span class="cell col4">X</span>
-															</div>
-															<div id="1" class="row">
-																<span class="cell col1">2020.08.01</span>
-																<span class="cell col2">C++</span>
-																<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X" width="25em" height="25em" alt="X"></span>
-																<span class="cell col4">X</span>
-															</div>
-															<div id="1" class="row">
-																<span class="cell col1">2020.08.01</span>
-																<span class="cell col2">C++</span>
-																<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X" width="25em" height="25em" alt="X"></span>
-																<span class="cell col4">X</span>
-															</div>
-															<div id="1" class="row">
-																<span class="cell col1">2020.08.01</span>
-																<span class="cell col2">C++</span>
-																<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X" width="25em" height="25em" alt="X"></span>
-																<span class="cell col4">X</span>
-															</div>
-															<div id="1" class="row">
-																<span class="cell col1">2020.08.01</span>
-																<span class="cell col2">C++</span>
-																<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X" width="25em" height="25em" alt="X"></span>
-																<span class="cell col4">X</span>
-															</div>
-															<div id="1" class="row">
-																<span class="cell col1">2020.08.01</span>
-																<span class="cell col2">C++</span>
-																<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X" width="25em" height="25em" alt="X"></span>
-																<span class="cell col4">X</span>
-															</div>
-															<div id="1" class="row">
-																<span class="cell col1">2020.08.01</span>
-																<span class="cell col2">C++</span>
-																<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X" width="25em" height="25em" alt="X"></span>
-																<span class="cell col4">X</span>
-															</div>
-															<div id="1" class="row">
-																<span class="cell col1">2020.08.01</span>
-																<span class="cell col2">C++</span>
-																<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X"></span>
-																<span class="cell col4">X</span>
-															</div> --%>
 														</div>
 													</div>
 												</div>
@@ -319,7 +259,6 @@
 												</div>
 				          					</div>
 				        				</div>
-				        				</c:forEach>
 										<%-- <tr onClick="location.href='#'">
 											<td>1012</td>
 											<td>친구 네트워크</td>
@@ -433,7 +372,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/profile.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/modal.js"></script>
+	<%-- <script src="${pageContext.request.contextPath}/resources/js/modal.js"></script> --%>
 	<script type="text/javascript">
 		const iframe = document.getElementById("iframe");
 		const codeHistoryList = document.querySelectorAll('.history');
@@ -518,6 +457,37 @@
 
 		
 		/* submit_btn.addEventListener("click", codeSubmit); */
+		
+		const modal = document.querySelector(".modal");
+		const openBtn = document.getElementById("open");
+		const overlay = modal.querySelector(".modal_overlay");
+		const closeBtn = modal.querySelector(".close");
+
+		const openModal = (event) => {
+			let index = event.target.name;
+			/* 내가 봤을때 ajax로 다시 마이페이지 비동기로 호출하면서 data에 modal에서 쓸수 있는 값들을 넣어서 전달하고 그걸 모달에서 받
+			사용하는 것이 좋을듯? */
+			  $.ajax({ 
+				  	url: '/mypage',  
+				  	type: 'POST',
+				  	data: "index=" + index,  
+				  	success: function(data) {
+					  	console.log(data);
+				  	},
+				  	error: function() {
+					  	console.log("실패!");
+				  	}
+			  }); 
+			  modal.classList.remove("hidden");
+		}
+
+		const closeModal = () => {
+			 modal.classList.add("hidden");
+		}
+
+		overlay.addEventListener("click", closeModal);
+		closeBtn.addEventListener("click", closeModal);
+		openBtn.addEventListener("click", openModal);
 	</script>
 
 </body>
