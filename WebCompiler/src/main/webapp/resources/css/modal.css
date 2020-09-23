@@ -2,11 +2,11 @@ div.modal_wrap::-webkit-scrollbar{width: 0.5em; border-radius: 5%;}
 div.modal_wrap::-webkit-scrollbar-track {background: rgb(218, 218, 218); border-radius: 5px;}
 div.modal_wrap::-webkit-scrollbar-thumb {background: rgb(52, 50, 49,0.3); border-radius: 5px;}
 
-tr#open {
+tr.open {
   cursor: pointer;
 }
 
-tr#open:hover {
+tr.open:hover {
   color: black;
 }
 

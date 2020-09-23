@@ -183,7 +183,7 @@
 									</thead>
 									<tbody>
 										<c:forEach var="codeBoard" items="${codeBoardList}" varStatus="st_">
-										<tr id="open" name="${st_.index}">
+										<tr class="open" id="${st_.index}">
 											<td>${codeBoard.problem_id}</td>
 											<td>${codeBoard.problem_title}</td>
 											<td>
@@ -216,22 +216,8 @@
 													<img class="close" src="<%=request.getContextPath()%>/resources/images/close.png" width="15em" height="15em" alt="닫기">
 				            					</header>
 												<div class="modal_left">
-													<h3 class="problem_name">${codeBoard.problem_id}. ${codeBoard.problem_title}</h3>
-													<c:if test="${codeBoard.problem_level == 3}">
-													<div class="modal_level3">
-													LEVEL 3
-													</div>
-													</c:if>
-													<c:if test="${codeBoard.problem_level == 2}">
-													<div class="modal_level2">
-													LEVEL 2
-													</div>
-													</c:if>
-													<c:if test="${codeBoard.problem_level == 1}">
-													<div class="modal_level1">
-													LEVEL 1
-													</div>
-													</c:if>
+													<h3 class="problem_name"></h3>
+													<div class="modal_level"></div>
 													<div class="modal_wrap">
 														<div id="table">
 															<div class="head row">
@@ -240,14 +226,8 @@
 																<span class="head col3">AC/WA</span>
 																<span class="head col4">공개</span>
 															</div>
-															<c:forEach items="${codeBoard.codeList}" var="code" varStatus="st">
-															<div id="${st.index}" class="history row">
-																<span class="cell col1"><fmt:formatDate pattern="yyyy.MM.dd" value="${code.code_date}"/></span>
-																<span class="cell col2">${code.code_language}</span>
-																<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/${code.code_success == 1 ? 'check.png' : 'notCheck.png'}" width="25em" height="25em" alt=""></span>
-																<span class="cell col4">${code.code_open == 1 ? 'O' : 'X'}</span>
-															</div>
-															</c:forEach>
+															<!-- <div class="codeHistory" style="display: inherit; width:100%; padding:0; margin:0;">
+															</div> -->
 														</div>
 													</div>
 												</div>
@@ -259,50 +239,6 @@
 												</div>
 				          					</div>
 				        				</div>
-										<%-- <tr onClick="location.href='#'">
-											<td>1012</td>
-											<td>친구 네트워크</td>
-											<td>
-												<div class="problem_level2">
-													LEVEL 2
-												</div>
-											</td>
-											<td>2019.02.26</td>
-											<td><img src="<%=request.getContextPath()%>/resources/images/check.png" width="20em" height="20em" alt="O"></td>
-										</tr>
-										<tr onClick="location.href='#'">
-											<td>1012</td>
-											<td>친구 네트워크</td>
-											<td>
-												<div class="problem_level3">
-													LEVEL 3
-												</div>
-											</td>
-											<td>2019.02.26</td>
-											<td><img src="<%=request.getContextPath()%>/resources/images/check.png" width="20em" height="20em" alt="O"></td>
-										</tr>
-										<tr onClick="location.href='#'">
-											<td>1012</td>
-											<td>친구 네트워크</td>
-											<td>
-												<div class="problem_level1">
-													LEVEL 1
-												</div>
-											</td>
-											<td>2019.02.26</td>
-											<td><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="20em" height="20em" alt="O"></td>
-										</tr>
-										<tr onClick="location.href='#'">
-											<td>1012</td>
-											<td>친구 네트워크</td>
-											<td>
-												<div class="problem_level2">
-													LEVEL 2
-												</div>
-											</td>
-											<td>2019.02.26</td>
-											<td><img src="<%=request.getContextPath()%>/resources/images/check.png" width="20em" height="20em" alt="O"></td>
-										</tr> --%>
 									</tbody>
 								</table>
 							</div>
@@ -335,33 +271,6 @@
 
 			</div>
 		</div>
-
-		<!-- Sidebar -->
-		<%-- <div id="sidebar">
-						<div class="inner">
-							<!-- Menu -->
-								<nav id="menu">
-									<header class="major">
-										<img class="icon" src="<%=request.getContextPath()%>/resources/images/user.png">
-										<!-- 사용자의 닉네임 클릭시 마이페이지로 이동 -->
-										<c:if test="${user.user_id == null}">
-										<h3 class="name"><a href="/login">먼저 로그인 해주세요!</a></h3>
-										</c:if>
-										<c:if test="${user.user_id != null}">
-											<h3 class="name"><a href="/mypage">${user.user_id}</a></h3>
-										</c:if>
-									</header>
-									<ul>
-										<!-- 사이드 메뉴바에 Main Page 클릭시 메인페이지로 이동 -->
-										<li><a href="/"><img class="icon" src="<%=request.getContextPath()%>/resources/images/main_icon.png" alt="Main Page" />Main Page</a></li>
-										<!-- 사이드 메뉴바에 Problem 클릭시 문제 페이지로 이동 -->
-										<li><a href="/problem"><img class="icon" src="<%=request.getContextPath()%>/resources/images/problem_icon.png" alt="Problem Page" />Problem</a></li>
-										<li><a href="/board"><img class="icon" src="<%=request.getContextPath()%>/resources/images/board_icon.png" alt="Board Page" />Board</a>
-										</li>
-									</ul>
-								</nav>
-						</div>
-					</div> --%>
 
 	</div>
 
@@ -459,26 +368,71 @@
 		/* submit_btn.addEventListener("click", codeSubmit); */
 		
 		const modal = document.querySelector(".modal");
-		const openBtn = document.getElementById("open");
+		const openBtns = document.querySelectorAll(".open");
 		const overlay = modal.querySelector(".modal_overlay");
 		const closeBtn = modal.querySelector(".close");
 
-		const openModal = (event) => {
-			let index = event.target.name;
-			/* 내가 봤을때 ajax로 다시 마이페이지 비동기로 호출하면서 data에 modal에서 쓸수 있는 값들을 넣어서 전달하고 그걸 모달에서 받
-			사용하는 것이 좋을듯? */
-			  $.ajax({ 
-				  	url: '/mypage',  
-				  	type: 'POST',
-				  	data: "index=" + index,  
-				  	success: function(data) {
-					  	console.log(data);
-				  	},
-				  	error: function() {
-					  	console.log("실패!");
-				  	}
-			  }); 
-			  modal.classList.remove("hidden");
+		const open = (event) => {
+			let node = event.target.parentNode;
+			while(node.tagName != "TR") {
+				node = node.parentNode;
+			}
+			let index = node.id;
+			console.log(index);
+			
+			$.ajax({ 
+				 url: '/modal',  
+				 type: 'POST',
+				 data: "index=" + index,  
+				 success: function(data) {
+					 const result = data.codeBoard;
+					 const problem_name = document.querySelector(".problem_name");
+					 const problem_level = document.querySelector(".modal_level");
+					 const table = document.getElementById("table");
+					 
+					 problem_level.classList.remove('modal_level1');
+					 problem_level.classList.remove('modal_level2');
+					 problem_level.classList.remove('modal_level3');
+
+					 problem_name.innerHTML = result.problem_id + ". "  + result.problem_title;
+					 problem_level.classList.add('modal_level'+result.problem_level);
+					 problem_level.innerHTML = "LEVEL " + result.problem_level;
+
+					 let list = "";
+					 for(let i in result.codeList) {
+						 let code_date = new Date(result.codeList[i].code_date);
+						 let code_lang = result.codeList[i].code_language;
+						 let code_success = result.codeList[i].code_success;
+						 let code_open = result.codeList[i].code_open;
+						 console.log(code_date + code_lang + code_success + code_open);
+						 if(code_success == 1) {
+							 code_success = 'check.png'
+						 } else {
+							 code_success = 'notCheck.png';
+						 }
+						 
+						 if(code_open == 1) {
+							 code_open = 'O'
+						 } else {
+							 code_open = 'X';
+						 }
+						 
+						 list = `<div id=${i} class="history row">
+								<span class="cell col1">` + code_date + `</span>
+								<span class="cell col2">` + code_lang + `</span>
+								<span class="cell col3"><div style="width: 1em; height: 1em; background: black;" ></div></span>
+								<span class="cell col4">` + code_open + `</span>
+							</div>`;
+						 let nodes = new DOMParser().parseFromString(list, 'text/html');
+						 table.appendChild(nodes.firstChild);
+					 }
+					 
+				 },
+				 error: function() {
+					 console.log("실패!");
+				 }
+			}); 
+			modal.classList.remove("hidden");
 		}
 
 		const closeModal = () => {
@@ -487,8 +441,66 @@
 
 		overlay.addEventListener("click", closeModal);
 		closeBtn.addEventListener("click", closeModal);
-		openBtn.addEventListener("click", openModal);
+		for(const btn of openBtns) {
+			btn.addEventListener("click", open);
+		}
 	</script>
 
 </body>
+<!-- 
+<div class="modal hidden">
+				          					<div class="modal_overlay">
+				          					</div>
+				          					<div class="modal_content">
+				            					<header class="modal_header">
+													<span class="title">코드조회</span>
+													<img class="close" src="request.getContextPath()%>/resources/images/close.png" width="15em" height="15em" alt="닫기">
+				            					</header>
+												<div class="modal_left">
+													<h3 class="problem_name">${codeBoard.problem_id}. ${codeBoard.problem_title}</h3>
+													<c:if test="${codeBoard.problem_level == 3}">
+													<div class="modal_level3">
+													LEVEL 3
+													</div>
+													</c:if>
+													<c:if test="${codeBoard.problem_level == 2}">
+													<div class="modal_level2">
+													LEVEL 2
+													</div>
+													</c:if>
+													<c:if test="${codeBoard.problem_level == 1}">
+													<div class="modal_level1">
+													LEVEL 1
+													</div>
+													</c:if>
+													<div class="modal_wrap">
+														<div id="table">
+															<div class="head row">
+																<span class="head col1">제출</span>
+																<span class="head col2">언어</span>
+																<span class="head col3">AC/WA</span>
+																<span class="head col4">공개</span>
+															</div>
+															<c:forEach items="${codeBoard.codeList}" var="code" varStatus="st">
+															<div id="${st.index}" class="history row">
+																<span class="cell col1"><fmt:formatDate pattern="yyyy.MM.dd" value="${code.code_date}"/></span>
+																<span class="cell col2">${code.code_language}</span>
+																<span class="cell col3"><img src="request.getContextPath()%>/resources/images/${code.code_success == 1 ? 'check.png' : 'notCheck.png'}" width="25em" height="25em" alt=""></span>
+																<span class="cell col4">${code.code_open == 1 ? 'O' : 'X'}</span>
+															</div>
+															</c:forEach>
+														</div>
+													</div>
+												</div>
+												<div class="modal_right">
+													<iframe src="request.getContextPath()/resources/html/modal_editor.html" id="iframe" onload="access()" width="100%" height="100%"></iframe>
+												</div>
+												<div class="open_check">
+													<span>코드를 다른 사용자에게도 공개합니다.</span> <input type="checkbox" id="check" name="open_check" value="open" /> <label for="check"></label>
+												</div>
+				          					</div>
+				        				</div>
+ -->
 </html>
+
+

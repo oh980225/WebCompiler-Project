@@ -1,5 +1,6 @@
 package org.dms.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -102,4 +103,16 @@ public class MyPageController {
 		return "redirect:/mypage";
 	}
 	
+	// 해당 모달창 띄우기
+	@RequestMapping(value="/modal", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> openModal(int index, HttpSession session) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		UserVO user = (UserVO)session.getAttribute("user");
+		List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id());
+		
+		map.put("codeBoard", codeBoardList.get(index));
+		
+		return map;
+	}
 }
