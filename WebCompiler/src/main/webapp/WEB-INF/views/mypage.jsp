@@ -284,38 +284,12 @@
 	<%-- <script src="${pageContext.request.contextPath}/resources/js/modal.js"></script> --%>
 	<script type="text/javascript">
 		const iframe = document.getElementById("iframe");
-		const codeHistoryList = document.querySelectorAll('.history');
-
-		
+		let myCodeList = null;
 		let innerDoc = null;
-		/* const submit_btn = document.querySelector(".submit_btn"); */
 		
 		const access = () => {
 		    innerDoc = iframe.contentDocument || iframe.contentWindow.document;
 		}
-
-		/* const codeSubmit = () => {
-			let getCodeBtn = innerDoc.getElementById("getCode");
-			getCodeBtn.click();
-			
-			let code = innerDoc.getElementById("code").value;
-			console.log(code);
-
-			let lang = innerDoc.getElementById("lang").value;
-			console.log(lang);
-			
-			$.ajax({ 
-				  url: '/submit',  
-				  type: 'POST',
-				  data: "code=" + encodeURIComponent(code) + "&lang=" + encodeURIComponent(lang),  
-				  success: function(code) {
-					  console.log("성공");
-				  },
-				  error: function() {
-					  console.log("실패!");
-				  }
-			}); 
-		} */
 
 		function Request(valuename)
 		  {
@@ -336,14 +310,14 @@
 		  }
 
 		const chageCodeSelect = (id) =>{
-			let codeList = new Array();
+			let codeList = myCodeList;/* 
 			<c:forEach items="${codeList}" var="code">
 			codeList.push({code: `${code.code_code}`,
 				lang: '${code.code_language}' });
-			</c:forEach> 
-			innerDoc.getElementById("lang").value = codeList[id].lang;
-			console.log(codeList[id].code);
-		    innerDoc.getElementById("code").value = encodeURIComponent(codeList[id].code);
+			</c:forEach>  */
+			innerDoc.getElementById("lang").value = codeList[id].code_language;
+			console.log(codeList[id].code_code);
+		    innerDoc.getElementById("code").value = encodeURIComponent(codeList[id].code_code);
 		    innerDoc.getElementById("getLangAndCode").click(); 
 		}
 
@@ -356,17 +330,10 @@
 			$('.history').not(index).css('color', 'black');
 			$('.history').not(index).css('background', 'transparent'); 
 			$('.history').not(index).css('border-bottom', '1px dashed rgb(184, 184, 184)');
+			console.log("check code: " + event.target.parentNode.id);
 			chageCodeSelect(event.target.parentNode.id);
 		}
 
-
-		for (let i = 0; i < codeHistoryList.length; i++) {
-			codeHistoryList[i].addEventListener("click", historyClick);
-		 }
-
-		
-		/* submit_btn.addEventListener("click", codeSubmit); */
-		
 		const modal = document.querySelector(".modal");
 		const openBtns = document.querySelectorAll(".open");
 		const overlay = modal.querySelector(".modal_overlay");
@@ -380,6 +347,9 @@
 			let index = node.id;
 			console.log(index);
 			
+			innerDoc.getElementById("code").value = encodeURIComponent("코드기록을 선택해주세요.");
+			innerDoc.getElementById("getLangAndCode").click(); 
+			
 			$.ajax({ 
 				 url: '/modal',  
 				 type: 'POST',
@@ -389,6 +359,7 @@
 					 const problem_name = document.querySelector(".problem_name");
 					 const problem_level = document.querySelector(".modal_level");
 					 const table = document.getElementById("table");
+					 myCodeList = result.codeList;
 					 
 					 problem_level.classList.remove('modal_level1');
 					 problem_level.classList.remove('modal_level2');
@@ -398,7 +369,18 @@
 					 problem_level.classList.add('modal_level'+result.problem_level);
 					 problem_level.innerHTML = "LEVEL " + result.problem_level;
 
+					 let prevList = table.querySelectorAll('.history');
+					 console.log("prevList: " + prevList);
+
+					 if(prevList != null) {
+						 for (let i = 0; i < prevList.length; i++) {
+							 console.log("remove: " + prevList[i]);
+							 table.removeChild(prevList[i]);
+						 }
+				     }
+					 
 					 let list = "";
+					 
 					 for(let i in result.codeList) {
 						 let code_date = new Date(result.codeList[i].code_date);
 						 let code_lang = result.codeList[i].code_language;
@@ -417,14 +399,21 @@
 							 code_open = 'X';
 						 }
 						 
-						 list = `<div id=${i} class="history row">
+						 list = `<div id=` + i + ` class="history row">
 								<span class="cell col1">` + code_date + `</span>
 								<span class="cell col2">` + code_lang + `</span>
 								<span class="cell col3"><div style="width: 1em; height: 1em; background: black;" ></div></span>
 								<span class="cell col4">` + code_open + `</span>
 							</div>`;
-						 let nodes = new DOMParser().parseFromString(list, 'text/html');
-						 table.appendChild(nodes.firstChild);
+						 let nodes_ = new DOMParser().parseFromString(list, 'text/html');
+						 let nodes = nodes_.firstChild.childNodes.item(1)
+						 console.log(nodes.childNodes.item(0));
+						 table.appendChild(nodes.childNodes.item(0));
+					 }
+					 const codeHistoryList = document.querySelectorAll('.history');
+					 
+					 for (let i = 0; i < codeHistoryList.length; i++) {
+							codeHistoryList[i].addEventListener("click", historyClick);
 					 }
 					 
 				 },
@@ -444,6 +433,8 @@
 		for(const btn of openBtns) {
 			btn.addEventListener("click", open);
 		}
+		
+		
 	</script>
 
 </body>
