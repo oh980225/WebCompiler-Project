@@ -263,9 +263,9 @@ public class TestController {
 	
 	// codeBoard 테스트
 	@RequestMapping(value="/codeBoard")
-	public String getCodeBoard(HttpSession session, Model model) throws Exception {
+	public String getCodeBoard(HttpSession session, Model model, Criteria criteria) throws Exception {
 		UserVO user = (UserVO) session.getAttribute("user");
-		List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id());
+		List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id(), criteria);
 		
 		model.addAttribute("codeBoardList", codeBoardList);
 		

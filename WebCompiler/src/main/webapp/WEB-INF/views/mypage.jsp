@@ -58,23 +58,6 @@
 							</div>
 							</c:if>
 						</header>
-			<!-- Header -->
-			<!--  
-								<header id="header">
-									<a href="/web" class="logo"><strong>FULL STACK</strong> DEVELOPER</a>
-									<!-- 바꾸기 -->																
-									<!--<c:if test="${user.user_id == null}">
-										<ul class="icons">
-											<li><a href="/login">로그인</a></li>
-											<li><a href="/join">회원가입</a></li>
-										</ul>
-									</c:if>
-									<c:if test="${user.user_id != null}">
-										<ul class="icons">
-											<li><a href="/logout.do">로그아웃</a></li>
-										</ul>
-									</c:if>				
-								</header> -->
 			<div class="inner">
 				<!-- Content -->
 				<section class="profile">
@@ -226,8 +209,6 @@
 																<span class="head col3">AC/WA</span>
 																<span class="head col4">공개</span>
 															</div>
-															<!-- <div class="codeHistory" style="display: inherit; width:100%; padding:0; margin:0;">
-															</div> -->
 														</div>
 													</div>
 												</div>
@@ -339,7 +320,17 @@
 		const overlay = modal.querySelector(".modal_overlay");
 		const closeBtn = modal.querySelector(".close");
 
-		const open = (event) => {
+		// js date fomat변경
+		function getFormatDate(date){
+		    var year = date.getFullYear();              
+		    var month = (1 + date.getMonth());          
+		    month = month >= 10 ? month : '0' + month;  
+		    var day = date.getDate();                   
+		    day = day >= 10 ? day : '0' + day;          
+		    return  year + '.' + month + '.' + day;       
+		}
+
+		const openModal = (event) => {
 			let node = event.target.parentNode;
 			while(node.tagName != "TR") {
 				node = node.parentNode;
@@ -347,8 +338,15 @@
 			let index = node.id;
 			console.log(index);
 			
-			innerDoc.getElementById("code").value = encodeURIComponent("코드기록을 선택해주세요.");
-			innerDoc.getElementById("getLangAndCode").click(); 
+			if(innerDoc == null) {
+				console.log("this is null");	
+			} else {
+				const get_code = innerDoc.getElementById("code_get");
+				const getLangAndCode = innerDoc.getElementById("getLangAndCode");
+				console.log(innerDoc.getElementById("code_get"));
+				get_code.value = encodeURIComponent("코드기록을 선택해주세요.");
+				getLangAndCode.click(); 
+			}
 			
 			$.ajax({ 
 				 url: '/modal',  
@@ -383,6 +381,7 @@
 					 
 					 for(let i in result.codeList) {
 						 let code_date = new Date(result.codeList[i].code_date);
+						 code_date = getFormatDate(code_date)
 						 let code_lang = result.codeList[i].code_language;
 						 let code_success = result.codeList[i].code_success;
 						 let code_open = result.codeList[i].code_open;
@@ -402,7 +401,7 @@
 						 list = `<div id=` + i + ` class="history row">
 								<span class="cell col1">` + code_date + `</span>
 								<span class="cell col2">` + code_lang + `</span>
-								<span class="cell col3"><div style="width: 1em; height: 1em; background: black;" ></div></span>
+								<span class="cell col3"><img style="cursor:default" src="<%=request.getContextPath()%>/resources/images/` + code_success + `" width="25em" height="25em" alt=""></span>
 								<span class="cell col4">` + code_open + `</span>
 							</div>`;
 						 let nodes_ = new DOMParser().parseFromString(list, 'text/html');
@@ -431,67 +430,14 @@
 		overlay.addEventListener("click", closeModal);
 		closeBtn.addEventListener("click", closeModal);
 		for(const btn of openBtns) {
-			btn.addEventListener("click", open);
+			btn.addEventListener("click", openModal);
 		}
 		
 		
 	</script>
 
 </body>
-<!-- 
-<div class="modal hidden">
-				          					<div class="modal_overlay">
-				          					</div>
-				          					<div class="modal_content">
-				            					<header class="modal_header">
-													<span class="title">코드조회</span>
-													<img class="close" src="request.getContextPath()%>/resources/images/close.png" width="15em" height="15em" alt="닫기">
-				            					</header>
-												<div class="modal_left">
-													<h3 class="problem_name">${codeBoard.problem_id}. ${codeBoard.problem_title}</h3>
-													<c:if test="${codeBoard.problem_level == 3}">
-													<div class="modal_level3">
-													LEVEL 3
-													</div>
-													</c:if>
-													<c:if test="${codeBoard.problem_level == 2}">
-													<div class="modal_level2">
-													LEVEL 2
-													</div>
-													</c:if>
-													<c:if test="${codeBoard.problem_level == 1}">
-													<div class="modal_level1">
-													LEVEL 1
-													</div>
-													</c:if>
-													<div class="modal_wrap">
-														<div id="table">
-															<div class="head row">
-																<span class="head col1">제출</span>
-																<span class="head col2">언어</span>
-																<span class="head col3">AC/WA</span>
-																<span class="head col4">공개</span>
-															</div>
-															<c:forEach items="${codeBoard.codeList}" var="code" varStatus="st">
-															<div id="${st.index}" class="history row">
-																<span class="cell col1"><fmt:formatDate pattern="yyyy.MM.dd" value="${code.code_date}"/></span>
-																<span class="cell col2">${code.code_language}</span>
-																<span class="cell col3"><img src="request.getContextPath()%>/resources/images/${code.code_success == 1 ? 'check.png' : 'notCheck.png'}" width="25em" height="25em" alt=""></span>
-																<span class="cell col4">${code.code_open == 1 ? 'O' : 'X'}</span>
-															</div>
-															</c:forEach>
-														</div>
-													</div>
-												</div>
-												<div class="modal_right">
-													<iframe src="request.getContextPath()/resources/html/modal_editor.html" id="iframe" onload="access()" width="100%" height="100%"></iframe>
-												</div>
-												<div class="open_check">
-													<span>코드를 다른 사용자에게도 공개합니다.</span> <input type="checkbox" id="check" name="open_check" value="open" /> <label for="check"></label>
-												</div>
-				          					</div>
-				        				</div>
- -->
+
 </html>
 
 

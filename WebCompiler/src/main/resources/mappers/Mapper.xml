@@ -145,9 +145,7 @@
     <insert id="testcase_insert">
     	insert into testcase (testcase_input, testcase_output, problem_id) values (#{testcase_input}, #{testcase_output}, #{problem_id})
     </insert>
-    <!-- 게시판 -->
-   
-    
+    <!-- 게시판 -->  
     <select id="testcase_input_selectList" resultType="String"> 
     	select testcase_input from testcase where problem_id= #{problem_id} 
     </select>
@@ -184,5 +182,13 @@
     <select id="codeboard_codeList" parameterType="hashmap" resultType="CodeVO">
      	select * from code where problem_id= #{problem_id} and user_id = #{user_id} order by code_date desc
      </select>
+     <!-- 테스트-->
+    <!--  <select id="listCriteria" resultType="ProblemVO">
+    	select * from problem limit #{pageStart}, #{perPageNum}
+    </select> -->
+     <!-- 게시판 -->
+     <insert id="submit_code" parameterType="CodeVO">
+    	insert into code(code_code, code_language, code_success, user_id, problem_id, code_date) values(#{code_code}, #{code_language}, #{code_success}, #{user_id}, #{problem_id}, #{code_date});
+    </insert>
     
 </mapper>  

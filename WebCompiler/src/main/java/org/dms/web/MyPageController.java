@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.dms.web.domain.CodeBoardVO;
 import org.dms.web.domain.CodeVO;
+import org.dms.web.domain.Criteria;
+import org.dms.web.domain.PageMaker;
 import org.dms.web.domain.UserVO;
 import org.dms.web.service.CodeBoardService;
 import org.dms.web.service.UserService;
@@ -39,16 +41,25 @@ public class MyPageController {
 	private static final Logger logger = LoggerFactory.getLogger(MyPageController.class);
 
 	@RequestMapping(value = "/mypage")
-	public String getMyPage(Model model, HttpSession session) throws Exception {
+	public String getMyPage(Model model, HttpSession session, Criteria criteria) throws Exception {
 		UserVO user = (UserVO)session.getAttribute("user");
 		List<CodeVO> codeList = userService.getCodeList(user.getUser_id());
-		List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id());
+		List<CodeBoardVO> codeBoardList_ = codeBoardService.getCodeBoardList(user.getUser_id());
+		
+		PageMaker pageMaker = new PageMaker();
+		criteria.setPerPageNum(5);
+		pageMaker.setCri(criteria);
+		pageMaker.setTotalCount(codeBoardList_.size());
+		
+		List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id(), criteria);
 		
 		model.addAttribute("user", user);
 		model.addAttribute("codeList", codeList);
-		model.addAttribute("codeBoardList", codeBoardList);
+		model.addAttribute("codeBoardList", codeBoardList_);
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("criteria", criteria);
 		
-		for(CodeBoardVO codeBoard : codeBoardList) {
+		for(CodeBoardVO codeBoard : codeBoardList_) {
 			System.out.println(codeBoard);
 		}
 		
@@ -106,7 +117,7 @@ public class MyPageController {
 	// 해당 모달창 띄우기
 	@RequestMapping(value="/modal", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> openModal(int index, HttpSession session) throws Exception {
+	public Map<String, Object> openModal(int index, HttpSession session, Criteria criteria) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		UserVO user = (UserVO)session.getAttribute("user");
 		List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id());

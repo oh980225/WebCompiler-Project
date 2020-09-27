@@ -132,7 +132,7 @@ header.modal_header img.close {
 .modal_wrap {
   width: 100%;
   height: 25em;
-  margin-top: 5em;
+  margin-top: 2em;
   color: black;
   overflow: auto;
 }
@@ -230,3 +230,51 @@ input[type="checkbox"]:checked + label:before {
   background: white;
   color: green;
 }
+
+/*여기부터 추가*/
+
+.help_modal {
+  background-color: white;
+  text-align: center;
+  position: relative;
+  top: 0;
+  width: 25em;
+  max-width:25em;
+  height: 15em;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.help_modal header.modal_header {
+  width: 100%;
+  background-color: rgb(47, 47, 74);
+  height: 2em;
+  color: white;
+}
+
+.help_modal h2 {
+  font-family: none;
+  font-size: 1em;
+  margin-top: 2em;
+}
+
+/* .help_modal input[type="password"] {
+  font-family: none;
+  margin: auto;
+  margin-top: 1.5em;
+  background: white;
+  border: 1px solid black;
+  width: 17em;
+}
+
+.help_modal input[type="submit"] {
+  font-family: none;
+  margin-top: 1em;
+  border: 1.5px solid black;
+  background: white;
+  color: black !important;
+} */
+
+/* .withdraw_check input[type="submit"]:hover {
+  background: #f56a6a;
+  box-shadow: none;
+} */

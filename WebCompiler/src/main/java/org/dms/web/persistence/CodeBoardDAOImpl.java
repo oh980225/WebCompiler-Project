@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.dms.web.domain.CodeBoardVO;
 import org.dms.web.domain.CodeVO;
+import org.dms.web.domain.Criteria;
 import org.dms.web.domain.ParamVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -42,6 +43,8 @@ public class CodeBoardDAOImpl implements CodeBoardDAO {
 			Map<String, Object> param = new HashMap<String,Object>();
 			param.put("user_id", user_id);
 			param.put("problem_id", problem_id);
+			param.put("problem_id", problem_id);
+			param.put("problem_id", problem_id);
 			
 			List<CodeVO> codeList = sqlSession.selectList(namespace + ".codeboard_codeList", param);
 			Date code_date = sqlSession.selectOne(namespace + ".codeboard_code_date", problem_id);
@@ -50,24 +53,13 @@ public class CodeBoardDAOImpl implements CodeBoardDAO {
 			codeBoardVOList.add(codeBoardVO);
 			
 		}
-		/*
-		1. 중복되지않게 problem_id를 다 가져와 List<Integer> (O)
-
-		2. problem_id를 통해 각각에 대한 category_id, problem_title 가져와 (O)
-
-		3. problem_id별 성공여부를 갈라
-
-		4. 가른 다음 거기서 최근 값 가져와 이때 code_success, user_id, problem_id, code_date 이거 다 가져와
-
-		for(1번 리스트 돌리고)
-		{
-		2번 각각 변수에 저장
-		if로 3번 가르고
-		각각 4번으로 변수에 저장
-		각 변수들로 CodeBoardVO생성
-		}
-		*/ 
+		
 		return codeBoardVOList;
+	}
+	
+	@Override
+	public List<CodeBoardVO> getCodeBoardList(String user_id, Criteria criteria) throws Exception {
+		return null;
 	}
 
 }

@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.OutputStream;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -12,12 +15,14 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.dms.web.domain.CategoryVO;
+import org.dms.web.domain.CodeVO;
 import org.dms.web.domain.Criteria;
 import org.dms.web.domain.PageMaker;
 import org.dms.web.domain.ProblemVO;
 import org.dms.web.domain.TestcaseVO;
 import org.dms.web.domain.UserVO;
 import org.dms.web.service.CategoryService;
+import org.dms.web.service.CodeService;
 import org.dms.web.service.ProblemService;
 import org.dms.web.service.TestcaseService;
 import org.slf4j.Logger;
@@ -37,11 +42,13 @@ public class ProblemController {
 	TestcaseService testcaseService;
 	@Autowired(required=true)
 	CategoryService categoryService;
+	@Autowired(required=true) // test
+	CodeService codeService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
 	@RequestMapping(value = "/problem", method = RequestMethod.GET)
-	public String test(Locale locale, Model model, Criteria cri) throws Exception {
+	public String test(HttpSession session, Locale locale, Model model, Criteria cri) throws Exception {
 		logger.info("page:" +  cri.getPage());
 		logger.info("perPageNum:" +  cri.getPerPageNum());
 		List<CategoryVO> cvo = categoryService.readCategoryList();
@@ -54,11 +61,14 @@ public class ProblemController {
 		
 		logger.info("page: " +  cri.getPage());
 		
+		UserVO user = (UserVO) session.getAttribute("user");
+		
+		model.addAttribute("user", user);
 		model.addAttribute("category", cvo);
-
 		model.addAttribute("problem", pvo);
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("cri", cri);
+		
 		return "problem_list";
 	}
 	
@@ -206,35 +216,24 @@ public class ProblemController {
 		
 		map.put("result", result);
 		
-		
-		//누르면 txt파일 생성되고, 거기에 내용 쓰고
-//		try {
-//		    OutputStream output = new FileOutputStream("C:\\Users\\ohseu\\Desktop\\test.txt");
-//		    String str = code + '\n' + lang; // 이걸 혀제
-//		    byte[] by=str.getBytes();
-//		    output.write(by);
-//		    output.flush();
-//		    output.close();
-//				
-//		} catch (Exception e) {
-//	            e.getStackTrace();
-//		}
+		//test
+//		CodeVO codeVO = new CodeVO();
+//		//현재시간
+//		SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+//		Calendar cal = Calendar.getInstance();
+//		String today = null;
+//		today = formatter.format(cal.getTime());
+//		Timestamp ts = Timestamp.valueOf(today);
+//
+//		codeVO.setCode_code("??????");
+//		codeVO.setCode_date(ts);
+//		codeVO.setCode_language("java");
+//		codeVO.setCode_open((byte)0);
+//		codeVO.setCode_success((byte)0);
+//		codeVO.setProblem_id(1000);
+//		codeVO.setUser_id("admin");
 //		
-//		
-//		try{
-//            //파일 객체 생성
-//            File file = new File("C:\\Users\\ohseu\\Desktop\\result.txt");
-//            //입력 스트림 생성
-//            FileReader filereader = new FileReader(file);
-//            int singleCh = 0;
-//            while((singleCh = filereader.read()) != -1){
-//            	result += (char)singleCh;
-//                System.out.print((char)singleCh);
-//            }
-//            filereader.close();
-//        }catch (Exception e) {
-//        	System.out.println(e);
-//        }
+//		codeService.submitCode(codeVO);
 		
 		return map;
 	}

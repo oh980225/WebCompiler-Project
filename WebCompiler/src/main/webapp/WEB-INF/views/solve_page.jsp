@@ -9,13 +9,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/reset.css" />
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_solve.css" />
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/modal.css" />
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 
 <body>
 	<div id="wrap">
 		<header>
-			<a class="back_btn" href="#"><img src="<%=request.getContextPath()%>/resources/images/back_btn.png" alt="뒤로가기"></a>
+			<a class="back_btn" href="/problem"><img src="<%=request.getContextPath()%>/resources/images/back_btn.png" alt="뒤로가기"></a>
 			<div class="problem_title">
 				[ ${problem.problem_id} ] ${problem.problem_title}
 			</div>
@@ -77,9 +78,20 @@
 					실행 결과
 				</div>
 				<a href="#">
-					<div class="result_help">
+					<div id="open" class="result_help">
 						도와주세요!
 					</div>
+					<div class="modal hidden">
+          				<div class="modal_overlay">
+          				</div>
+          			  	<div class="help_modal">
+            				<header class="modal_header">
+            					<img class="close" src="<%=request.getContextPath()%>/resources/images/close.png" width="15em" height="15em" alt="닫기">
+            				</header>
+            				<h1>안녕 난 Modal~~</h1>
+            				<button class="button">☑</button>
+          			  	</div>
+        			</div>
 				</a>
 			</div>
 			<div class="result_main">
@@ -135,6 +147,7 @@
 		
 		submit_btn.addEventListener("click", codeSubmit);
 	</script>
+	<script src="${pageContext.request.contextPath}/resources/js/modal.js"></script>
 </body>
 
 </html>
