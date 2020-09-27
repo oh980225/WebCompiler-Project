@@ -9,6 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/reset.css" />
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_solve.css" />
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/modal.css" />
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 
@@ -86,12 +87,62 @@
 					</div>
 				</a>
 				-->
-				<div class="result_help">
+				<div class="result_help" id="open">
 						<a href="#">
 							토론하기
 							<img src="<%=request.getContextPath()%>/resources/images/chat.png">
 						</a>
 				</div>
+				<div class="modal hidden">
+                      <div class="modal_overlay">
+                      </div>
+                        <div class="help_modal">
+                        <header class="modal_header">
+                        	<div class="close"></div>
+                        </header>
+                        <div class="chat_list">
+                        	<div class="chat_data">
+                        		<div class="comment_image">
+									<img src="<%=request.getContextPath()%>/resources/images/check.png">
+								</div>
+											
+								<div class="comment_content">
+									<p class="comment_user">mindi
+									<p class="comment_content"> 인접 배열이 아닌 (유사) 인접 리스트 Way와 nWay를 사용하였으며 일반적인 위상정렬 알고리즘을 사용했습니다 직접 만든 예제 넣어봐도 잘 나오고 게시판에 적힌 다른 분들 예제도 다 잘 나오는데 제출 시 "틀렸습니다"라고 나오네요..
+									<p class="comment_date">2020.09.16
+								</div>
+											
+
+                        	</div>
+                        	<div class="chat_data">
+                        		<div class="comment_image">
+									<img src="<%=request.getContextPath()%>/resources/images/check.png">
+								</div>
+											
+								<div class="comment_content">
+									<p class="comment_user">mindi
+									<p class="comment_content"> 오! 반례 감사합니다ㅎㅎ  우선 풀던거풀고나서 다시 손대봐야겠습니다<br>
+									<p class="comment_date">2020.09.16
+								</div>
+										
+                        	</div>
+                        	
+                        	<div class="chat_data_me">			
+								<div class="comment_content">
+									<p class="comment_content"> 엥? 그냥 단순한 위상정렬 아닌가요?
+									<p class="comment_date">2020.09.16
+								</div>
+                        	</div>
+                        </div>
+                        <div class="chat_textarea">
+                        	<textarea id="chat_content" name="chat_content" onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
+							<div class="chat_send">
+								<input id="chat_send" type="image" src="<%=request.getContextPath()%>/resources/images/submit.png" class="submit-button"
+								onclick="comment_register()">
+							</div>
+                        </div>
+                        </div>
+                </div>
 			</div>
 			<div class="result_main">
 
@@ -143,6 +194,14 @@
 		
 		submit_btn.addEventListener("click", codeSubmit);
 	</script>
+<!-- Scripts -->
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/profile.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/modal.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,260 @@
+<%@page import="org.dms.web.domain.UserVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%	
+	String imgURL = "";
+	if(request.getAttribute("user") !=null) {
+		UserVO user = (UserVO)request.getAttribute("user");
+		if(user.getUser_img() == null) {
+			imgURL = (String)request.getContextPath() + "/resources/images/user.png";
+		} else {
+			imgURL = "/getByteImage/" + user.getUser_id();
+		}
+	}
+%>
+
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>코드 스페이스</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css" type="text/css"/>
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_main.css" type="text/css"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" /> <!-- 이게 Font Awesome 5 Free를 사용하게 해주는거 같아요. 이거덕에 사이드바 모양이 보여요! -->
+		<style>
+			.mindi {
+            overflow:auto;
+            margin:0.7em 0.3em;;
+            display:inline-block;
+            float:right;
+        }
+        .mindi_signin {
+            
+            text-align: center;
+        }
+            .mindi_signin img {
+                margin: auto;
+                text-align: center;
+                width: 1.2em;
+                height: 1.2em;
+                display: block;
+            }
+            .mindi_signin span {
+                font-size: 0.1px;
+                display: inline;
+            }
+		</style>
+		<script type="text/javascript">
+		function comment_register(){
+			if($("#comments_content").val() == ""){
+					alert("댓글을 작성해주세요");
+					return false;
+				}
+
+			else{
+				var comment = {
+						board_id: $("#board_id").val(),
+						user_id: $("#user_id").val(),
+						comments_content: $("#comments_content").val(),
+				}
+				$.ajax({
+					url: "/chat.do",
+					type: "POST",
+					data : JSON.stringify(comment),
+					contentType: "application/json; charset=utf-8;",
+
+					success : function(result) {
+						$("#list").empty();
+
+						$("#comments_content").val('');
+						getCommentList(1);
+					},
+					error : function() {
+						alert("fail");
+					}
+				}
+				);
+			}
+			return true;
+		
+			}
+
+		</script>
+	
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<!-- Header -->
+								<!--<header id="header">
+									<a href="/" class="logo"><strong>FULL STACK</strong> DEVELOPER</a>
+									<!-- 바꾸기 -->																
+									<!--<c:if test="${user.user_id == null}">
+										<ul class="icons">
+											<li><a href="/login">로그인</a></li>
+											<li><a href="/join">회원가입</a></li>
+										</ul>
+									</c:if>
+									<c:if test="${user.user_id != null}">
+										<ul class="icons">
+											<li><a href="/logout.do">로그아웃</a></li>
+										</ul>
+									</c:if>				
+								</header> -->
+						<!-- -->
+						<!-- Header -->
+						<!-- Header -->
+						<header id="header">
+							<a class="main_logo" href="/"><img src="<%=request.getContextPath()%>/resources/images/main_logo.png" alt="메인페이지" /></a>
+							<a class="header_problem" href="/problem"><img src="<%=request.getContextPath()%>/resources/images/header_problem.png" alt="문제 페이지" />문제풀기</a>
+							<a class="header_board" href="/board"><img src="<%=request.getContextPath()%>/resources/images/header_board.png" alt="게시판 페이지" />자유게시판</a>
+							<c:if test="${user.user_id == null}">
+							
+							 <div class="mindi">
+						        <a href="#" class="mindi_signin">
+						            <span>회원가입</span>
+						        </a>
+						    </div>
+						     <div class="mindi">
+						        <a href="#" class="mindi_signin">
+						            <span>로그인</span></a>
+						    </div>
+							<a class="header_signup" href="/join"><img src="<%=request.getContextPath()%>/resources/images/header_signup.png" alt="회원가입" /><span>회원가입</span></a>
+							<div><a class="header_signin" href="/login"><img src="<%=request.getContextPath()%>/resources/images/header_signin.png" alt="로그인" /><span>로그인</span></a></div>
+							</c:if>
+							<c:if test="${user.user_id != null}">
+							<a class="header_signout" href="/logout.do"><img src="<%=request.getContextPath()%>/resources/images/header_signout.png" alt="로그아웃" /><span>로그아웃</span></a>
+							<div class="header_profile" style="cursor: pointer;" onClick="location.href='/mypage'">
+								<img class="img" src=<%=imgURL%> alt="사용자 사진">
+								<div class="name_intro">
+									<div class="header_name">
+										<a href="?name=Mr.O">${user.user_name}</a>
+									</div>
+									<div class="header_intro">
+										${user.user_introduce}
+									</div>
+								</div>
+							</div>
+							</c:if>
+
+						</header>
+						<div class="inner">
+							<!-- Banner -->
+								<section id="banner">
+									
+								</section>
+
+							<!-- Section -->
+								<section>
+<div class="modal_overlay">
+                      </div>
+                        <div class="help_modal">
+                        <header class="modal_header">
+                        	<div class="close"></div>
+                        </header>
+                        <div class="chat_list">
+                        	<div class="chat_data">
+                        		<div class="comment_image">
+									<img src="<%=request.getContextPath()%>/resources/images/check.png">
+								</div>
+											
+								<div class="comment_content">
+									<p class="comment_user">mindi
+									<p class="comment_content"> 인접 배열이 아닌 (유사) 인접 리스트 Way와 nWay를 사용하였으며 일반적인 위상정렬 알고리즘을 사용했습니다 직접 만든 예제 넣어봐도 잘 나오고 게시판에 적힌 다른 분들 예제도 다 잘 나오는데 제출 시 "틀렸습니다"라고 나오네요..
+									<p class="comment_date">2020.09.16
+								</div>
+											
+
+                        	</div>
+                        	<div class="chat_data">
+                        		<div class="comment_image">
+									<img src="<%=request.getContextPath()%>/resources/images/check.png">
+								</div>
+											
+								<div class="comment_content">
+									<p class="comment_user">mindi
+									<p class="comment_content"> 오! 반례 감사합니다ㅎㅎ  우선 풀던거풀고나서 다시 손대봐야겠습니다<br>
+									<p class="comment_date">2020.09.16
+								</div>
+										
+                        	</div>
+                        	
+                        	<div class="chat_data_me">			
+								<div class="comment_content">
+									<p class="comment_content"> 엥? 그냥 단순한 위상정렬 아닌가요?
+									<p class="comment_date">2020.09.16
+								</div>
+                        	</div>
+                        </div>
+                        <div class="chat_textarea">
+                        	<textarea id="chat_content" name="chat_content" onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
+							<div class="chat_send">
+								<input id="chat_send" type="image" src="<%=request.getContextPath()%>/resources/images/submit.png" class="submit-button"
+								onclick="comment_register()">
+							</div>
+                        </div>
+                        </div>
+                </div>
+								</section>
+
+							<!-- Section -->
+								<section>
+									
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+
+					<%-- <div id="sidebar">
+
+						<div class="inner">
+							
+								<nav id="menu">
+									<header class="major">
+										<img class="icon" src="<%=request.getContextPath()%>/resources/images/user.png">
+										
+										<c:if test="${user.user_id == null}">
+										<h3 class="name"><a href="/login">먼저 로그인 해주세요!</a></h3>
+										</c:if>
+										<c:if test="${user.user_id != null}">
+											<h3 class="name"><a href="/mypage">${user.user_id}</a></h3>
+										</c:if>
+									</header>
+									<ul>
+										
+										<li><a href="/"><img class="icon" src="<%=request.getContextPath()%>/resources/images/main_icon.png" alt="Main Page" />Main Page</a></li>
+										
+										<li><a href="/problem"><img class="icon" src="<%=request.getContextPath()%>/resources/images/problem_icon.png" alt="Problem Page" />Problem</a></li>
+										<li><a href="/board"><img class="icon" src="<%=request.getContextPath()%>/resources/images/board_icon.png" alt="Board Page" />Board</a>
+										</li>
+									</ul>
+								</nav>
+						</div>
+
+					</div> --%>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+
+	</body>
+</html>

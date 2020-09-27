@@ -7,7 +7,9 @@
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
@@ -49,5 +51,12 @@
     
     <context:component-scan base-package="org.dms.web.service" />
     <context:component-scan base-package="org.dms.web.persistence" />
+    
+     <websocket:handlers>
+		<websocket:mapping handler="chat" path="/chat.do" />
+		<websocket:sockjs />
+	</websocket:handlers>
+    
+	<bean id="chat" class="org.dms.web.ChatHandler"></bean>
        	
 </beans>
