@@ -23,15 +23,17 @@
  	
      <select id="user_selectForLogin" resultType="UserVO">
  		select * from user where user_id = #{user_id} and user_passwd = #{user_passwd}
-
      </select>
  	
-
      <select id="user_selectAll" resultType="UserVO">
  		select * from user
      </select>
+     
+     <select id="user_selectCodeList" resultType="CodeVO">
+     	select * from code where user_id = #{id} order by code_date desc
+     </select>
  	
-     <update id="user_update" parameterType="UserVO"> <!-- 수정해주세요 -->
+     <update id="user_update" parameterType="UserVO"> 
  		update user set user_name = #{user_name}, user_introduce = #{user_introduce} where user_id = #{user_id}
      </update>
      
@@ -148,9 +150,7 @@
     <insert id="testcase_insert">
     	insert into testcase (testcase_input, testcase_output, problem_id) values (#{testcase_input}, #{testcase_output}, #{problem_id})
     </insert>
-    <!-- 게시판 -->
-   
-    
+    <!-- 게시판 -->  
     <select id="testcase_input_selectList" resultType="String"> 
     	select testcase_input from testcase where problem_id= #{problem_id} 
     </select>
@@ -158,5 +158,42 @@
     <select id="testcase_output_selectList" resultType="String"> 
     	select testcase_output from testcase where problem_id= #{problem_id} 
     </select>
+    
+    <!-- 코드조회 게시판 -->
+    <select id="codeboard_problem_id_list" resultType="Integer"> 
+    	select distinct problem_id  from code where user_id = #{user_id};
+    </select>
+    
+    <select id="codeboard_problem_title" resultType="String"> 
+    	select problem_title from problem where problem_id = #{problem_id};
+    </select>
+    
+    <select id="codeboard_category_id" resultType="String"> 
+    	select category_id from problem where problem_id = #{problem_id};
+    </select>
+    
+    <select id="codeboard_code_success" resultType="byte"> 
+    	select code_success from code where problem_id = #{problem_id} and code_success=1;
+    </select>
 	
+	<select id="codeboard_code_date" resultType="Date"> 
+    	select code_date from code where problem_id = #{problem_id} order by code_date desc limit 1;
+    </select>
+    
+    <select id="codeboard_problem_level" resultType="Integer"> 
+    	select problem_level from problem where problem_id = #{problem_id};
+    </select>
+    
+    <select id="codeboard_codeList" parameterType="hashmap" resultType="CodeVO">
+     	select * from code where problem_id= #{problem_id} and user_id = #{user_id} order by code_date desc
+     </select>
+     <!-- 테스트-->
+    <!--  <select id="listCriteria" resultType="ProblemVO">
+    	select * from problem limit #{pageStart}, #{perPageNum}
+    </select> -->
+     <!-- 게시판 -->
+     <insert id="submit_code" parameterType="CodeVO">
+    	insert into code(code_code, code_language, code_success, user_id, problem_id, code_date) values(#{code_code}, #{code_language}, #{code_success}, #{user_id}, #{problem_id}, #{code_date});
+    </insert>
+    
 </mapper>  

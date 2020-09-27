@@ -149,12 +149,21 @@ header.modal_header img.close {
 }
 
 /* #table .history:hover {
+<<<<<<< HEAD
    color: rgb(46, 173, 179);
 }
  */
 #table > .head {
    margin-bottom: 1em !important;
    border-bottom: 1px solid rgb(136, 136, 136) !important;
+=======
+	color: rgb(46, 173, 179);
+}
+ */
+#table > .head {
+	margin-bottom: 1em !important;
+	border-bottom: 1px solid rgb(136, 136, 136) !important;
+>>>>>>> seungjae
 }
 
 .row .head {
@@ -235,6 +244,7 @@ input[type="checkbox"]:checked + label:before {
 
 .help_modal {
   background-color: white;
+<<<<<<< HEAD
   position: relative;
   top: 0;
   width: 60em;
@@ -242,14 +252,29 @@ input[type="checkbox"]:checked + label:before {
   height: 36em;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   border-radius:1.4em;
+=======
+  text-align: center;
+  position: relative;
+  top: 0;
+  width: 25em;
+  max-width:25em;
+  height: 15em;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+>>>>>>> seungjae
 }
 
 .help_modal header.modal_header {
   width: 100%;
+<<<<<<< HEAD
   background-color: #2E2E3B;
   height: 2.4em;
   color: white;
   border-radius:1.4em 1.4em 0 0;
+=======
+  background-color: rgb(47, 47, 74);
+  height: 2em;
+  color: white;
+>>>>>>> seungjae
 }
 
 .help_modal h2 {
@@ -257,6 +282,7 @@ input[type="checkbox"]:checked + label:before {
   font-size: 1em;
   margin-top: 2em;
 }
+<<<<<<< HEAD
 .help_modal .close{
 	background-color: #EA7862;
 	width:1.2em;
@@ -453,6 +479,8 @@ textarea {
 			.comment_typing p.comments_content{
 				margin: 10px 0px 10px 0px;
 			}
+=======
+>>>>>>> seungjae
 
 /* .help_modal input[type="password"] {
   font-family: none;

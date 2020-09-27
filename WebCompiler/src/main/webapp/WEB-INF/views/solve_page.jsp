@@ -16,7 +16,11 @@
 <body>
 	<div id="wrap">
 		<header>
+<<<<<<< HEAD
 			<a class="back_btn" href="#"><img src="<%=request.getContextPath()%>/resources/images/back.png" alt="뒤로가기"></a>
+=======
+			<a class="back_btn" href="/problem"><img src="<%=request.getContextPath()%>/resources/images/back_btn.png" alt="뒤로가기"></a>
+>>>>>>> seungjae
 			<div class="problem_title">
 				<span>[ ${problem.problem_id} ] ${problem.problem_title}</span>
 			</div>
@@ -82,9 +86,25 @@
 				</div>
 				<!--  
 				<a href="#">
+<<<<<<< HEAD
 					<div class="result_help">
 						토론하기
+=======
+					<div id="open" class="result_help">
+						도와주세요!
+>>>>>>> seungjae
 					</div>
+					<div class="modal hidden">
+          				<div class="modal_overlay">
+          				</div>
+          			  	<div class="help_modal">
+            				<header class="modal_header">
+            					<img class="close" src="<%=request.getContextPath()%>/resources/images/close.png" width="15em" height="15em" alt="닫기">
+            				</header>
+            				<h1>안녕 난 Modal~~</h1>
+            				<button class="button">☑</button>
+          			  	</div>
+        			</div>
 				</a>
 				-->
 				<div class="result_help" id="open">
@@ -145,7 +165,7 @@
                 </div>
 			</div>
 			<div class="result_main">
-
+				<%-- ${result == null ? 'null' : result} --%>
 			</div>
 			<div class="result_footer">
 				<button class="submit_btn" type="button" name="button">제출</button>
@@ -176,8 +196,11 @@
 				  url: '/submit',  
 				  type: 'POST',
 				  data: "code=" + encodeURIComponent(code) + "&lang=" + encodeURIComponent(lang),  
-				  success: function(code) {
-					  console.log("성공");
+				  success: function(data) {
+					  const result = data.result;
+					  const printResult = document.querySelector(".result_main");
+					  printResult.innerText = result;
+					  console.log(data.result);
 				  },
 				  error: function() {
 					  console.log("실패!");
@@ -194,6 +217,7 @@
 		
 		submit_btn.addEventListener("click", codeSubmit);
 	</script>
+<<<<<<< HEAD
 <!-- Scripts -->
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
@@ -201,6 +225,8 @@
 	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/profile.js"></script>
+=======
+>>>>>>> seungjae
 	<script src="${pageContext.request.contextPath}/resources/js/modal.js"></script>
 </body>
 

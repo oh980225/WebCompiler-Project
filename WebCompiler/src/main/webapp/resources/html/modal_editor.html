@@ -8,11 +8,53 @@
 <body style="margin:0;">
 
   <div id="monaco" style="height:100vh"></div>
+  
+  <form id="lang_form" method="get">
+  	<input id="lang" type="hidden" name="lang" value="" style="display:none;" />
+  	<input id="code_get" type="hidden" name="code" value="" style="display:none;" />
+  	<input id="getLangAndCode" type="submit" value="" style="display:none;" />
+  </form> 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs/loader.js"></script>
 
   <script>
+  
+  function Request(valuename)
+  {
+      var rtnval;
+      var nowAddress = unescape(location.href);
+      var parameters = new Array();
+      parameters = (nowAddress.slice(nowAddress.indexOf("?")+1,nowAddress.length)).split("&");
+      for(var i = 0 ; i < parameters.length ; i++){
+          if(parameters[i].split("=")[0] == valuename){
+              rtnval = parameters[i].split("=")[1];
+              if(rtnval == undefined || rtnval == null){
+                  rtnval = "";
+              }
+              return rtnval;
+          }
+      }
+      return null;
+  }
+  	
+  	let lang = Request('lang');
+  	let code = decodeURIComponent(Request('code'));
+  	if(lang == null || code == null) {
+  		lang = 'java';
+  		code = [
+  	    	'public class HelloWorld {',
+  	        '	public static void main(String args[]) {',
+  	        '		System.out.println("코드 기록을 선택해주세요.");',
+  	        '	}',
+  	        '}'
+  	    ].join('\n');
+  	} 
+  	
+  	if(lang === 'c++') {
+  		lang = 'c';
+  	}
+  			
     var editor;
 
     require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs' }});
@@ -21,6 +63,7 @@
         theme: 'vs-white',
         fontFamily: 'Nanum Gothic Coding',
         automaticLayout: true,
+<<<<<<< HEAD
         language: 'c',
         value: [
             'import java.io.*;',
@@ -53,6 +96,10 @@
   		'}',
   	'}'
   	].join('\n')
+=======
+        language: lang,
+        value: code
+>>>>>>> seungjae
       });
     });
   </script>

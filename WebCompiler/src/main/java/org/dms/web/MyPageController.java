@@ -1,8 +1,17 @@
 package org.dms.web;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
+import org.dms.web.domain.CodeBoardVO;
+import org.dms.web.domain.CodeVO;
+import org.dms.web.domain.Criteria;
+import org.dms.web.domain.PageMaker;
 import org.dms.web.domain.UserVO;
+import org.dms.web.service.CodeBoardService;
 import org.dms.web.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -25,14 +35,33 @@ public class MyPageController {
 	@Autowired(required=true)
 	UserService userService;
 	
+	@Autowired(required=true)
+	CodeBoardService codeBoardService;
+	
 	private static final Logger logger = LoggerFactory.getLogger(MyPageController.class);
 
 	@RequestMapping(value = "/mypage")
-	public String getMyPage(Model model, HttpSession session) throws Exception {
-		//int id = 2;
-		//UserVO user = userService.readUser(id);
+	public String getMyPage(Model model, HttpSession session, Criteria criteria) throws Exception {
 		UserVO user = (UserVO)session.getAttribute("user");
+		List<CodeVO> codeList = userService.getCodeList(user.getUser_id());
+		List<CodeBoardVO> codeBoardList_ = codeBoardService.getCodeBoardList(user.getUser_id());
+		
+		PageMaker pageMaker = new PageMaker();
+		criteria.setPerPageNum(5);
+		pageMaker.setCri(criteria);
+		pageMaker.setTotalCount(codeBoardList_.size());
+		
+		List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id(), criteria);
+		
 		model.addAttribute("user", user);
+		model.addAttribute("codeList", codeList);
+		model.addAttribute("codeBoardList", codeBoardList_);
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("criteria", criteria);
+		
+		for(CodeBoardVO codeBoard : codeBoardList_) {
+			System.out.println(codeBoard);
+		}
 		
 		return "mypage";
 	}
@@ -49,13 +78,17 @@ public class MyPageController {
 	
 	@RequestMapping(value= "/mypage/saveImage",  method = RequestMethod.POST)
 	public String saveImage(@RequestParam("user_id") String userId,
-    @RequestParam("user_img") MultipartFile imgFile) throws Exception {
+							@RequestParam("user_img") MultipartFile imgFile,
+							HttpSession session) throws Exception {
 		UserVO user = new UserVO();
 		
 		user.setUser_id(userId);
 		user.setUser_img(imgFile.getBytes());
 		
 		userService.saveImage(user);
+		
+		UserVO newUser = userService.readUser(user.getUser_id());
+		session.setAttribute("user", newUser);
 		
 		return "redirect:/mypage";
 	}
@@ -81,4 +114,16 @@ public class MyPageController {
 		return "redirect:/mypage";
 	}
 	
+	// 해당 모달창 띄우기
+	@RequestMapping(value="/modal", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> openModal(int index, HttpSession session, Criteria criteria) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		UserVO user = (UserVO)session.getAttribute("user");
+		List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id());
+		
+		map.put("codeBoard", codeBoardList.get(index));
+		
+		return map;
+	}
 }

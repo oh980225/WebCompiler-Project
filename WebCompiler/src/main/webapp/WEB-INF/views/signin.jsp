@@ -55,13 +55,14 @@
 						</header>
 						<div class="inner">
 							<div class="signin_form">
-								<form method="post" action="/login.do" >
+								<form id="form" method="post" action="/login.do" >
 									<div class="inputBox">
 										<input type="text" name="user_id" onclick="alert_event()">
 										<label>USER ID</label>
 									</div>
 									<div class="inputBox">
-										<input type="password" name="user_passwd" onclick="alert_event()">
+										<input id="temp_password" style="-webkit-text-security: disc !important;"type="text" name="user_passwd" onclick="alert_event()" >
+										<!-- <input id="password" type="text" name="user_passwd" style="display: none !important;"> -->
 										<label>PASSWORD</label>
 									</div>
 									<div class="signupHelp">
@@ -77,6 +78,19 @@
 					</div>
 			</div>
 		<!-- Scripts -->
+		<!-- <script>
+			const form = document.getElementById('form');
+			const tempPassword = document.getElementById('temp_password');
+			const password = document.getElementById('password');
+			const userCheck = (event) => {
+						event.preventDefault();
+						password.value = tempPassword.value;
+						console.log(password.value);
+						console.log(tempPassword.value);
+						form.submit();
+					}
+			form.addEventListener("submit", userCheck);
+		</script> -->
 		<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>

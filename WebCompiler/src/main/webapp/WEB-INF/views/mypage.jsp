@@ -1,17 +1,8 @@
 <%@ page import="org.dms.web.domain.UserVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" %>
-
-<%	
-	String imgURL = "";
-	UserVO user = (UserVO)request.getAttribute("user");
-	if(user.getUser_img() == null) {
-		imgURL = (String)request.getContextPath() + "/resources/images/user.png";
-	} else {
-		imgURL = "/getByteImage/" + user.getUser_id();
-	}
-%>
 
 <!DOCTYPE html>
 <html>
@@ -25,7 +16,18 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" /> <!-- 이게 Font Awesome 5 Free를 사용하게 해주는거 같아요. 이거덕에 사이드바 모양이 보여요! -->
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/modal.css" />
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_code.css" />
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
+
+<%	
+	String imgURL = "";
+	UserVO user = (UserVO)request.getAttribute("user");
+	if(user.getUser_img() == null) {
+		imgURL = (String)request.getContextPath() + "/resources/images/user.png";
+	} else {
+		imgURL = "/getByteImage/" + user.getUser_id();
+	}
+%>
 
 <body class="is-preload">
 	<!-- Wrapper -->
@@ -56,23 +58,6 @@
 							</div>
 							</c:if>
 						</header>
-			<!-- Header -->
-			<!--  
-								<header id="header">
-									<a href="/web" class="logo"><strong>FULL STACK</strong> DEVELOPER</a>
-									<!-- 바꾸기 -->																
-									<!--<c:if test="${user.user_id == null}">
-										<ul class="icons">
-											<li><a href="/login">로그인</a></li>
-											<li><a href="/join">회원가입</a></li>
-										</ul>
-									</c:if>
-									<c:if test="${user.user_id != null}">
-										<ul class="icons">
-											<li><a href="/logout.do">로그아웃</a></li>
-										</ul>
-									</c:if>				
-								</header> -->
 			<div class="inner">
 				<!-- Content -->
 				<section class="profile">
@@ -168,7 +153,7 @@
 								<div class="small_arrow"></div>
 							</div>
 							<input class="search" type="text" name="search" placeholder="검색">
-
+							<br class="clear"> <!-- change -->
 							<br>
 							<!-- Table -->
 							<div class="table-wrapper">
@@ -183,159 +168,63 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr id="open">
-											<td>1012</td>
-											<td>친구 네트워크</td>
+										<c:forEach var="codeBoard" items="${codeBoardList}" varStatus="st_">
+										<tr class="open" id="${st_.index}">
+											<td>${codeBoard.problem_id}</td>
+											<td>${codeBoard.problem_title}</td>
 											<td>
+												<c:if test="${codeBoard.problem_level == 1}">
 												<div class="problem_level1">
 													LEVEL 1
 												</div>
-											</td>
-											<td>2019.02.26</td>
-											<td><img src="<%=request.getContextPath()%>/resources/images/check.png" width="20em" height="20em" alt="O"></td>
-										</tr>
-										<div class="modal hidden">
-				          			<div class="modal_overlay">
-				          			</div>
-				          			<div class="modal_content">
-				            			<header class="modal_header">
-											<span class="title">코드조회</span>
-											<img class="close" src="<%=request.getContextPath()%>/resources/images/close.png" width="15em" height="15em" alt="닫기">
-				            			</header>
-										<div class="modal_left">
-											<h3 class="problem_name">2842. 유기농 배추</h3>
-											<div class="problem_level">
-												LEVEL 3
-											</div>
-											<div class="modal_wrap">
-												<div id="table">
-													<div class="row">
-														<span class="head col1">제출</span>
-														<span class="head col2">언어</span>
-														<span class="head col3">AC/WA</span>
-														<span class="head col4">공개</span>
-													</div>
-													<div id="1" class="row">
-														<span class="cell col1">2020.08.01</span>
-														<span class="cell col2">Python</span>
-														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/check.png" width="25em" height="25em" alt="O"></span>
-														<span class="cell col4">O</span>
-													</div>
-													<div id="2" class="row">
-														<span class="cell col1">2020.08.01</span>
-														<span class="cell col2">C++</span>
-														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X"></span>
-														<span class="cell col4">X</span>
-													</div>
-													<div id="3" class="row">
-														<span class="cell col1">2020.07.31</span>
-														<span class="cell col2">Javascript</span>
-														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/check.png" width="25em" height="25em" alt="O" width="25em" height="25em" alt="O"></span>
-														<span class="cell col4">O</span>
-													</div>
-													<div id="4" class="row">
-														<span class="cell col1">2020.08.01</span>
-														<span class="cell col2">C++</span>
-														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X" width="25em" height="25em" alt="X"></span>
-														<span class="cell col4">X</span>
-													</div>
-													<div id="1" class="row">
-														<span class="cell col1">2020.08.01</span>
-														<span class="cell col2">C++</span>
-														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X" width="25em" height="25em" alt="X"></span>
-														<span class="cell col4">X</span>
-													</div>
-													<div id="1" class="row">
-														<span class="cell col1">2020.08.01</span>
-														<span class="cell col2">C++</span>
-														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X" width="25em" height="25em" alt="X"></span>
-														<span class="cell col4">X</span>
-													</div>
-													<div id="1" class="row">
-														<span class="cell col1">2020.08.01</span>
-														<span class="cell col2">JAVA</span>
-														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X" width="25em" height="25em" alt="X"></span>
-														<span class="cell col4">X</span>
-													</div>
-													<div id="1" class="row">
-														<span class="cell col1">2020.08.01</span>
-														<span class="cell col2">C++</span>
-														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X" width="25em" height="25em" alt="X"></span>
-														<span class="cell col4">X</span>
-													</div>
-													<div id="1" class="row">
-														<span class="cell col1">2020.08.01</span>
-														<span class="cell col2">C++</span>
-														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X" width="25em" height="25em" alt="X"></span>
-														<span class="cell col4">X</span>
-													</div>
-													<div id="1" class="row">
-														<span class="cell col1">2020.08.01</span>
-														<span class="cell col2">C++</span>
-														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X" width="25em" height="25em" alt="X"></span>
-														<span class="cell col4">X</span>
-													</div>
-													<div id="1" class="row">
-														<span class="cell col1">2020.08.01</span>
-														<span class="cell col2">C++</span>
-														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X"></span>
-														<span class="cell col4">X</span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="modal_right">
-											<iframe src="<%=request.getContextPath()%>/resources/html/modal_editor.html" width="100%" height="100%"></iframe>
-										</div>
-										<div class="open_check">
-											<span>코드를 다른 사용자에게도 공개합니다.</span> <input type="checkbox" id="check" name="open_check" value="open" /> <label for="check"></label>
-										</div>
-				          			</div>
-				        		</div>
-										<tr onClick="location.href='#'">
-											<td>1012</td>
-											<td>친구 네트워크</td>
-											<td>
+
+												</c:if>
+												<c:if test="${codeBoard.problem_level == 2}">
+
 												<div class="problem_level2">
 													LEVEL 2
 												</div>
-											</td>
-											<td>2019.02.26</td>
-											<td><img src="<%=request.getContextPath()%>/resources/images/check.png" width="20em" height="20em" alt="O"></td>
-										</tr>
-										<tr onClick="location.href='#'">
-											<td>1012</td>
-											<td>친구 네트워크</td>
-											<td>
+												</c:if>
+												<c:if test="${codeBoard.problem_level == 3}">
 												<div class="problem_level3">
 													LEVEL 3
 												</div>
+												</c:if>
 											</td>
-											<td>2019.02.26</td>
-											<td><img src="<%=request.getContextPath()%>/resources/images/check.png" width="20em" height="20em" alt="O"></td>
+											<td><fmt:formatDate pattern="yyyy.MM.dd" value="${codeBoard.code_date}"/></td>
+											<td><img src="<%=request.getContextPath()%>/resources/images/${codeBoard.code_success == 1 ? 'check.png' : 'notCheck.png'}" width="20em" height="20em" alt=""></td>
 										</tr>
-										<tr onClick="location.href='#'">
-											<td>1012</td>
-											<td>친구 네트워크</td>
-											<td>
-												<div class="problem_level1">
-													LEVEL 1
+				        				</c:forEach>
+				        				<div class="modal hidden">
+				          					<div class="modal_overlay">
+				          					</div>
+				          					<div class="modal_content">
+				            					<header class="modal_header">
+													<span class="title">코드조회</span>
+													<img class="close" src="<%=request.getContextPath()%>/resources/images/close.png" width="15em" height="15em" alt="닫기">
+				            					</header>
+												<div class="modal_left">
+													<h3 class="problem_name"></h3>
+													<div class="modal_level"></div>
+													<div class="modal_wrap">
+														<div id="table">
+															<div class="head row">
+																<span class="head col1">제출</span>
+																<span class="head col2">언어</span>
+																<span class="head col3">AC/WA</span>
+																<span class="head col4">공개</span>
+															</div>
+														</div>
+													</div>
 												</div>
-											</td>
-											<td>2019.02.26</td>
-											<td><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="20em" height="20em" alt="O"></td>
-										</tr>
-										<tr onClick="location.href='#'">
-											<td>1012</td>
-											<td>친구 네트워크</td>
-											<td>
-												<div class="problem_level2">
-													LEVEL 2
+												<div class="modal_right">
+													<iframe src="<%=request.getContextPath()%>/resources/html/modal_editor.html" id="iframe" onload="access()" width="100%" height="100%"></iframe>
 												</div>
-											</td>
-											<td>2019.02.26</td>
-											<td><img src="<%=request.getContextPath()%>/resources/images/check.png" width="20em" height="20em" alt="O"></td>
-										</tr>
+												<div class="open_check">
+													<span>코드를 다른 사용자에게도 공개합니다.</span> <input type="checkbox" id="check" name="open_check" value="open" /> <label for="check"></label>
+												</div>
+				          					</div>
+				        				</div>
 									</tbody>
 								</table>
 							</div>
@@ -369,33 +258,6 @@
 			</div>
 		</div>
 
-		<!-- Sidebar -->
-		<%-- <div id="sidebar">
-						<div class="inner">
-							<!-- Menu -->
-								<nav id="menu">
-									<header class="major">
-										<img class="icon" src="<%=request.getContextPath()%>/resources/images/user.png">
-										<!-- 사용자의 닉네임 클릭시 마이페이지로 이동 -->
-										<c:if test="${user.user_id == null}">
-										<h3 class="name"><a href="/login">먼저 로그인 해주세요!</a></h3>
-										</c:if>
-										<c:if test="${user.user_id != null}">
-											<h3 class="name"><a href="/mypage">${user.user_id}</a></h3>
-										</c:if>
-									</header>
-									<ul>
-										<!-- 사이드 메뉴바에 Main Page 클릭시 메인페이지로 이동 -->
-										<li><a href="/"><img class="icon" src="<%=request.getContextPath()%>/resources/images/main_icon.png" alt="Main Page" />Main Page</a></li>
-										<!-- 사이드 메뉴바에 Problem 클릭시 문제 페이지로 이동 -->
-										<li><a href="/problem"><img class="icon" src="<%=request.getContextPath()%>/resources/images/problem_icon.png" alt="Problem Page" />Problem</a></li>
-										<li><a href="/board"><img class="icon" src="<%=request.getContextPath()%>/resources/images/board_icon.png" alt="Board Page" />Board</a>
-										</li>
-									</ul>
-								</nav>
-						</div>
-					</div> --%>
-
 	</div>
 
 	<!-- Scripts -->
@@ -405,7 +267,182 @@
 	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/profile.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/modal.js"></script>
+	<%-- <script src="${pageContext.request.contextPath}/resources/js/modal.js"></script> --%>
+	<script type="text/javascript">
+		const iframe = document.getElementById("iframe");
+		let myCodeList = null;
+		let innerDoc = null;
+		
+		const access = () => {
+		    innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+		}
+
+		function Request(valuename)
+		  {
+		      var rtnval;
+		      var nowAddress = unescape(location.href);
+		      var parameters = new Array();
+		      parameters = (nowAddress.slice(nowAddress.indexOf("?")+1,nowAddress.length)).split("&");
+		      for(var i = 0 ; i < parameters.length ; i++){
+		          if(parameters[i].split("=")[0] == valuename){
+		              rtnval = parameters[i].split("=")[1];
+		              if(rtnval == undefined || rtnval == null){
+		                  rtnval = "";
+		              }
+		              return rtnval;
+		          }
+		      }
+		      return null;
+		  }
+
+		const chageCodeSelect = (id) =>{
+			let codeList = myCodeList;/* 
+			<c:forEach items="${codeList}" var="code">
+			codeList.push({code: `${code.code_code}`,
+				lang: '${code.code_language}' });
+			</c:forEach>  */
+			innerDoc.getElementById("lang").value = codeList[id].code_language;
+			console.log(codeList[id].code_code);
+		    innerDoc.getElementById("code").value = encodeURIComponent(codeList[id].code_code);
+		    innerDoc.getElementById("getLangAndCode").click(); 
+		}
+
+		const historyClick = (event) => {
+			console.log("click!!")
+			let index = '#'+ event.target.parentNode.id;
+			$(index).css('color', 'rgb(46, 173, 179)'); 	
+			$(index).css('background-color', 'rgb(231, 251, 255)'); 
+			$(index).css('border-bottom', '1px dashed rgb(184, 184, 184)');
+			$('.history').not(index).css('color', 'black');
+			$('.history').not(index).css('background', 'transparent'); 
+			$('.history').not(index).css('border-bottom', '1px dashed rgb(184, 184, 184)');
+			console.log("check code: " + event.target.parentNode.id);
+			chageCodeSelect(event.target.parentNode.id);
+		}
+
+		const modal = document.querySelector(".modal");
+		const openBtns = document.querySelectorAll(".open");
+		const overlay = modal.querySelector(".modal_overlay");
+		const closeBtn = modal.querySelector(".close");
+
+		// js date fomat변경
+		function getFormatDate(date){
+		    var year = date.getFullYear();              
+		    var month = (1 + date.getMonth());          
+		    month = month >= 10 ? month : '0' + month;  
+		    var day = date.getDate();                   
+		    day = day >= 10 ? day : '0' + day;          
+		    return  year + '.' + month + '.' + day;       
+		}
+
+		const openModal = (event) => {
+			let node = event.target.parentNode;
+			while(node.tagName != "TR") {
+				node = node.parentNode;
+			}
+			let index = node.id;
+			console.log(index);
+			
+			if(innerDoc == null) {
+				console.log("this is null");	
+			} else {
+				const get_code = innerDoc.getElementById("code_get");
+				const getLangAndCode = innerDoc.getElementById("getLangAndCode");
+				console.log(innerDoc.getElementById("code_get"));
+				get_code.value = encodeURIComponent("코드기록을 선택해주세요.");
+				getLangAndCode.click(); 
+			}
+			
+			$.ajax({ 
+				 url: '/modal',  
+				 type: 'POST',
+				 data: "index=" + index,  
+				 success: function(data) {
+					 const result = data.codeBoard;
+					 const problem_name = document.querySelector(".problem_name");
+					 const problem_level = document.querySelector(".modal_level");
+					 const table = document.getElementById("table");
+					 myCodeList = result.codeList;
+					 
+					 problem_level.classList.remove('modal_level1');
+					 problem_level.classList.remove('modal_level2');
+					 problem_level.classList.remove('modal_level3');
+
+					 problem_name.innerHTML = result.problem_id + ". "  + result.problem_title;
+					 problem_level.classList.add('modal_level'+result.problem_level);
+					 problem_level.innerHTML = "LEVEL " + result.problem_level;
+
+					 let prevList = table.querySelectorAll('.history');
+					 console.log("prevList: " + prevList);
+
+					 if(prevList != null) {
+						 for (let i = 0; i < prevList.length; i++) {
+							 console.log("remove: " + prevList[i]);
+							 table.removeChild(prevList[i]);
+						 }
+				     }
+					 
+					 let list = "";
+					 
+					 for(let i in result.codeList) {
+						 let code_date = new Date(result.codeList[i].code_date);
+						 code_date = getFormatDate(code_date)
+						 let code_lang = result.codeList[i].code_language;
+						 let code_success = result.codeList[i].code_success;
+						 let code_open = result.codeList[i].code_open;
+						 console.log(code_date + code_lang + code_success + code_open);
+						 if(code_success == 1) {
+							 code_success = 'check.png'
+						 } else {
+							 code_success = 'notCheck.png';
+						 }
+						 
+						 if(code_open == 1) {
+							 code_open = 'O'
+						 } else {
+							 code_open = 'X';
+						 }
+						 
+						 list = `<div id=` + i + ` class="history row">
+								<span class="cell col1">` + code_date + `</span>
+								<span class="cell col2">` + code_lang + `</span>
+								<span class="cell col3"><img style="cursor:default" src="<%=request.getContextPath()%>/resources/images/` + code_success + `" width="25em" height="25em" alt=""></span>
+								<span class="cell col4">` + code_open + `</span>
+							</div>`;
+						 let nodes_ = new DOMParser().parseFromString(list, 'text/html');
+						 let nodes = nodes_.firstChild.childNodes.item(1)
+						 console.log(nodes.childNodes.item(0));
+						 table.appendChild(nodes.childNodes.item(0));
+					 }
+					 const codeHistoryList = document.querySelectorAll('.history');
+					 
+					 for (let i = 0; i < codeHistoryList.length; i++) {
+							codeHistoryList[i].addEventListener("click", historyClick);
+					 }
+					 
+				 },
+				 error: function() {
+					 console.log("실패!");
+				 }
+			}); 
+			modal.classList.remove("hidden");
+		}
+
+		const closeModal = () => {
+			 modal.classList.add("hidden");
+		}
+
+		overlay.addEventListener("click", closeModal);
+		closeBtn.addEventListener("click", closeModal);
+		for(const btn of openBtns) {
+			btn.addEventListener("click", openModal);
+		}
+		
+		
+	</script>
 
 </body>
+
 </html>
+
+

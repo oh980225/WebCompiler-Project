@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.dms.web.domain.CategoryVO;
+import org.dms.web.domain.CodeBoardVO;
 import org.dms.web.domain.Criteria;
 import org.dms.web.domain.Human;
 import org.dms.web.domain.MyClass;
@@ -19,6 +20,7 @@ import org.dms.web.domain.PageMaker;
 import org.dms.web.domain.ProblemVO;
 import org.dms.web.domain.UserVO;
 import org.dms.web.service.CategoryService;
+import org.dms.web.service.CodeBoardService;
 import org.dms.web.service.ProblemService;
 import org.dms.web.service.TestcaseService;
 import org.dms.web.service.UserService;
@@ -42,12 +44,18 @@ public class TestController {
 	
 	@Autowired(required=true)
 	UserService userService;
+	
 	@Autowired(required=true)
 	CategoryService categoryService;
+	
 	@Autowired(required=true)
 	ProblemService problemService;
+	
 	@Autowired(required=true)
 	TestcaseService testcaseService;
+	
+	@Autowired(required=true)
+	CodeBoardService codeBoardService;
 
 	private static final Logger logger = LoggerFactory.getLogger(TestController.class);
 		
@@ -251,6 +259,21 @@ public class TestController {
 	@RequestMapping(value="/signin")
 	public String getSignin() {
 		return "signin";
+	}
+	
+	// codeBoard 테스트
+	@RequestMapping(value="/codeBoard")
+	public String getCodeBoard(HttpSession session, Model model, Criteria criteria) throws Exception {
+		UserVO user = (UserVO) session.getAttribute("user");
+		List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id(), criteria);
+		
+		model.addAttribute("codeBoardList", codeBoardList);
+		
+		for(CodeBoardVO codeBoard : codeBoardList) {
+			System.out.println(codeBoard);
+		}
+		
+		return "test_view";
 	}
 
 
