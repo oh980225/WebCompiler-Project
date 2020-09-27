@@ -245,7 +245,7 @@ div.problem_check img {
     height:20px;
 }
 
-div.page {
+/*div.page {
   margin: auto;
 }
 
@@ -284,4 +284,62 @@ li.page_num a:hover {
   color: white !important;
   background: rgb(0, 157, 191);
   border-radius: 5px;
+}
+*/
+div.page {
+  margin: auto;
+  overflow:auto;
+  width: 100%;
+}
+
+ul.paging {
+  text-align: center;
+  padding: 0;
+  width: 100%;
+  margin-top: 1.5em;
+}
+
+li.page_num {
+	font-size:0.95em;
+  width: 1.8em;
+  height: 1.8em;
+  padding: 0;
+  display: inline-block;
+  list-style: none;
+  text-align: center;
+}
+
+
+li.page_num a {
+	font-size:0.95em;
+	width: 1.8em;
+   text-align:center;
+  color: black;
+  border: 0;
+}
+li.page_on a{
+	width: 1.8em;
+	font-size:0.95em;
+  height: 1.8em;
+  font-weight: bold;
+  display: inline-block;
+  color: white !important;
+  background: #79BCC3;
+  border: 1px solid #ffffff;
+  border-radius: 100%;
+  text-align: center;
+ 
+}
+li.page_num a:hover {
+	width: 1.8em;
+	font-size:0.95em;
+  height: 1.8em;
+  font-weight: bold;
+  display: inline-block;
+  color: white !important;
+  background: #79BCC3;
+  border: 1px solid #79BCC3;
+  border-radius: 100%;
+  text-align: center;
+ 
 }

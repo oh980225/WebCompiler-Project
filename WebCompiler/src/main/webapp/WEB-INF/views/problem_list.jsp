@@ -1,6 +1,19 @@
+<%@page import="org.dms.web.domain.UserVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
+
+<%	
+	String imgURL = "";
+	if(request.getAttribute("user") !=null) {
+		UserVO user = (UserVO)request.getAttribute("user");
+		if(user.getUser_img() == null) {
+			imgURL = (String)request.getContextPath() + "/resources/images/user.png";
+		} else {
+			imgURL = "/getByteImage/" + user.getUser_id();
+		}
+	}
+%>
 <!DOCTYPE HTML>
 <!--
     Editorial by HTML5 UP
@@ -22,6 +35,10 @@
 		
 	<link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css"/>
 	<script>
+		function link( event ) {
+			location.href = '/problem/' + event.data.problem_id ;
+		}
+		
 		function getBoardList(page){	
 			var level = document.getElementById("problem_level")
 			var category = document.getElementById("category_name");
@@ -40,14 +57,22 @@
 	            success: function(data){	           
 		            var problem = data.list;
 		            var pageMaker = data.pageMaker;
+
+		            
 		        
 		            for(var i=0; i< problem.length; i++) {
 		            	var temp = problem[i].problem_successnum / problem[i].problem_submitnum * 100;
 		            	var percent= temp.toFixed(1); // 99.98765 출력
 						var str= "location.href='/problem/" + problem[i].problem_id + "'";
-			
-			            var idx = i + 1;
-			           
+				        var idx = i + 1;
+				        var id = problem[i].problem_id;
+				        //$("#problem_item_"+id).on(myfunc(id));
+
+				        //$("#problem_item_"+idx).on("click", function(idx) { alert(idx); });
+		            	$( "#problem_item_"+idx ).on( "click", {
+		            		problem_id: id
+						}, link );
+
 		            	$("#item_title_"+idx).html(problem[i].problem_id + ". " + problem[i].problem_title);
 		            	$("#item_submit_"+idx).html(problem[i].problem_submitnum);
 		            	$("#item_level_"+idx).html("LEVEL " +problem[i].problem_level);
@@ -64,6 +89,8 @@
 		            	//$("#item_check_"+(i+1)).html(problem[i].problem_id);
 		            	$("#item_submit_"+ idx).html("제출: " + problem[i].problem_submitnum);
 		            	$("#problem_item_"+ idx).css("display","inline-block");
+
+		            	
 		            }
 		            // 나머지 요소 숨기기
 					if(problem.length < 8){
@@ -84,12 +111,12 @@
 		            for(var i=pageMaker.startPage; i < pageMaker.endPage + 1; i++) {
 			            if(page == i){
 			            	var txt = '<li onclick="a(' + i + ')" value="' + i + '"></li>';
-			            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '" style="border:0; color:blue">' + i + '</li>');
+			            	$("#pagenav").append('<li class="page_num page_on" onclick="getBoardList(' + i + ')" value="' + i + '"><a>' + i + '</a></li>');
 			     
 				        }
 			            else{
 			            	var txt ='<li onclick="a(' + i + ')" value="' + i + '"></li>';
-			            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + i+ '</li>');
+			            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '"><a>' + i+ '</a></li>');
 				        }       
 		            }
 		           
@@ -115,13 +142,29 @@
         <!-- Main -->
         <div id="main">
             <!-- Header -->
-            <header id="header">
-
+           <header id="header">
 							<a class="main_logo" href="/"><img src="<%=request.getContextPath()%>/resources/images/main_logo.png" alt="메인페이지" /></a>
 							<a class="header_problem" href="/problem"><img src="<%=request.getContextPath()%>/resources/images/header_problem.png" alt="문제 페이지" />문제풀기</a>
 							<a class="header_board" href="/board"><img src="<%=request.getContextPath()%>/resources/images/header_board.png" alt="게시판 페이지" />자유게시판</a>
+							<c:if test="${user.user_id == null}">
 							<a class="header_signup" href="/join"><img src="<%=request.getContextPath()%>/resources/images/header_signup.png" alt="회원가입" /><span>회원가입</span></a>
-							<a class="header_signin" href="/signin"><img src="<%=request.getContextPath()%>/resources/images/header_signin.png" alt="로그인" /><span>로그인</span></a>
+							<a class="header_signin" href="/login"><img src="<%=request.getContextPath()%>/resources/images/header_signin.png" alt="로그인" /><span>로그인</span></a>
+							</c:if>
+							<c:if test="${user.user_id != null}">
+							<a class="header_signout" href="/logout.do"><img src="<%=request.getContextPath()%>/resources/images/header_signout.png" alt="로그아웃" /><span>로그아웃</span></a>
+							<div class="header_profile" style="cursor: pointer;" onClick="location.href='/mypage'">
+								<img class="img" src=<%=imgURL%> alt="사용자 사진">
+								<div class="name_intro">
+									<div class="header_name">
+										<a href="?name=Mr.O">${user.user_name}</a>
+									</div>
+									<div class="header_intro">
+										${user.user_introduce}
+									</div>
+								</div>
+							</div>
+							</c:if>
+
 						</header>
             <div class="inner">
                 <!-- Content -->
@@ -229,7 +272,7 @@
 			             
 				               <c:if test="${status.count%2 == 0 }">
 					                 <div class="problem_container_right">
-							            <div id="problem_item_${status.count}" class="problem_item" onclick="location.href='#'">
+							            <div id="problem_item_${status.count}" class="problem_item" onclick="location.href='location.href='/problem/${problem.problem_id}'">
 							                <div class="item_top">
 							                    <span class="problem_title" id="item_title_${status.count}">${problem.problem_id}. ${problem.problem_title}</span>
 							                    <c:if test="${problem.problem_level == 1}">

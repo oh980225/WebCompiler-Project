@@ -7,11 +7,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.dms.web.domain.CategoryVO;
 import org.dms.web.domain.Criteria;
 import org.dms.web.domain.PageMaker;
 import org.dms.web.domain.ProblemVO;
 import org.dms.web.domain.TestcaseVO;
+import org.dms.web.domain.UserVO;
 import org.dms.web.service.CategoryService;
 import org.dms.web.service.ProblemService;
 import org.dms.web.service.TestcaseService;
@@ -35,25 +38,50 @@ public class ProblemController {
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
 	@RequestMapping(value = "/problem", method = RequestMethod.GET)
-	public String test(Locale locale, Model model, Criteria cri) throws Exception {
+	public String test(Locale locale, Model model, Criteria cri, HttpSession session) throws Exception {
 		logger.info("page:" +  cri.getPage());
 		logger.info("perPageNum:" +  cri.getPerPageNum());
-		List<CategoryVO> cvo = categoryService.readCategoryList();
-		List<ProblemVO> pvo = problemService.readProblemList(cri);
+		UserVO user = (UserVO)session.getAttribute("user");
+		if(user == null) {
+			List<ProblemVO> pvo = problemService.readProblemList(cri);
+			List<CategoryVO> cvo = categoryService.readCategoryList();
+			//List<ProblemVO> pvo = problemService.readProblemList(cri);
 
-		PageMaker pageMaker = new PageMaker();
-		cri.setPerPageNum(8);
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(problemService.ProblemCount());
-		
-		logger.info("page: " +  cri.getPage());
-		
-		model.addAttribute("category", cvo);
+			PageMaker pageMaker = new PageMaker();
+			cri.setPerPageNum(8);
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(problemService.ProblemCount());
+			
+			logger.info("page: " +  cri.getPage());
+			
+			model.addAttribute("category", cvo);			
+			model.addAttribute("problem", pvo);
+			model.addAttribute("pageMaker", pageMaker);
+			model.addAttribute("cri", cri);
+			return "problem_list";
 
-		model.addAttribute("problem", pvo);
-		model.addAttribute("pageMaker", pageMaker);
-		model.addAttribute("cri", cri);
-		return "problem_list";
+		}
+		else {
+			String user_id = user.getUser_id();
+			List<ProblemVO> pvo = problemService.readProblemList(cri);
+			List<CategoryVO> cvo = categoryService.readCategoryList();
+
+			PageMaker pageMaker = new PageMaker();
+			cri.setPerPageNum(8);
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(problemService.ProblemCount());
+			
+			logger.info("page: " +  cri.getPage());
+			
+			model.addAttribute("category", cvo);
+			model.addAttribute("user", user);
+			model.addAttribute("problem", pvo);
+			model.addAttribute("pageMaker", pageMaker);
+			model.addAttribute("cri", cri);
+			return "problem_list";
+
+		}
+		
 	}
 	
 	@RequestMapping(value = "/problem.do", method = RequestMethod.GET)

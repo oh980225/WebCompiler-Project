@@ -1,10 +1,12 @@
 package org.dms.web.domain;
 
+import java.sql.Timestamp;
+
 public class CommentsVO {
 	private int comments_id;
 	private String comments_content;
 	private String user_id;
-	private String comments_upload;
+	private Timestamp comments_upload;
 	private int board_id;
 	
 	
@@ -28,11 +30,11 @@ public class CommentsVO {
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
-	public String getComments_upload() {
+	public Timestamp getComments_upload() {
 		return comments_upload;
 	}
-	public void setComments_upload(String comments_upload) {
-		this.comments_upload = comments_upload;
+	public void setComments_upload(Timestamp timestamp) {
+		this.comments_upload = timestamp;
 	}
 	public int getBoard_id() {
 		return board_id;

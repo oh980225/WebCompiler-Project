@@ -152,7 +152,7 @@
 										      <p class="inputform"> USER ID <br></p>
 										      <input type="text" name="user_id" onclick="alert_event()">
 										      <p class="inputform"> PASSWORD <br></p>
-										      <input type="text" name="user_passwd" onclick="alert_event()">ㅠㅕ
+										      <input type="text" name="user_passwd" onclick="alert_event()">
 										      <c:if test="${msg == false}">
 										      <p id="alert_msg" style="color:red; visibility:visible">
 										      	<img id="alert_img" src="<%=request.getContextPath()%>/resources/images/alert.png" width="15px" height="15px"/>

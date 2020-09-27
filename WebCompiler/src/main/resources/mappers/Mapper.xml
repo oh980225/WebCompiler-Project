@@ -12,11 +12,9 @@
  	</select>
  	
      <insert id="user_insert"> <!-- 수정해주세요 -->
-   		insert into student (id, passwd, username, snum, depart, mobile, email) values
- 		(#{id}, #{passwd}, #{username}, #{snum}, #{depart}, #{mobile}, #{email})
+   		insert into user (user_id, user_passwd, user_name, user_introduce) values
+ 		(#{user_id}, #{user_passwd}, #{user_name}, #{user_introduce})
      </insert> 
-
-     
 
      <select id="user_selectById" resultType="UserVo">
  		select * from user where user_id = #{id}
@@ -82,6 +80,12 @@
  			select * from comments where board_id = ${board_id}
      	]]> 	
     </select>
+    <insert id="comment_insert">
+    		insert into comments (comments_content, user_id, comments_upload, board_id) values (#{comments_content}, #{user_id}, #{comments_upload}, #{board_id})
+    </insert>
+    <delete id ="comment_delete">
+    		delete from comments where comments_id = #{comments_id}
+    </delete>
     
     <!-- 카테고리 -->
     <select id="category_selectAll" resultType="CategoryVO">
@@ -114,6 +118,7 @@
     <select id="listCriteria" resultType="ProblemVO">
     	select * from problem limit #{pageStart}, #{perPageNum}
     </select>
+    
     <select id="listCriteriaFilter" resultType="ProblemVO">
     	select * from problem where problem_level = #{problem_level} and category_id = #{category_id}  limit #{pageStart}, #{perPageNum}
     </select>

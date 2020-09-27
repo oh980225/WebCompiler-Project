@@ -35,10 +35,10 @@
 		<!-- Header -->
 						<header id="header">
 							<a class="main_logo" href="/"><img src="<%=request.getContextPath()%>/resources/images/main_logo.png" alt="메인페이지" /></a>
-							<a class="header_problem" href="#"><img src="<%=request.getContextPath()%>/resources/images/header_problem.png" alt="문제 페이지" />문제풀기</a>
-							<a class="header_board" href="#"><img src="<%=request.getContextPath()%>/resources/images/header_board.png" alt="게시판 페이지" />자유게시판</a>
+							<a class="header_problem" href="/problem"><img src="<%=request.getContextPath()%>/resources/images/header_problem.png" alt="문제 페이지" />문제풀기</a>
+							<a class="header_board" href="/board"><img src="<%=request.getContextPath()%>/resources/images/header_board.png" alt="게시판 페이지" />자유게시판</a>
 							<c:if test="${user.user_id == null}">
-							<a class="header_signup" href="#"><img src="<%=request.getContextPath()%>/resources/images/header_signup.png" alt="회원가입" /><span>회원가입</span></a>
+							<a class="header_signup" href="/join"><img src="<%=request.getContextPath()%>/resources/images/header_signup.png" alt="회원가입" /><span>회원가입</span></a>
 							<a class="header_signin" href="/login"><img src="<%=request.getContextPath()%>/resources/images/header_signin.png" alt="로그인" /><span>로그인</span></a>
 							</c:if>
 							<c:if test="${user.user_id != null}">
@@ -78,6 +78,7 @@
 				<section class="profile">
 					<h3 class="head">마이페이지</h3>
 					<br class="clear">
+					<div style="float:center">
 					<div class="profile_img">
 						<img class="img" src=<%=imgURL%>>
 						<%-- <form id="img_form" action="/mypage/saveImage" enctype="multipart/form-data" method="post">
@@ -125,6 +126,8 @@
 							</div>
 						</form>
 					</div>
+					</div>
+					
 				</section>
 
 				<section class="code">
@@ -250,7 +253,7 @@
 													</div>
 													<div id="1" class="row">
 														<span class="cell col1">2020.08.01</span>
-														<span class="cell col2">C++</span>
+														<span class="cell col2">JAVA</span>
 														<span class="cell col3"><img src="<%=request.getContextPath()%>/resources/images/notCheck.png" width="25em" height="25em" alt="X" width="25em" height="25em" alt="X"></span>
 														<span class="cell col4">X</span>
 													</div>

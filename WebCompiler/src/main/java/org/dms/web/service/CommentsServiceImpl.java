@@ -21,4 +21,29 @@ public class CommentsServiceImpl implements CommentsService {
 		return commentsDAO.readList(board_id);
 	}
 
+	@Override
+	public void insertComment(CommentsVO comment) throws Exception {
+		// TODO Auto-generated method stub
+		commentsDAO.insert(comment);
+	}
+
+	@Override
+	public int count() throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void deleteComment(int comments_id) throws Exception {
+		// TODO Auto-generated method stub
+		commentsDAO.delete(comments_id);
+		
+	}
+
+	@Override
+	public void updateComment(CommentsVO comment) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

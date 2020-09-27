@@ -1,3 +1,8 @@
+#main > .inner {
+    padding: 0 6em 0.1em 6em;
+    margin: 0 auto;
+    max-width: 85em;
+}
 button {
   border: 1px solid rgb(24, 30, 40);
   color: rgb(24, 30, 40) !important;
@@ -21,6 +26,7 @@ a.button:hover {
 }
 
 section.profile {
+  padding: 4em 0 4em 0;
   height: 30em;
 }
 

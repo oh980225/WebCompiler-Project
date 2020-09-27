@@ -29,6 +29,30 @@
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css" type="text/css"/>
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_main.css" type="text/css"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" /> <!-- 이게 Font Awesome 5 Free를 사용하게 해주는거 같아요. 이거덕에 사이드바 모양이 보여요! -->
+		<style>
+			.mindi {
+            overflow:auto;
+            margin:0.7em 0.3em;;
+            display:inline-block;
+            float:right;
+        }
+        .mindi_signin {
+            
+            text-align: center;
+        }
+            .mindi_signin img {
+                margin: auto;
+                text-align: center;
+                width: 1.2em;
+                height: 1.2em;
+                display: block;
+            }
+            .mindi_signin span {
+                font-size: 0.1px;
+                display: inline;
+            }
+		</style>
+	
 	</head>
 	<body class="is-preload">
 
@@ -61,8 +85,18 @@
 							<a class="header_problem" href="/problem"><img src="<%=request.getContextPath()%>/resources/images/header_problem.png" alt="문제 페이지" />문제풀기</a>
 							<a class="header_board" href="/board"><img src="<%=request.getContextPath()%>/resources/images/header_board.png" alt="게시판 페이지" />자유게시판</a>
 							<c:if test="${user.user_id == null}">
+							
+							 <div class="mindi">
+						        <a href="#" class="mindi_signin">
+						            <span>회원가입</span>
+						        </a>
+						    </div>
+						     <div class="mindi">
+						        <a href="#" class="mindi_signin">
+						            <span>로그인</span></a>
+						    </div>
 							<a class="header_signup" href="/join"><img src="<%=request.getContextPath()%>/resources/images/header_signup.png" alt="회원가입" /><span>회원가입</span></a>
-							<a class="header_signin" href="/login"><img src="<%=request.getContextPath()%>/resources/images/header_signin.png" alt="로그인" /><span>로그인</span></a>
+							<div><a class="header_signin" href="/login"><img src="<%=request.getContextPath()%>/resources/images/header_signin.png" alt="로그인" /><span>로그인</span></a></div>
 							</c:if>
 							<c:if test="${user.user_id != null}">
 							<a class="header_signout" href="/logout.do"><img src="<%=request.getContextPath()%>/resources/images/header_signout.png" alt="로그아웃" /><span>로그아웃</span></a>

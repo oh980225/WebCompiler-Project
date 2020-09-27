@@ -71,3 +71,7 @@ div.signin_form input[type="submit"] {
   cursor: pointer !important;
   border-radius: 20px !important;
 }
+
+.alert_img {
+    vertical-align: middle;
+}

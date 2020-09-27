@@ -15,9 +15,9 @@
 <body>
 	<div id="wrap">
 		<header>
-			<a class="back_btn" href="#"><img src="<%=request.getContextPath()%>/resources/images/back_btn.png" alt="뒤로가기"></a>
+			<a class="back_btn" href="#"><img src="<%=request.getContextPath()%>/resources/images/back.png" alt="뒤로가기"></a>
 			<div class="problem_title">
-				[ ${problem.problem_id} ] ${problem.problem_title}
+				<span>[ ${problem.problem_id} ] ${problem.problem_title}</span>
 			</div>
 			<c:if test="${problem.problem_level == 1}">
     					<div class="problem_level" style="background-color: #FFCC80 ">
@@ -57,7 +57,10 @@
 		</header>
 		<aside>
 			<div class="problem">
-				${problem.problem_content}
+				<div class="problem_content">
+					${problem.problem_content}
+				</div>
+				
 				<h2 class="input_title">
 					입력
 				</h2>
@@ -74,13 +77,21 @@
 		<section class="result">
 			<div class="result_header">
 				<div class="result_title">
-					실행 결과
+					<span>실행 결과</span>
 				</div>
+				<!--  
 				<a href="#">
 					<div class="result_help">
-						도와주세요!
+						토론하기
 					</div>
 				</a>
+				-->
+				<div class="result_help">
+						<a href="#">
+							토론하기
+							<img src="<%=request.getContextPath()%>/resources/images/chat.png">
+						</a>
+				</div>
 			</div>
 			<div class="result_main">
 

@@ -32,10 +32,10 @@
 						<!-- Header -->
 						<header id="header">
 							<a class="main_logo" href="/"><img src="<%=request.getContextPath()%>/resources/images/main_logo.png" alt="메인페이지" /></a>
-							<a class="header_problem" href="#"><img src="<%=request.getContextPath()%>/resources/images/header_problem.png" alt="문제 페이지" />문제풀기</a>
-							<a class="header_board" href="#"><img src="<%=request.getContextPath()%>/resources/images/header_board.png" alt="게시판 페이지" />자유게시판</a>
+							<a class="header_problem" href="/problem"><img src="<%=request.getContextPath()%>/resources/images/header_problem.png" alt="문제 페이지" />문제풀기</a>
+							<a class="header_board" href="/board"><img src="<%=request.getContextPath()%>/resources/images/header_board.png" alt="게시판 페이지" />자유게시판</a>
 							<c:if test="${user.user_id == null}">
-							<a class="header_signup" href="#"><img src="<%=request.getContextPath()%>/resources/images/header_signup.png" alt="회원가입" /><span>회원가입</span></a>
+							<a class="header_signup" href="/join"><img src="<%=request.getContextPath()%>/resources/images/header_signup.png" alt="회원가입" /><span>회원가입</span></a>
 							<a class="header_signin" href="/login"><img src="<%=request.getContextPath()%>/resources/images/header_signin.png" alt="로그인" /><span>로그인</span></a>
 							</c:if>
 							<c:if test="${user.user_id != null}">
@@ -70,7 +70,7 @@
 									<input type="submit" value="LOGIN">
 								</form>
 								<c:if test="${msg == false}">
-								<p id="alert_msg" style="color:red; visibility:visible"> 존재하지 않거나 비밀번호가 일치하지 않습니다.</p>
+									<p id="alert_msg" style="color:red; visibility:visible"><img class="alert_img" src="<%=request.getContextPath()%>/resources/images/alert.png" width="15" height="15" style="vertical-align: middle;" /> 존재하지 않거나 비밀번호가 일치하지 않습니다.</p>
 								</c:if>
 							</div>
 						</div>

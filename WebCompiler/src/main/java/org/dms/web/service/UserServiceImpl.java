@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void insertUser(UserVO vo) throws Exception {
+		userDAO.insert(vo);
 		// TODO Auto-generated method stub
 
 	}

@@ -1,4 +1,7 @@
-
+#main > .inner > section {
+    padding: 1.5em 0 3em 0;
+    border-top: solid 2px rgba(210, 215, 217, 0.75);
+}
 
 section h3.board_title {
   display: inline-block;
@@ -23,11 +26,25 @@ section div.table-wrapper {
   width: 100%;
 }
 
-div.col-12 select {
-  background: white;
-  border-color: black;
-  font-weight: bold;
+
+
+section div.name {
+  float: right;
+  width: 8em;
 }
+
+div.col-12 {
+  position: relative;
+  display: inline-block;
+   color:#707070;
+}
+
+div.col-12 select {
+        background: white;
+        border: solid 1.5px #9e9e9e;
+        font-size:0.8em;
+        color:#707070;
+ }
 
 select option {
   color: black;
@@ -40,22 +57,63 @@ section div.name {
 }
 
 div.name select {
-  height: 2em;
+  height: 2.5em;
+  
+}
+
+div.select_arrow{
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  border-style: solid;
+  border-width: 8px 5px 0 5px;
+  border-color: #484848 transparent transparent transparent;
+}
+
+div.small_arrow {
+    position: absolute;
+    top: 13px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    border-style: solid;
+    border-width: 8px 5px 0 5px;
+    border-color: #484848 transparent transparent transparent;
 }
 
 section input.search {
-  float: right;
-  width: 6em;
-  height: 2em;
-  background: white;
-  border-color: black;
-  font-weight: bold;
-  margin-right: 0.5em;
+    float: right;
+    width: 15em;
+    height: 2.5em;
+    background: white;
+    border-color: #9e9e9e;
+    margin-right: 0.5em;
+    border: solid 1.5px #9e9e9e;
+    font-size:0.8em;
+    color:#707070;
+    
+}
+
+  section input.search:enabled {
+        border: solid 1.5px #9e9e9e;
+    }
+
+section input.search::placeholder {
+  color: #9e9e9e !important;
+  font-size:0.9em;
 }
 
 div.table-wrapper {
-  margin-top: 3em;
+
   text-align: center;
+}
+/* table-wrapper 이라는 이름의 div 안의 table 태그*/
+div.table-wrapper table{
+	margin: 0;
 }
 
 div.table-wrapper table thead th {
@@ -66,9 +124,13 @@ div.table-wrapper table thead th {
 
 div.table-wrapper table thead {
   border-bottom: 1px solid black;
+  font-size:1em;
   text-align: center;
 }
-
+div.table-wrapper table thead th.board_title{
+	text-align:left;
+	padding-left:1.5em;
+}
 div.table-wrapper table tbody tr{
   background: white;
 }
@@ -76,7 +138,17 @@ div.table-wrapper table tbody tr{
 div.table-wrapper table tbody tr {
   border: none;
 }
-
+div.table-wrapper table tbody td.problem_id a{
+	font-weight:bold;
+	color:#79BCC3;
+}
+div.table-wrapper table tbody td.board_title{
+	text-align:left;
+	padding-left:1.5em;
+}
+div.table-wrapper table tbody{
+  font-size:0.9em
+}
 div.table-wrapper table tbody tr {
   border-bottom: 1px dashed black;
 }
@@ -84,17 +156,20 @@ div.table-wrapper table tbody tr {
 div.table-wrapper table tbody tr:last-child {
   border-bottom: 1px solid black;
 }
-
-td div.problem_level {
-  text-align: center;
-  width: 5.5em;
-  color: white;
-  background-color: rgb(64, 186, 218);
-  border-radius: 5%;
-  font-weight: bolder;
-  padding: 0.8em;
-  line-height: 0.4em;
-  font-size: 0.7em;
+div.board_option{
+	float:right;
+	padding: 0.1em 0.5em 0 0;
+}
+div.board_option a{
+	font-size:0.8em;
+	color:#707070;
+	border:0;
+}
+div.board_option img{
+	margin-right:0.4em;
+	vertical-align:middle;
+	width:1.1em;
+	height:1.1em;
 }
 
 td img {
@@ -104,19 +179,57 @@ td img {
 
 div.page {
   margin: auto;
+  overflow:auto;
+  width: 100%;
 }
 
 ul.paging {
-  /* padding-left: 25em; */
+  text-align: center;
+  padding: 0;
+  width: 100%;
 }
 
 li.page_num {
+	font-size:0.95em;
+  width: 1.8em;
+  height: 1.8em;
+  padding: 0;
+  display: inline-block;
   list-style: none;
-  float: left;
-  padding: 6px;
+  text-align: center;
 }
 
+
 li.page_num a {
+	font-size:0.95em;
+	width: 1.8em;
+   text-align:center;
   color: black;
   border: 0;
+}
+li.page_on a{
+	width: 1.8em;
+	font-size:0.95em;
+  height: 1.8em;
+  font-weight: bold;
+  display: inline-block;
+  color: white !important;
+  background: #79BCC3;
+  border: 1px solid #ffffff;
+  border-radius: 100%;
+  text-align: center;
+ 
+}
+li.page_num a:hover {
+	width: 1.8em;
+	font-size:0.95em;
+  height: 1.8em;
+  font-weight: bold;
+  display: inline-block;
+  color: white !important;
+  background: #79BCC3;
+  border: 1px solid #79BCC3;
+  border-radius: 100%;
+  text-align: center;
+ 
 }

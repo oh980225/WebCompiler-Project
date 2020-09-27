@@ -1,6 +1,11 @@
 @import url(fontawesome-all.min.css);
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,400italic,600italic|Roboto+Slab:400,700");
-@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url("https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css");
+
+body {
+  font-family: "NanumSquare", sans-serif !important;
+}
 /*
 	Editorial by HTML5 UP
 	html5up.net | @ajlkn
@@ -108,10 +113,10 @@ body, input, select, textarea {
       font-size: 9pt; } }
 
 a {
-  -moz-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
+  /*-moz-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
   -webkit-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
   -ms-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
-  transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;*/
   color: black;
   text-decoration: none; }
   a:hover {
@@ -1404,7 +1409,7 @@ ul.pagination {
     padding-left: 0;
     vertical-align: middle; }
     ul.pagination li > .page {
-      -moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+      /*-moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
       -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
       -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
       transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
@@ -1415,10 +1420,21 @@ ul.pagination {
       font-weight: 600;
       height: 2em;
       line-height: 2em;
-      margin: 0 0.125em;
+      margin: 0 0.125em;*/
       min-width: 2em;
-      padding: 0 0.5em;
+      /*padding: 0 0.5em;*/
       text-align: center; }
+      ul.pagination li > .page {
+        background-color: #ffffff;
+        color: #ffffff !important; }
+        ul.pagination li > .page:hover {
+          background-color: #ffffff; }
+      
+    ul.pagination li:first-child {
+      padding-right: 0.75em; }
+    ul.pagination li:last-child {
+      padding-left: 0.75em; }
+      /*
       ul.pagination li > .page.active {
         background-color: #b1afaf;
         color: #ffffff !important; }
@@ -1430,6 +1446,7 @@ ul.pagination {
       padding-right: 0.75em; }
     ul.pagination li:last-child {
       padding-left: 0.75em; }
+      */
   @media screen and (max-width: 480px) {
     ul.pagination li:nth-child(n+2):nth-last-child(n+2) {
       display: none; }
