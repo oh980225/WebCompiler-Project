@@ -341,7 +341,12 @@
 			if(innerDoc == null) {
 				console.log("this is null");	
 			} else {
+				// 여기가 null 에러 나는 부분
 				const get_code = innerDoc.getElementById("code_get");
+				/*
+				해결 방안
+				: 일단 위에 선언해서 가져오고, 중간에 while문으로 검사 및 돌려서 안될경우 계속 해당 id 접근
+				*/
 				const getLangAndCode = innerDoc.getElementById("getLangAndCode");
 				console.log(innerDoc.getElementById("code_get"));
 				get_code.value = encodeURIComponent("코드기록을 선택해주세요.");
