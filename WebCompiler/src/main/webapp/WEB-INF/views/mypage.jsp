@@ -272,6 +272,8 @@
 		    innerDoc = iframe.contentDocument || iframe.contentWindow.document;
 		}
 
+		access();
+
 		function Request(valuename)
 		  {
 		      var rtnval;
@@ -319,6 +321,7 @@
 		const openBtns = document.querySelectorAll(".open");
 		const overlay = modal.querySelector(".modal_overlay");
 		const closeBtn = modal.querySelector(".close");
+		let get_code = innerDoc.getElementById("code");
 
 		// js date fomat변경
 		function getFormatDate(date){
@@ -341,15 +344,15 @@
 			if(innerDoc == null) {
 				console.log("this is null");	
 			} else {
-				// 여기가 null 에러 나는 부분
-				const get_code = innerDoc.getElementById("code_get");
-				/*
-				해결 방안
-				: 일단 위에 선언해서 가져오고, 중간에 while문으로 검사 및 돌려서 안될경우 계속 해당 id 접근
-				*/
+				console.log("1. get_code: " + get_code);
 				const getLangAndCode = innerDoc.getElementById("getLangAndCode");
-				console.log(innerDoc.getElementById("code_get"));
+				while(get_code == null) {
+					get_code = innerDoc.getElementById("code");
+				}
+				get_code = innerDoc.getElementById("code");
+				console.log("2. get_code: " + get_code);
 				get_code.value = encodeURIComponent("코드기록을 선택해주세요.");
+				console.log(get_code.value);
 				getLangAndCode.click(); 
 			}
 			
