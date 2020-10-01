@@ -52,14 +52,14 @@ public class MyPageController {
 		pageMaker.setTotalCount(codeBoardList_.size());
 		
 		List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id(), criteria);
-		
+		System.out.println(codeBoardList);
 		model.addAttribute("user", user);
 		model.addAttribute("codeList", codeList);
-		model.addAttribute("codeBoardList", codeBoardList_);
+		model.addAttribute("codeBoardList", codeBoardList);
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("criteria", criteria);
 		
-		for(CodeBoardVO codeBoard : codeBoardList_) {
+		for(CodeBoardVO codeBoard : codeBoardList) {
 			System.out.println(codeBoard);
 		}
 		

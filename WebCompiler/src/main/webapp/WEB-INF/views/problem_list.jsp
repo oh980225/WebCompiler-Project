@@ -310,7 +310,7 @@
                        
                         <div class="page">
 						<ul class="paging" id="pagenav" >
-						<c:if test="$test{pageMaker.prev}">
+							<c:if test="$test{pageMaker.prev}">
 							<li class="page_num"><a href="javascript:getBoardList(pageMaker.startPage - 1)"><</a></li>
 							</c:if> 
 							<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="page">

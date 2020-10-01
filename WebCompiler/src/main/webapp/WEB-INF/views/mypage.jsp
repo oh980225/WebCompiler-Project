@@ -65,11 +65,6 @@
 					<br class="clear">
 					<div class="profile_img">
 						<img class="img" src=<%=imgURL%>>
-						<%-- <form id="img_form" action="/mypage/saveImage" enctype="multipart/form-data" method="post">
-							<input type="hidden" name="user_id" value="${user.user_id}" />
-    						<input type="file" onChange="endImageSave();" name="user_image" />
-						</form>
-						<button class="btn_img" type="button" name="button" onClick="changeImageSaveMode();">사진 변경</button> --%>
 						<label for="pictureBtn"></label>
 						<form id="img_form" action="/mypage/saveImage" enctype="multipart/form-data" method="post">
 							<input type="hidden" name="user_id" value="${user.user_id}" />
@@ -77,13 +72,6 @@
 						</form>
 					</div>
 					<div class="profile_name">
-						<%-- <h3 id="user_name">${user.user_name}</h3> --%>
-						<%-- <form id="name_form" method="post">
-							<input id="input_name" type="text" name="user_name" value="" />
-							<input type="hidden" name="user_introduce" value="${user.user_introduce}" />
-							<input type="hidden" name="user_id" value="${user.user_id}" />
-						</form>
-						<button class="btn_name" type="button" name="닉네임 변경" onClick="changeName();">닉네임 변경</button> --%>
 						<form id="name_form" method="post">
 							<div class="editBox">
 								<input type="text" name="user_name" value="${user.user_name}">
@@ -94,13 +82,6 @@
 						</form>
 					</div>
 					<div class="profile_introduce">
-						<%-- <h3 id="user_introduce">${user.user_introduce}</h3>
-						<form id="introduce_form" method="post">
-							<input id="input_introduce" type="text" name="user_introduce" value="" />
-							<input type="hidden" name="user_name" value="${user.user_name}" />
-							<input type="hidden" name="user_id" value="${user.user_id}" />
-						</form>
-						<button class="btn_introduce" type="button" name="소개 변경" onClick="changeIntroduce();">소개 변경</button> --%>
 						<form id="intro_form" method="post">
 							<div class="editBox">
 								<textarea name="user_introduce" rows="4" cols="50">${user.user_introduce}</textarea>
@@ -225,7 +206,9 @@
 							</div>
 							<div class="page">
 								<ul class="paging">
+									<c:if test="${pageMaker.isPrev()}">
 									<li class="page_num"><a href="#"><</a></li>
+									</c:if>
 									<li class="page_num"><a href="#">1</a></li>
 									<li class="page_num"><a href="#">2</a></li>
 									<li class="page_num"><a href="#">3</a></li>
@@ -233,7 +216,9 @@
 									<li class="page_num"><a href="#">8</a></li>
 									<li class="page_num"><a href="#">9</a></li>
 									<li class="page_num"><a href="#">10</a></li>
+									<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 									<li class="page_num"><a href="#">></a></li>
+									</c:if>
 								</ul>
 							</div>
 						</form>
@@ -321,7 +306,6 @@
 		const openBtns = document.querySelectorAll(".open");
 		const overlay = modal.querySelector(".modal_overlay");
 		const closeBtn = modal.querySelector(".close");
-		let get_code = innerDoc.getElementById("code");
 
 		// js date fomat변경
 		function getFormatDate(date){
@@ -344,12 +328,12 @@
 			if(innerDoc == null) {
 				console.log("this is null");	
 			} else {
+				let get_code = innerDoc.getElementById("code");
 				console.log("1. get_code: " + get_code);
 				const getLangAndCode = innerDoc.getElementById("getLangAndCode");
 				while(get_code == null) {
 					get_code = innerDoc.getElementById("code");
 				}
-				get_code = innerDoc.getElementById("code");
 				console.log("2. get_code: " + get_code);
 				get_code.value = encodeURIComponent("코드기록을 선택해주세요.");
 				console.log(get_code.value);
