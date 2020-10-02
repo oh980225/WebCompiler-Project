@@ -315,7 +315,7 @@
 							</c:if> 
 							<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="page">
 	    							<li class="page_num" onclick="javascript:getBoardList(this.value)" value="${page}"><a>${page}</a></li>
-							 </c:forEach>
+							</c:forEach>
 							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 									<li class="page_num"><a href="javascript:getBoardList(pageMaker.endPage + 1)">></a></li>
 							 </c:if>

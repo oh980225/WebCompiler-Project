@@ -97,36 +97,31 @@
 					<h3 class="board_title"><span>코드 조회</span></h3>
 					<!-- Break -->
 						<div style="clear: both;" class="col-12 level">
-							<select name="demo-category" id="demo-category">
-								<option value="">- Level -</option>
-								<option value="1">Bronze</option>
-								<option value="1">Silver</option>
-								<option value="1">Gold</option>
+							<select name="problem_level" id="problem_level">
+								<option value="0">------ 선택 ------</option>
+								<option value="1">LEVEL 1</option>
+								<option value="2">LEVEL 2</option>
+								<option value="3">LEVEL 3</option>
+								<option value="4">LEVEL 4</option>
+								<option value="5">LEVEL 5</option>
 							</select>
 							<div class="select_arrow"></div>
 						</div>
 						<!-- Break -->
 							<div class="col-12 kind">
-								<select name="demo-category" id="demo-category1">
-									<option value="">- AC/WA -</option>
-									<option value="1">Sort</option>
-									<option value="1">Tree</option>
-									<option value="1">For</option>
-									<option value="1">While</option>
-									<option value="1">If</option>
-									<option value="1">DP</option>
+								<select name="category_name" id="category_name">
+									<option value="unselected">------ 선택 ------</option>
+                            		<c:forEach var="category" items="${category}">
+									<option value="${category.category_id}">${category.category_name}</option>
+									</c:forEach>
 								</select>
 								<div class="select_arrow"></div>
 							</div>
 							<div class="col-12 name">
 								<select name="demo-category" id="demo-category2">
-									<option value="">- 제목 -</option>
-									<option value="1">Sort</option>
-									<option value="1">Tree</option>
-									<option value="1">For</option>
-									<option value="1">While</option>
-									<option value="1">If</option>
-									<option value="1">DP</option>
+									<option value="">-- 선택 --</option>
+									<option value="problem_title">제목</option>
+									<option value="problem_id">문제번호</option>
 								</select>
 								<div class="small_arrow"></div>
 							</div>
@@ -204,18 +199,22 @@
 									</tbody>
 								</table>
 							</div>
+							<!-- 다음, 이전은 나중에 -->
 							<div class="page">
 								<ul class="paging">
 									<c:if test="${pageMaker.isPrev()}">
 									<li class="page_num"><a href="#"><</a></li>
 									</c:if>
-									<li class="page_num"><a href="#">1</a></li>
+									<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="page">
+	    							<li class="page_num" onclick="javascript:getBoardList(this.value)" value="${page}"><a>${page}</a></li>
+							 		</c:forEach>
+									<!-- <li class="page_num"><a href="#">1</a></li>
 									<li class="page_num"><a href="#">2</a></li>
 									<li class="page_num"><a href="#">3</a></li>
 									<li class="page_num">...</li>
 									<li class="page_num"><a href="#">8</a></li>
 									<li class="page_num"><a href="#">9</a></li>
-									<li class="page_num"><a href="#">10</a></li>
+									<li class="page_num"><a href="#">10</a></li> -->
 									<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 									<li class="page_num"><a href="#">></a></li>
 									</c:if>
@@ -424,8 +423,103 @@
 		for(const btn of openBtns) {
 			btn.addEventListener("click", openModal);
 		}
-		
-		
+		function getBoardList(page){
+			$.ajax({ 
+				 url: '/codeBoardPaging',  
+				 type: 'GET',
+				 data: "page=" + page
+			}).done(function(result) {
+				 const url = "<%=request.getContextPath()%>/WEB-INF/views/" + result +".jsp";
+				 const html = $('<div>').load(url);
+				 console.log(html);
+				 console.log(url);
+				 const contents = html.find("div#paging").html();
+				 console.log(contents);
+				 $('tbody').html(contents);
+				 console.log("success");
+			 }).fail(function(){
+				 console.log("paging error!");
+			 }); 
+		}
+
+		/* function getBoardList(page){	
+			var level = document.getElementById("problem_level")
+			var category = document.getElementById("category_name");
+
+			var level_value = level.options[level.selectedIndex].value;
+			var category_value = category.options[category.selectedIndex].value;
+			
+			$.ajax({
+	            url: "/codeBoardPaging",
+	            type: "POST",
+	            data: {
+			            "problem_level": level_value,
+			            "category_name": category_value,
+			            "page": page
+			        },
+	            success: function(data){	           
+		            var codeList = data.list;
+		            var pageMaker = data.pageMaker;
+		        
+		            for(var i=0; i< codeList.length; i++) {
+			
+			            var idx = i + 1;
+			           
+		            	$("#item_title_"+idx).html(codeList[i].problem_id + ". " + codeList[i].problem_title);
+		            	$("#item_submit_"+idx).html(codeList[i].problem_submitnum);
+		            	$("#item_level_"+idx).html("LEVEL " +codeList[i].problem_level);
+
+		            	if(codeList[i].problem_level == 1){ $("#item_level_"+idx).css("background-color", "#FFCC80"); }
+		            	if(codeList[i].problem_level == 2){ $("#item_level_"+idx).css("background-color", "#7BC379"); }
+		            	if(codeList[i].problem_level == 3){ $("#item_level_"+idx).css("background-color", "#79BCC3"); }
+		            	if(codeList[i].problem_level == 4){ $("#item_level_"+idx).css("background-color", "#EA7862"); }
+		            	if(codeList[i].problem_level == 5){ $("#item_level_"+idx).css("background-color", "#8C699B"); }
+		            	
+		            	
+		            	$("#item_success_"+idx).html("맞은사람: " + codeList[i].problem_successnum);
+		            	$("#item_percent_"+idx).html("정답률: " + percent + "%");
+		            	//$("#item_check_"+(i+1)).html(problem[i].problem_id);
+		            	$("#item_submit_"+ idx).html("제출: " + codeList[i].problem_submitnum);
+		            	$("#problem_item_"+ idx).css("display","inline-block");
+		            }
+		            // 나머지 요소 숨기기
+					if(problem.length < 8){
+						for(var i=problem.length + 1; i <= 8; i++){
+							$("#problem_item_"+i).css("display","none");
+							
+							}
+					}
+		            var elem = '';
+		            //var num = 0;
+		            // start
+		            /*if(pageMaker.prev){
+			            elem = elem + '<li><a href="javascript:getBoardList(' + pageMaker.startPage - 1 + ') "> ◀  </a></li>';
+			            }
+		            */
+		            /*$("#pagenav").empty();
+		            
+		            for(var i=pageMaker.startPage; i < pageMaker.endPage + 1; i++) {
+			            if(page == i){
+			            	var txt = '<li onclick="a(' + i + ')" value="' + i + '"></li>';
+			            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '" style="border:0; color:blue">' + i + '</li>');
+			     
+				        }
+			            else{
+			            	var txt ='<li onclick="a(' + i + ')" value="' + i + '"></li>';
+			            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + i+ '</li>');
+				        }       
+		            }
+		           
+		            // end
+		            /*if(pageMaker.next && pageMaker.endPage > 0){
+		            	elem = elem + '<li><a href="javascript:getBoardList(' + pageMaker.endPage - 1 + ') "> ▶ </a></li>';
+			            }*//*
+	            },
+	            error: function(){
+	                console.log("paging error!");
+	            }
+	        });
+		} */
 	</script>
 
 </body>
