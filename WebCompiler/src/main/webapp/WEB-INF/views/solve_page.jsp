@@ -107,6 +107,7 @@
 		const iframe = document.getElementById("iframe");
 		let innerDoc = null;
 		const submit_btn = document.querySelector(".submit_btn");
+		const execute_btn = document.querySelector(".execute_btn");
 		
 		const access = () => {
 		    innerDoc = iframe.contentDocument || iframe.contentWindow.document;
@@ -138,6 +139,30 @@
 			}); 
 		}
 
+		const codeExecute = () => {
+			let getCodeBtn = innerDoc.getElementById("getCode");
+			getCodeBtn.click();
+			
+			let code = innerDoc.getElementById("code").value;
+
+			let lang = innerDoc.getElementById("lang").value;
+
+			$.ajax({ 
+				  url: '/execute',  
+				  type: 'POST',
+				  data: "code=" + encodeURIComponent(code) + "&lang=" + encodeURIComponent(lang),  
+				  success: function(data) {
+					  const result = data.result;
+					  const printResult = document.querySelector(".result_main");
+					  printResult.innerText = result;
+					  console.log(data.result);
+				  },
+				  error: function() {
+					  console.log("실패!");
+				  }
+			}); 
+		}
+
 		const chageLangSelect = () =>{
 		    const langSelect = document.querySelector(".lang_list");
 		    let selectValue = langSelect.options[langSelect.selectedIndex].value;
@@ -146,6 +171,7 @@
 		}
 		
 		submit_btn.addEventListener("click", codeSubmit);
+		execute_btn.addEventListener("click", codeExecute);
 	</script>
 	<script src="${pageContext.request.contextPath}/resources/js/modal.js"></script>
 </body>

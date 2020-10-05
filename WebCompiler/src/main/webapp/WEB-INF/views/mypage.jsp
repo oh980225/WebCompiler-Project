@@ -143,27 +143,27 @@
 									<tbody>
 										<c:forEach var="codeBoard" items="${codeBoardList}" varStatus="st_">
 										<tr class="open" id="${st_.index}">
-											<td>${codeBoard.problem_id}</td>
-											<td>${codeBoard.problem_title}</td>
+											<td id="code_board_problem_id">${codeBoard.problem_id}</td>
+											<td id="code_board_problem_title">${codeBoard.problem_title}</td>
 											<td>
 												<c:if test="${codeBoard.problem_level == 1}">
-												<div class="problem_level1">
+												<div id="code_board_problem_level" class="problem_level1">
 													LEVEL 1
 												</div>
 												</c:if>
 												<c:if test="${codeBoard.problem_level == 2}">
-												<div class="problem_level2">
+												<div id="code_board_problem_level" class="problem_level2">
 													LEVEL 2
 												</div>
 												</c:if>
 												<c:if test="${codeBoard.problem_level == 3}">
-												<div class="problem_level3">
+												<div id="" class="problem_level3">
 													LEVEL 3
 												</div>
 												</c:if>
 											</td>
-											<td><fmt:formatDate pattern="yyyy.MM.dd" value="${codeBoard.code_date}"/></td>
-											<td><img src="<%=request.getContextPath()%>/resources/images/${codeBoard.code_success == 1 ? 'check.png' : 'notCheck.png'}" width="20em" height="20em" alt=""></td>
+											<td id="code_board_code_date"><fmt:formatDate pattern="yyyy.MM.dd" value="${codeBoard.code_date}"/></td>
+											<td id="code_board_code_success"><img src="<%=request.getContextPath()%>/resources/images/${codeBoard.code_success == 1 ? 'check.png' : 'notCheck.png'}" width="20em" height="20em" alt=""></td>
 										</tr>
 				        				</c:forEach>
 				        				<div class="modal hidden">
@@ -423,7 +423,7 @@
 		for(const btn of openBtns) {
 			btn.addEventListener("click", openModal);
 		}
-		function getBoardList(page){
+		<%-- function getBoardList(page){
 			$.ajax({ 
 				 url: '/codeBoardPaging',  
 				 type: 'GET',
@@ -440,9 +440,9 @@
 			 }).fail(function(){
 				 console.log("paging error!");
 			 }); 
-		}
+		} --%>
 
-		/* function getBoardList(page){	
+		function getBoardList(page){	
 			var level = document.getElementById("problem_level")
 			var category = document.getElementById("category_name");
 
@@ -463,40 +463,39 @@
 		        
 		            for(var i=0; i< codeList.length; i++) {
 			
-			            var idx = i + 1;
-			           
-		            	$("#item_title_"+idx).html(codeList[i].problem_id + ". " + codeList[i].problem_title);
-		            	$("#item_submit_"+idx).html(codeList[i].problem_submitnum);
-		            	$("#item_level_"+idx).html("LEVEL " +codeList[i].problem_level);
-
-		            	if(codeList[i].problem_level == 1){ $("#item_level_"+idx).css("background-color", "#FFCC80"); }
-		            	if(codeList[i].problem_level == 2){ $("#item_level_"+idx).css("background-color", "#7BC379"); }
-		            	if(codeList[i].problem_level == 3){ $("#item_level_"+idx).css("background-color", "#79BCC3"); }
-		            	if(codeList[i].problem_level == 4){ $("#item_level_"+idx).css("background-color", "#EA7862"); }
-		            	if(codeList[i].problem_level == 5){ $("#item_level_"+idx).css("background-color", "#8C699B"); }
+			            const idx = i;
+			            const tr = document.getElementById(idx);
+			            
+			         	tr.getElementById("code_board_problem_id").innerHTML = codeList[i].problem_id;
+			         	tr.getElementById("code_board_problem_title").innerHTML = codeList[i].problem_title;
+			         	tr.getElementById("code_board_problem_level").innerHTML = "LEVEL " + codeList[i].problem_level;
+			         	const level_class = tr.getElementById("code_board_problem_level").attr('class');
+			         	if(level_class != ("problem_level"+ codeList[i].problem_level)) {
+			         		tr.getElementById("code_board_problem_level").classList.remove(level_class);
+			         		tr.getElementById("code_board_problem_level").classList.add("problem_level"+ codeList[i].problem_level);
+				         	// 현재 클래스를 해당 problme_level 클래스로 변경!
+				        }
+				        // 현재 이 위까지 가능
+				        // code_date와 code_success 바꿔야함.
+				        tr.getElementById("code_board_code_date").innerHTML = `<fmt:formatDate pattern="yyyy.MM.dd" value="${+` codeList[i].code_date + `}"/>`;
+				        tr.getElementById("code_board_code_success").innerHTML = `<img src="<%=request.getContextPath()%>/resources/images/${` + (codeList[i].code_success == 1 ? 'check.png' : 'notCheck.png') + `}" width="20em" height="20em" alt="">`
 		            	
-		            	
-		            	$("#item_success_"+idx).html("맞은사람: " + codeList[i].problem_successnum);
-		            	$("#item_percent_"+idx).html("정답률: " + percent + "%");
-		            	//$("#item_check_"+(i+1)).html(problem[i].problem_id);
-		            	$("#item_submit_"+ idx).html("제출: " + codeList[i].problem_submitnum);
-		            	$("#problem_item_"+ idx).css("display","inline-block");
 		            }
 		            // 나머지 요소 숨기기
-					if(problem.length < 8){
+					/* if(problem.length < 8){
 						for(var i=problem.length + 1; i <= 8; i++){
 							$("#problem_item_"+i).css("display","none");
 							
 							}
-					}
+					} */
 		            var elem = '';
 		            //var num = 0;
 		            // start
-		            /*if(pageMaker.prev){
+		            if(pageMaker.prev){
 			            elem = elem + '<li><a href="javascript:getBoardList(' + pageMaker.startPage - 1 + ') "> ◀  </a></li>';
 			            }
-		            */
-		            /*$("#pagenav").empty();
+		           
+		            $("#pagenav").empty();
 		            
 		            for(var i=pageMaker.startPage; i < pageMaker.endPage + 1; i++) {
 			            if(page == i){
@@ -511,15 +510,15 @@
 		            }
 		           
 		            // end
-		            /*if(pageMaker.next && pageMaker.endPage > 0){
+		            if(pageMaker.next && pageMaker.endPage > 0){
 		            	elem = elem + '<li><a href="javascript:getBoardList(' + pageMaker.endPage - 1 + ') "> ▶ </a></li>';
-			            }*//*
+			            }
 	            },
 	            error: function(){
 	                console.log("paging error!");
 	            }
 	        });
-		} */
+		} 
 	</script>
 
 </body>

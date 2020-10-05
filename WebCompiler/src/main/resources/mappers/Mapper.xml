@@ -184,8 +184,9 @@
      </select>
      
      <select id="codeboard_problem_id_list_criteria" parameterType="hashmap" resultType="Integer">
-    	select distinct problem_id  from code where user_id = #{user_id} order by code_date desc limit #{pageStart}, #{perPageNum}
+    	select distinct problem_id  from code where user_id = #{user_id} limit #{pageStart}, #{perPageNum}
      </select>
+     <!-- select distinct problem_id  from code where user_id = #{user_id} order by code_date desc limit #{pageStart}, #{perPageNum} -->
    
     <!-- 게시판 -->
     <insert id="submit_code" parameterType="CodeVO">
