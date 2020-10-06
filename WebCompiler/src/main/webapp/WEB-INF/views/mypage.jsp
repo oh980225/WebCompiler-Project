@@ -142,7 +142,7 @@
 									</thead>
 									<tbody>
 										<c:forEach var="codeBoard" items="${codeBoardList}" varStatus="st_">
-										<tr class="open" id="${st_.index}">
+										<tr class="open" id="tr${st_.index}">
 											<td id="code_board_problem_id">${codeBoard.problem_id}</td>
 											<td id="code_board_problem_title">${codeBoard.problem_title}</td>
 											<td>
@@ -157,7 +157,7 @@
 												</div>
 												</c:if>
 												<c:if test="${codeBoard.problem_level == 3}">
-												<div id="" class="problem_level3">
+												<div id="code_board_problem_level" class="problem_level3">
 													LEVEL 3
 												</div>
 												</c:if>
@@ -208,13 +208,6 @@
 									<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="page">
 	    							<li class="page_num" onclick="javascript:getBoardList(this.value)" value="${page}"><a>${page}</a></li>
 							 		</c:forEach>
-									<!-- <li class="page_num"><a href="#">1</a></li>
-									<li class="page_num"><a href="#">2</a></li>
-									<li class="page_num"><a href="#">3</a></li>
-									<li class="page_num">...</li>
-									<li class="page_num"><a href="#">8</a></li>
-									<li class="page_num"><a href="#">9</a></li>
-									<li class="page_num"><a href="#">10</a></li> -->
 									<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 									<li class="page_num"><a href="#">></a></li>
 									</c:if>
@@ -248,6 +241,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/profile.js"></script>
 	<%-- <script src="${pageContext.request.contextPath}/resources/js/modal.js"></script> --%>
 	<script type="text/javascript">
+		let page_ = 1;
 		const iframe = document.getElementById("iframe");
 		let myCodeList = null;
 		let innerDoc = null;
@@ -322,6 +316,7 @@
 				node = node.parentNode;
 			}
 			let index = node.id;
+			index = index.replace("tr","");
 			console.log(index);
 			
 			if(innerDoc == null) {
@@ -342,7 +337,7 @@
 			$.ajax({ 
 				 url: '/modal',  
 				 type: 'POST',
-				 data: "index=" + index,  
+				 data: "index=" + index + "&page=" + page_,  
 				 success: function(data) {
 					 const result = data.codeBoard;
 					 const problem_name = document.querySelector(".problem_name");
@@ -423,26 +418,9 @@
 		for(const btn of openBtns) {
 			btn.addEventListener("click", openModal);
 		}
-		<%-- function getBoardList(page){
-			$.ajax({ 
-				 url: '/codeBoardPaging',  
-				 type: 'GET',
-				 data: "page=" + page
-			}).done(function(result) {
-				 const url = "<%=request.getContextPath()%>/WEB-INF/views/" + result +".jsp";
-				 const html = $('<div>').load(url);
-				 console.log(html);
-				 console.log(url);
-				 const contents = html.find("div#paging").html();
-				 console.log(contents);
-				 $('tbody').html(contents);
-				 console.log("success");
-			 }).fail(function(){
-				 console.log("paging error!");
-			 }); 
-		} --%>
 
-		function getBoardList(page){	
+		function getBoardList(page){
+			page_ = page;	
 			var level = document.getElementById("problem_level")
 			var category = document.getElementById("category_name");
 
@@ -460,40 +438,53 @@
 	            success: function(data){	           
 		            var codeList = data.list;
 		            var pageMaker = data.pageMaker;
+		            console.log("page : " + page);
+		            sessionStorage.setItem("page", page);
 		        
 		            for(var i=0; i< codeList.length; i++) {
 			
 			            const idx = i;
-			            const tr = document.getElementById(idx);
-			            
-			         	tr.getElementById("code_board_problem_id").innerHTML = codeList[i].problem_id;
-			         	tr.getElementById("code_board_problem_title").innerHTML = codeList[i].problem_title;
-			         	tr.getElementById("code_board_problem_level").innerHTML = "LEVEL " + codeList[i].problem_level;
-			         	const level_class = tr.getElementById("code_board_problem_level").attr('class');
+			            let tr = document.getElementById("tr"+idx);
+			            console.log(tr);
+
+			            console.log(tr.querySelector("#code_board_problem_id"));
+			         	tr.querySelector("#code_board_problem_id").innerHTML = codeList[i].problem_id;
+			         	
+			         	tr.querySelector("#code_board_problem_title").innerHTML = codeList[i].problem_title;
+			         	tr.querySelector("#code_board_problem_level").innerHTML = "LEVEL " + codeList[i].problem_level;
+			         	const level_class = tr.querySelector("#code_board_problem_level").classList[0];
 			         	if(level_class != ("problem_level"+ codeList[i].problem_level)) {
-			         		tr.getElementById("code_board_problem_level").classList.remove(level_class);
-			         		tr.getElementById("code_board_problem_level").classList.add("problem_level"+ codeList[i].problem_level);
+			         		tr.querySelector("#code_board_problem_level").classList.remove(level_class);
+			         		tr.querySelector("#code_board_problem_level").classList.add("problem_level"+ codeList[i].problem_level);
 				         	// 현재 클래스를 해당 problme_level 클래스로 변경!
 				        }
 				        // 현재 이 위까지 가능
 				        // code_date와 code_success 바꿔야함.
-				        tr.getElementById("code_board_code_date").innerHTML = `<fmt:formatDate pattern="yyyy.MM.dd" value="${+` codeList[i].code_date + `}"/>`;
-				        tr.getElementById("code_board_code_success").innerHTML = `<img src="<%=request.getContextPath()%>/resources/images/${` + (codeList[i].code_success == 1 ? 'check.png' : 'notCheck.png') + `}" width="20em" height="20em" alt="">`
+				        let code_date = new Date(codeList[i].code_date);
+				        tr.querySelector("#code_board_code_date").innerHTML = getFormatDate(code_date); 
+				        
+				        let code_success = (codeList[i].code_success == 1) ? 'check.png' : 'notCheck.png';
+				        console.log("codeList[i].code_success: " + code_success);
+				        tr.querySelector("#code_board_code_success").innerHTML = `<img src="<%=request.getContextPath()%>/resources/images/` + code_success + `" width="20em" height="20em" alt="">`
 		            	
 		            }
 		            // 나머지 요소 숨기기
-					/* if(problem.length < 8){
-						for(var i=problem.length + 1; i <= 8; i++){
-							$("#problem_item_"+i).css("display","none");
-							
-							}
-					} */
+		            console.log("codeList.length: " + codeList.length);
+					if(codeList.length < 5){
+						for(var i=codeList.length; i <= 5; i++){
+							$("#tr"+i).css("display","none");
+						}
+					} else {
+						for(var i=0; i < codeList.length; i++){
+							$("#tr"+i).css("display","");
+						}
+					}
 		            var elem = '';
 		            //var num = 0;
 		            // start
-		            if(pageMaker.prev){
+		            /* if(pageMaker.prev){
 			            elem = elem + '<li><a href="javascript:getBoardList(' + pageMaker.startPage - 1 + ') "> ◀  </a></li>';
-			            }
+			            } */
 		           
 		            $("#pagenav").empty();
 		            

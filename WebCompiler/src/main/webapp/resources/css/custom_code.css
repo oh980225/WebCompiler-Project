@@ -21,6 +21,7 @@ section.code div.kind {
 
 section.code div.table-wrapper {
   width: 100%;
+  height: 21em;
 }
 
 div.col-12 {

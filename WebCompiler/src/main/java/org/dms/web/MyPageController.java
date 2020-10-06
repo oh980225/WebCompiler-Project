@@ -119,11 +119,20 @@ public class MyPageController {
 	// 해당 모달창 띄우기
 	@RequestMapping(value="/modal", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> openModal(int index, HttpSession session, Criteria criteria) throws Exception {
+	public Map<String, Object> openModal(int index, int page, HttpSession session, Criteria criteria) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		UserVO user = (UserVO)session.getAttribute("user");
-		criteria.setPerPageNum(5);
 		
+		
+//		Object page_ = session.getAttribute("page");
+//		int page = 1;
+//		
+//		if(page_ != null) {
+//			page = (Integer) page_;
+//		}
+		
+		criteria.setPerPageNum(5);
+		criteria.setPage(page);
 		List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id(), criteria);
 		
 		map.put("codeBoard", codeBoardList.get(index));
@@ -131,77 +140,79 @@ public class MyPageController {
 		return map;
 	}
 	
-//	@RequestMapping(value = "/codeBoardPaging", method = RequestMethod.POST)
-//	@ResponseBody
-//	public Map<String, Object> codeBoardPaging(HttpSession session,Locale locale, Model model, Criteria criteria, int problem_level, String category_name) throws Exception {		
-//		logger.info("categorytest_test");
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		
-//		if(problem_level == 0 && category_name.equals("unselected")) {
-//			logger.info("level: " + problem_level);
-//			logger.info("category: " + category_name);
-//			
-//			UserVO user = (UserVO)session.getAttribute("user");
-//			List<CodeBoardVO> codeBoardList_ = codeBoardService.getCodeBoardList(user.getUser_id());
-//			
-//			PageMaker pageMaker = new PageMaker();
-//			criteria.setPerPageNum(5);
-//			pageMaker.setCri(criteria);
-//			pageMaker.setTotalCount(codeBoardList_.size());
-//			
-//			List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id(), criteria);
-//			
-//			map.put("pageMaker", pageMaker);
-//			map.put("list", codeBoardList);
-//			
-//			return map;
-//		}
-//		else {
-//			logger.info("level: " + problem_level);
-//			logger.info("category: " + category_name);
-//			logger.info("page:" +  criteria.getPage());
-//			logger.info("perPageNum:" +  criteria.getPerPageNum());
-//			
-//			UserVO user = (UserVO)session.getAttribute("user");
-//			List<CodeVO> codeList = userService.getCodeList(user.getUser_id());
-//			List<CodeBoardVO> codeBoardList_ = codeBoardService.getCodeBoardList(user.getUser_id());
-//			
-//			//List<ProblemVO> pvo = problemService.readProblemList(problem_level, category_name, cri); // 추가
-//			//int count = problemService.ProblemCount(problem_level, category_name);
-//			PageMaker pageMaker = new PageMaker();
-//			criteria.setPerPageNum(5);
-//			pageMaker.setCri(criteria);
-//			pageMaker.setTotalCount(codeBoardList_.size());
-//			
-//			map.put("pageMaker", pageMaker);
-//			//map.put("list", pvo);
-//			
-//			return map;
-//		}
-//	}
-	
-	@RequestMapping(value = "/codeBoardPaging", method = RequestMethod.GET)
+	@RequestMapping(value = "/codeBoardPaging", method = RequestMethod.POST)
 	@ResponseBody
-	public String getCodeBoardPaging(
-			HttpSession session,
-			Locale locale, 
-			Model model, 
-			Criteria criteria,
-			int page) throws Exception {	
+	public Map<String, Object> codeBoardPaging(HttpSession session,Locale locale, Model model, Criteria criteria, int page, int problem_level, String category_name) throws Exception {		
+		logger.info("categorytest_test");
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-		UserVO user = (UserVO)session.getAttribute("user");
-		List<CodeBoardVO> codeBoardList_ = codeBoardService.getCodeBoardList(user.getUser_id());
-		
-		PageMaker pageMaker = new PageMaker();
-		criteria.setPerPageNum(5);
-		criteria.setPage(page);
-		pageMaker.setCri(criteria);
-		pageMaker.setTotalCount(codeBoardList_.size());
-		
-		List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id(), criteria);
-		model.addAttribute("codeBoardList", codeBoardList);
-		
-		return "code_board_paging";
+		if(problem_level == 0 && category_name.equals("unselected")) {
+			logger.info("level: " + problem_level);
+			logger.info("category: " + category_name);
+			
+			UserVO user = (UserVO)session.getAttribute("user");
+			List<CodeBoardVO> codeBoardList_ = codeBoardService.getCodeBoardList(user.getUser_id());
+			
+			PageMaker pageMaker = new PageMaker();
+			criteria.setPerPageNum(5);
+			criteria.setPage(page);
+			pageMaker.setCri(criteria);
+			System.out.println("codeBoardList_.size() : " + codeBoardList_.size());
+			pageMaker.setTotalCount(codeBoardList_.size());
+			
+			List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id(), criteria);
+			
+			map.put("pageMaker", pageMaker);
+			map.put("list", codeBoardList);
+			
+			return map;
+		}
+		else {
+			logger.info("level: " + problem_level);
+			logger.info("category: " + category_name);
+			logger.info("page:" +  criteria.getPage());
+			logger.info("perPageNum:" +  criteria.getPerPageNum());
+			
+			UserVO user = (UserVO)session.getAttribute("user");
+			List<CodeVO> codeList = userService.getCodeList(user.getUser_id());
+			List<CodeBoardVO> codeBoardList_ = codeBoardService.getCodeBoardList(user.getUser_id());
+			
+			//List<ProblemVO> pvo = problemService.readProblemList(problem_level, category_name, cri); // 추가
+			//int count = problemService.ProblemCount(problem_level, category_name);
+			PageMaker pageMaker = new PageMaker();
+			criteria.setPerPageNum(5);
+			pageMaker.setCri(criteria);
+			pageMaker.setTotalCount(codeBoardList_.size());
+			
+			map.put("pageMaker", pageMaker);
+			map.put("list", codeBoardList_);
+			
+			return map;
+		}
 	}
 	
+//	@RequestMapping(value = "/codeBoardPaging", method = RequestMethod.GET)
+//	@ResponseBody
+//	public String getCodeBoardPaging(
+//			HttpSession session,
+//			Locale locale, 
+//			Model model, 
+//			Criteria criteria,
+//			int page) throws Exception {	
+//		
+//		UserVO user = (UserVO)session.getAttribute("user");
+//		List<CodeBoardVO> codeBoardList_ = codeBoardService.getCodeBoardList(user.getUser_id());
+//		
+//		PageMaker pageMaker = new PageMaker();
+//		criteria.setPerPageNum(5);
+//		criteria.setPage(page);
+//		pageMaker.setCri(criteria);
+//		pageMaker.setTotalCount(codeBoardList_.size());
+//		
+//		List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id(), criteria);
+//		model.addAttribute("codeBoardList", codeBoardList);
+//		
+//		return "code_board_paging";
+//	}
+//	
 }

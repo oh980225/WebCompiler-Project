@@ -63,6 +63,7 @@ public class CodeBoardDAOImpl implements CodeBoardDAO {
 		
 		listParam.put("user_id", user_id);
 		listParam.put("pageStart", criteria.getPageStart());
+		System.out.println("pageStart" + criteria.getPageStart());
 		listParam.put("perPageNum", criteria.getPerPageNum());
 		
 		List<Integer> problemIdList = sqlSession.selectList(namespace + ".codeboard_problem_id_list_criteria", listParam); 
