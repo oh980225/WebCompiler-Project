@@ -16,7 +16,7 @@
  		(#{user_id}, #{user_passwd}, #{user_name}, #{user_introduce})
      </insert> 
 
-     <select id="user_selectById" resultType="UserVo">
+     <select id="user_selectById" resultType="UserVO">
  		select * from user where user_id = #{id}
  	</select>
 
@@ -124,6 +124,16 @@
     <select id="listCriteriaFilter" resultType="ProblemVO">
     	select * from problem where problem_level = #{problem_level} and category_id = #{category_id}  limit #{pageStart}, #{perPageNum}
     </select>
+    <!-- 채팅  -->
+    <insert id="chat_insert">
+    	insert into chat (chat_content, chat_date, user_id, problem_id) values (#{chat_content}, #{chat_date}, #{user_id}, #{problem_id})
+    </insert>
+    
+    <!-- 채팅  -->
+    <select id="chat_selectAll" resultType="ChatVO">
+    	select * from chat where problem_id = #{problem_id}
+    </select>
+    
     <insert id="problem_insert">
     <!-- private int problem_id;
 	private String problem_title;

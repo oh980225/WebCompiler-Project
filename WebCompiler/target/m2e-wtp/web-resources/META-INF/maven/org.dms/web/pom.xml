@@ -10,6 +10,7 @@
 	<properties>
 		<java-version>1.7</java-version>
 		<org.springframework-version>5.2.3.RELEASE</org.springframework-version>
+		<org.spring-security-version>4.2.16.RELEASE</org.spring-security-version>
 		<org.aspectj-version>1.9.5</org.aspectj-version>
 		<org.slf4j-version>1.7.30</org.slf4j-version>
 	</properties>
@@ -32,12 +33,40 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${org.spring-security-version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${org.spring-security-version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${org.spring-security-version}</version>
+		</dependency>
+		
+		
 		<!-- websocket -->
 		<dependency>
 	        <groupId>org.springframework</groupId>
 	        <artifactId>spring-websocket</artifactId>
 	        <version>${org.springframework-version}</version>
 	    </dependency>
+	    <dependency>
+		    <groupId>javax.websocket</groupId>
+		    <artifactId>javax.websocket-api</artifactId>
+		    <version>1.1</version>
+		    <scope>provided</scope>
+		</dependency>
 
 	   
 		
@@ -183,6 +212,13 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.10.1</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+			<dependency>
+			    <groupId>org.json</groupId>
+			    <artifactId>json</artifactId>
+			    <version>20200518</version>
+			</dependency>
 	
 		<!-- Test -->
 		<dependency>

@@ -9,8 +9,11 @@ public class CommentsVO {
 	private Timestamp comments_upload;
 	private int board_id;
 	
-	
-	
+	public CommentsVO(){
+		this.comments_content = "hello";
+		this.user_id="admin";
+		this.comments_id=20;
+	}
 	
 	public int getComments_id() {
 		return comments_id;

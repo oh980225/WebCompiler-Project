@@ -41,4 +41,9 @@
 	
 	<context:component-scan base-package="org.dms.web" />
 	
+	<websocket:handlers>
+		<websocket:mapping handler="chat" path="/chat.do" />
+	</websocket:handlers>
+    <beans:bean id="chat" class="org.dms.web.ChatHandler"></beans:bean>
+	
 </beans:beans>

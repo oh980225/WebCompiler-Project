@@ -146,11 +146,12 @@ public class ProblemController {
 	@RequestMapping(value="/problem/{problem_id}", method=RequestMethod.GET)
 	public String problemGet(@PathVariable("problem_id") int problem_id, Model model, HttpSession session) throws Exception {
 		//logger.info("踰덊샇: "+ problem_id);
-		session.setAttribute("problem_id", problem_id);
-		
+		UserVO user = (UserVO)session.getAttribute("user");
 		ProblemVO pvo = problemService.readProblem(problem_id);
 		TestcaseVO tvo= testcaseService.readTestcase(problem_id);
 		
+		session.setAttribute("problem_id", problem_id);
+		model.addAttribute("user", user);
 		model.addAttribute("problem", pvo);
 		model.addAttribute("testcase", tvo);
 		//logger.info(vo.getProblem_title() + " " + vo.getProblem_id() + " " + vo.getProblem_content());	

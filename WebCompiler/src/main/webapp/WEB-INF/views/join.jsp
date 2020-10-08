@@ -132,7 +132,9 @@
 							<a class="header_board" href="/board"><img src="<%=request.getContextPath()%>/resources/images/header_board.png" alt="게시판 페이지" />자유게시판</a>
 							<c:if test="${user.user_id == null}">
 							
-							<a class="header_signin" href="/login"><img src="<%=request.getContextPath()%>/resources/images/header_signin.png" alt="로그인" /><span>로그인</span></a>
+							<a class="header_signup" href="/join"><span>회원가입</span></a>
+							<a class="header_signin" href="/login"><span>로그인</span></a>
+							
 							</c:if>
 							<c:if test="${user.user_id != null}">
 							<a class="header_signout" href="/logout.do"><img src="<%=request.getContextPath()%>/resources/images/header_signout.png" alt="로그아웃" /><span>로그아웃</span></a>

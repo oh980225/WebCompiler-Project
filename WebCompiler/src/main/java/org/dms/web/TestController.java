@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.dms.web.domain.CategoryVO;
+import org.dms.web.domain.ChatVO;
 import org.dms.web.domain.CodeBoardVO;
 import org.dms.web.domain.Criteria;
 import org.dms.web.domain.Human;
@@ -20,6 +21,7 @@ import org.dms.web.domain.PageMaker;
 import org.dms.web.domain.ProblemVO;
 import org.dms.web.domain.UserVO;
 import org.dms.web.service.CategoryService;
+import org.dms.web.service.ChatService;
 import org.dms.web.service.CodeBoardService;
 import org.dms.web.service.ProblemService;
 import org.dms.web.service.TestcaseService;
@@ -56,6 +58,9 @@ public class TestController {
 	
 	@Autowired(required=true)
 	CodeBoardService codeBoardService;
+	
+	@Autowired(required=true)
+    private ChatService chatService;
 
 	private static final Logger logger = LoggerFactory.getLogger(TestController.class);
 		
@@ -87,6 +92,26 @@ public class TestController {
 		model.addAttribute("cri", cri);
 		return "problemList";
 	}
+	
+	/* �눧紐꾩젫�뵳�딅뮞占쎈뱜 */
+	@RequestMapping(value = "/chattest", method = RequestMethod.GET)
+	public String chattest(Locale locale, Model model, HttpSession session) throws Exception {
+		UserVO user = (UserVO)session.getAttribute("user");
+		model.addAttribute("user", user);
+		return "chat_test";
+	}
+	
+	@RequestMapping(value = "/chat/read.do", method = RequestMethod.GET)
+	@ResponseBody
+    public List<ChatVO> getChatList(Locale locale, Model model, int problem_id) throws Exception {
+    	logger.info("getChatList" +  problem_id);
+    	List<ChatVO> cvo = chatService.readChatList(problem_id);
+    	
+    	for(ChatVO tmp : cvo) {
+    		tmp.setChat_content(tmp.getChat_content().replace("\r\n", "<br>"));
+    	}
+    	return cvo;
+    }
 
 	/* 燁삳똾�믤�⑥쥓�봺 */
 	/*@RequestMapping(value = "/category", method = RequestMethod.GET)

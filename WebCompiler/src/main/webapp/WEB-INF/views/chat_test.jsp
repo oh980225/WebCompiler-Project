@@ -1,170 +1,29 @@
-<%@page import="org.dms.web.domain.UserVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-<%	
-	String imgURL = "";
-	if(request.getAttribute("user") !=null) {
-		UserVO user = (UserVO)request.getAttribute("user");
-		if(user.getUser_img() == null) {
-			imgURL = (String)request.getContextPath() + "/resources/images/user.png";
-		} else {
-			imgURL = "/getByteImage/" + user.getUser_id();
-		}
-	}
-%>
-
-<!DOCTYPE HTML>
-<!--
-	Editorial by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+pageEncoding="UTF-8"%>
 <html>
-	<head>
-		<title>코드 스페이스</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css" type="text/css"/>
-		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_main.css" type="text/css"/>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" /> <!-- 이게 Font Awesome 5 Free를 사용하게 해주는거 같아요. 이거덕에 사이드바 모양이 보여요! -->
-		<style>
-			.mindi {
-            overflow:auto;
-            margin:0.7em 0.3em;;
-            display:inline-block;
-            float:right;
-        }
-        .mindi_signin {
-            
-            text-align: center;
-        }
-            .mindi_signin img {
-                margin: auto;
-                text-align: center;
-                width: 1.2em;
-                height: 1.2em;
-                display: block;
-            }
-            .mindi_signin span {
-                font-size: 0.1px;
-                display: inline;
-            }
-		</style>
-		<script type="text/javascript">
-		function comment_register(){
-			if($("#comments_content").val() == ""){
-					alert("댓글을 작성해주세요");
-					return false;
-				}
-
-			else{
-				var comment = {
-						board_id: $("#board_id").val(),
-						user_id: $("#user_id").val(),
-						comments_content: $("#comments_content").val(),
-				}
-				$.ajax({
-					url: "/chat.do",
-					type: "POST",
-					data : JSON.stringify(comment),
-					contentType: "application/json; charset=utf-8;",
-
-					success : function(result) {
-						$("#list").empty();
-
-						$("#comments_content").val('');
-						getCommentList(1);
-					},
-					error : function() {
-						alert("fail");
-					}
-				}
-				);
-			}
-			return true;
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/modal.css" />
+	 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<title>Insert title here</title>
+</head>
+<body>
+	<div id="one">
+		별명:<input type="text" id="nickname" /> <input type="button"
+		id="enter" value="입장" />
+	</div>
+	<div id="two" style="display: none">
 		
-			}
-
-		</script>
+	<div id="chatarea" style="width:400px; height:600px; border:1px solid;"></div>
+		<input type="text" id="message" /> <input type="button" id="send"
+	value="보내기" />
+	</div>
 	
-	</head>
-	<body class="is-preload">
-
-		<!-- Wrapper -->
-			<div id="wrapper">
-
-				<!-- Main -->
-					<div id="main">
-						<!-- Header -->
-								<!--<header id="header">
-									<a href="/" class="logo"><strong>FULL STACK</strong> DEVELOPER</a>
-									<!-- 바꾸기 -->																
-									<!--<c:if test="${user.user_id == null}">
-										<ul class="icons">
-											<li><a href="/login">로그인</a></li>
-											<li><a href="/join">회원가입</a></li>
-										</ul>
-									</c:if>
-									<c:if test="${user.user_id != null}">
-										<ul class="icons">
-											<li><a href="/logout.do">로그아웃</a></li>
-										</ul>
-									</c:if>				
-								</header> -->
-						<!-- -->
-						<!-- Header -->
-						<!-- Header -->
-						<header id="header">
-							<a class="main_logo" href="/"><img src="<%=request.getContextPath()%>/resources/images/main_logo.png" alt="메인페이지" /></a>
-							<a class="header_problem" href="/problem"><img src="<%=request.getContextPath()%>/resources/images/header_problem.png" alt="문제 페이지" />문제풀기</a>
-							<a class="header_board" href="/board"><img src="<%=request.getContextPath()%>/resources/images/header_board.png" alt="게시판 페이지" />자유게시판</a>
-							<c:if test="${user.user_id == null}">
-							
-							 <div class="mindi">
-						        <a href="#" class="mindi_signin">
-						            <span>회원가입</span>
-						        </a>
-						    </div>
-						     <div class="mindi">
-						        <a href="#" class="mindi_signin">
-						            <span>로그인</span></a>
-						    </div>
-							<a class="header_signup" href="/join"><img src="<%=request.getContextPath()%>/resources/images/header_signup.png" alt="회원가입" /><span>회원가입</span></a>
-							<div><a class="header_signin" href="/login"><img src="<%=request.getContextPath()%>/resources/images/header_signin.png" alt="로그인" /><span>로그인</span></a></div>
-							</c:if>
-							<c:if test="${user.user_id != null}">
-							<a class="header_signout" href="/logout.do"><img src="<%=request.getContextPath()%>/resources/images/header_signout.png" alt="로그아웃" /><span>로그아웃</span></a>
-							<div class="header_profile" style="cursor: pointer;" onClick="location.href='/mypage'">
-								<img class="img" src=<%=imgURL%> alt="사용자 사진">
-								<div class="name_intro">
-									<div class="header_name">
-										<a href="?name=Mr.O">${user.user_name}</a>
-									</div>
-									<div class="header_intro">
-										${user.user_introduce}
-									</div>
-								</div>
-							</div>
-							</c:if>
-
-						</header>
-						<div class="inner">
-							<!-- Banner -->
-								<section id="banner">
-									
-								</section>
-
-							<!-- Section -->
-								<section>
-<div class="modal_overlay">
-                      </div>
-                        <div class="help_modal">
+	<div class="help_modal">
                         <header class="modal_header">
                         	<div class="close"></div>
                         </header>
-                        <div class="chat_list">
+                        <div class="chat_list" id="chat_list">
                         	<div class="chat_data">
                         		<div class="comment_image">
 									<img src="<%=request.getContextPath()%>/resources/images/check.png">
@@ -198,63 +57,120 @@
 								</div>
                         	</div>
                         </div>
-                        <div class="chat_textarea">
-                        	<textarea id="chat_content" name="chat_content" onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
+                       <div class="chat_textarea">
+                        	<textarea id="chat_content" name="chat_content" ></textarea>
 							<div class="chat_send">
-								<input id="chat_send" type="image" src="<%=request.getContextPath()%>/resources/images/submit.png" class="submit-button"
-								onclick="comment_register()">
+								<input id="chat_send" type="image" src="<%=request.getContextPath()%>/resources/images/submit.png" class="submit-button">
 							</div>
                         </div>
                         </div>
-                </div>
-								</section>
+</body>
+<script type="text/javascript">
+	one = document.getElementById("one");
+	two = document.getElementById("two");
+	
+	var u_id = "${user.user_id}";
+	var chat_count = 0;
+	//var p_id="${problem.problem_id}";
+	
+	document.getElementById("enter").addEventListener("click", function() {
+	//웹 소켓 연결해주는 함수 호출
+	connect();
+	});
 
-							<!-- Section -->
-								<section>
-									
-								</section>
+	document.getElementById("send").addEventListener("click", function() {
+		//연결을 해제해주는 함수 호출
+		send();
+	});
 
-						</div>
-					</div>
+	
+	document.getElementById("chat_send").addEventListener("click", function() {
+		//연결을 해제해주는 함수 호출
+		send();
+	});
+	
+	var websocket;
+	function formatDate(date) {
+		var d = new Date(date),
+		month = '' + (d.getMonth() + 1),
+		day = '' + d.getDate(),
+		year = d.getFullYear();
 
-				<!-- Sidebar -->
+		if (month.length < 2) month = '0' + month;
+		if (day.length < 2) day = '0' + day;
+		return [year, month, day].join('.');
 
-					<%-- <div id="sidebar">
+	}
 
-						<div class="inner">
-							
-								<nav id="menu">
-									<header class="major">
-										<img class="icon" src="<%=request.getContextPath()%>/resources/images/user.png">
-										
-										<c:if test="${user.user_id == null}">
-										<h3 class="name"><a href="/login">먼저 로그인 해주세요!</a></h3>
-										</c:if>
-										<c:if test="${user.user_id != null}">
-											<h3 class="name"><a href="/mypage">${user.user_id}</a></h3>
-										</c:if>
-									</header>
-									<ul>
-										
-										<li><a href="/"><img class="icon" src="<%=request.getContextPath()%>/resources/images/main_icon.png" alt="Main Page" />Main Page</a></li>
-										
-										<li><a href="/problem"><img class="icon" src="<%=request.getContextPath()%>/resources/images/problem_icon.png" alt="Problem Page" />Problem</a></li>
-										<li><a href="/board"><img class="icon" src="<%=request.getContextPath()%>/resources/images/board_icon.png" alt="Board Page" />Board</a>
-										</li>
-									</ul>
-								</nav>
-						</div>
+	function connect(){
+		websocket = new WebSocket("ws://localhost:8080/chat.do");
+		//웹 소켓에 이벤트가 발생했을 때 호출될 함수 등록
+		websocket.onopen = onOpen;
+		websocket.onmessage = onMessage;
+		websocket.onclose = onClose;
+	}
+	//퇴장 버튼을 눌렀을 때 호출되는 함수
+	function disconnect(){
+		msg = document.getElementById("nickname").value;
+		websocket.send(msg+"님이 퇴장하셨습니다");
+		websocket.close();
+	}
+	//보내기 버튼을 눌렀을 때 호출될 함수
+	function send(){
+		//var content = document.getElementById("message").value;
+		var content = $("#chat_content").val();
+		var msg = {
+			    //type: "message",
+			    chat_content: content,
+			    user_id:   u_id//,
+			    //problem_id: p_id
+		};
+		
+		websocket.send(JSON.stringify(msg));
+		$("#chat_content").val('');
+	}
+	//웹 소켓에 연결되었을 때 호출될 함수
+	function onOpen(){
+		nickname = document.getElementById("nickname").value;
+		two = document.getElementById("two");
+		two.style.display='block';
+		//websocket.send(nickname + "님 입장하셨습니다.");
+	}
+	//웹 소켓에서 연결이 해제 되었을 때 호출될 함수
+	function onMessage(event){
+		//data= evt.data;
+		var msg = JSON.parse(event.data);
+		//var chat_id = msg.chat_id;
+		var chat_content = msg.chat_content;
+		var user_id = msg.user_id;
+		var chat_date = formatDate(msg.chat_date);
+		
+		chatarea = document.getElementById("chatarea");
+		chatarea.innerHTML = chat_content + "<br/>" + chatarea.innerHTML
 
-					</div> --%>
+		//var idx = this.comments_id;
+		var comment_id = "comments_" + chat_count;
 
-			</div>
+		if(u_id == user_id){
+			$("#chat_list").append("<div class='chat_data_me' id=" + comment_id + "></div>");
+			$("#" +comment_id).append("<div class='comment_content'></div>");
+		}
+		else{
+			$("#chat_list").append("<div class='chat_data' id=" + comment_id + "></div>");
+			$("#" + comment_id).append("<div class='comment_image'></div>");
 
-		<!-- Scripts -->
-			<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-			<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
-			<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
-			<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
-			<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+			$("#" +comment_id  + " .comment_image").append("<img src='/getByteImage/"+ user_id +"' width='50px' height='50px'>");
+			$("#" +comment_id).append("<div class='comment_content'></div>");
+			$("#" +comment_id +  " .comment_content").append("<p class='comment_user'>"+ user_id +"</p>");
+		}
 
-	</body>
+		$("#" +comment_id +  " div.comment_content").append("<p class='comment_content'>"+ chat_content +"</p>");
+		$("#" +comment_id +  " div.comment_content").append("<p class='comment_date'>"+ chat_date +"</p>");
+
+		chat_count++;
+	}
+	function onClose(){
+
+	}
+</script>
 </html>

@@ -33,5 +33,10 @@ public class HomeController {
 		return "main";		
 	}
 	
+	@RequestMapping(value = "/login")
+	public String login(Model model, HttpSession session) throws Exception {
+		return "signin";		
+	}
+	
 	
 }

@@ -52,11 +52,6 @@
     <context:component-scan base-package="org.dms.web.service" />
     <context:component-scan base-package="org.dms.web.persistence" />
     
-     <websocket:handlers>
-		<websocket:mapping handler="chat" path="/chat.do" />
-		<websocket:sockjs />
-	</websocket:handlers>
-    
-	<bean id="chat" class="org.dms.web.ChatHandler"></bean>
+  
        	
 </beans>
