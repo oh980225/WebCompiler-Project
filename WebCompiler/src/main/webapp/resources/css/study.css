@@ -1,0 +1,9 @@
+ .content{
+  display:inline-block; float:right; width:70%;
+ }  
+ .test{
+	/*background:url(../images/check.png) no-repeat left center / 10px ;*/
+	/*    border: 0 !important;*/
+	border-left: solid 1.6px #8C699B !important;
+	color: #8C699B;
+}

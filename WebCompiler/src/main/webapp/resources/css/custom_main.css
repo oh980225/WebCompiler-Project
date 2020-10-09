@@ -1,3 +1,4 @@
+@import url("https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css");
 @media screen and (max-width: 1680px)
 #main > .inner {
      padding: 0 ; 
@@ -6,6 +7,18 @@
      padding: 0; 
     /* margin: 0 auto; */
     /* max-width: 110em; */
+}
+
+#menu {
+  font-family: "NanumSquare" !important;
+      padding: 1.2em 2em;
+      /*border-right: solid 1px #ababab;*/
+  width:20%;
+  display:inline-block;
+  float:left;
+  overflow-x: auto;
+	height:calc(100vh - 3.5em);
+    overflow-y: scroll;
 }
 /* H */
 
@@ -219,11 +232,15 @@ nav#menu header.major > :last-child {
 }
 
 #sidebar .inner {
-  background: rgb(17, 20, 31) !important;
+  background: #FFFFFF !important;
+  border-right: solid 1px #707070;
+      padding: 0 1.2em 0 1.2em;
+      width:20em;
+      font-family: sans-serif;
 }
 
 #sidebar .inner #menu li{
-  color: white !important;
+  color: #707070 /*!important*/;
 }
 
 #sidebar > a {
@@ -244,10 +261,35 @@ nav#menu ul li img.icon {
 #menu ul {
   text-transform: none !important;
 }
+#menu ul a, #menu ul span {
+
+    padding: 0.35em 0;
+}
 
 #menu > ul > li {
   border-top: solid 1px white;
+  margin: 0. 0 0 0;
+    padding: 0 0 0 0;
 }
+
+#menu > ul > li > ul {
+display:block;
+}
+
+
+#menu > ul > li > ul a, #menu > ul > li > ul span {
+    font-size: 0.75em;
+    
+    padding-left: 1em;
+}
+
+#menu > ul > li > ul > li {
+    margin: 0 0 0 0;
+    border-left: 1.2px solid #c2c2c2;
+    padding: 0 0 0 0;
+}
+
+
 
 li a:hover {
 	/*color: rgb(255, 87, 125) !important;*/

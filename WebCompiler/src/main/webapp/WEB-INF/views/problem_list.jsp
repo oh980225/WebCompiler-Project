@@ -265,7 +265,7 @@
 							<c:if test="${status.count%2 == 0 }">
 								<div class="problem_container_right">
 									<div id="problem_item_${status.count}" class="problem_item"
-										onclick="location.href='location.href='/problem/${problem.problem_id}'">
+										onclick="location.href='/problem/${problem.problem_id}'">
 										<div class="item_top">
 											<span class="problem_title" id="item_title_${status.count}">${problem.problem_id}.
 												${problem.problem_title}</span>
@@ -324,8 +324,16 @@
 							</c:if>
 							<c:forEach begin="${pageMaker.startPage}"
 								end="${pageMaker.endPage}" var="page">
-								<li class="page_num"
+								
+								<c:if test="${cri.page eq page}">
+									<li class="page_num page_on"
 									onclick="javascript:getBoardList(this.value)" value="${page}"><a>${page}</a></li>
+								</c:if>
+								<c:if test="${cri.page != page}">
+									<li class="page_num"
+									onclick="javascript:getBoardList(this.value)" value="${page}"><a>${page}</a></li>
+								</c:if>
+								
 							</c:forEach>
 							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 								<li class="page_num"><a

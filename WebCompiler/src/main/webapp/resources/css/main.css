@@ -2,6 +2,14 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,400italic,600italic|Roboto+Slab:400,700");
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 @import url("https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css");
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+@font-face {
+    font-family: 'Eoe_Zno_L';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/Eoe_Zno_L.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 body {
   font-family: "NanumSquare", sans-serif !important;
@@ -98,7 +106,7 @@ body {
 /* Type */
 body, input, select, textarea {
   color: #dee0e0;
-  font-family: 'Jua', sans-serif;
+ font-family: 'Jua', sans-serif;
   font-size: 13pt;
   font-weight: 400;
   line-height: 1.65; }
@@ -1946,14 +1954,15 @@ button,
   transition: margin-left 0.5s ease, box-shadow 0.5s ease;
   background-color: #414344;
   font-size: 0.9em;
+  font-family: san-serif/* !important*/;
   position: relative;
-  width: 26em; }
+  width: 20em; }
   #sidebar h2 {
     font-size: 1.38889em; }
   #sidebar > .inner {
     padding: 2.22222em 2.22222em 2.44444em 2.22222em ;
     position: relative;
-    width: 26em; }
+    width: 20em; }
     #sidebar > .inner > * {
       border-bottom: solid 2px rgba(255, 255, 255, 0.75);
       margin: 0 0 3.5em 0;
@@ -2016,10 +2025,10 @@ button,
     margin-left: -26em; }
   @media screen and (max-width: 1680px) {
     #sidebar {
-      width: 24em; }
+      width: 20em; }
       #sidebar > .inner {
         padding: 1.66667em 1.66667em 1.33333em 1.66667em ;
-        width: 24em; }
+        width: 20em; }
         #sidebar > .inner > .alt {
           margin: -1.66667em 0 3.33333em -1.66667em;
           padding: 1.66667em;
@@ -2213,7 +2222,7 @@ button,
   -ms-user-select: none;
   user-select: none;
   color: #c2bdbd; /*버튼색*/
-  font-family: 'Jua', sans-serif;
+  font-family: 'NanumSquare', sans-serif;
   font-weight: 400;
   letter-spacing: 0.075em;
   list-style: none;
@@ -2222,22 +2231,24 @@ button,
   text-transform: uppercase; }
   #menu ul a, #menu ul span {
     border-bottom: 0;
+    
     color: inherit;
     cursor: pointer;
     display: block;
-    font-size: 0.9em;
+    font-size: 0.75em;
     padding: 0.625em 0; }
     #menu ul a:hover, #menu ul span:hover {
-      color: #c2bdbd; } /*하단 내려가는 버튼의 색*/
+      /*color: #c2bdbd;*/ } /*하단 내려가는 버튼의 색*/
+    
     #menu ul a.opener, #menu ul span.opener {
       -moz-transition: color 0.2s ease-in-out;
       -webkit-transition: color 0.2s ease-in-out;
       -ms-transition: color 0.2s ease-in-out;
       transition: color 0.2s ease-in-out;
       text-decoration: none;
-      -webkit-tap-highlight-color: rgba(204, 201, 201, 0.575);
+      -webkit-tap-highlight-color: #ffffff;
       position: relative; }
-      #menu ul a.opener:before, #menu ul span.opener:before {
+     /* #menu ul a.opener:before, #menu ul span.opener:before {
         -moz-osx-font-smoothing: grayscale;
         -webkit-font-smoothing: antialiased;
         display: inline-block;
@@ -2253,12 +2264,12 @@ button,
         -webkit-transition: color 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
         -ms-transition: color 0.2s ease-in-out, -ms-transform 0.2s ease-in-out;
         transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
-        color: #c2bdbd; /*버튼 옆에 밑으로 내리는 거*/
+        color: #c2bdbd;
         content: '\f078';
         position: absolute;
-        right: 0; }
-      #menu ul a.opener:hover:before, #menu ul span.opener:hover:before {
-        color:#c2bdbd; } /*버튼 옆에 밑으로 내리는 거*/
+        right: 0; }*/
+     /* #menu ul a.opener:hover:before, #menu ul span.opener:hover:before {
+        color:#c2bdbd; } */
       #menu ul a.opener.active + ul, #menu ul span.opener.active + ul {
         display: block; }
       #menu ul a.opener.active:before, #menu ul span.opener.active:before {
@@ -2266,18 +2277,22 @@ button,
         -webkit-transform: rotate(-180deg);
         -ms-transform: rotate(-180deg);
         transform: rotate(-180deg); }
-
+        
 #menu > ul > li {
-  border-top: solid 1px #c2bdbd; /* 버튼 밑에 줄*/
+  border-top: solid 1px #000000; /* 버튼 밑에 줄*/
   margin: 0.5em 0 0 0;
+  color: #363636 !important;
+  font-weight:bold;
+  font-family: 'Eoe_Zno_L';
+  
   padding: 0.5em 0 0 0; }
   #menu > ul > li > ul {
     color: #c2bdbd; /* 버튼 색 */
     display: none;
-    margin: 0.5em 0 1.5em 0;
+    margin: 0.1em 0 0.1em 0;
     padding-left: 1em; }
     #menu > ul > li > ul a, #menu > ul > li > ul span {
-      font-size: 0.8em; }
+      font-size: 1em; }
     #menu > ul > li > ul > li {
       margin: 0.125em 0 0 0;
       padding: 0.125em 0 0 0; }
