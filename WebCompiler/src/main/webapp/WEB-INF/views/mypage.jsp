@@ -201,7 +201,7 @@
 							</div>
 							<!-- 다음, 이전은 나중에 -->
 							<div class="page">
-								<ul class="paging">
+								<ul class="paging" id="pagenav">
 									<c:if test="${pageMaker.isPrev()}">
 									<li class="page_num"><a href="#"><</a></li>
 									</c:if>
@@ -486,19 +486,29 @@
 			            elem = elem + '<li><a href="javascript:getBoardList(' + pageMaker.startPage - 1 + ') "> ◀  </a></li>';
 			            } */
 		           
-		            $("#pagenav").empty();
+		            /* $("#pagenav").empty(); */
 		            
-		            for(var i=pageMaker.startPage; i < pageMaker.endPage + 1; i++) {
+		            /* for(var i=pageMaker.startPage; i < pageMaker.endPage + 1; i++) {
 			            if(page == i){
 			            	var txt = '<li onclick="a(' + i + ')" value="' + i + '"></li>';
-			            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '" style="border:0; color:blue">' + i + '</li>');
+			            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '" style="border:0; color:blue">' + i + '</li>'); 
 			     
 				        }
 			            else{
 			            	var txt ='<li onclick="a(' + i + ')" value="' + i + '"></li>';
 			            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + i+ '</li>');
 				        }       
-		            }
+		            } */
+		            const pagenav = document.getElementById("pagenav");
+		            const page_list = pagenav.querySelectorAll('.page_num');
+		            for(let i in page_list) {
+			            let a = page_list[i].getElementsByTagName('a');
+			            if(a.innerText == page) {
+				            console.log("selected page: " + page);
+				        } else {
+					        console.log("non selected page: " + a.innerText);
+					    }
+			        } // 여기 까지 코드조회 하던중! 근데 일단 안해도 될듯 민지씨꺼로 추가!
 		           
 		            // end
 		            if(pageMaker.next && pageMaker.endPage > 0){
