@@ -16,4 +16,7 @@ public interface ProblemDAO {
 	public void insert(ProblemVO problem) throws Exception;
 	public List<ProblemVO> listPaging(int page) throws Exception;
 	public List<ProblemVO> listCriteria(Criteria criteria) throws Exception;
+	List<ProblemVO> readList(String category, Criteria criteria) throws Exception;
+	List<ProblemVO> readList(int level, Criteria criteria) throws Exception;
+	public int ProblemCount(String category) throws Exception;
 }

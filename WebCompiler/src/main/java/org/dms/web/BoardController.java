@@ -43,10 +43,11 @@ public class BoardController {
 	// free_board.jsp를 불러온다.
 	@RequestMapping(value = "/board", method=RequestMethod.GET)
 	public String getFreeBoardPage(@ModelAttribute("cri") Criteria cri, Model model, /*Criteria cri,*/ HttpSession session) throws Exception {
+		cri.setPerPageNum(10);
 		List<BoardVO> bvo= boardService.readBoardList(cri);
 		logger.info(cri.getPage() + " " + cri.getPerPageNum());
 		UserVO user = (UserVO)session.getAttribute("user");
-
+		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(boardService.boardCount());

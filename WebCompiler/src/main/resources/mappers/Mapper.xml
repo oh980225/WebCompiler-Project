@@ -56,7 +56,7 @@
     </select>
     <select id="board_selectAll" resultType="BoardVO">
     <![CDATA[
-    	select * from board limit #{pageStart}, #{perPageNum}
+    	select * from board order by board_upload desc limit #{pageStart}, #{perPageNum}
     ]]> 
     </select>
     <update id="update test">
@@ -113,6 +113,10 @@
     <select id="listCount" resultType="int">
     	select COUNT(problem_id) from problem
     </select>
+    
+    <select id="listCountByCategory" resultType="int">
+    	select COUNT(problem_id) from problem where category_id = #{category_id} 
+    </select>
     <select id="listCountFilter" resultType="int">
     	select COUNT(problem_id) from problem where problem_level = #{problem_level} and category_id = #{category_id} 
     </select>
@@ -123,6 +127,10 @@
     
     <select id="listCriteriaFilter" resultType="ProblemVO">
     	select * from problem where problem_level = #{problem_level} and category_id = #{category_id}  limit #{pageStart}, #{perPageNum}
+    </select>
+    
+    <select id="problem_selectByCategory" resultType="ProblemVO">
+    	select * from problem where category_id = #{category_id}  limit #{pageStart}, #{perPageNum}
     </select>
     <!-- 채팅  -->
     <insert id="chat_insert">

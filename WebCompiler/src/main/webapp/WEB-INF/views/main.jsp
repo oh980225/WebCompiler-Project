@@ -171,7 +171,8 @@
 			<footer>
 				<p>
 					2020 한이음<br>
-				<p>@한신대학교 김동건&emsp;@한국산업기술대학교 김민지&emsp;@서울과학기술대학교 오승재
+				<p style="margin:0;"><a href="https://github.com/DongGeon0908">@한신대학교 김동건&emsp;</a><a href="https://github.com/mindi1206"> @한국산업기술대학교 김민지</a>&emsp;<a href="https://github.com/oh980225">@서울과학기술대학교 오승재</a><br>
+				<p style="font-size:0.7em;"><a href="https://lab.hanium.or.kr/20_hf431" class="teamlab" >https://lab.hanium.or.kr/20_hf431</a>
 			</footer>
 
 

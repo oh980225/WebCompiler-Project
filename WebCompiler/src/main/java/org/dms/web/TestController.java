@@ -71,6 +71,7 @@ public class TestController {
 
 	
 	/* �눧紐꾩젫�뵳�딅뮞占쎈뱜 */
+	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public String problemListGet(Locale locale, Model model, Criteria cri) throws Exception {
 		logger.info("page:" +  cri.getPage());

@@ -68,7 +68,7 @@ public class ProblemController {
 			model.addAttribute("problem", pvo);
 			model.addAttribute("pageMaker", pageMaker);
 			model.addAttribute("cri", cri);
-			return "problem_list";
+			return "menutest";
 
 		}
 		else {
@@ -88,7 +88,7 @@ public class ProblemController {
 			model.addAttribute("problem", pvo);
 			model.addAttribute("pageMaker", pageMaker);
 			model.addAttribute("cri", cri);
-			return "problem_list";
+			return "menutest";
 
 		}
 
@@ -114,6 +114,25 @@ public class ProblemController {
 			map.put("pageMaker", pageMaker);
 			map.put("list", pvo);
 			
+			for(ProblemVO vo : pvo) {
+				logger.info(vo.getProblem_id() + " : " + vo.getProblem_title());
+			}
+			return map;
+		}
+		else if (problem_level == 0 && category_name != "unselected") {
+			logger.info("category: " + category_name);
+			
+			List<ProblemVO> pvo = problemService.readProblemList(category_name, cri);
+			int count = problemService.ProblemCount(category_name);
+			PageMaker pageMaker = new PageMaker();
+			cri.setPerPageNum(8);
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(count);
+			
+			map.put("pageMaker", pageMaker);
+			map.put("list", pvo);
+			
+			logger.info("count: " + count);
 			for(ProblemVO vo : pvo) {
 				logger.info(vo.getProblem_id() + " : " + vo.getProblem_title());
 			}

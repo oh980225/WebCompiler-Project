@@ -60,18 +60,27 @@
 					<h3 class="board_title">자유게시판</h3>
 					<br>
 					<!-- Break -->
-					<form method="post" action="#">
-						<div class="col-12 name">
-							<select name="demo-category" id="demo-category">
-								<option value="">- 선택 -</option>
-								<option value="board_title">제목</option>
-								<option value="user_id">작성자</option>
-								<option value="problem_id">문제 번호</option>
-
-							</select>
-						</div>
-						<input class="search" type="text" name="search" placeholder="검색">
-					</form>
+					<div class="wrapper">
+			
+				
+				
+				
+					<div class="search_box">
+					
+					<div class="dropdown">
+						
+					<div class="default_option">번호</div>  
+						<ul>
+			              <li>번호</li>
+			              <li>제목</li>
+			            </ul>
+					</div>
+				 <div class="search_field">
+			          <input type="text" class="input">
+			          <i class="fas fa-search"></i>
+			      </div>
+				</div>
+				</div>
 
 
 					<br>
@@ -164,7 +173,26 @@
 	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 
+<script>
+	var on = 1;
+	$(".default_option").click(function(){
+	  if(on == 1){
+	     $(".dropdown ul").addClass("active");
+	    on = 0;
+	  }
+	  else{
+	    $(".dropdown ul").removeClass("active");
+	    on = 1;
+	  }
+	 
+	});
 
+	$(".dropdown ul li").click(function(){
+	  var text = $(this).text();
+	  $(".default_option").text(text);
+	  $(".dropdown ul").removeClass("active");
+	});
+	</script>
 
 </body>
 </html>

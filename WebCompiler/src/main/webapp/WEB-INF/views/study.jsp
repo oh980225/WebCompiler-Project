@@ -2,16 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="org.dms.web.domain.UserVO"%>
-<%	
+<%
 	String imgURL = "";
-	if(request.getAttribute("user") !=null) {
-		UserVO user = (UserVO)request.getAttribute("user");
-		if(user.getUser_img() == null) {
-			imgURL = (String)request.getContextPath() + "/resources/images/user.png";
-		} else {
-			imgURL = "/getByteImage/" + user.getUser_id();
-		}
+if (request.getAttribute("user") != null) {
+	UserVO user = (UserVO) request.getAttribute("user");
+	if (user.getUser_img() == null) {
+		imgURL = (String) request.getContextPath() + "/resources/images/user.png";
+	} else {
+		imgURL = "/getByteImage/" + user.getUser_id();
 	}
+}
 %>
 <!DOCTYPE HTML>
 <!--
@@ -52,8 +52,6 @@ header#header {
 	background-color: rgb(17, 20, 31);
 	margin-bottom: 0;
 }
-
-
 </style>
 </head>
 <body class="is-preload">
@@ -65,66 +63,66 @@ header#header {
 			<jsp:include page="header.jsp" flush="true">
 				<jsp:param name="imgURL" value="<%=imgURL%>" />
 			</jsp:include>
-		
+
 			<div>
-				<nav id="menu">
+			
+				<nav class="menu" id="menu">
+					<ul>
+						<li><span class="opener">자료구조</span>
+							<ul style="display: block;">
+								<li><a href="#">리스트</a></li>
+								<li><a href="#">스택</a></li>
+								<li><a href="#">큐</a></li>
 
-				<ul>
-					<li><span class="opener">자료구조</span>
-						<ul style="display: block;">
-							<li><a href="#">리스트</a></li>
-							<li><a href="#">스택</a></li>
-							<li><a href="#">큐</a></li>
+							</ul></li>
+						<li><span class="opener">정렬</span>
+							<ul style="display: block;">
+								<li><a href="#">선택정렬 삽입정렬 버블정렬</a></li>
+								<li><a href="#">합병정렬 퀵정렬</a></li>
+							</ul></li>
+						<li><a href="generic.html">수학</a></li>
+						<li><span class="opener">그래프</span>
+							<ul>
+								<li><a href="#">그래프</a></li>
+								<li class="test"><a href="#">깊이 우선 탐색</a></li>
+								<li><a href="#">너비 우선 탐색</a></li>
+							</ul></li>
+						<li><span class="opener">트리</span>
+							<ul>
+								<li><a href="#">트리</a></li>
+								<li><a href="#">힙</a></li>
+								<li><a href="#">너비 우선 탐색</a></li>
+							</ul></li>
+						<li><a href="#">다이나믹 프로그래밍</a></li>
+						<li><a href="#">재귀 알고리즘</a></li>
+						<li><span class="opener active">분할정복</span>
+							<ul>
+								<li><a href="#">트리</a></li>
+								<li><a href="#">힙</a></li>
+								<li><a href="#">너비 우선 탐색</a></li>
+							</ul></li>
 
-						</ul></li>
-					<li><span class="opener">정렬</span>
-						<ul style="display: block;">
-							<li><a href="#">선택정렬 삽입정렬 버블정렬</a></li>
-							<li><a href="#">합병정렬 퀵정렬</a></li>
-						</ul></li>
-					<li><a href="generic.html">수학</a></li>
-					<li><span class="opener">그래프</span>
-						<ul>
-							<li><a href="#">그래프</a></li>
-							<li class="test"><a href="#">깊이 우선 탐색</a></li>
-							<li><a href="#">너비 우선 탐색</a></li>
-						</ul></li>
-					<li><span class="opener">트리</span>
-						<ul>
-							<li><a href="#">트리</a></li>
-							<li><a href="#">힙</a></li>
-							<li><a href="#">너비 우선 탐색</a></li>
-						</ul></li>
-					<li><a href="#">다이나믹 프로그래밍</a></li>
-					<li><a href="#">재귀 알고리즘</a></li>
-					<li><span class="opener active">분할정복</span>
-						<ul>
-							<li><a href="#">트리</a></li>
-							<li><a href="#">힙</a></li>
-							<li><a href="#">너비 우선 탐색</a></li>
-						</ul></li>
-						
 						<li><span class="opener active">최단경로</span>
-						<ul>
-							<li><a href="#">다익스트라</a></li>
-							<li><a href="#">플로이드 와샬</a></li>
-							<li><a href="#">벨만포드</a></li>
-						</ul></li>
+							<ul>
+								<li><a href="#">다익스트라</a></li>
+								<li><a href="#">플로이드 와샬</a></li>
+								<li><a href="#">벨만포드</a></li>
+							</ul></li>
 						<li><span class="opener active">최소 스패닝 트리</span>
-						<ul>
-							<li><a href="#">최소 스패닝 트리</a></li>
-							<li><a href="#">disjoint-set</a></li>
-							<li><a href="#">쿠르스칼</a></li>
-							<li><a href="#">프림</a></li>
-						</ul></li>
+							<ul>
+								<li><a href="#">최소 스패닝 트리</a></li>
+								<li><a href="#">disjoint-set</a></li>
+								<li><a href="#">쿠르스칼</a></li>
+								<li><a href="#">프림</a></li>
+							</ul></li>
 						<li><a href="#">브루트포스</a></li>
 						<li><a href="#">백트래킹</a></li>
-				</ul>
-			</nav>
-			<div class="content">
-				
-			</div>
-				
+					</ul>
+				</nav>
+		
+			
+				<div class="right"></div>
+
 
 
 			</div>
@@ -133,8 +131,8 @@ header#header {
 		</div>
 		<!-- Sidebar -->
 		<!-- Sidebar -->
-		
-		
+
+
 
 	</div>
 

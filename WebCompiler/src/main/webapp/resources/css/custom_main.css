@@ -8,17 +8,41 @@
     /* margin: 0 auto; */
     /* max-width: 110em; */
 }
+.menu {
+	font-family: "NanumSquare" !important;
+      padding: 0.8em 1.2em 1.2em 1.2em;
+      /*border-right: solid 1px #e0e0e0;*/
+  width:19%;
+  display:inline-block;
+  float:left;
+  
+  overflow-x: hidden;
+  height:calc(100vh - 3.5em);
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
 
-#menu {
-  font-family: "NanumSquare" !important;
-      padding: 1.2em 2em;
-      /*border-right: solid 1px #ababab;*/
+.left-side {
+	font-family: "NanumSquare" !important;
+      padding: 1.2em;
+      /*border-right: solid 1px #e0e0e0;*/
   width:20%;
   display:inline-block;
   float:left;
-  overflow-x: auto;
-	height:calc(100vh - 3.5em);
+  
+  overflow-x: hidden;
+  height:calc(100vh - 3.5em);
+  overflow-y: auto;
+    
+}
+
+.left-side .menu {
+	height:calc(100vh - 205px);
+	margin-top:0.5em;
+    overflow-x: hidden;
     overflow-y: scroll;
+    width: 100%;
+    padding: 0;
 }
 /* H */
 
@@ -69,11 +93,25 @@ header#header img {
 header#header a.header_problem {
   display: inline-block !important;
   float: left;
-  margin-left: 2.5em;
+  margin-left: 1em;
   margin-top: 0.8em;
 }
 
 a.header_problem img {
+  width: 1.3em;
+  height: 1.3em;
+  padding: 0;
+  margin-right: 0.3em;
+}
+
+header#header a.header_study {
+  display: inline-block !important;
+  float: left;
+  margin-left: 2.5em;
+  margin-top: 0.8em;
+}
+
+a.header_study img {
   width: 1.3em;
   height: 1.3em;
   padding: 0;
@@ -93,19 +131,7 @@ a.header_board img {
   padding: 0;
   margin-right: 0.3em;
 }
-header#header a.header_study {
-  display: inline-block !important;
-  float: left;
-  margin-top: 0.75em;
-  margin-left: 1em;
-}
 
-a.header_study img {
-  width: 1.8em;
-  height: 1.8em;
-  padding: 0;
-  margin-right: 0.3em;
-}
 
 header#header a.header_problem_insert {
   display: inline-block !important;
@@ -282,7 +308,12 @@ display:block;
     
     padding-left: 1em;
 }
-
+#menu > ul > li > ul > li:hover {
+    margin: 0 0 0 0;
+    color: #d4cae6 !important;
+    border-left: 1.6px solid #d4cae6;
+    padding: 0 0 0 0;
+}
 #menu > ul > li > ul > li {
     margin: 0 0 0 0;
     border-left: 1.2px solid #c2c2c2;
@@ -486,9 +517,29 @@ pre.typewriter {
 footer{
 	text-align:center;
 	color:#707070;
-	    margin-top: 2em;
+	margin-top: 2em;
 }
 footer p{
 	margin: 0 0 0.4em 0;
+    font-size: 0.8em;
+}
+footer a{
+	color:#707070;
+	margin: 0 0 0.4em 0;
     font-size: 0.9em;
+}
+footer a:hover{
+	color:#7BC379 !important;;
+	margin: 0 0 0.4em 0;
+    font-size: 0.9em;
+}
+footer a.teamlab{
+	color:#707070;
+	margin: 0 0 0.4em 0;
+    font-size: 0.8em;
+}
+footer a.teamlab:hover {
+	color:#79BCC3 !important;
+	margin: 0 0 0.4em 0;
+    font-size: 0.8em;
 }
