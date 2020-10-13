@@ -47,7 +47,41 @@
 					url: "/board/" + ${board.board_id}+"/comment.read",
 					type: "GET",
 					success:function(data){
-						var count = 1;
+						var comment = data.comment;
+			            var comment_count = data.comment_count;
+			            var count = 1;
+			           
+			            var str = comment_count + "개";
+			            $("#comment_count").text(comment_count + "개");
+			            
+						for(var i=0; i< comment.length; i++) {
+					        var idx = comment[i].comments_id;
+					        var comment_id = "#comments_" + idx;
+
+					        $("#list").append("<div class='comment_list' id=comments_" + idx + "></div>");
+							if(count !=1){
+								$(comment_id).append("<div class='comment_dashline'></div>");
+							} 
+							$(comment_id).append("<div class='comment_image'></div>");
+
+							$(comment_id  + " .comment_image").append("<img src='/getByteImage/"+ comment[i].user_id+"' width='50px' height='50px'>");
+							$("#comments_"+ idx).append("<div class='comment_content'></div>");
+							$("#comments_"+ idx +  " .comment_content").append("<p class='comment_user'>"+ comment[i].user_id+"</p>");
+							$("#comments_"+ idx +  " .comment_content").append("<p class='comment_content' >"+ comment[i].comments_content+"</p>");
+
+							$("#comments_"+ idx).append("<div class='comment_info'></div>");
+							$("#comments_"+ idx +  " .comment_info").append("<p class='comment_date'>"+ formatDate(comment[i].comments_upload) +"</p>");
+							$("#comments_"+ idx +  " .comment_info").append("<div class='comment_edit'></div>");
+
+							if(comment[i].user_id == user_id){
+								$("#comments_"+ idx +  " .comment_edit").append("<a href='#' onclick='comment_edit(" + comment[i].comments_id +")'><img src='"+contextPath+"/resources/images/edit.png'/></a>");
+								$("#comments_"+ idx +  " .comment_edit").append("<a href='#' onclick='comment_delete(" + comment[i].comments_id +")'><img src='"+contextPath+"/resources/images/delete.png'/></a>");
+							}
+							count++;
+			
+			            	
+			            }
+						/*var count = 1;
 						var comment_id;
 						$(data).each(function(){
 							var idx = this.comments_id;
@@ -62,32 +96,49 @@
 							$(comment_id  + " .comment_image").append("<img src='/getByteImage/"+ this.user_id+"' width='50px' height='50px'>");
 							$("#comments_"+ idx).append("<div class='comment_content'></div>");
 							$("#comments_"+ idx +  " .comment_content").append("<p class='comment_user'>"+ this.user_id+"</p>");
-							$("#comments_"+ idx +  " .comment_content").append("<p class='comment_content'>"+ this.comments_content+"</p>");
+							$("#comments_"+ idx +  " .comment_content").append("<p class='comment_content' >"+ this.comments_content+"</p>");
 
 							$("#comments_"+ idx).append("<div class='comment_info'></div>");
-							$("#comments_"+ idx +  " .comment_info").append("<p class='comment_date'>"+ this.comments_upload+"</p>");
+							$("#comments_"+ idx +  " .comment_info").append("<p class='comment_date'>"+ formatDate(this.comments_upload) +"</p>");
 							$("#comments_"+ idx +  " .comment_info").append("<div class='comment_edit'></div>");
 
 							if(this.user_id == user_id){
-								$("#comments_"+ idx +  " .comment_edit").append("<a href='#' onclick='comment_delete(" + this.comments_id +")'><img src='"+contextPath+"/resources/images/edit.png'/></a>");
+								$("#comments_"+ idx +  " .comment_edit").append("<a href='#' onclick='comment_edit(" + this.comments_id +")'><img src='"+contextPath+"/resources/images/edit.png'/></a>");
 								$("#comments_"+ idx +  " .comment_edit").append("<a href='#' onclick='comment_delete(" + this.comments_id +")'><img src='"+contextPath+"/resources/images/delete.png'/></a>");
 							}
 							count++;
 							}
 						);
-
-						if(flag == 1){
+							*/
+						/*if(flag == 1){
 							var offset=$(comment_id).offset();
 							$("html body").animate({scrollTop:offset.bottom}, 0);
-						}
+						}*/
 					},
 					error:function(){
-
+						alert("error");
 					}
 				});
 			}
+			function comment_edit_finish(comments_id){
+				var idx = this.comments_id;
+				comment_id = "#comments_" + this.comments_id;
+
+				$("#comments_"+ idx +  " .comment_content").append("<p class='comment_content'>"+ this.comments_content+"</p>");
+				$("#comments_"+ idx +  " .comment_content").replaceWith(function(){
+					 return $('<textarea>',{type : 'text', class: 'input-text'})
+					});
+
+				}
 			function comment_edit(comments_id){
-				
+				var idx = this.comments_id;
+				comment_id = "#comments_" + this.comments_id;
+
+				$("#comments_"+ idx +  " .comment_content").append("<p class='comment_content'>"+ this.comments_content+"</p>");
+				$('#abc').replaceWith(function(){
+					 return $('<textarea>',{type : 'text', class: 'input-text'})
+					});
+
 				}
 			function comment_delete(comments_id){
 				alert(comments_id)
@@ -141,6 +192,18 @@
 				return true;
 			
 				}
+
+			function formatDate(date) {
+				var d = new Date(date),
+				month = '' + (d.getMonth() + 1),
+				day = '' + d.getDate(),
+				year = d.getFullYear();
+
+				if (month.length < 2) month = '0' + month;
+				if (day.length < 2) day = '0' + day;
+				return [year, month, day].join('.');
+
+			}
 		</script>
 
 
@@ -153,7 +216,7 @@
 		<div id="main">
 			<jsp:include page="header.jsp" flush="true">
 				<jsp:param name="imgURL" value="<%=imgURL%>" />
-			</jsp:include>
+			</jsp:include> 
 			<div class="inner">
 				<section>
 					<div class="title_header">
@@ -188,7 +251,7 @@
 						<div class="info_box">
 							<div class="comment_count">
 								<img
-									src="<%=request.getContextPath()%>/resources/images/comment.png"><span>2개</span>
+									src="<%=request.getContextPath()%>/resources/images/comment.png"><span id="comment_count"></span>
 							</div>
 							<div class="board_info">
 
@@ -256,6 +319,7 @@
 								class="submit-button" onclick="comment_register()">
 						</div>
 					</div>
+					
 				</section>
 
 			</div>

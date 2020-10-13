@@ -114,6 +114,7 @@ public class BoardController {
 			ProblemVO pvo = problemService.readProblem(bvo.getProblem_id());
 			model.addAttribute("problem", pvo);
 		}
+		
 		List<CommentsVO> cvo = commentsService.readCommentList(board_id);
 		UserVO user = (UserVO)session.getAttribute("user");
 		model.addAttribute("user", user);

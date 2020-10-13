@@ -121,7 +121,47 @@ header#header {
 				</nav>
 		
 			
-				<div class="right"></div>
+				<div class="right">
+					<span> ${category.high}</span>
+					<c:forEach items="${category.low}" var="city">
+
+                    <p>${city.name}
+                    <p>${city.price}
+   
+                </c:forEach>
+					<table>
+							<thead>
+								<tr>
+								    <th>번호</th>
+									<th>문제</th>
+									<th>난이도</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="problem" items="${board}">
+									<tr>
+										<td class="board_title" style="text-align: left;"><a
+											href="/board/${board.board_id}"
+											style="color: black; border: 0"><c:out
+													value="${board.board_title}" /></a></td>
+										<td><c:out value="${board.user_id}" /></td>
+										<td><c:out value="${board.board_upload}" /></td>
+										<c:if test="${board.problem_id > 0}">
+											<td class="problem_id"><a
+												href="/problem/${board.problem_id}" style="border: 0"><c:out
+														value="${board.problem_id}" /></a></td>
+										</c:if>
+										<c:if test="${board.problem_id == 0}">
+											<td><c:out value="" /></td>
+										</c:if>
+									</tr>
+								</c:forEach>
+
+							</tbody>
+						</table>
+				
+				
+				</div>
 
 
 

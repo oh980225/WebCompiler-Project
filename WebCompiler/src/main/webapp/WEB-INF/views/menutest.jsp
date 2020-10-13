@@ -256,14 +256,14 @@
 				<nav class="menu" id="menu">
 					
 					<ul>
-						<li><span class="opener">자료구조</span>
+						<li><a href="#">자료구조</a>
 							<ul style="display: block;">
 								<li><a href="#">리스트</a></li>
 								<li><a href="#">스택</a></li>
 								<li><a href="#">큐</a></li>
 
 							</ul></li>
-						<li><span class="opener">정렬</span>
+						<li><a href="#">정렬</a>
 							<ul style="display: block;">
 								<li><a href="#">선택정렬 삽입정렬 버블정렬</a></li>
 								<li><a href="#">합병정렬 퀵정렬</a></li>
@@ -282,12 +282,12 @@
 							</ul></li>
 						<li onclick="check_list(this.id);" id="CA_0003"><a href="#">다이나믹 프로그래밍</a></li>
 						<li onclick="check_list(this.id);" id="CA_0020"><a href="#">재귀 알고리즘</a></li>
-						<li onclick="check_list(this.id);" id="CA_0011"><span class="opener active">분할정복</span>
+						<li onclick="check_list(this.id);" id="CA_0011"><span class="opener">분할정복</span>
 							<ul>
 								<li><a href="#">트리</a></li>
 							</ul></li>
 
-						<li onclick="check_list(this.id);" id="CA_0006"><span class="opener active">최단경로</span>
+						<li onclick="check_list(this.id);" id="CA_0006"><span class="opener">최단경로</span>
 							<ul>
 								<li><a href="#">다익스트라</a></li>
 								<li><a href="#">플로이드 와샬</a></li>

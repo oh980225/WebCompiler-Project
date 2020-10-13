@@ -2,7 +2,57 @@
  
  .right{
   display:inline-block; float:right; width:70%;
- }  
+ } 
+ 
+ div.table-wrapper {
+
+  text-align: center;
+}
+/* table-wrapper 이라는 이름의 div 안의 table 태그*/
+div.table-wrapper table{
+	margin: 0;
+}
+
+div.table-wrapper table thead th {
+  color: black;
+  text-align: center;
+  font-weight: bold;
+}
+
+div.table-wrapper table thead {
+  border-bottom: 1px solid black;
+  font-size:1em;
+  text-align: center;
+}
+div.table-wrapper table thead th.board_title{
+	text-align:left;
+	padding-left:1.5em;
+}
+div.table-wrapper table tbody tr{
+  background: white;
+}
+
+div.table-wrapper table tbody tr {
+  border: none;
+}
+div.table-wrapper table tbody td.problem_id a{
+	font-weight:bold;
+	color:#79BCC3;
+}
+div.table-wrapper table tbody td.board_title{
+	text-align:left;
+	padding-left:1.5em;
+}
+div.table-wrapper table tbody{
+  font-size:0.9em
+}
+div.table-wrapper table tbody tr {
+  border-bottom: 1px dashed black;
+}
+
+div.table-wrapper table tbody tr:last-child {
+  border-bottom: 1px solid black;
+}
  .test{
 	/*background:url(../images/check.png) no-repeat left center / 10px ;*/
 	/*    border: 0 !important;*/

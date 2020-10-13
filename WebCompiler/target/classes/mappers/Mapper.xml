@@ -88,6 +88,9 @@
     <delete id ="comment_delete">
     		delete from comments where comments_id = #{comments_id}
     </delete>
+    <select id="comment_count" resultType="int">
+    	select COUNT(comments_id) from comments where board_id = ${board_id}
+    </select>
     
     <!-- 카테고리 -->
     <select id="category_selectAll" resultType="CategoryVO">

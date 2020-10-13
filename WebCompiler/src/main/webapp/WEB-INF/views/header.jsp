@@ -13,9 +13,9 @@
 		src="<%=request.getContextPath()%>/resources/images/coding.png"
 		alt="문제 페이지" />문제풀기</a> <a class="header_board" href="/board"><img
 		src="<%=request.getContextPath()%>/resources/images/header_board.png"
-		alt="게시판 페이지" />자유게시판</a><a
-		class="header_problem_insert" href="/problem/insert"><img
-		src="/resources/images/problem_insert.png" />문제등록</a>
+		alt="게시판 페이지" />자유게시판</a>
+		
+
 
 	<c:if test="${user.user_id == null}">
 		<a class="header_signup" href="/join"><span>회원가입</span></a>
@@ -34,6 +34,14 @@
 			</div>
 		</div>
 	</c:if>
+	
+	<a
+		class="header_testcase" href="/testcase"><img
+		src="/resources/images/testcase.png" />테스트케이스</a>
+		
+		<a
+		class="header_problem_insert" href="/problem/insert"><img
+		src="/resources/images/problem_insert.png" />문제등록</a>
 
 </header>
 

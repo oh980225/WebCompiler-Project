@@ -33,7 +33,7 @@ public class CommentsDAOImpl implements CommentsDAO {
 	@Override
 	public int count(int board_id) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.selectOne(namespace + ".comment_count", board_id);
 	}
 
 	@Override

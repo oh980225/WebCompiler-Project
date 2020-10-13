@@ -62,15 +62,29 @@
 				<div class="problem_content">
 					${problem.problem_content}
 				</div>
+				<div class="line"></div>
 				
+				<div style="padding:0.5em">
 				<h2 class="input_title">
 					입력
 				</h2>
-				${testcase.testcase_input}
+				
+				 	<div class="testcase">
+				 		${testcase.testcase_input}
+				 	</div>
+				
+				</div>
+				
+				 <div style="padding:0.5em">
+				<div class="line"></div>
 				<h2 class="output_title">
 					출력
 				</h2>
-				${testcase.testcase_output}
+				<div class="testcase">
+				 	${testcase.testcase_output}
+				</div>
+				</div>
+				
 			</div>
 		</aside>
 		<section class="code">

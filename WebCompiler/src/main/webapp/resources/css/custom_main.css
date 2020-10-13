@@ -1,5 +1,5 @@
 @import url("https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css");
-@media screen and (max-width: 1680px)
+@media screen and (max-width: 1680px min-width:1000px)
 #main > .inner {
      padding: 0 ; 
 }
@@ -7,6 +7,7 @@
      padding: 0; 
     /* margin: 0 auto; */
     /* max-width: 110em; */
+    min-width:1000px;
 }
 .menu {
 	font-family: "NanumSquare" !important;
@@ -135,7 +136,7 @@ a.header_board img {
 
 header#header a.header_problem_insert {
   display: inline-block !important;
-  float: left;
+  float: right;
   margin-top: 0.75em;
   margin-left: 1em;
   color:#79BCC3 !important;
@@ -148,6 +149,20 @@ a.header_problem_insert img {
   margin-right: 0.3em;
 }
 
+header#header a.header_testcase {
+  display: inline-block !important;
+  float: right;
+  margin:0.8em 1.2em 0 1.2em;
+
+  color: #FF9811 !important;
+}
+
+a.header_testcase img {
+  width: 1.6em;
+  height: 1.6em;
+  padding: 0;
+  margin-right: 0.3em;
+}
 
 header#header a.header_signin {
   /*float: right;

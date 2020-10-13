@@ -2,7 +2,9 @@ package org.dms.web;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,18 +27,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/board")
-public class RESTBoardController {
+public class RestCommentController {
 	
 	@Autowired
 	private BoardService boardService;
 	@Autowired(required=true)
 	private CommentsService commentService;
-	private static final Logger logger = LoggerFactory.getLogger(RESTBoardController.class);
+	private static final Logger logger = LoggerFactory.getLogger(RestCommentController.class);
+	
 	
 	@RequestMapping(value="/{board_id}/comment.read", method=RequestMethod.GET)
-	public List<CommentsVO> readCommentList(@PathVariable("board_id") int board_id) throws Exception{
+	public /*List<CommentsVO>*/ Map<String, Object> readCommentList(@PathVariable("board_id") int board_id) throws Exception{
 		logger.info("글번호: " + board_id);
-		return commentService.readCommentList(board_id);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<CommentsVO> cvo = commentService.readCommentList(board_id);
+		int comment_count = commentService.count(board_id);
+		
+		map.put("comment", cvo);
+		map.put("comment_count", comment_count);
+		// commentService.readCount(board_id);
+		return map;
 		//return commentService.readCommentList(board_id);
 	}
 
