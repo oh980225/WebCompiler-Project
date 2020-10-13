@@ -84,6 +84,16 @@
 			//$("#" + ref).addClass('selected');
 			getBoardList(1);
 		}
+		function getPercent(problem_submitnum, problem_successnum, count){
+			var temp = problem_successnum /problem_submitnum * 100;
+	    	var percent= temp.toFixed(1); // 99.98765 출력
+	    	if(isNaN(percent) == true){
+					percent  = 0;
+		    	}
+	    	var str ="정답률: " + percent + "%" ;
+	    	id="#item_percent_"+ count;
+	    	$(id).text(str);
+		}
 		
 		function getBoardList(page){	
 			//var level = document.getElementById("problem_level")
@@ -105,8 +115,6 @@
 		            success: function(data){	           
 			            var problem = data.list;
 			            var pageMaker = data.pageMaker;
-
-			            
 			        
 			            for(var i=0; i< problem.length; i++) {
 			            	var temp = problem[i].problem_successnum / problem[i].problem_submitnum * 100;
@@ -134,11 +142,11 @@
 			            	
 			            	$("#item_success_"+idx).html("맞은사람: " + problem[i].problem_successnum);
 			            	$("#item_percent_"+idx).html("정답률: " + percent + "%");
+
+			            	getPercent(problem[i].problem_submitnum, problem[i].problem_successnum, idx)
 			            	//$("#item_check_"+(i+1)).html(problem[i].problem_id);
 			            	$("#item_submit_"+ idx).html("제출: " + problem[i].problem_submitnum);
 			            	$("#problem_item_"+ idx).css("display","inline-block");
-
-			            	
 			            }
 			            // 나머지 요소 숨기기
 						if(problem.length < 8){
@@ -350,7 +358,8 @@
 
 
 											<div class="problem_percent"
-												id="item_percent_${status.count}">정답률: 28.4%</div>
+												id="item_percent_${status.count}"> <script type="text/javascript">
+												getPercent(${problem.problem_submitnum}, ${problem.problem_successnum}, ${status.count})</script></div>
 										</div>
 										<div class="item_bottom">
 											<div class="problem_submit" id="item_submit_${status.count}">
@@ -406,7 +415,7 @@
 													${problem.problem_level}</div>
 											</c:if>
 											<div class="problem_percent"
-												id="item_percent_${status.count}">정답률: 28.4%</div>
+												id="item_percent_${status.count}"><script type="text/javascript"> getPercent(${problem.problem_submitnum}, ${problem.problem_successnum}, ${status.count})</script></div>
 										</div>
 										<div class="item_bottom">
 											<div class="problem_submit" id="item_submit_${status.count}">

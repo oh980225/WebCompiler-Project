@@ -56,7 +56,6 @@ public class ProblemController {
 		if(user == null) {
 			List<ProblemVO> pvo = problemService.readProblemList(cri);
 			List<CategoryVO> cvo = categoryService.readCategoryList();
-			//List<ProblemVO> pvo = problemService.readProblemList(cri);
 
 			PageMaker pageMaker = new PageMaker();
 			cri.setPerPageNum(8);
