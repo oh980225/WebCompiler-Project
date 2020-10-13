@@ -117,6 +117,7 @@
 								</select>
 								<div class="select_arrow"></div>
 							</div>
+							<button id="searchBtn" class="searchBtn">검색</button>
 							<div class="col-12 name">
 								<select name="demo-category" id="demo-category2">
 									<option value="">-- 선택 --</option>
@@ -125,7 +126,7 @@
 								</select>
 								<div class="small_arrow"></div>
 							</div>
-							<input class="search" type="text" name="search" placeholder="검색">
+							<input id="searchInput" class="search" type="text" name="search" placeholder="검색">
 							<br class="clear"> <!-- change -->
 							<br>
 							<!-- Table -->
@@ -458,8 +459,6 @@
 			         		tr.querySelector("#code_board_problem_level").classList.add("problem_level"+ codeList[i].problem_level);
 				         	// 현재 클래스를 해당 problme_level 클래스로 변경!
 				        }
-				        // 현재 이 위까지 가능
-				        // code_date와 code_success 바꿔야함.
 				        let code_date = new Date(codeList[i].code_date);
 				        tr.querySelector("#code_board_code_date").innerHTML = getFormatDate(code_date); 
 				        
@@ -519,7 +518,23 @@
 	                console.log("paging error!");
 	            }
 	        });
-		} 
+		}
+
+		const searchInput = document.getElementById("searchInput");
+		const searchBtn = document.getElementById("searchBtn");
+		const searchCategory = document.getElementById("demo-category2");
+
+		const searchMyCode = () => {
+			const categoryValue = searchCategory.options[searchCategory.selectedIndex].value;
+			const searchValue = searchInput.value;
+			console.log("category: " + categoryValue);
+			console.log("search: " + searchValue);
+			// 여기서 일단 먼저 입력값, 카테고리값 받을 수 있는지 확인하기
+		}
+
+		searchBtn.addEventListener("click", searchMyCode);
+
+		 
 	</script>
 
 </body>

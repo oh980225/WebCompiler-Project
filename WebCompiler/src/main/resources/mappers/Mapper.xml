@@ -168,7 +168,7 @@
     </select>
     
     <select id="codeboard_code_success" resultType="byte"> 
-    	select code_success from code where problem_id = #{problem_id} and code_success=1
+    	select code_success from code where problem_id = #{problem_id} and code_success=1 limit 1
     </select>
 	
 	<select id="codeboard_code_date" resultType="Date"> 
