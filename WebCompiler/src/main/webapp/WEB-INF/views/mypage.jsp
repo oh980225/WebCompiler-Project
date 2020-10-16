@@ -207,8 +207,13 @@
 									<li class="page_num"><a href="#"><</a></li>
 									</c:if>
 									<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="page">
-	    							<li class="page_num" onclick="javascript:getBoardList(this.value)" value="${page}"><a>${page}</a></li>
-							 		</c:forEach>
+									<c:if test="${page== 1}">
+									<li class="page_num" onclick="javascript:getBoardList(this.value)" value="${page}"><a style="color: black !important;">${page}</a></li>
+									</c:if>
+									<c:if test="${page != 1}">
+									<li class="page_num" onclick="javascript:getBoardList(this.value)" value="${page}"><a>${page}</a></li>
+									</c:if>
+									</c:forEach>
 									<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 									<li class="page_num"><a href="#">></a></li>
 									</c:if>
@@ -478,7 +483,7 @@
 		            // 나머지 요소 숨기기 
 		            console.log("codeList.length: " + codeList.length);
 					if(codeList.length < 5){
-						for(var i=codeList.length; i <= 5; i++){
+						for(var i=codeList.length; i < 5; i++){
 							$("#tr"+i).css("display","none");
 						}
 					} else {
@@ -492,39 +497,17 @@
 		            /* if(pageMaker.prev){
 			            elem = elem + '<li><a href="javascript:getBoardList(' + pageMaker.startPage - 1 + ') "> ◀  </a></li>';
 			            } */
-		           
-		            /* $("#pagenav").empty(); */
+		          
+		            $("#pagenav").empty();
 		            
-		            /* for(var i=pageMaker.startPage; i < pageMaker.endPage + 1; i++) {
+		            for(var i=pageMaker.startPage; i < pageMaker.endPage + 1; i++) {
 			            if(page == i){
-			            	var txt = '<li onclick="a(' + i + ')" value="' + i + '"></li>';
-			            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '" style="border:0; color:blue">' + i + '</li>'); 
-			     
+			            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + '<a style="color:black !important;">' + i+ "</a>" + '</li>');
 				        }
 			            else{
-			            	var txt ='<li onclick="a(' + i + ')" value="' + i + '"></li>';
-			            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + i+ '</li>');
+			            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + "<a>" + i+ "</a>" +'</li>');
 				        }       
-		            } */
-		            /* const pagenav = document.getElementById("pagenav");
-		            const page_list = pagenav.querySelectorAll('.page_num');
-		            for(let i in page_list) {
-			            let a = page_list[i].getElementsByTagName('a');
-			            if(a.innerText == page) {
-				            console.log("selected page: " + page);
-				        } else {
-					        console.log("non selected page: " + a.innerText);
-					    }
-			        } */ // 여기 까지 코드조회 하던중! 근데 일단 안해도 될듯 민지씨꺼로 추가!
-		           
-		            // end
-		            if(search != null) {
-		            	$("#pagenav").empty();
-			            
-				        for(let i=pageMaker.startPage; i < pageMaker.endPage + 1; i++) {
-					        $("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + '<a>' + i + '</a>' + '</li>');
-				        }
-			        }
+		            }
 		              
 		            if(pageMaker.next && pageMaker.endPage > 0){
 		            	elem = elem + '<li><a href="javascript:getBoardList(' + pageMaker.endPage - 1 + ') "> ▶ </a></li>';
@@ -601,13 +584,16 @@
 							}
 						}
 			            
-			            if(search != null) {
-			            	$("#pagenav").empty();
-				            
-					        for(let i=pageMaker.startPage; i < pageMaker.endPage + 1; i++) {
-						        $("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + '<a>' + i + '</a>'+ '</li>');	
+						$("#pagenav").empty();
+			            
+			            for(var i=pageMaker.startPage; i < pageMaker.endPage + 1; i++) {
+				            if(page_ == i){
+				            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + '<a style="color:black !important;">' + i+ "</a>" + '</li>');
 					        }
-				        }
+				            else{
+				            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + "<a>" + i+ "</a>" +'</li>');
+					        }       
+			            }
 				 },
 				 error: function() {
 					 console.log("검색 테스트 실패!");

@@ -53,6 +53,9 @@
 	            success: function(data){	           
 		            var problem = data.list;
 		            var pageMaker = data.pageMaker;
+		            const isSuccess = data.successList;
+
+		            console.log(isSuccess);
 		        
 		            for(var i=0; i< problem.length; i++) {
 		            	var temp = problem[i].problem_successnum / problem[i].problem_submitnum * 100;
@@ -70,11 +73,12 @@
 		            	if(problem[i].problem_level == 3){ $("#item_level_"+idx).css("background-color", "#79BCC3"); }
 		            	if(problem[i].problem_level == 4){ $("#item_level_"+idx).css("background-color", "#EA7862"); }
 		            	if(problem[i].problem_level == 5){ $("#item_level_"+idx).css("background-color", "#8C699B"); }
-		            	
+
+		            	let code_success = (isSuccess[i] == 1) ? 'check.png' : 'notCheck.png';
 		            	
 		            	$("#item_success_"+idx).html("맞은사람: " + problem[i].problem_successnum);
 		            	$("#item_percent_"+idx).html("정답률: " + percent + "%");
-		            	//$("#item_check_"+(i+1)).html(problem[i].problem_id);
+		            	$("#item_check_"+idx).html(`<img src="<%=request.getContextPath()%>/resources/images/` + code_success + `" alt="">`);
 		            	$("#item_submit_"+ idx).html("제출: " + problem[i].problem_submitnum);
 		            	$("#problem_item_"+ idx).css("display","inline-block");
 		            }
@@ -96,13 +100,10 @@
 		            
 		            for(var i=pageMaker.startPage; i < pageMaker.endPage + 1; i++) {
 			            if(page == i){
-			            	var txt = '<li onclick="a(' + i + ')" value="' + i + '"></li>';
-			            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '" style="border:0; color:blue">' + i + '</li>');
-			     
+			            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + '<a style="color:black !important;">' + i+ "</a>" + '</li>');
 				        }
 			            else{
-			            	var txt ='<li onclick="a(' + i + ')" value="' + i + '"></li>';
-			            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + i+ '</li>');
+			            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + "<a>" + i+ "</a>" +'</li>');
 				        }       
 		            }
 		           
@@ -243,7 +244,7 @@
 			                               	맞은사람: ${problem.problem_successnum}
 			                        </div>
 			                        <div class="problem_check" id="item_check_${status.count}">
-			                            <img src="<%=request.getContextPath()%>/resources/images/check.png" width="20em" height="20em" alt="O">
+			                            <img src="<%=request.getContextPath()%>/resources/images/${successList[status.count-1] ? 'check.png' : 'notCheck.png'}" width="20em" height="20em" alt="O">
 			                        </div>
 			                    </div>
 			                </div>
@@ -298,7 +299,7 @@
 							                     		 맞은사람: ${problem.problem_successnum}
 							                    </div>
 							                    <div class="problem_check" id="item_check_${status.count}">
-							                        <img src="<%=request.getContextPath()%>/resources/images/check.png" alt="O">
+							                        <img src="<%=request.getContextPath()%>/resources/images/${successList[status.count-1] ? 'check.png' : 'notCheck.png'}" alt="O">
 							                    </div>
 							                </div>
 							           	</div>
@@ -314,7 +315,12 @@
 							<li class="page_num"><a href="javascript:getBoardList(pageMaker.startPage - 1)"><</a></li>
 							</c:if> 
 							<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="page">
-	    							<li class="page_num" onclick="javascript:getBoardList(this.value)" value="${page}"><a>${page}</a></li>
+									<c:if test="${page== 1}">
+									<li class="page_num" onclick="javascript:getBoardList(this.value)" value="${page}"><a style="color: black !important;">${page}</a></li>
+									</c:if>
+									<c:if test="${page != 1}">
+									<li class="page_num" onclick="javascript:getBoardList(this.value)" value="${page}"><a>${page}</a></li>
+									</c:if>
 							</c:forEach>
 							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 									<li class="page_num"><a href="javascript:getBoardList(pageMaker.endPage + 1)">></a></li>

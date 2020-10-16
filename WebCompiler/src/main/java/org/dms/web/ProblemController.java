@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.OutputStream;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +33,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import com.mysql.cj.Session;
 
 @Controller
 public class ProblemController {
@@ -63,20 +66,29 @@ public class ProblemController {
 		
 		UserVO user = (UserVO) session.getAttribute("user");
 		
+		boolean[] successList = new boolean[8];
+		int index = 0;
+		
+		for(ProblemVO problem : pvo) {
+			successList[index++] = codeService.IsSuccess(user.getUser_id(), problem.getProblem_id());
+		}
+		
 		model.addAttribute("user", user);
 		model.addAttribute("category", cvo);
 		model.addAttribute("problem", pvo);
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("cri", cri);
+		model.addAttribute("successList", successList);
 		
 		return "problem_list";
 	}
 	
 	@RequestMapping(value = "/problem.do", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> categorytest_test(Locale locale, Model model, Criteria cri, int problem_level, String category_name) throws Exception {		
+	public Map<String, Object> categorytest_test(HttpSession session,Locale locale, Model model, Criteria cri, int problem_level, String category_name) throws Exception {		
 		logger.info("categorytest_test");
 		Map<String, Object> map = new HashMap<String, Object>();
+		UserVO user = (UserVO) session.getAttribute("user");
 		
 		if(problem_level == 0 && category_name.equals("unselected")) {
 			logger.info("level: " + problem_level);
@@ -89,8 +101,18 @@ public class ProblemController {
 			pageMaker.setCri(cri);
 			pageMaker.setTotalCount(count);
 			
+			boolean[] successList = new boolean[8];
+			int index = 0;
+			
+			for(ProblemVO problem : pvo) {
+				successList[index++] = codeService.IsSuccess(user.getUser_id(), problem.getProblem_id());
+			}
+			
+			System.out.println("successList: " + successList);
+			
 			map.put("pageMaker", pageMaker);
 			map.put("list", pvo);
+			map.put("successList", successList);
 			
 			for(ProblemVO vo : pvo) {
 				logger.info(vo.getProblem_id() + " : " + vo.getProblem_title());
@@ -110,13 +132,23 @@ public class ProblemController {
 			pageMaker.setCri(cri);
 			pageMaker.setTotalCount(count);
 			
+			boolean[] successList = new boolean[8];
+			int index = 0;
+			
+			for(ProblemVO problem : pvo) {
+				successList[index++] = codeService.IsSuccess(user.getUser_id(), problem.getProblem_id());
+			}
+			
+			System.out.println("successList: " + successList);
 			
 			map.put("pageMaker", pageMaker);
 			map.put("list", pvo);
+			map.put("successList", successList);
 			
 			for(ProblemVO vo : pvo) {
 				logger.info(vo.getProblem_id() + " : " + vo.getProblem_title());
 			}
+			
 			return map;
 		}
 	}

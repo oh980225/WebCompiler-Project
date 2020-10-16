@@ -18,7 +18,7 @@
 
      
 
-     <select id="user_selectById" resultType="UserVo">
+     <select id="user_selectById" resultType="UserVO">
  		select * from user where user_id = #{id}
  	</select>
 
@@ -204,9 +204,13 @@
      </select>
      <!-- select distinct problem_id  from code where user_id = #{user_id} order by code_date desc limit #{pageStart}, #{perPageNum} -->
    
-    <!-- 게시판 -->
+    <!-- 코드테이블 관련 -->
     <insert id="submit_code" parameterType="CodeVO">
     	insert into code(code_code, code_language, code_success, user_id, problem_id, code_date) values(#{code_code}, #{code_language}, #{code_success}, #{user_id}, #{problem_id}, #{code_date})
     </insert>
+    
+    <select id="code_success" parameterType="hashmap" resultType="byte">
+    	select distinct code_success from code where user_id=#{user_id} and problem_id=#{problem_id} and code_success=1;
+    </select>
     
 </mapper>  
