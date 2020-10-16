@@ -159,6 +159,22 @@
     	select distinct problem_id  from code where user_id = #{user_id}
     </select>
     
+    <select id="codeboard_problem_id_list_by_problem_id" parameterType="hashmap" resultType="Integer"> 
+    	select distinct problem_id  from code where user_id = #{user_id} and problem_id LIKE CONCAT('%',#{search_id},'%')
+    </select>
+    
+    <select id="codeboard_problem_id_list_by_problem_id_criteria" parameterType="hashmap" resultType="Integer"> 
+    	select distinct problem_id  from code where user_id = #{user_id} and problem_id LIKE CONCAT('%',#{search_id},'%') limit #{pageStart}, #{perPageNum}
+    </select>
+    
+    <select id="codeboard_problem_id_list_by_search_title" resultType="Integer"> 
+    	select problem_id from problem where problem_title LIKE CONCAT('%',#{search},'%')
+    </select>
+    
+    <select id="codeboard_problem_id_list_by_search_title_criteria" resultType="Integer"> 
+    	select problem_id from problem where problem_title LIKE CONCAT('%',#{search},'%') limit #{pageStart}, #{perPageNum}
+    </select>
+    
     <select id="codeboard_problem_title" resultType="String"> 
     	select problem_title from problem where problem_id = #{problem_id}
     </select>

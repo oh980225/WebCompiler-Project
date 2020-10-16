@@ -243,6 +243,8 @@
 	<%-- <script src="${pageContext.request.contextPath}/resources/js/modal.js"></script> --%>
 	<script type="text/javascript">
 		let page_ = 1;
+		let search_category = null
+		let search = null
 		const iframe = document.getElementById("iframe");
 		let myCodeList = null;
 		let innerDoc = null;
@@ -338,7 +340,12 @@
 			$.ajax({ 
 				 url: '/modal',  
 				 type: 'POST',
-				 data: "index=" + index + "&page=" + page_,  
+				 data: {
+					 	"index": index,
+					 	"page": page_,
+					 	"search_category": search_category,
+					 	"search": search
+					 },  
 				 success: function(data) {
 					 const result = data.codeBoard;
 					 const problem_name = document.querySelector(".problem_name");
@@ -434,13 +441,14 @@
 	            data: {
 			            "problem_level": level_value,
 			            "category_name": category_value,
-			            "page": page
+			            "page": page,
+			            "search_category": search_category,
+						"search": search
 			        },
 	            success: function(data){	           
-		            var codeList = data.list;
-		            var pageMaker = data.pageMaker;
+		            const codeList = data.list;
+		            const pageMaker = data.pageMaker;
 		            console.log("page : " + page);
-		            sessionStorage.setItem("page", page);
 		        
 		            for(var i=0; i< codeList.length; i++) {
 			
@@ -467,7 +475,7 @@
 				        tr.querySelector("#code_board_code_success").innerHTML = `<img src="<%=request.getContextPath()%>/resources/images/` + code_success + `" width="20em" height="20em" alt="">`
 		            	
 		            }
-		            // 나머지 요소 숨기기
+		            // 나머지 요소 숨기기 
 		            console.log("codeList.length: " + codeList.length);
 					if(codeList.length < 5){
 						for(var i=codeList.length; i <= 5; i++){
@@ -498,7 +506,7 @@
 			            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + i+ '</li>');
 				        }       
 		            } */
-		            const pagenav = document.getElementById("pagenav");
+		            /* const pagenav = document.getElementById("pagenav");
 		            const page_list = pagenav.querySelectorAll('.page_num');
 		            for(let i in page_list) {
 			            let a = page_list[i].getElementsByTagName('a');
@@ -507,12 +515,20 @@
 				        } else {
 					        console.log("non selected page: " + a.innerText);
 					    }
-			        } // 여기 까지 코드조회 하던중! 근데 일단 안해도 될듯 민지씨꺼로 추가!
+			        } */ // 여기 까지 코드조회 하던중! 근데 일단 안해도 될듯 민지씨꺼로 추가!
 		           
 		            // end
+		            if(search != null) {
+		            	$("#pagenav").empty();
+			            
+				        for(let i=pageMaker.startPage; i < pageMaker.endPage + 1; i++) {
+					        $("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + '<a>' + i + '</a>' + '</li>');
+				        }
+			        }
+		              
 		            if(pageMaker.next && pageMaker.endPage > 0){
 		            	elem = elem + '<li><a href="javascript:getBoardList(' + pageMaker.endPage - 1 + ') "> ▶ </a></li>';
-			            }
+			        }
 	            },
 	            error: function(){
 	                console.log("paging error!");
@@ -525,11 +541,78 @@
 		const searchCategory = document.getElementById("demo-category2");
 
 		const searchMyCode = () => {
-			const categoryValue = searchCategory.options[searchCategory.selectedIndex].value;
-			const searchValue = searchInput.value;
-			console.log("category: " + categoryValue);
-			console.log("search: " + searchValue);
-			// 여기서 일단 먼저 입력값, 카테고리값 받을 수 있는지 확인하기
+			search_category = searchCategory.options[searchCategory.selectedIndex].value;
+			search = searchInput.value;
+			console.log("category: " + search_category);
+			console.log("search: " + search);
+
+			$.ajax({ 
+				url: "/codeBoardPaging",
+	            type: "POST",
+	            data: {
+			            "problem_level": 0,
+			            "category_name": null,
+			            "page": 1,
+			            "search_category": search_category,
+						"search": search
+			        },
+				 success: function(data) {
+					 	page_ = 1;
+					 	const codeList = data.list;
+			            const pageMaker = data.pageMaker;
+			        
+			            for(var i=0; i< codeList.length; i++) {
+				
+				            const idx = i;
+				            let tr = document.getElementById("tr"+idx);
+				            console.log(tr);
+
+				            console.log(tr.querySelector("#code_board_problem_id"));
+				         	tr.querySelector("#code_board_problem_id").innerHTML = codeList[i].problem_id;
+				         	
+				         	tr.querySelector("#code_board_problem_title").innerHTML = codeList[i].problem_title;
+				         	tr.querySelector("#code_board_problem_level").innerHTML = "LEVEL " + codeList[i].problem_level;
+				         	const level_class = tr.querySelector("#code_board_problem_level").classList[0];
+				         	if(level_class != ("problem_level"+ codeList[i].problem_level)) {
+				         		tr.querySelector("#code_board_problem_level").classList.remove(level_class);
+				         		tr.querySelector("#code_board_problem_level").classList.add("problem_level"+ codeList[i].problem_level);
+					         	// 현재 클래스를 해당 problme_level 클래스로 변경!
+					        }
+					        let code_date = new Date(codeList[i].code_date);
+					        tr.querySelector("#code_board_code_date").innerHTML = getFormatDate(code_date); 
+					        
+					        let code_success = (codeList[i].code_success == 1) ? 'check.png' : 'notCheck.png';
+					        console.log("codeList[i].code_success: " + code_success);
+					        tr.querySelector("#code_board_code_success").innerHTML = `<img src="<%=request.getContextPath()%>/resources/images/` + code_success + `" width="20em" height="20em" alt="">`
+			            	
+			            }
+			            // 나머지 요소 숨기기
+			            console.log("codeList.length: " + codeList.length);
+			            for(var i=0; i < codeList.length; i++){
+							$("#tr"+i).css("display","");
+						}
+						if(codeList.length < 5){
+							for(var i=codeList.length; i < 5; i++){
+								$("#tr"+i).css("display","none");
+							}
+						} else {
+							for(var i=0; i < codeList.length; i++){
+								$("#tr"+i).css("display","");
+							}
+						}
+			            
+			            if(search != null) {
+			            	$("#pagenav").empty();
+				            
+					        for(let i=pageMaker.startPage; i < pageMaker.endPage + 1; i++) {
+						        $("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + '<a>' + i + '</a>'+ '</li>');	
+					        }
+				        }
+				 },
+				 error: function() {
+					 console.log("검색 테스트 실패!");
+				 }
+			}); 
 		}
 
 		searchBtn.addEventListener("click", searchMyCode);
