@@ -23,4 +23,29 @@ public class CommentsDAOImpl implements CommentsDAO {
 		return commentlist;
 	}
 
+	@Override
+	public void insert(CommentsVO comment) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.insert(namespace + ".comment_insert", comment);
+		
+	}
+
+	@Override
+	public int count(int board_id) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + ".comment_count", board_id);
+	}
+
+	@Override
+	public void delete(int comment_id) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.delete(namespace + ".comment_delete", comment_id);
+	}
+
+	@Override
+	public void update(CommentsVO comment) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

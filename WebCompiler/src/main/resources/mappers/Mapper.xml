@@ -12,12 +12,10 @@
  	</select>
  	
      <insert id="user_insert"> <!-- 수정해주세요 -->
-   		insert into student (id, passwd, username, snum, depart, mobile, email) values
- 		(#{id}, #{passwd}, #{username}, #{snum}, #{depart}, #{mobile}, #{email})
+   		insert into user (user_id, user_passwd, user_name, user_introduce) values
+ 		(#{user_id}, #{user_passwd}, #{user_name}, #{user_introduce})
      </insert> 
-
      
-
      <select id="user_selectById" resultType="UserVO">
  		select * from user where user_id = #{id}
  	</select>
@@ -58,7 +56,7 @@
     </select>
     <select id="board_selectAll" resultType="BoardVO">
     <![CDATA[
-    	select * from board limit #{pageStart}, #{perPageNum}
+    	select * from board order by board_upload desc limit #{pageStart}, #{perPageNum}
     ]]> 
     </select>
     <update id="update test">
@@ -83,6 +81,15 @@
     	<![CDATA[
  			select * from comments where board_id = ${board_id}
      	]]> 	
+    </select>
+    <insert id="comment_insert">
+    		insert into comments (comments_content, user_id, comments_upload, board_id) values (#{comments_content}, #{user_id}, #{comments_upload}, #{board_id})
+    </insert>
+    <delete id ="comment_delete">
+    		delete from comments where comments_id = #{comments_id}
+    </delete>
+    <select id="comment_count" resultType="int">
+    	select COUNT(comments_id) from comments where board_id = ${board_id}
     </select>
     
     <!-- 카테고리 -->
@@ -109,6 +116,10 @@
     <select id="listCount" resultType="int">
     	select COUNT(problem_id) from problem
     </select>
+    
+    <select id="listCountByCategory" resultType="int">
+    	select COUNT(problem_id) from problem where category_id = #{category_id} 
+    </select>
     <select id="listCountFilter" resultType="int">
     	select COUNT(problem_id) from problem where problem_level = #{problem_level} and category_id = #{category_id} 
     </select>
@@ -116,9 +127,24 @@
     <select id="listCriteria" resultType="ProblemVO">
     	select * from problem limit #{pageStart}, #{perPageNum}
     </select>
+    
     <select id="listCriteriaFilter" resultType="ProblemVO">
     	select * from problem where problem_level = #{problem_level} and category_id = #{category_id}  limit #{pageStart}, #{perPageNum}
     </select>
+    
+    <select id="problem_selectByCategory" resultType="ProblemVO">
+    	select * from problem where category_id = #{category_id}  limit #{pageStart}, #{perPageNum}
+    </select>
+    <!-- 채팅  -->
+    <insert id="chat_insert">
+    	insert into chat (chat_content, chat_date, user_id, problem_id) values (#{chat_content}, #{chat_date}, #{user_id}, #{problem_id})
+    </insert>
+    
+    <!-- 채팅  -->
+    <select id="chat_selectAll" resultType="ChatVO">
+    	select * from chat where problem_id = #{problem_id}
+    </select>
+    
     <insert id="problem_insert">
     <!-- private int problem_id;
 	private String problem_title;

@@ -1,3 +1,8 @@
+			#main > .inner > section {
+	    padding: 1.5em 0 3em 0;
+	    border-top: solid 2px rgba(210, 215, 217, 0.75);
+	}
+			
 			#main > .inner {
 			    padding: 0 6em 0.1em 6em;
 			    margin: 0 auto;
@@ -12,6 +17,7 @@
 			   color: none;  
 			}
 			.title_header{
+				margin:0 0.7em;
 				overflow:auto;
 			}
 			.header_problemid{
@@ -26,11 +32,14 @@
 			.title_box{
 				font-size: 13.5px;
 				font-weight:600;
-				color: #484848;
-				margin:10px 0 0 0;
+				color: #707070;
+				margin:3px 0 0 0;
 				padding:10px;
 				border-top:solid 0.5px #222629;
 				border-bottom:solid 0.5px #222629;
+			}
+			div.title_header div.board_info a{
+				color: #707070;
 			}
 			.content{
 				overflow:auto;
@@ -55,9 +64,11 @@
 			}
 			.board_info{
 				float:right;
+				font-size:  0.8em;
+				margin-bottom:5px;
 			}
 			.board_info img{
-				vertical-align:middle;
+				vertical-align:bottom;
 				margin:3px;
 				width:16.5px;
 				height:16.5px;
@@ -82,14 +93,16 @@
 			.title_box #info_id{
 				float:right;
 			}
-			#comment_list {
+			.comment_list {
 				width:auto;				
 				overflow: auto;
 			}
-			#comment_image {
+			.comment_image {
 				float: left;
 				margin-left:10px;
-				
+			}
+			.comment_image img {
+				border-radius:100%;
 			}
 			.comment_content{
 				margin: 0 0 0 0;
@@ -103,7 +116,7 @@
 				font-size: 12px;
 				color: #707070;
 			}
-			.comment_content #comment_user{
+			.comment_content p.comment_user{
 				font-weight:bold;
 				margin: 0 0 6px 0;
 			}
@@ -124,11 +137,11 @@
 				width:16.5px;
 				height:16.5px;
 			}
-			.comment_info #comment_edit{
+			.comment_info .comment_edit{
 				float:right;
 				font-size: 10px;
 			}
-			.comment_info #comment_date {
+			.comment_info .comment_date {
 				color: #707070;
 				float:right;
 				font-size: 12px;
@@ -152,14 +165,14 @@
 			}
 			.comment_typing_button{
 				position:absolute;
-				bottom: 10px;
+				bottom: 3px;
     			right: 25px;
 				padding:10px;
 				width:auto;				
 				overflow: auto;
 			}
 			
-			.comment_typing #comments_content{
+			.comment_typing p.comments_content{
 				margin: 10px 0px 10px 0px;
 			}
 			
@@ -175,7 +188,7 @@
 			    color: inherit;
 			    display: block;
 			    outline: 0;
-			    padding: 0 1em;
+			    padding: 1em 1.5em;
 			    text-decoration: none;
 			    width: 100%;
 			    font-size:12px;

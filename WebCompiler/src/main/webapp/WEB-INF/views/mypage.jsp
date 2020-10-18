@@ -1,22 +1,31 @@
 <%@ page import="org.dms.web.domain.UserVO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page session="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page session="false"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>My Page</title>
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css" />
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_main.css" />
-	<link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css" />
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_mypage.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" /> <!-- 이게 Font Awesome 5 Free를 사용하게 해주는거 같아요. 이거덕에 사이드바 모양이 보여요! -->
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/modal.css" />
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_code.css" />
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<meta charset="UTF-8">
+<title>My Page</title>
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/css/main.css" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/css/custom_main.css" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/css/custom_mypage.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+<!-- 이게 Font Awesome 5 Free를 사용하게 해주는거 같아요. 이거덕에 사이드바 모양이 보여요! -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/css/modal.css" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/css/custom_code.css" />
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 
 <%	
@@ -34,30 +43,10 @@
 	<div id="wrapper">
 		<!-- Main -->
 		<div id="main">
-		<!-- Header -->
-						<header id="header">
-							<a class="main_logo" href="/"><img src="<%=request.getContextPath()%>/resources/images/main_logo.png" alt="메인페이지" /></a>
-							<a class="header_problem" href="/problem"><img src="<%=request.getContextPath()%>/resources/images/header_problem.png" alt="문제 페이지" />문제풀기</a>
-							<a class="header_board" href="/board"><img src="<%=request.getContextPath()%>/resources/images/header_board.png" alt="게시판 페이지" />자유게시판</a>
-							<c:if test="${user.user_id == null}">
-							<a class="header_signup" href="#"><img src="<%=request.getContextPath()%>/resources/images/header_signup.png" alt="회원가입" /><span>회원가입</span></a>
-							<a class="header_signin" href="/login"><img src="<%=request.getContextPath()%>/resources/images/header_signin.png" alt="로그인" /><span>로그인</span></a>
-							</c:if>
-							<c:if test="${user.user_id != null}">
-							<a class="header_signout" href="/logout.do"><img src="<%=request.getContextPath()%>/resources/images/header_signout.png" alt="로그아웃" /><span>로그아웃</span></a>
-							<div class="header_profile" style="cursor: pointer;" onClick="location.href='/mypage'">
-								<img class="img" src=<%=imgURL%> alt="사용자 사진">
-								<div class="name_intro">
-									<div class="header_name">
-										<a href="?name=Mr.O">${user.user_name}</a>
-									</div>
-									<div class="header_intro">
-										${user.user_introduce}
-									</div>
-								</div>
-							</div>
-							</c:if>
-						</header>
+			<!-- Header -->
+			<jsp:include page="header.jsp" flush="true">
+				<jsp:param name="imgURL" value="<%=imgURL%>" />
+			</jsp:include>
 			<div class="inner">
 				<!-- Content -->
 				<section class="profile">
@@ -91,10 +80,13 @@
 							</div>
 						</form>
 					</div>
+
 				</section>
 
 				<section class="code">
-					<h3 class="board_title"><span>코드 조회</span></h3>
+					<h3 class="board_title">
+						<span>코드 조회</span>
+					</h3>
 					<!-- Break -->
 						<div style="clear: both;" class="col-12 level">
 							<select name="problem_level" id="problem_level">
@@ -223,8 +215,11 @@
 				</section>
 
 				<footer class="footer_btns">
-					<button class="btn_change_pwd" type="button" name="button">비밀번호 변경</button>
-					<button class="btn_withdraw" type="button" name="button" onClick="location.href='/mypage/delete/${user.user_id}'">회원 탈퇴</button>
+					<button class="btn_change_pwd" type="button" name="button">비밀번호
+						변경</button>
+					<button class="btn_withdraw" type="button" name="button"
+						onClick="location.href='/mypage/delete/${user.user_id}'">회원
+						탈퇴</button>
 					<!-- <div class="modal hidden">
 				    	<div class="modal_overlay">
 				        </div>
@@ -239,12 +234,16 @@
 	</div>
 
 	<!-- Scripts -->
-	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/profile.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/profile.js"></script>
 	<%-- <script src="${pageContext.request.contextPath}/resources/js/modal.js"></script> --%>
 	<script type="text/javascript">
 		let page_ = 1;

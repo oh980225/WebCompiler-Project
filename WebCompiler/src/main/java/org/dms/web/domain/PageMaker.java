@@ -12,8 +12,13 @@ public class PageMaker {
 	private int displayPageNum = 8;
 	private Criteria cri;
 	
+	public void setDisplayPageNum() {
+		this.displayPageNum = cri.getPerPageNum();
+	}
+	
 	public void setCri(Criteria cri) {
 		this.cri = cri;
+		setDisplayPageNum();
 	}
 	
 	public void setTotalCount(int totalCount) {
@@ -63,10 +68,10 @@ public class PageMaker {
 	
 	public String makeQuery(int page) {
 		UriComponents uriComponents =
-		/*UriComponentsBuilder.newInstance()
+		UriComponentsBuilder.newInstance()
 						    .queryParam("page", page)
 							.queryParam("perPageNum", cri.getPerPageNum())
-							.build();*/
+							.build();
 		UriComponentsBuilder.newInstance()
 	    .queryParam("page", page)
 		//.queryParam("perPageNum", cri.getPerPageNum())

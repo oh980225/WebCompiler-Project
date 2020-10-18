@@ -72,11 +72,22 @@ public class ProblemServiceImpl implements ProblemService {
 		// TODO Auto-generated method stub
 		return problemDAO.ProblemCount(level, category);
 	}
+	
+	@Override
+	public int ProblemCount(String category) throws Exception {
+		// TODO Auto-generated method stub
+		return problemDAO.ProblemCount(category);
+	}
 
 	@Override
 	public List<ProblemVO> readProblemList(int level, String category, Criteria cri) throws Exception {
 		// TODO Auto-generated method stub
 		return problemDAO.readList(level, category, cri);
+	}
+	@Override
+	public List<ProblemVO> readProblemList(String category, Criteria cri) throws Exception {
+		// TODO Auto-generated method stub
+		return problemDAO.readList(category, cri);
 	}
 	
 

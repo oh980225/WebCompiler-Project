@@ -1,7 +1,7 @@
 <%@page import="org.dms.web.domain.UserVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%	
 	String imgURL = "";
@@ -16,127 +16,177 @@
 %>
 
 <!DOCTYPE HTML>
-<!--
-	Editorial by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+
 <html>
-	<head>
-		<title>코드 스페이스</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css" type="text/css"/>
-		<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/custom_main.css" type="text/css"/>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" /> <!-- 이게 Font Awesome 5 Free를 사용하게 해주는거 같아요. 이거덕에 사이드바 모양이 보여요! -->
-	</head>
-	<body class="is-preload">
+<head>
+<title>코드 스페이스</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/css/main.css"
+	type="text/css" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/css/custom_main.css"
+	type="text/css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+<!-- 이게 Font Awesome 5 Free를 사용하게 해주는거 같아요. 이거덕에 사이드바 모양이 보여요! -->
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+<script>
+		function setupTypewriter(t) {
+			
+	        var HTML = t.innerHTML;
+	        t.innerHTML = "";
 
-				<!-- Main -->
-					<div id="main">
-						<!-- Header -->
-								<!--<header id="header">
-									<a href="/" class="logo"><strong>FULL STACK</strong> DEVELOPER</a>
-									<!-- 바꾸기 -->																
-									<!--<c:if test="${user.user_id == null}">
-										<ul class="icons">
-											<li><a href="/login">로그인</a></li>
-											<li><a href="/join">회원가입</a></li>
-										</ul>
-									</c:if>
-									<c:if test="${user.user_id != null}">
-										<ul class="icons">
-											<li><a href="/logout.do">로그아웃</a></li>
-										</ul>
-									</c:if>				
-								</header> -->
-						<!-- -->
-						<!-- Header -->
-						<!-- Header -->
-						<header id="header">
+	        var cursorPosition = 0,
+	            tag = "",
+	            writingTag = false,
+	            tagOpen = false,
+	            typeSpeed = 100,
+	        tempTypeSpeed = 0;
+
+	        var type = function() {
+	        
+	            if (writingTag === true) {
+	                tag += HTML[cursorPosition];
+	            }
+
+	            if (HTML[cursorPosition] === "<") {
+	                tempTypeSpeed = 0;
+	                if (tagOpen) {
+	                    tagOpen = false;
+	                    writingTag = true;
+	                } else {
+	                    tag = "";
+	                    tagOpen = true;
+	                    writingTag = true;
+	                    tag += HTML[cursorPosition];
+	                }
+	            }
+	            if (!writingTag && tagOpen) {
+	                tag.innerHTML += HTML[cursorPosition];
+	            }
+	            if (!writingTag && !tagOpen) {
+	                if (HTML[cursorPosition] === " ") {
+	                    tempTypeSpeed = 0;
+	                }
+	                else {
+	                    tempTypeSpeed = (Math.random() * typeSpeed) + 50;
+	                }
+	                t.innerHTML += HTML[cursorPosition];
+	            }
+	            if (writingTag === true && HTML[cursorPosition] === ">") {
+	                tempTypeSpeed = (Math.random() * typeSpeed) + 50;
+	                writingTag = false;
+	                if (tagOpen) {
+	                    var newSpan = document.createElement("span");
+	                    t.appendChild(newSpan);
+	                    newSpan.innerHTML = tag;
+	                    tag = newSpan.firstChild;
+	                }
+	            }
+
+	            cursorPosition += 1;
+	            if (cursorPosition < HTML.length) {
+	                setTimeout(type, tempTypeSpeed);
+	            }
+
+	        };
+
+	        return {
+	            type: type
+	        };
+	    }
+	    function typing(){
+		    var cpptyper = document.getElementById('cpptypo');
+		    cpptypewriter = setupTypewriter(cpptypo);    
+		    cpptypewriter.type();
+		}
+
+	    window.onload = setInterval(function (){
+	    	typing();
+	    }, 4000);
+	    
+		</script>
+</head>
+<body class="is-preload">
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<div id="main">
+			<jsp:include page="header.jsp" flush="true">
+				<jsp:param name="imgURL" value="<%=imgURL%>" />
+			</jsp:include>
+			<!--  <header id="header">
 							<a class="main_logo" href="/"><img src="<%=request.getContextPath()%>/resources/images/main_logo.png" alt="메인페이지" /></a>
-							<a class="header_problem" href="/problem"><img src="<%=request.getContextPath()%>/resources/images/header_problem.png" alt="문제 페이지" />문제풀기</a>
+							<a class="header_problem" href="/problem"><img src="<%=request.getContextPath()%>/resources/images/coding.png" alt="문제 페이지" />문제풀기</a>
 							<a class="header_board" href="/board"><img src="<%=request.getContextPath()%>/resources/images/header_board.png" alt="게시판 페이지" />자유게시판</a>
+							<a class="header_problem" href="#"><img src="/resources/images/header_problem.png"/>개념다잡기</a>
+							<a class="header_problem_insert" href="/problem/insert"><img src="/resources/images/problem_insert.png"/>문제등록</a>
+							
 							<c:if test="${user.user_id == null}">
-							<a class="header_signup" href="/join"><img src="<%=request.getContextPath()%>/resources/images/header_signup.png" alt="회원가입" /><span>회원가입</span></a>
-							<a class="header_signin" href="/login"><img src="<%=request.getContextPath()%>/resources/images/header_signin.png" alt="로그인" /><span>로그인</span></a>
+								<a class="header_signup" href="/join"><span>회원가입</span></a>
+								<a class="header_signin" href="/login"><span>로그인</span></a>
 							</c:if>
 							<c:if test="${user.user_id != null}">
-							<a class="header_signout" href="/logout.do"><img src="<%=request.getContextPath()%>/resources/images/header_signout.png" alt="로그아웃" /><span>로그아웃</span></a>
-							<div class="header_profile" style="cursor: pointer;" onClick="location.href='/mypage'">
-								<img class="img" src=<%=imgURL%> alt="사용자 사진">
-								<div class="name_intro">
-									<div class="header_name">
-										<a href="?name=Mr.O">${user.user_name}</a>
-									</div>
-									<div class="header_intro">
-										${user.user_introduce}
+								<a class="header_signout" href="/logout.do"><span>로그아웃</span></a>
+								<div class="header_profile" style="cursor: pointer;" onClick="location.href='/mypage'">
+									<img class="img" src=<%=imgURL%> alt="사용자 사진">
+									<div class="name_intro">
+										<div class="header_name">
+											<a href="?name=Mr.O">${user.user_name}</a>
+										</div>
+										<div class="header_intro">
+											${user.user_introduce}
+										</div>
 									</div>
 								</div>
-							</div>
 							</c:if>
 
 						</header>
-						<div class="inner">
-							<!-- Banner -->
-								<section id="banner">
-									
-								</section>
+						-->
+			<div class="inner">
 
-							<!-- Section -->
-								<section>
 
-								</section>
+				<img class="main_image"
+					src="<%=request.getContextPath()%>/resources/images/main_custom.png" />
 
-							<!-- Section -->
-								<section>
-									
-								</section>
+				<div class="typo">
+					<span class="blue">std</span>::<span class="green">cout</span> ＜＜ <span
+						class="red" id="cpptypo">"CODE SPACE" </span> ＜＜ <span
+						class="blue">std</span>::<span class="yello">endl</span>;</span>
+					</pre>
 
-						</div>
-					</div>
 
-				<!-- Sidebar -->
+					<!-- Banner -->
 
-					<%-- <div id="sidebar">
 
-						<div class="inner">
-							
-								<nav id="menu">
-									<header class="major">
-										<img class="icon" src="<%=request.getContextPath()%>/resources/images/user.png">
-										
-										<c:if test="${user.user_id == null}">
-										<h3 class="name"><a href="/login">먼저 로그인 해주세요!</a></h3>
-										</c:if>
-										<c:if test="${user.user_id != null}">
-											<h3 class="name"><a href="/mypage">${user.user_id}</a></h3>
-										</c:if>
-									</header>
-									<ul>
-										
-										<li><a href="/"><img class="icon" src="<%=request.getContextPath()%>/resources/images/main_icon.png" alt="Main Page" />Main Page</a></li>
-										
-										<li><a href="/problem"><img class="icon" src="<%=request.getContextPath()%>/resources/images/problem_icon.png" alt="Problem Page" />Problem</a></li>
-										<li><a href="/board"><img class="icon" src="<%=request.getContextPath()%>/resources/images/board_icon.png" alt="Board Page" />Board</a>
-										</li>
-									</ul>
-								</nav>
-						</div>
+				</div>
 
-					</div> --%>
 
 			</div>
+			<footer>
+				<p>
+					2020 한이음<br>
+				<p style="margin:0;"><a href="https://github.com/DongGeon0908">@한신대학교 김동건&emsp;</a><a href="https://github.com/mindi1206"> @한국산업기술대학교 김민지</a>&emsp;<a href="https://github.com/oh980225">@서울과학기술대학교 오승재</a><br>
+				<p style="font-size:0.7em;"><a href="https://lab.hanium.or.kr/20_hf431" class="teamlab" >https://lab.hanium.or.kr/20_hf431</a>
+			</footer>
 
-		<!-- Scripts -->
-			<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-			<script src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
-			<script src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
-			<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
-			<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 
-	</body>
+		</div>
+	</div>
+
+	<!-- Scripts -->
+	<script
+		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/browser.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/breakpoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+</body>
 </html>

@@ -20,4 +20,6 @@ public interface ProblemService {
 	
 	// 문제 목록 조회
 	public List<ProblemVO> readProblemList(Criteria cri) throws Exception;
+	List<ProblemVO> readProblemList(String category, Criteria cri) throws Exception;
+	public int ProblemCount(String category) throws Exception;
 }

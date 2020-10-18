@@ -39,6 +39,7 @@ public class UserDAOImpl implements UserDAO {
 		
 		user.setUser_img(imageInByte);
 		*/
+		sqlSession.insert(namespace + ".user_insert", user);
 	}
 
 	@Override

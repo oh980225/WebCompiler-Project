@@ -51,36 +51,85 @@ public class ProblemController {
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
 	@RequestMapping(value = "/problem", method = RequestMethod.GET)
-	public String test(HttpSession session, Locale locale, Model model, Criteria cri) throws Exception {
+
+	public String test(Locale locale, Model model, Criteria cri, HttpSession session) throws Exception {
 		logger.info("page:" +  cri.getPage());
 		logger.info("perPageNum:" +  cri.getPerPageNum());
-		List<CategoryVO> cvo = categoryService.readCategoryList();
-		List<ProblemVO> pvo = problemService.readProblemList(cri);
+		UserVO user = (UserVO)session.getAttribute("user");
+		if(user == null) {
+			List<ProblemVO> pvo = problemService.readProblemList(cri);
+			List<CategoryVO> cvo = categoryService.readCategoryList();
 
-		PageMaker pageMaker = new PageMaker();
-		cri.setPerPageNum(8);
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(problemService.ProblemCount());
-		
-		logger.info("page: " +  cri.getPage());
-		
-		UserVO user = (UserVO) session.getAttribute("user");
-		
-		boolean[] successList = new boolean[8];
-		int index = 0;
-		
-		for(ProblemVO problem : pvo) {
-			successList[index++] = codeService.IsSuccess(user.getUser_id(), problem.getProblem_id());
+			PageMaker pageMaker = new PageMaker();
+			cri.setPerPageNum(8);
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(problemService.ProblemCount());
+			
+			logger.info("page: " +  cri.getPage());
+			model.addAttribute("category", cvo);			
+			model.addAttribute("problem", pvo);
+			model.addAttribute("pageMaker", pageMaker);
+			model.addAttribute("cri", cri);
+			return "menutest";
+
 		}
+		else {
+			String user_id = user.getUser_id();
+			List<ProblemVO> pvo = problemService.readProblemList(cri);
+			List<CategoryVO> cvo = categoryService.readCategoryList();
+			
+			boolean[] successList = new boolean[8];
+			int index = 0;
+			
+			for(ProblemVO problem : pvo) {
+				successList[index++] = codeService.IsSuccess(user.getUser_id(), problem.getProblem_id());
+			}
+
+			PageMaker pageMaker = new PageMaker();
+			cri.setPerPageNum(8);
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(problemService.ProblemCount());
+			
+			logger.info("page: " +  cri.getPage());
+			
+			model.addAttribute("category", cvo);
+			model.addAttribute("user", user);
+			model.addAttribute("problem", pvo);
+			model.addAttribute("pageMaker", pageMaker);
+			model.addAttribute("cri", cri);
+			
+			model.addAttribute("successList", successList);
+			
+			return "problem_list";
+			//return "menutest";
+
+		}
+
+		//PageMaker pageMaker = new PageMaker();
+		//cri.setPerPageNum(8);
+		///pageMaker.setCri(cri);
+		//pageMaker.setTotalCount(problemService.ProblemCount());
 		
-		model.addAttribute("user", user);
-		model.addAttribute("category", cvo);
-		model.addAttribute("problem", pvo);
-		model.addAttribute("pageMaker", pageMaker);
-		model.addAttribute("cri", cri);
-		model.addAttribute("successList", successList);
+		//logger.info("page: " +  cri.getPage());
 		
-		return "problem_list";
+		//UserVO user = (UserVO) session.getAttribute("user");
+		
+		//boolean[] successList = new boolean[8];
+		//int index = 0;
+		
+		//for(ProblemVO problem : pvo) {
+		//	successList[index++] = codeService.IsSuccess(user.getUser_id(), problem.getProblem_id());
+		//}
+		
+		//model.addAttribute("user", user);
+		//model.addAttribute("category", cvo);
+		//model.addAttribute("problem", pvo);
+		//model.addAttribute("pageMaker", pageMaker);
+		//model.addAttribute("cri", cri);
+		//model.addAttribute("successList", successList);
+		
+		//return "problem_list";
+
 	}
 	
 	@RequestMapping(value = "/problem.do", method = RequestMethod.GET)
@@ -127,6 +176,25 @@ public class ProblemController {
 			}
 			return map;
 		}
+		else if (problem_level == 0 && category_name != "unselected") {
+			logger.info("category: " + category_name);
+			
+			List<ProblemVO> pvo = problemService.readProblemList(category_name, cri);
+			int count = problemService.ProblemCount(category_name);
+			PageMaker pageMaker = new PageMaker();
+			cri.setPerPageNum(8);
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(count);
+			
+			map.put("pageMaker", pageMaker);
+			map.put("list", pvo);
+			
+			logger.info("count: " + count);
+			for(ProblemVO vo : pvo) {
+				logger.info(vo.getProblem_id() + " : " + vo.getProblem_title());
+			}
+			return map;
+		}
 		else {
 			logger.info("level: " + problem_level);
 			logger.info("category: " + category_name);
@@ -162,11 +230,12 @@ public class ProblemController {
 	@RequestMapping(value="/problem/{problem_id}", method=RequestMethod.GET)
 	public String problemGet(@PathVariable("problem_id") int problem_id, Model model, HttpSession session) throws Exception {
 		//logger.info("踰덊샇: "+ problem_id);
-		session.setAttribute("problem_id", problem_id);
-		
+		UserVO user = (UserVO)session.getAttribute("user");
 		ProblemVO pvo = problemService.readProblem(problem_id);
 		TestcaseVO tvo= testcaseService.readTestcase(problem_id);
 		
+		session.setAttribute("problem_id", problem_id);
+		model.addAttribute("user", user);
 		model.addAttribute("problem", pvo);
 		model.addAttribute("testcase", tvo);
 		//logger.info(vo.getProblem_title() + " " + vo.getProblem_id() + " " + vo.getProblem_content());	

@@ -25,10 +25,11 @@ public class UserController {
 			return "join";
 		}
 		
-		@RequestMapping(value = "/join", method=RequestMethod.POST)
+		@RequestMapping(value = "/join.do", method=RequestMethod.POST)
 		public String joinPost(@ModelAttribute("user") UserVO uvo) throws Exception{
+			logger.info("hello");
 			userService.insertUser(uvo);
-			return "main";
+			return "redirect:/";
 		}
 		
 		@RequestMapping(value = "/login", method=RequestMethod.GET)
