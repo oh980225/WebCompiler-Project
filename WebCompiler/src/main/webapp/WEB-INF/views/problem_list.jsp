@@ -204,6 +204,9 @@
 					<input class="search" type="text" name="search" placeholder="검색">
 
 					<br>
+					
+					
+					
 
 					<div id="container" class="container">
 						<c:forEach var="problem" items="${problem}" varStatus="status">

@@ -100,8 +100,8 @@ public class ProblemController {
 			
 			model.addAttribute("successList", successList);
 			
-			return "problem_list";
-			//return "menutest";
+			//return "problem_list";
+			return "menutest";
 
 		}
 

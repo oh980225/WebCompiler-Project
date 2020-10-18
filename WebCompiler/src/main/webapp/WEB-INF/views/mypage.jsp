@@ -109,7 +109,7 @@
 								</select>
 								<div class="select_arrow"></div>
 							</div>
-							<button id="searchBtn" class="searchBtn">검색</button>
+							<!-- <button id="searchBtn" class="searchBtn">검색</button>
 							<div class="col-12 name">
 								<select name="demo-category" id="demo-category2">
 									<option value="">-- 선택 --</option>
@@ -118,9 +118,31 @@
 								</select>
 								<div class="small_arrow"></div>
 							</div>
-							<input id="searchInput" class="search" type="text" name="search" placeholder="검색">
+							<input id="searchInput" class="search" type="text" name="search" placeholder="검색"> -->
+							
+							
+							<div class="wrapper">
+					<div class="search_box">
+
+						<div class="dropdown">
+
+							<div class="default_option" id="search_option">번호</div>
+							<ul>
+								<li>번호</li>
+								<li>제목</li>
+							</ul>
+						</div>
+						<div class="search_field">
+							<input type="text" class="input" id="searchInput"> <i
+								id="searchBtn" class="fas fa-search"></i>
+						</div>
+					</div>
+					</div>
+							
+							
 							<br class="clear"> <!-- change -->
-							<br>
+
+							
 							<!-- Table -->
 							<div class="table-wrapper">
 								<table>
@@ -136,22 +158,34 @@
 									<tbody>
 										<c:forEach var="codeBoard" items="${codeBoardList}" varStatus="st_">
 										<tr class="open" id="tr${st_.index}">
-											<td id="code_board_problem_id">${codeBoard.problem_id}</td>
+											<td class="problem_id" id="code_board_problem_id">${codeBoard.problem_id}</td>
 											<td id="code_board_problem_title">${codeBoard.problem_title}</td>
 											<td>
 												<c:if test="${codeBoard.problem_level == 1}">
-												<div id="code_board_problem_level" class="problem_level1">
-													LEVEL 1
+												<div id="code_board_problem_level" class="problem_level" style="background-color: #FFCC80 ">
+													LEVEL ${codeBoard.problem_level}
 												</div>
 												</c:if>
 												<c:if test="${codeBoard.problem_level == 2}">
-												<div id="code_board_problem_level" class="problem_level2">
-													LEVEL 2
+												<div id="code_board_problem_level" class="problem_level" style="background-color: #7BC379">
+													LEVEL ${codeBoard.problem_level}
 												</div>
 												</c:if>
 												<c:if test="${codeBoard.problem_level == 3}">
-												<div id="code_board_problem_level" class="problem_level3">
-													LEVEL 3
+												<div id="code_board_problem_level" class="problem_level" style="background-color: #79BCC3">
+													LEVEL ${codeBoard.problem_level}
+												</div>
+												</c:if>
+												
+												<c:if test="${codeBoard.problem_level == 5}">
+												<div id="code_board_problem_level" class="problem_level" style="background-color: #EA7862">
+													LEVEL ${codeBoard.problem_level}
+												</div>
+												</c:if>
+												
+												<c:if test="${codeBoard.problem_level == 4}">
+												<div id="code_board_problem_level" class="problem_level" style="background-color: #8C699B">
+													LEVEL ${codeBoard.problem_level}
 												</div>
 												</c:if>
 											</td>
@@ -199,18 +233,29 @@
 									<li class="page_num"><a href="#"><</a></li>
 									</c:if>
 									<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="page">
-									<c:if test="${page== 1}">
+									<c:if test="${criteria.page eq page}">
+									<li class="page_num page_on" onclick="javascript:getBoardList(this.value)" value="${page}"><a
+										>${page}</a></li>
+								</c:if>
+								<c:if test="${criteria.page != page}">
+									<li class="page_num" onclick="javascript:getBoardList(this.value)" value="${page}"><a
+										>${page}</a></li>
+								</c:if>
+									
+									<%-- <c:if test="${page== 1}">
 									<li class="page_num" onclick="javascript:getBoardList(this.value)" value="${page}"><a style="color: black !important;">${page}</a></li>
 									</c:if>
 									<c:if test="${page != 1}">
 									<li class="page_num" onclick="javascript:getBoardList(this.value)" value="${page}"><a>${page}</a></li>
-									</c:if>
+									</c:if> --%>
 									</c:forEach>
 									<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 									<li class="page_num"><a href="#">></a></li>
 									</c:if>
 								</ul>
 							</div>
+							
+							
 						</form>
 				</section>
 
@@ -245,6 +290,28 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/js/profile.js"></script>
 	<%-- <script src="${pageContext.request.contextPath}/resources/js/modal.js"></script> --%>
+	
+	<script>
+	var on = 1;
+	$(".default_option").click(function(){
+	  if(on == 1){
+	     $(".dropdown ul").addClass("active");
+	    on = 0;
+	  }
+	  else{
+	    $(".dropdown ul").removeClass("active");
+	    on = 1;
+	  }
+	 
+	});
+
+	$(".dropdown ul li").click(function(){
+	  var text = $(this).text();
+	  $(".default_option").text(text);
+
+	  $(".dropdown ul").removeClass("active");
+	});
+	</script>
 	<script type="text/javascript">
 		let page_ = 1;
 		let search_category = null
@@ -399,7 +466,7 @@
 						 list = `<div id=` + i + ` class="history row">
 								<span class="cell col1">` + code_date + `</span>
 								<span class="cell col2">` + code_lang + `</span>
-								<span class="cell col3"><img style="cursor:default" src="<%=request.getContextPath()%>/resources/images/` + code_success + `" width="25em" height="25em" alt=""></span>
+								<span class="cell col3"><img style="cursor:default" src="<%=request.getContextPath()%>/resources/images/` + code_success + `" width="20em" height="20em" alt=""></span>
 								<span class="cell col4">` + code_open + `</span>
 							</div>`;
 						 let nodes_ = new DOMParser().parseFromString(list, 'text/html');
@@ -501,7 +568,7 @@
 		            
 		            for(var i=pageMaker.startPage; i < pageMaker.endPage + 1; i++) {
 			            if(page == i){
-			            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + '<a style="color:black !important;">' + i+ "</a>" + '</li>');
+			            	$("#pagenav").append('<li class="page_num page_on" onclick="getBoardList(' + i + ')" value="' + i + '">' + '<a style="color:black !important;">' + i+ "</a>" + '</li>');
 				        }
 			            else{
 			            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + "<a>" + i+ "</a>" +'</li>');
@@ -520,10 +587,20 @@
 
 		const searchInput = document.getElementById("searchInput");
 		const searchBtn = document.getElementById("searchBtn");
-		const searchCategory = document.getElementById("demo-category2");
+		//const searchCategory = document.getElementById("demo-category2");
 
 		const searchMyCode = () => {
-			search_category = searchCategory.options[searchCategory.selectedIndex].value;
+			var temp = $("#search_option").text();
+			if(temp == "번호"){
+				temp="problem_id";
+			}
+			else if(temp == "제목"){
+				temp="problem_title";
+				}
+			else{
+				temp="problem_title";
+				}
+			search_category = /*searchCategory.options[searchCategory.selectedIndex].value*/temp;
 			search = searchInput.value;
 			console.log("category: " + search_category);
 			console.log("search: " + search);
@@ -587,7 +664,7 @@
 			            
 			            for(var i=pageMaker.startPage; i < pageMaker.endPage + 1; i++) {
 				            if(page_ == i){
-				            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + '<a style="color:black !important;">' + i+ "</a>" + '</li>');
+				            	$("#pagenav").append('<li class="page_num page_on" onclick="getBoardList(' + i + ')" value="' + i + '">' + '<a style="color:black !important;">' + i+ "</a>" + '</li>');
 					        }
 				            else{
 				            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + "<a>" + i+ "</a>" +'</li>');

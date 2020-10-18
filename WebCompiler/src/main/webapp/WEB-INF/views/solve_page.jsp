@@ -57,6 +57,7 @@
 				</select>
 			</div>
 		</header>
+		<div style="height:calc(100vh - 2.8em);">
 		<aside>
 			<div class="problem">
 				<div class="problem_content">
@@ -185,6 +186,8 @@
 				<button class="execute_btn" type="button" name="button">실행</button>
 			</div>
 		</section>
+		
+		</div>
 	</div>
 	<script type="text/javascript">
 	one = document.getElementById("one");
@@ -218,7 +221,7 @@
 	}
 
 	function connect(){
-		websocket = new WebSocket("ws://localhost:8080/chat.do");
+		websocket = new WebSocket("ws://localhost:8080/ws/chat.do");
 		//웹 소켓에 이벤트가 발생했을 때 호출될 함수 등록
 		websocket.onopen = onOpen;
 		websocket.onmessage = onMessage;

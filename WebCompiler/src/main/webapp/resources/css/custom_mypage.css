@@ -196,7 +196,7 @@ section.profile h3.head {
   display: inline-block;
   float: left;
   border-bottom: 3px solid black;
-  font-weight: lighter;
+  font-weight: 700;
 }
 
 br.clear {
