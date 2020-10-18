@@ -32,7 +32,7 @@
 		<interceptor>
 			<mapping path="/category"/>
 			<mapping path="/vul_check"/>
-			<mapping path="/problem/{problem_id}"/>
+			<mapping path="/problem"/>
 			<!-- <mapping path="/board/**"/> -->
 			<mapping path="/mypage"/>
 			<beans:ref bean="LoginInterceptor"/>

@@ -52,57 +52,33 @@
 				<section class="profile">
 					<h3 class="head">마이페이지</h3>
 					<br class="clear">
-					<div style="float: center">
-						<div class="profile_img">
-							<img class="img" src=<%=imgURL%>>
-							<%-- <form id="img_form" action="/mypage/saveImage" enctype="multipart/form-data" method="post">
+					<div class="profile_img">
+						<img class="img" src=<%=imgURL%>>
+						<label for="pictureBtn"></label>
+						<form id="img_form" action="/mypage/saveImage" enctype="multipart/form-data" method="post">
 							<input type="hidden" name="user_id" value="${user.user_id}" />
-    						<input type="file" onChange="endImageSave();" name="user_image" />
+							<input id="pictureBtn" type="file" name="user_img" onChange="document.getElementById('img_form').submit(); console.log(this.files);">
 						</form>
-						<button class="btn_img" type="button" name="button" onClick="changeImageSaveMode();">사진 변경</button> --%>
-							<label for="pictureBtn"></label>
-							<form id="img_form" action="/mypage/saveImage"
-								enctype="multipart/form-data" method="post">
+					</div>
+					<div class="profile_name">
+						<form id="name_form" method="post">
+							<div class="editBox">
+								<input type="text" name="user_name" value="${user.user_name}">
+								<input type="hidden" name="user_introduce" value="${user.user_introduce}" />
 								<input type="hidden" name="user_id" value="${user.user_id}" />
-								<input id="pictureBtn" type="file" name="user_img"
-									onChange="document.getElementById('img_form').submit(); console.log(this.files);">
-							</form>
-						</div>
-						<div class="profile_name">
-							<%-- <h3 id="user_name">${user.user_name}</h3> --%>
-							<%-- <form id="name_form" method="post">
-							<input id="input_name" type="text" name="user_name" value="" />
-							<input type="hidden" name="user_introduce" value="${user.user_introduce}" />
-							<input type="hidden" name="user_id" value="${user.user_id}" />
+								<button  type="button" name="button" onClick="submit();"></button>
+							</div>
 						</form>
-						<button class="btn_name" type="button" name="닉네임 변경" onClick="changeName();">닉네임 변경</button> --%>
-							<form id="name_form" method="post">
-								<div class="editBox">
-									<input type="text" name="user_name" value="${user.user_name}">
-									<input type="hidden" name="user_introduce"
-										value="${user.user_introduce}" /> <input type="hidden"
-										name="user_id" value="${user.user_id}" />
-									<button type="button" name="button" onClick="submit();"></button>
-								</div>
-							</form>
-						</div>
-						<div class="profile_introduce">
-							<%-- <h3 id="user_introduce">${user.user_introduce}</h3>
-						<form id="introduce_form" method="post">
-							<input id="input_introduce" type="text" name="user_introduce" value="" />
-							<input type="hidden" name="user_name" value="${user.user_name}" />
-							<input type="hidden" name="user_id" value="${user.user_id}" />
+					</div>
+					<div class="profile_introduce">
+						<form id="intro_form" method="post">
+							<div class="editBox">
+								<textarea name="user_introduce" rows="4" cols="50">${user.user_introduce}</textarea>
+								<input type="hidden" name="user_name" value="${user.user_name}" />
+								<input type="hidden" name="user_id" value="${user.user_id}" />
+								<button type="button" name="button" onClick="submit();"></button>
+							</div>
 						</form>
-						<button class="btn_introduce" type="button" name="소개 변경" onClick="changeIntroduce();">소개 변경</button> --%>
-							<form id="intro_form" method="post">
-								<div class="editBox">
-									<textarea name="user_introduce" rows="4" cols="50">${user.user_introduce}</textarea>
-									<input type="hidden" name="user_name" value="${user.user_name}" />
-									<input type="hidden" name="user_id" value="${user.user_id}" />
-									<button type="button" name="button" onClick="submit();"></button>
-								</div>
-							</form>
-						</div>
 					</div>
 
 				</section>
@@ -112,128 +88,130 @@
 						<span>코드 조회</span>
 					</h3>
 					<!-- Break -->
-					<div style="clear: both;" class="col-12 level">
-						<select name="demo-category" id="demo-category">
-							<option value="">- Level -</option>
-							<option value="1">Bronze</option>
-							<option value="1">Silver</option>
-							<option value="1">Gold</option>
-						</select>
-						<div class="select_arrow"></div>
-					</div>
-					<!-- Break -->
-					<div class="col-12 kind">
-						<select name="demo-category" id="demo-category1">
-							<option value="">- AC/WA -</option>
-							<option value="1">Sort</option>
-							<option value="1">Tree</option>
-							<option value="1">For</option>
-							<option value="1">While</option>
-							<option value="1">If</option>
-							<option value="1">DP</option>
-						</select>
-						<div class="select_arrow"></div>
-					</div>
-					<div class="col-12 name">
-						<select name="demo-category" id="demo-category2">
-							<option value="">- 제목 -</option>
-							<option value="1">Sort</option>
-							<option value="1">Tree</option>
-							<option value="1">For</option>
-							<option value="1">While</option>
-							<option value="1">If</option>
-							<option value="1">DP</option>
-						</select>
-						<div class="small_arrow"></div>
-					</div>
-					<input class="search" type="text" name="search" placeholder="검색">
-					<br class="clear">
-					<!-- change -->
-					<br>
-					<!-- Table -->
-					<div class="table-wrapper">
-						<table>
-							<thead>
-								<tr>
-									<th>번호</th>
-									<th>제목</th>
-									<th>레벨</th>
-									<th>제출</th>
-									<th>AC/WA</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach var="codeBoard" items="${codeBoardList}"
-									varStatus="st_">
-									<tr class="open" id="${st_.index}">
-										<td>${codeBoard.problem_id}</td>
-										<td>${codeBoard.problem_title}</td>
-										<td><c:if test="${codeBoard.problem_level == 1}">
-												<div class="problem_level1">LEVEL 1</div>
-
-											</c:if> <c:if test="${codeBoard.problem_level == 2}">
-
-												<div class="problem_level2">LEVEL 2</div>
-											</c:if> <c:if test="${codeBoard.problem_level == 3}">
-												<div class="problem_level3">LEVEL 3</div>
-											</c:if></td>
-										<td><fmt:formatDate pattern="yyyy.MM.dd"
-												value="${codeBoard.code_date}" /></td>
-										<td><img
-											src="<%=request.getContextPath()%>/resources/images/${codeBoard.code_success == 1 ? 'check.png' : 'notCheck.png'}"
-											width="20em" height="20em" alt=""></td>
-									</tr>
-								</c:forEach>
-								<div class="modal hidden">
-									<div class="modal_overlay"></div>
-									<div class="modal_content">
-										<header class="modal_header">
-											<span class="title">코드조회</span> <img class="close"
-												src="<%=request.getContextPath()%>/resources/images/close.png"
-												width="15em" height="15em" alt="닫기">
-										</header>
-										<div class="modal_left">
-											<h3 class="problem_name"></h3>
-											<div class="modal_level"></div>
-											<div class="modal_wrap">
-												<div id="table">
-													<div class="head row">
-														<span class="head col1">제출</span> <span class="head col2">언어</span>
-														<span class="head col3">AC/WA</span> <span
-															class="head col4">공개</span>
+						<div style="clear: both;" class="col-12 level">
+							<select name="problem_level" id="problem_level">
+								<option value="0">------ 선택 ------</option>
+								<option value="1">LEVEL 1</option>
+								<option value="2">LEVEL 2</option>
+								<option value="3">LEVEL 3</option>
+								<option value="4">LEVEL 4</option>
+								<option value="5">LEVEL 5</option>
+							</select>
+							<div class="select_arrow"></div>
+						</div>
+						<!-- Break -->
+							<div class="col-12 kind">
+								<select name="category_name" id="category_name">
+									<option value="unselected">------ 선택 ------</option>
+                            		<c:forEach var="category" items="${category}">
+									<option value="${category.category_id}">${category.category_name}</option>
+									</c:forEach>
+								</select>
+								<div class="select_arrow"></div>
+							</div>
+							<button id="searchBtn" class="searchBtn">검색</button>
+							<div class="col-12 name">
+								<select name="demo-category" id="demo-category2">
+									<option value="">-- 선택 --</option>
+									<option value="problem_title">제목</option>
+									<option value="problem_id">문제번호</option>
+								</select>
+								<div class="small_arrow"></div>
+							</div>
+							<input id="searchInput" class="search" type="text" name="search" placeholder="검색">
+							<br class="clear"> <!-- change -->
+							<br>
+							<!-- Table -->
+							<div class="table-wrapper">
+								<table>
+									<thead>
+										<tr>
+											<th>번호</th>
+											<th>제목</th>
+											<th>레벨</th>
+											<th>제출</th>
+											<th>AC/WA</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="codeBoard" items="${codeBoardList}" varStatus="st_">
+										<tr class="open" id="tr${st_.index}">
+											<td id="code_board_problem_id">${codeBoard.problem_id}</td>
+											<td id="code_board_problem_title">${codeBoard.problem_title}</td>
+											<td>
+												<c:if test="${codeBoard.problem_level == 1}">
+												<div id="code_board_problem_level" class="problem_level1">
+													LEVEL 1
+												</div>
+												</c:if>
+												<c:if test="${codeBoard.problem_level == 2}">
+												<div id="code_board_problem_level" class="problem_level2">
+													LEVEL 2
+												</div>
+												</c:if>
+												<c:if test="${codeBoard.problem_level == 3}">
+												<div id="code_board_problem_level" class="problem_level3">
+													LEVEL 3
+												</div>
+												</c:if>
+											</td>
+											<td id="code_board_code_date"><fmt:formatDate pattern="yyyy.MM.dd" value="${codeBoard.code_date}"/></td>
+											<td id="code_board_code_success"><img src="<%=request.getContextPath()%>/resources/images/${codeBoard.code_success == 1 ? 'check.png' : 'notCheck.png'}" width="20em" height="20em" alt=""></td>
+										</tr>
+				        				</c:forEach>
+				        				<div class="modal hidden">
+				          					<div class="modal_overlay">
+				          					</div>
+				          					<div class="modal_content">
+				            					<header class="modal_header">
+													<span class="title">코드조회</span>
+													<img class="close" src="<%=request.getContextPath()%>/resources/images/close.png" width="15em" height="15em" alt="닫기">
+				            					</header>
+												<div class="modal_left">
+													<h3 class="problem_name"></h3>
+													<div class="modal_level"></div>
+													<div class="modal_wrap">
+														<div id="table">
+															<div class="head row">
+																<span class="head col1">제출</span>
+																<span class="head col2">언어</span>
+																<span class="head col3">AC/WA</span>
+																<span class="head col4">공개</span>
+															</div>
+														</div>
 													</div>
 												</div>
-											</div>
-										</div>
-										<div class="modal_right">
-											<iframe
-												src="<%=request.getContextPath()%>/resources/html/modal_editor.html"
-												id="iframe" onload="access()" width="100%" height="100%"></iframe>
-										</div>
-										<div class="open_check">
-											<span>코드를 다른 사용자에게도 공개합니다.</span> <input type="checkbox"
-												id="check" name="open_check" value="open" /> <label
-												for="check"></label>
-										</div>
-									</div>
-								</div>
-							</tbody>
-						</table>
-					</div>
-					<div class="page">
-						<ul class="paging">
-							<li class="page_num"><a href="#"><</a></li>
-							<li class="page_num"><a href="#">1</a></li>
-							<li class="page_num"><a href="#">2</a></li>
-							<li class="page_num"><a href="#">3</a></li>
-							<li class="page_num">...</li>
-							<li class="page_num"><a href="#">8</a></li>
-							<li class="page_num"><a href="#">9</a></li>
-							<li class="page_num"><a href="#">10</a></li>
-							<li class="page_num"><a href="#">></a></li>
-						</ul>
-					</div>
-					</form>
+												<div class="modal_right">
+													<iframe src="<%=request.getContextPath()%>/resources/html/modal_editor.html" id="iframe" onload="access()" width="100%" height="100%"></iframe>
+												</div>
+												<div class="open_check">
+													<span>코드를 다른 사용자에게도 공개합니다.</span> <input type="checkbox" id="check" name="open_check" value="open" /> <label for="check"></label>
+												</div>
+				          					</div>
+				        				</div>
+									</tbody>
+								</table>
+							</div>
+							<!-- 다음, 이전은 나중에 -->
+							<div class="page">
+								<ul class="paging" id="pagenav">
+									<c:if test="${pageMaker.isPrev()}">
+									<li class="page_num"><a href="#"><</a></li>
+									</c:if>
+									<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="page">
+									<c:if test="${page== 1}">
+									<li class="page_num" onclick="javascript:getBoardList(this.value)" value="${page}"><a style="color: black !important;">${page}</a></li>
+									</c:if>
+									<c:if test="${page != 1}">
+									<li class="page_num" onclick="javascript:getBoardList(this.value)" value="${page}"><a>${page}</a></li>
+									</c:if>
+									</c:forEach>
+									<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+									<li class="page_num"><a href="#">></a></li>
+									</c:if>
+								</ul>
+							</div>
+						</form>
 				</section>
 
 				<footer class="footer_btns">
@@ -268,6 +246,9 @@
 		src="${pageContext.request.contextPath}/resources/js/profile.js"></script>
 	<%-- <script src="${pageContext.request.contextPath}/resources/js/modal.js"></script> --%>
 	<script type="text/javascript">
+		let page_ = 1;
+		let search_category = null
+		let search = null
 		const iframe = document.getElementById("iframe");
 		let myCodeList = null;
 		let innerDoc = null;
@@ -275,6 +256,8 @@
 		const access = () => {
 		    innerDoc = iframe.contentDocument || iframe.contentWindow.document;
 		}
+
+		access();
 
 		function Request(valuename)
 		  {
@@ -340,22 +323,33 @@
 				node = node.parentNode;
 			}
 			let index = node.id;
+			index = index.replace("tr","");
 			console.log(index);
 			
 			if(innerDoc == null) {
 				console.log("this is null");	
 			} else {
-				const get_code = innerDoc.getElementById("code_get");
+				let get_code = innerDoc.getElementById("code");
+				console.log("1. get_code: " + get_code);
 				const getLangAndCode = innerDoc.getElementById("getLangAndCode");
-				console.log(innerDoc.getElementById("code_get"));
+				while(get_code == null) {
+					get_code = innerDoc.getElementById("code");
+				}
+				console.log("2. get_code: " + get_code);
 				get_code.value = encodeURIComponent("코드기록을 선택해주세요.");
+				console.log(get_code.value);
 				getLangAndCode.click(); 
 			}
 			
 			$.ajax({ 
 				 url: '/modal',  
 				 type: 'POST',
-				 data: "index=" + index,  
+				 data: {
+					 	"index": index,
+					 	"page": page_,
+					 	"search_category": search_category,
+					 	"search": search
+					 },  
 				 success: function(data) {
 					 const result = data.codeBoard;
 					 const problem_name = document.querySelector(".problem_name");
@@ -436,8 +430,179 @@
 		for(const btn of openBtns) {
 			btn.addEventListener("click", openModal);
 		}
-		
-		
+
+		function getBoardList(page){
+			page_ = page;	
+			var level = document.getElementById("problem_level")
+			var category = document.getElementById("category_name");
+
+			var level_value = level.options[level.selectedIndex].value;
+			var category_value = category.options[category.selectedIndex].value;
+			
+			$.ajax({
+	            url: "/codeBoardPaging",
+	            type: "POST",
+	            data: {
+			            "problem_level": level_value,
+			            "category_name": category_value,
+			            "page": page,
+			            "search_category": search_category,
+						"search": search
+			        },
+	            success: function(data){	           
+		            const codeList = data.list;
+		            const pageMaker = data.pageMaker;
+		            console.log("page : " + page);
+		        
+		            for(var i=0; i< codeList.length; i++) {
+			
+			            const idx = i;
+			            let tr = document.getElementById("tr"+idx);
+			            console.log(tr);
+
+			            console.log(tr.querySelector("#code_board_problem_id"));
+			         	tr.querySelector("#code_board_problem_id").innerHTML = codeList[i].problem_id;
+			         	
+			         	tr.querySelector("#code_board_problem_title").innerHTML = codeList[i].problem_title;
+			         	tr.querySelector("#code_board_problem_level").innerHTML = "LEVEL " + codeList[i].problem_level;
+			         	const level_class = tr.querySelector("#code_board_problem_level").classList[0];
+			         	if(level_class != ("problem_level"+ codeList[i].problem_level)) {
+			         		tr.querySelector("#code_board_problem_level").classList.remove(level_class);
+			         		tr.querySelector("#code_board_problem_level").classList.add("problem_level"+ codeList[i].problem_level);
+				         	// 현재 클래스를 해당 problme_level 클래스로 변경!
+				        }
+				        let code_date = new Date(codeList[i].code_date);
+				        tr.querySelector("#code_board_code_date").innerHTML = getFormatDate(code_date); 
+				        
+				        let code_success = (codeList[i].code_success == 1) ? 'check.png' : 'notCheck.png';
+				        console.log("codeList[i].code_success: " + code_success);
+				        tr.querySelector("#code_board_code_success").innerHTML = `<img src="<%=request.getContextPath()%>/resources/images/` + code_success + `" width="20em" height="20em" alt="">`
+		            	
+		            }
+		            // 나머지 요소 숨기기 
+		            console.log("codeList.length: " + codeList.length);
+					if(codeList.length < 5){
+						for(var i=codeList.length; i < 5; i++){
+							$("#tr"+i).css("display","none");
+						}
+					} else {
+						for(var i=0; i < codeList.length; i++){
+							$("#tr"+i).css("display","");
+						}
+					}
+		            var elem = '';
+		            //var num = 0;
+		            // start
+		            /* if(pageMaker.prev){
+			            elem = elem + '<li><a href="javascript:getBoardList(' + pageMaker.startPage - 1 + ') "> ◀  </a></li>';
+			            } */
+		          
+		            $("#pagenav").empty();
+		            
+		            for(var i=pageMaker.startPage; i < pageMaker.endPage + 1; i++) {
+			            if(page == i){
+			            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + '<a style="color:black !important;">' + i+ "</a>" + '</li>');
+				        }
+			            else{
+			            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + "<a>" + i+ "</a>" +'</li>');
+				        }       
+		            }
+		              
+		            if(pageMaker.next && pageMaker.endPage > 0){
+		            	elem = elem + '<li><a href="javascript:getBoardList(' + pageMaker.endPage - 1 + ') "> ▶ </a></li>';
+			        }
+	            },
+	            error: function(){
+	                console.log("paging error!");
+	            }
+	        });
+		}
+
+		const searchInput = document.getElementById("searchInput");
+		const searchBtn = document.getElementById("searchBtn");
+		const searchCategory = document.getElementById("demo-category2");
+
+		const searchMyCode = () => {
+			search_category = searchCategory.options[searchCategory.selectedIndex].value;
+			search = searchInput.value;
+			console.log("category: " + search_category);
+			console.log("search: " + search);
+
+			$.ajax({ 
+				url: "/codeBoardPaging",
+	            type: "POST",
+	            data: {
+			            "problem_level": 0,
+			            "category_name": null,
+			            "page": 1,
+			            "search_category": search_category,
+						"search": search
+			        },
+				 success: function(data) {
+					 	page_ = 1;
+					 	const codeList = data.list;
+			            const pageMaker = data.pageMaker;
+			        
+			            for(var i=0; i< codeList.length; i++) {
+				
+				            const idx = i;
+				            let tr = document.getElementById("tr"+idx);
+				            console.log(tr);
+
+				            console.log(tr.querySelector("#code_board_problem_id"));
+				         	tr.querySelector("#code_board_problem_id").innerHTML = codeList[i].problem_id;
+				         	
+				         	tr.querySelector("#code_board_problem_title").innerHTML = codeList[i].problem_title;
+				         	tr.querySelector("#code_board_problem_level").innerHTML = "LEVEL " + codeList[i].problem_level;
+				         	const level_class = tr.querySelector("#code_board_problem_level").classList[0];
+				         	if(level_class != ("problem_level"+ codeList[i].problem_level)) {
+				         		tr.querySelector("#code_board_problem_level").classList.remove(level_class);
+				         		tr.querySelector("#code_board_problem_level").classList.add("problem_level"+ codeList[i].problem_level);
+					         	// 현재 클래스를 해당 problme_level 클래스로 변경!
+					        }
+					        let code_date = new Date(codeList[i].code_date);
+					        tr.querySelector("#code_board_code_date").innerHTML = getFormatDate(code_date); 
+					        
+					        let code_success = (codeList[i].code_success == 1) ? 'check.png' : 'notCheck.png';
+					        console.log("codeList[i].code_success: " + code_success);
+					        tr.querySelector("#code_board_code_success").innerHTML = `<img src="<%=request.getContextPath()%>/resources/images/` + code_success + `" width="20em" height="20em" alt="">`
+			            	
+			            }
+			            // 나머지 요소 숨기기
+			            console.log("codeList.length: " + codeList.length);
+			            for(var i=0; i < codeList.length; i++){
+							$("#tr"+i).css("display","");
+						}
+						if(codeList.length < 5){
+							for(var i=codeList.length; i < 5; i++){
+								$("#tr"+i).css("display","none");
+							}
+						} else {
+							for(var i=0; i < codeList.length; i++){
+								$("#tr"+i).css("display","");
+							}
+						}
+			            
+						$("#pagenav").empty();
+			            
+			            for(var i=pageMaker.startPage; i < pageMaker.endPage + 1; i++) {
+				            if(page_ == i){
+				            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + '<a style="color:black !important;">' + i+ "</a>" + '</li>');
+					        }
+				            else{
+				            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + "<a>" + i+ "</a>" +'</li>');
+					        }       
+			            }
+				 },
+				 error: function() {
+					 console.log("검색 테스트 실패!");
+				 }
+			}); 
+		}
+
+		searchBtn.addEventListener("click", searchMyCode);
+
+		 
 	</script>
 
 </body>

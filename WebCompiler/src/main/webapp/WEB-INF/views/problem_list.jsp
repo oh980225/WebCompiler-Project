@@ -50,9 +50,12 @@
 		function getBoardList(page){	
 			var level = document.getElementById("problem_level")
 			var category = document.getElementById("category_name");
+			const searchBtn = document.getElementById("searchBtn");
+			const searchCategory = document.getElementById("demo-category2");
 
 			var level_value = level.options[level.selectedIndex].value;
 			var category_value = category.options[category.selectedIndex].value;
+			
 			$.ajax({
 	            url: "./problem.do",
 	            type: "GET",
@@ -60,13 +63,14 @@
 	            data: {
 			            "problem_level": level_value,
 			            "category_name": category_value,
-			            "page": page//page
+			            "page": page//page,
 			        },
 	            success: function(data){	           
 		            var problem = data.list;
 		            var pageMaker = data.pageMaker;
+		            const isSuccess = data.successList;
 
-		            
+		            console.log(isSuccess);
 		        
 		            for(var i=0; i< problem.length; i++) {
 		            	var temp = problem[i].problem_successnum / problem[i].problem_submitnum * 100;
@@ -90,11 +94,12 @@
 		            	if(problem[i].problem_level == 3){ $("#item_level_"+idx).css("background-color", "#79BCC3"); }
 		            	if(problem[i].problem_level == 4){ $("#item_level_"+idx).css("background-color", "#EA7862"); }
 		            	if(problem[i].problem_level == 5){ $("#item_level_"+idx).css("background-color", "#8C699B"); }
-		            	
+
+		            	let code_success = (isSuccess[i] == 1) ? 'check.png' : 'notCheck.png';
 		            	
 		            	$("#item_success_"+idx).html("맞은사람: " + problem[i].problem_successnum);
 		            	$("#item_percent_"+idx).html("정답률: " + percent + "%");
-		            	//$("#item_check_"+(i+1)).html(problem[i].problem_id);
+		            	$("#item_check_"+idx).html(`<img src="<%=request.getContextPath()%>/resources/images/` + code_success + `" alt="">`);
 		            	$("#item_submit_"+ idx).html("제출: " + problem[i].problem_submitnum);
 		            	$("#problem_item_"+ idx).css("display","inline-block");
 
@@ -174,21 +179,21 @@
 							<option value="3">LEVEL 3</option>
 							<option value="4">LEVEL 4</option>
 							<option value="5">LEVEL 5</option>
-						</select>
-						<div class="select_arrow"></div>
-					</div>
-					<!-- Break -->
-					<div class="col-12 kind">
-						<select name="category_name" id="category_name"
-							onchange="getBoardList()">
-							<option value="unselected">------ 선택 ------</option>
-							<c:forEach var="category" items="${category}">
-								<option value="${category.category_id}">${category.category_name}</option>
-							</c:forEach>
-						</select>
-						<div class="select_arrow"></div>
-					</div>
-					<div class="col-12 name">
+                        </select>
+                        <div class="select_arrow"></div>
+                    </div>
+                    <!-- Break -->
+                    <div class="col-12 kind">
+                        <select name="category_name" id="category_name" onchange="getBoardList()">
+                        		<option value="unselected">------ 선택 ------</option>
+                            	<c:forEach var="category" items="${category}">
+									<option value="${category.category_id}">${category.category_name}</option>
+								</c:forEach>
+                        </select>
+                        <div class="select_arrow"></div>
+                    </div>
+                    <button id="searchBtn" class="searchBtn">검색</button>
+                   <div class="col-12 name">
 						<select name="demo-category" id="demo-category2">
 							<option value="">-- 선택 --</option>
 							<option value="problem_title">제목</option>
@@ -309,31 +314,98 @@
 													alt="O">
 											</div>
 										</div>
+									<%-- </c:if> --%>
+							                        
+			                        
+			                        <div class="problem_percent" id="item_percent_${status.count}">
+			                               	정답률: 28.4%
+			                        </div>
+			                    </div>
+			                    <div class="item_bottom" >
+			                        <div class="problem_submit" id="item_submit_${status.count}">
+			                               	제출: ${problem.problem_submitnum}
+			                        </div>
+			                        <div class="problem_answer" id="item_success_${status.count}">
+			                               	맞은사람: ${problem.problem_successnum}
+			                        </div>
+			                        <div class="problem_check" id="item_check_${status.count}">
+			                            <img src="<%=request.getContextPath()%>/resources/images/${successList[status.count-1] ? 'check.png' : 'notCheck.png'}" width="20em" height="20em" alt="O">
+			                        </div>
+			                    </div>
+			                </div>
+			                </div>
+			                
+			    <!--  ${status.count}
+			                  ${problem.problem_title} --> 
+			                 
+			                  
+			               </c:if>
+			             
+				               <c:if test="${status.count%2 == 0 }">
+					                 <div class="problem_container_right">
+							            <div id="problem_item_${status.count}" class="problem_item" onclick="location.href='#'">
+							                <div class="item_top">
+							                    <span class="problem_title" id="item_title_${status.count}">${problem.problem_id}. ${problem.problem_title}</span>
+							                    <c:if test="${problem.problem_level == 1}">
+							    					<div class="problem_level" id="item_level_${status.count}" style="background-color: #FFCC80 ">
+														LEVEL ${problem.problem_level}
+													</div>
+												</c:if>
+												<c:if test="${problem.problem_level == 2}">
+												    <div class="problem_level" id="item_level_${status.count}" style="background-color: #7BC379">
+														LEVEL ${problem.problem_level}
+													</div>
+												</c:if>
+												<c:if test="${problem.problem_level == 3}">
+												    <div class="problem_level" id="item_level_${status.count}" style="background-color: #79BCC3">
+														LEVEL ${problem.problem_level}
+													</div>
+												</c:if>
+												<c:if test="${problem.problem_level == 4}">
+												    <div class="problem_level" id="item_level_${status.count}" style="background-color: #EA7862">
+														LEVEL ${problem.problem_level}
+													</div>
+												</c:if>
+												
+												<c:if test="${problem.problem_level == 5}">
+												    <div class="problem_level" id="item_level_${status.count}" style="background-color: #8C699B">
+														LEVEL ${problem.problem_level}
+													</div>
+												</c:if>
+							                    <div class="problem_percent" id="item_percent_${status.count}">
+							                        정답률: 28.4%
+							                    </div>
+							                </div>
+							                <div class="item_bottom">
+							                    <div class="problem_submit" id="item_submit_${status.count}">
+							                        	제출: ${problem.problem_submitnum}
+							                    </div>
+							                    <div class="problem_answer" id="item_success_${status.count}">
+							                     		 맞은사람: ${problem.problem_successnum}
+							                    </div>
+							                    <div class="problem_check" id="item_check_${status.count}">
+							                        <img src="<%=request.getContextPath()%>/resources/images/${successList[status.count-1] ? 'check.png' : 'notCheck.png'}" alt="O">
+							                    </div>
+							                </div>
+							           	</div>
 									</div>
-								</div>
-
-							</c:if>
-						</c:forEach>
-					</div>
-
-					<div class="page">
-						<ul class="paging" id="pagenav">
+				                  
+				               </c:if>
+			                </c:forEach>
+                       </div>
+                       
+                        <div class="page">
+						<ul class="paging" id="pagenav" >
 							<c:if test="$test{pageMaker.prev}">
-								<li class="page_num"><a
-									href="javascript:getBoardList(pageMaker.startPage - 1)"><</a></li>
-							</c:if>
-							<c:forEach begin="${pageMaker.startPage}"
-								end="${pageMaker.endPage}" var="page">
-								
-								<c:if test="${cri.page eq page}">
-									<li class="page_num page_on"
-									onclick="javascript:getBoardList(this.value)" value="${page}"><a>${page}</a></li>
-								</c:if>
-								<c:if test="${cri.page != page}">
-									<li class="page_num"
-									onclick="javascript:getBoardList(this.value)" value="${page}"><a>${page}</a></li>
-								</c:if>
-								
+							<li class="page_num"><a href="javascript:getBoardList(pageMaker.startPage - 1)"><</a></li>
+							</c:if> 
+							<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="page">
+									<c:if test="${page== 1}">
+									<li class="page_num" onclick="javascript:getBoardList(this.value)" value="${page}"><a style="color: black !important;">${page}</a></li>
+									</c:if>
+									<c:if test="${page != 1}">
+									<li class="page_num" onclick="javascript:getBoardList(this.value)" value="${page}"><a>${page}</a></li>
+									</c:if>
 							</c:forEach>
 							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 								<li class="page_num"><a

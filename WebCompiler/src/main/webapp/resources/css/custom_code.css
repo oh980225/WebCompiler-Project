@@ -21,6 +21,7 @@ section.code div.kind {
 
 section.code div.table-wrapper {
   width: 100%;
+  height: 21em;
 }
 
 div.col-12 {
@@ -90,6 +91,18 @@ section.code input.search:enabled {
 
 section.code input.search::placeholder {
   color: black !important;
+}
+
+/* 이것만 추가 */
+section.code button.searchBtn {
+	float: right;
+	text-align: center;
+	width: 5em;
+	height: 2.5em;
+	line-height: 2.5em;
+	margin-left: 0.5em;
+	font-weight: bold;
+	padding: 0 !important;
 }
 
 div.table-wrapper {

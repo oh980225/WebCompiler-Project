@@ -21,7 +21,21 @@ public class CodeBoardServiceImpl implements CodeBoardService {
 	
 	@Override
 	public List<CodeBoardVO> getCodeBoardList(String user_id, Criteria criteria) throws Exception {
-		return null;
+		return codeBoardDAO.getCodeBoardList(user_id, criteria);
+	}
+	
+	@Override
+	public List<CodeBoardVO> getCodeBoardListBySearch(String user_id, String category, String search) throws Exception {
+		return codeBoardDAO.getCodeBoardListBySearch(user_id, category, search);
+	}
+	
+	@Override
+	public List<CodeBoardVO> getCodeBoardListBySearch(
+			String user_id, 
+			String category, 
+			String search, 
+			Criteria criteria) throws Exception {
+		return codeBoardDAO.getCodeBoardListBySearch(user_id, category, search, criteria);
 	}
 
 }

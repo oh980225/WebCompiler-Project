@@ -552,3 +552,15 @@ li.page_num a:hover {
   text-align: center;
  
 }
+
+/* 여기부터 추가되는 부분 */
+button.searchBtn {
+	float: right;
+	text-align: center;
+	width: 5em;
+	height: 2.5em;
+	line-height: 2.5em;
+	margin-left: 0.5em;
+	font-weight: bold;
+	padding: 0 !important;
+}

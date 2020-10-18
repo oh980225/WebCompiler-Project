@@ -2,6 +2,7 @@ package org.dms.web;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -10,6 +11,7 @@ import org.dms.web.domain.CodeBoardVO;
 import org.dms.web.domain.CodeVO;
 import org.dms.web.domain.Criteria;
 import org.dms.web.domain.PageMaker;
+import org.dms.web.domain.ProblemVO;
 import org.dms.web.domain.UserVO;
 import org.dms.web.service.CodeBoardService;
 import org.dms.web.service.UserService;
@@ -52,14 +54,14 @@ public class MyPageController {
 		pageMaker.setTotalCount(codeBoardList_.size());
 		
 		List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id(), criteria);
-		
+		System.out.println(codeBoardList);
 		model.addAttribute("user", user);
 		model.addAttribute("codeList", codeList);
-		model.addAttribute("codeBoardList", codeBoardList_);
+		model.addAttribute("codeBoardList", codeBoardList);
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("criteria", criteria);
 		
-		for(CodeBoardVO codeBoard : codeBoardList_) {
+		for(CodeBoardVO codeBoard : codeBoardList) {
 			System.out.println(codeBoard);
 		}
 		
@@ -117,13 +119,88 @@ public class MyPageController {
 	// 해당 모달창 띄우기
 	@RequestMapping(value="/modal", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> openModal(int index, HttpSession session, Criteria criteria) throws Exception {
+	public Map<String, Object> openModal(
+			int index, 
+			int page, 
+			String search_category, 
+			String search, 
+			HttpSession session, 
+			Criteria criteria) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		UserVO user = (UserVO)session.getAttribute("user");
-		List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id());
+		criteria.setPerPageNum(5);
+		criteria.setPage(page);
+		List<CodeBoardVO> codeBoardList = null;
+		if(search != "") {
+			codeBoardList = codeBoardService.getCodeBoardListBySearch(user.getUser_id(), search_category, search, criteria);
+		} else {
+			codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id(), criteria);
+		}
+		
 		
 		map.put("codeBoard", codeBoardList.get(index));
 		
 		return map;
 	}
+	
+	@RequestMapping(value = "/codeBoardPaging", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> codeBoardPaging(
+			HttpSession session,
+			Locale locale, 
+			Model model, 
+			Criteria criteria, 
+			int page, 
+			int problem_level, 
+			String category_name,
+			String search_category,
+			String search) throws Exception {
+		System.out.println("page: " + page);
+		System.out.println("problem_level: " + problem_level);
+		System.out.println("category_name: " + category_name);
+		System.out.println("search_category: " + search_category);
+		System.out.println("search: " + search);
+		logger.info("categorytest_test");
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserVO user = (UserVO)session.getAttribute("user");
+		PageMaker pageMaker = new PageMaker();
+		
+		logger.info("level: " + problem_level);
+		logger.info("category: " + category_name);
+		
+		if(search != "") {
+			List<CodeBoardVO> codeBoardList_ = codeBoardService.getCodeBoardListBySearch(user.getUser_id(), search_category, search);
+			criteria.setPerPageNum(5);
+			criteria.setPage(page);
+			pageMaker.setCri(criteria);
+			pageMaker.setTotalCount(codeBoardList_.size());
+			
+			System.out.println("Start Page: " + pageMaker.getStartPage());
+			System.out.println("End Page: " + pageMaker.getEndPage());
+			
+			List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardListBySearch(user.getUser_id(), search_category, search, criteria);
+			
+			map.put("pageMaker", pageMaker);
+			map.put("list", codeBoardList);
+			
+			return map;
+		} else {
+			
+			List<CodeBoardVO> codeBoardList_ = codeBoardService.getCodeBoardList(user.getUser_id());
+			criteria.setPerPageNum(5);
+			criteria.setPage(page);
+			pageMaker.setCri(criteria);
+			System.out.println("codeBoardList_.size() : " + codeBoardList_.size());
+			pageMaker.setTotalCount(codeBoardList_.size());
+			
+			List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id(), criteria);
+			
+			map.put("pageMaker", pageMaker);
+			map.put("list", codeBoardList);
+			
+			return map;
+		}
+	}
+	
 }

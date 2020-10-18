@@ -15,5 +15,10 @@ public class CodeServiceImpl implements CodeService {
 	public void submitCode(CodeVO code) throws Exception {
 		codeDAO.submitCode(code);
 	}
+	
+	@Override
+	public boolean IsSuccess(String user_id, int problem_id) throws Exception {
+		return codeDAO.IsSuccess(user_id, problem_id);
+	}
 
 }
