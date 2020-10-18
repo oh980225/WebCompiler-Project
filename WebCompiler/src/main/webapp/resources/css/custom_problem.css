@@ -116,7 +116,7 @@ position: absolute;
     right: 0px;
     font-size: 5px;
     color: #333;
-    cursor: pointer;;
+    cursor: pointer;
 }
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -420,7 +420,6 @@ div.problem_item div.problem_level {
     line-height: 0.4em;
     font-size: 0.83em;
 }
-
 
 
 div.problem_item div.problem_percent {

@@ -115,6 +115,8 @@ if (request.getAttribute("user") != null) {
 		            success: function(data){	           
 			            var problem = data.list;
 			            var pageMaker = data.pageMaker;
+			            const isSuccess = data.successList;
+			            console.log(isSuccess);
 			        
 			            for(var i=0; i< problem.length; i++) {
 			            	var temp = problem[i].problem_successnum / problem[i].problem_submitnum * 100;
@@ -138,11 +140,12 @@ if (request.getAttribute("user") != null) {
 			            	if(problem[i].problem_level == 3){ $("#item_level_"+idx).css("background-color", "#79BCC3"); }
 			            	if(problem[i].problem_level == 4){ $("#item_level_"+idx).css("background-color", "#EA7862"); }
 			            	if(problem[i].problem_level == 5){ $("#item_level_"+idx).css("background-color", "#8C699B"); }
-			            	
+
+			            	let code_success = (isSuccess[i] == 1) ? 'check.png' : 'notCheck.png';
 			            	
 			            	$("#item_success_"+idx).html("맞은사람: " + problem[i].problem_successnum);
 			            	$("#item_percent_"+idx).html("정답률: " + percent + "%");
-
+			            	$("#item_check_"+idx).html(`<img src="<%=request.getContextPath()%>/resources/images/` + code_success + `" alt="">`);
 			            	getPercent(problem[i].problem_submitnum, problem[i].problem_successnum, idx)
 			            	//$("#item_check_"+(i+1)).html(problem[i].problem_id);
 			            	$("#item_submit_"+ idx).html("제출: " + problem[i].problem_submitnum);
@@ -316,7 +319,7 @@ if (request.getAttribute("user") != null) {
 
 						<div class="dropdown">
 
-							<div class="default_option">번호</div>
+							<div class="default_option" id="search_option">번호</div>
 							<ul>
 								<li>번호</li>
 								<li>제목</li>
@@ -324,7 +327,7 @@ if (request.getAttribute("user") != null) {
 						</div>
 						<div class="search_field">
 							<input type="text" class="input"> <i
-								class="fas fa-search"></i>
+								class="fas fa-search" id="searchBtn"></i>
 						</div>
 					</div>
 					</div>
@@ -379,9 +382,7 @@ if (request.getAttribute("user") != null) {
 											<div class="problem_answer" id="item_success_${status.count}">
 												맞은사람: ${problem.problem_successnum}</div>
 											<div class="problem_check" id="item_check_${status.count}">
-												<img
-													src="<%=request.getContextPath()%>/resources/images/check.png"
-													width="20em" height="20em" alt="O">
+												<img src="<%=request.getContextPath()%>/resources/images/${successList[status.count-1] ? 'check.png' : 'notCheck.png'}" width="20em" height="20em" alt="O">
 											</div>
 										</div>
 									</div>
@@ -437,9 +438,7 @@ if (request.getAttribute("user") != null) {
 											<div class="problem_answer" id="item_success_${status.count}">
 												맞은사람: ${problem.problem_successnum}</div>
 											<div class="problem_check" id="item_check_${status.count}">
-												<img
-													src="<%=request.getContextPath()%>/resources/images/check.png"
-													alt="O">
+												<img src="<%=request.getContextPath()%>/resources/images/${successList[status.count-1] ? 'check.png' : 'notCheck.png'}" width="20em" height="20em" alt="O">
 											</div>
 										</div>
 									</div>

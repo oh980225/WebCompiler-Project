@@ -7,12 +7,14 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.dms.web.domain.CategoryVO;
 import org.dms.web.domain.CodeBoardVO;
 import org.dms.web.domain.CodeVO;
 import org.dms.web.domain.Criteria;
 import org.dms.web.domain.PageMaker;
 import org.dms.web.domain.ProblemVO;
 import org.dms.web.domain.UserVO;
+import org.dms.web.service.CategoryService;
 import org.dms.web.service.CodeBoardService;
 import org.dms.web.service.UserService;
 import org.slf4j.Logger;
@@ -40,6 +42,9 @@ public class MyPageController {
 	@Autowired(required=true)
 	CodeBoardService codeBoardService;
 	
+	@Autowired(required=true)
+	CategoryService categoryService;
+	
 	private static final Logger logger = LoggerFactory.getLogger(MyPageController.class);
 
 	@RequestMapping(value = "/mypage")
@@ -47,6 +52,7 @@ public class MyPageController {
 		UserVO user = (UserVO)session.getAttribute("user");
 		List<CodeVO> codeList = userService.getCodeList(user.getUser_id());
 		List<CodeBoardVO> codeBoardList_ = codeBoardService.getCodeBoardList(user.getUser_id());
+		List<CategoryVO> cvo = categoryService.readCategoryList();
 		
 		PageMaker pageMaker = new PageMaker();
 		criteria.setPerPageNum(5);
@@ -56,6 +62,7 @@ public class MyPageController {
 		List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id(), criteria);
 		System.out.println(codeBoardList);
 		model.addAttribute("user", user);
+		model.addAttribute("category", cvo);		
 		model.addAttribute("codeList", codeList);
 		model.addAttribute("codeBoardList", codeBoardList);
 		model.addAttribute("pageMaker", pageMaker);
