@@ -183,10 +183,10 @@
 												</div>
 												<div class="modal_right">
 													<iframe src="<%=request.getContextPath()%>/resources/html/modal_editor.html" id="iframe" onload="access()" width="100%" height="100%"></iframe>
-												</div>
+												</div><!-- 
 												<div class="open_check">
 													<span>코드를 다른 사용자에게도 공개합니다.</span> <input type="checkbox" id="check" name="open_check" value="open" /> <label for="check"></label>
-												</div>
+												</div> -->
 				          					</div>
 				        				</div>
 									</tbody>
@@ -200,7 +200,7 @@
 									</c:if>
 									<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="page">
 									<c:if test="${page== 1}">
-									<li class="page_num" onclick="javascript:getBoardList(this.value)" value="${page}"><a style="color: black !important;">${page}</a></li>
+									<li class="page_num" onclick="javascript:getBoardList(this.value)" value="${page}"><a style='color: black !important;'>${page}</a></li>
 									</c:if>
 									<c:if test="${page != 1}">
 									<li class="page_num" onclick="javascript:getBoardList(this.value)" value="${page}"><a>${page}</a></li>
@@ -247,8 +247,8 @@
 	<%-- <script src="${pageContext.request.contextPath}/resources/js/modal.js"></script> --%>
 	<script type="text/javascript">
 		let page_ = 1;
-		let search_category = null
-		let search = null
+		let search_category = null;
+		let search = null;
 		const iframe = document.getElementById("iframe");
 		let myCodeList = null;
 		let innerDoc = null;

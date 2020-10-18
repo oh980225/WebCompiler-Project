@@ -342,6 +342,8 @@ public class ProblemController {
 //		
 //		codeService.submitCode(codeVO);
 		
+		Thread.sleep(2000);
+		
 		return map;
 	}
 	
@@ -386,7 +388,7 @@ public class ProblemController {
 		
 		map.put("result", result);
 		
-		// code테이블 넣는거 추가하시면 되여
+		Thread.sleep(2000);
 		
 		return map;
 	}

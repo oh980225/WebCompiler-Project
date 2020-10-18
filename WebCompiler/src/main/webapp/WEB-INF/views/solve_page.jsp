@@ -49,8 +49,8 @@
 					</c:if>
 			<div class="problem_lang" onchange="chageLangSelect()">
 				<select class="lang_list" name="language">
-					<option value="java">JAVA</option>
-					<option value="c" selected>C</option>
+					<option value="java" selected>JAVA</option>
+					<option value="c">C</option>
 					<option value="c++">C++</option>
 					<option value="python">Python</option>
 					<option value="javascript">Javascript</option>
@@ -347,6 +347,9 @@
 
 			let lang = innerDoc.getElementById("lang").value;
 			console.log(lang);
+
+			const printResult = document.querySelector(".result_main");
+			printResult.innerHTML = "<H3>제출중입니다. 잠시만 기다려주세요.</H3>"
 			
 			$.ajax({ 
 				  url: '/submit',  
@@ -354,8 +357,7 @@
 				  data: "code=" + encodeURIComponent(code) + "&lang=" + encodeURIComponent(lang),  
 				  success: function(data) {
 					  const result = data.result;
-					  const printResult = document.querySelector(".result_main");
-					  printResult.innerText = result;
+					  printResult.innerHTML = result;
 					  console.log(data.result);
 				  },
 				  error: function() {
@@ -372,15 +374,18 @@
 
 			let lang = innerDoc.getElementById("lang").value;
 
+
+			const printResult = document.querySelector(".result_main");
+			printResult.innerHTML = '<H3>실행중입니다. 잠시만 기다려주세요.</H3>';
+
 			$.ajax({ 
 				  url: '/execute',  
 				  type: 'POST',
 				  data: "code=" + encodeURIComponent(code) + "&lang=" + encodeURIComponent(lang),  
 				  success: function(data) {
 					  const result = data.result;
-					  const printResult = document.querySelector(".result_main");
-					  printResult.innerText = result;
 					  console.log(data.result);
+					  printResult.innerHTML = result;
 				  },
 				  error: function() {
 					  console.log("실패!");
@@ -406,7 +411,6 @@
 	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/profile.js"></script>
-
 	<script src="${pageContext.request.contextPath}/resources/js/modal.js"></script>
 </body>
 

@@ -47,7 +47,7 @@
 						</div>
 						<div class="inputBox">
 							<input id="temp_password"
-								style="-webkit-text-security: disc !important;" type="text"
+								style="-webkit-text-security: square !important;" type="text"
 								name="user_passwd" onclick="alert_event()">
 							<!-- <input id="password" type="text" name="user_passwd" style="display: none !important;"> -->
 							<label>PASSWORD</label>
