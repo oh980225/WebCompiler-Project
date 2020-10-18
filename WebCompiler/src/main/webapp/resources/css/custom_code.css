@@ -324,13 +324,13 @@ td.problem_id{
 	font-weight:bold;
 	color:#79BCC3;
 }
-td div.problem_level{
+td div.problem_level1{
+	background-color: #FFCC80;
 	 vertical-align: middle;
     display: inline-block;
     text-align: center;
     width: 5em;
     color: white;
-    background-color: #FFCC80;
     border-radius: 0.3em;
     font-weight: 600;
     padding: 0.8em;
@@ -338,9 +338,69 @@ td div.problem_level{
     padding-right: 0;
     line-height: 0.4em;
     font-size: 0.83em;
-	
 }
-td div.problem_level1 {
+td div.problem_level2{
+	background-color: #7BC379;
+	 vertical-align: middle;
+    display: inline-block;
+    text-align: center;
+    width: 5em;
+    color: white;
+    border-radius: 0.3em;
+    font-weight: 600;
+    padding: 0.8em;
+    padding-left: 0;
+    padding-right: 0;
+    line-height: 0.4em;
+    font-size: 0.83em;
+}
+td div.problem_level3{
+	background-color: #79BCC3;
+	 vertical-align: middle;
+    display: inline-block;
+    text-align: center;
+    width: 5em;
+    color: white;
+    border-radius: 0.3em;
+    font-weight: 600;
+    padding: 0.8em;
+    padding-left: 0;
+    padding-right: 0;
+    line-height: 0.4em;
+    font-size: 0.83em;
+}
+
+td div.problem_level4{
+	background-color: #EA7862;
+	 vertical-align: middle;
+    display: inline-block;
+    text-align: center;
+    width: 5em;
+    color: white;
+    border-radius: 0.3em;
+    font-weight: 600;
+    padding: 0.8em;
+    padding-left: 0;
+    padding-right: 0;
+    line-height: 0.4em;
+    font-size: 0.83em;
+}
+td div.problem_level5{
+	background-color: #8C699B;
+	 vertical-align: middle;
+    display: inline-block;
+    text-align: center;
+    width: 5em;
+    color: white;
+    border-radius: 0.3em;
+    font-weight: 600;
+    padding: 0.8em;
+    padding-left: 0;
+    padding-right: 0;
+    line-height: 0.4em;
+    font-size: 0.83em;
+}
+/* td div.problem_level1 {
   text-align: center;
   width: 5.5em;
   color: white;
@@ -381,7 +441,7 @@ td div.problem_level3 {
   line-height: 0.4em;
   font-size: 0.7em;
   margin: auto;
-}
+} */
 
 td img {
   padding: 0;

@@ -83,7 +83,7 @@ header.modal_header img.close {
 .modal_left div.modal_level1 {
   float: left;
   color: white;
-  background-color: rgb(255, 211, 85);
+  background-color: #FFCC80;
   border-radius: 5%;
   font-weight: bolder;
   padding: 0.8em;
@@ -96,7 +96,7 @@ header.modal_header img.close {
 .modal_left div.modal_level2 {
   float: left;
   color: white;
-  background-color: #f56a6a;
+  background-color: #7BC379;
   border-radius: 5%;
   font-weight: bolder;
   padding: 0.8em;
@@ -109,7 +109,33 @@ header.modal_header img.close {
 .modal_left div.modal_level3 {
   float: left;
   color: white;
-  background-color: rgb(64, 186, 218);
+  background-color: #79BCC3;
+  border-radius: 5%;
+  font-weight: bolder;
+  padding: 0.8em;
+  line-height: 0.4em;
+  font-size: 0.6em;
+  margin-top: 1.3em;
+  margin-left: 1em;
+}
+
+.modal_left div.modal_level4 {
+  float: left;
+  color: white;
+  background-color: #EA7862;
+  border-radius: 5%;
+  font-weight: bolder;
+  padding: 0.8em;
+  line-height: 0.4em;
+  font-size: 0.6em;
+  margin-top: 1.3em;
+  margin-left: 1em;
+}
+
+.modal_left div.modal_level5 {
+  float: left;
+  color: white;
+  background-color: #8C699B;
   border-radius: 5%;
   font-weight: bolder;
   padding: 0.8em;

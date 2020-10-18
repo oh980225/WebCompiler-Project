@@ -162,29 +162,29 @@
 											<td id="code_board_problem_title">${codeBoard.problem_title}</td>
 											<td>
 												<c:if test="${codeBoard.problem_level == 1}">
-												<div id="code_board_problem_level" class="problem_level" style="background-color: #FFCC80 ">
+												<div id="code_board_problem_level" class="problem_level1">
 													LEVEL ${codeBoard.problem_level}
 												</div>
 												</c:if>
 												<c:if test="${codeBoard.problem_level == 2}">
-												<div id="code_board_problem_level" class="problem_level" style="background-color: #7BC379">
+												<div id="code_board_problem_level" class="problem_level2" >
 													LEVEL ${codeBoard.problem_level}
 												</div>
 												</c:if>
 												<c:if test="${codeBoard.problem_level == 3}">
-												<div id="code_board_problem_level" class="problem_level" style="background-color: #79BCC3">
+												<div id="code_board_problem_level" class="problem_level3" >
 													LEVEL ${codeBoard.problem_level}
 												</div>
 												</c:if>
 												
 												<c:if test="${codeBoard.problem_level == 5}">
-												<div id="code_board_problem_level" class="problem_level" style="background-color: #EA7862">
+												<div id="code_board_problem_level" class="problem_level5" >
 													LEVEL ${codeBoard.problem_level}
 												</div>
 												</c:if>
 												
 												<c:if test="${codeBoard.problem_level == 4}">
-												<div id="code_board_problem_level" class="problem_level" style="background-color: #8C699B">
+												<div id="code_board_problem_level" class="problem_level4" >
 													LEVEL ${codeBoard.problem_level}
 												</div>
 												</c:if>
@@ -428,6 +428,8 @@
 					 problem_level.classList.remove('modal_level1');
 					 problem_level.classList.remove('modal_level2');
 					 problem_level.classList.remove('modal_level3');
+					 problem_level.classList.remove('modal_level4');
+					 problem_level.classList.remove('modal_level5');
 
 					 problem_name.innerHTML = result.problem_id + ". "  + result.problem_title;
 					 problem_level.classList.add('modal_level'+result.problem_level);
