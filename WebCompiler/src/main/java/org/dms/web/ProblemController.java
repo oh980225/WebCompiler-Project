@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.OutputStream;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +33,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import com.mysql.cj.Session;
 
 @Controller
 public class ProblemController {
@@ -74,6 +77,13 @@ public class ProblemController {
 			String user_id = user.getUser_id();
 			List<ProblemVO> pvo = problemService.readProblemList(cri);
 			List<CategoryVO> cvo = categoryService.readCategoryList();
+			
+			boolean[] successList = new boolean[8];
+			int index = 0;
+			
+			for(ProblemVO problem : pvo) {
+				successList[index++] = codeService.IsSuccess(user.getUser_id(), problem.getProblem_id());
+			}
 
 			PageMaker pageMaker = new PageMaker();
 			cri.setPerPageNum(8);
@@ -87,17 +97,55 @@ public class ProblemController {
 			model.addAttribute("problem", pvo);
 			model.addAttribute("pageMaker", pageMaker);
 			model.addAttribute("cri", cri);
-			return "menutest";
+			
+			model.addAttribute("successList", successList);
+			
+			return "problem_list";
+			//return "menutest";
 
 		}
+
+		//PageMaker pageMaker = new PageMaker();
+		//cri.setPerPageNum(8);
+		///pageMaker.setCri(cri);
+		//pageMaker.setTotalCount(problemService.ProblemCount());
+		
+		//logger.info("page: " +  cri.getPage());
+		
+		//UserVO user = (UserVO) session.getAttribute("user");
+		
+		//boolean[] successList = new boolean[8];
+		//int index = 0;
+		
+		//for(ProblemVO problem : pvo) {
+		//	successList[index++] = codeService.IsSuccess(user.getUser_id(), problem.getProblem_id());
+		//}
+		
+		//model.addAttribute("user", user);
+		//model.addAttribute("category", cvo);
+		//model.addAttribute("problem", pvo);
+		//model.addAttribute("pageMaker", pageMaker);
+		//model.addAttribute("cri", cri);
+		//model.addAttribute("successList", successList);
+		
+		//return "problem_list";
 
 	}
 	
 	@RequestMapping(value = "/problem.do", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> categorytest_test(Locale locale, Model model, Criteria cri, int problem_level, String category_name) throws Exception {		
+	public Map<String, Object> categorytest_test(
+			HttpSession session,
+			Locale locale, 
+			Model model, 
+			Criteria cri, 
+			int problem_level, 
+			String category_name, 
+			String search_category,
+			String search) throws Exception {		
 		logger.info("categorytest_test");
 		Map<String, Object> map = new HashMap<String, Object>();
+		UserVO user = (UserVO) session.getAttribute("user");
 		
 		if(problem_level == 0 && category_name.equals("unselected")) {
 			logger.info("level: " + problem_level);
@@ -110,8 +158,18 @@ public class ProblemController {
 			pageMaker.setCri(cri);
 			pageMaker.setTotalCount(count);
 			
+			boolean[] successList = new boolean[8];
+			int index = 0;
+			
+			for(ProblemVO problem : pvo) {
+				successList[index++] = codeService.IsSuccess(user.getUser_id(), problem.getProblem_id());
+			}
+			
+			System.out.println("successList: " + successList);
+			
 			map.put("pageMaker", pageMaker);
 			map.put("list", pvo);
+			map.put("successList", successList);
 			
 			for(ProblemVO vo : pvo) {
 				logger.info(vo.getProblem_id() + " : " + vo.getProblem_title());
@@ -150,13 +208,21 @@ public class ProblemController {
 			pageMaker.setCri(cri);
 			pageMaker.setTotalCount(count);
 			
+			boolean[] successList = new boolean[8];
+			int index = 0;
+			
+			for(ProblemVO problem : pvo) {
+				successList[index++] = codeService.IsSuccess(user.getUser_id(), problem.getProblem_id());
+			}
 			
 			map.put("pageMaker", pageMaker);
 			map.put("list", pvo);
+			map.put("successList", successList);
 			
 			for(ProblemVO vo : pvo) {
 				logger.info(vo.getProblem_id() + " : " + vo.getProblem_title());
 			}
+			
 			return map;
 		}
 	}
@@ -218,7 +284,7 @@ public class ProblemController {
 	
 	@RequestMapping(value="/submit", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> getCode(String code, String lang, HttpSession session) throws Exception {
+	public Map<String, Object> getSubmit(String code, String lang, HttpSession session) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		UserVO user = (UserVO)session.getAttribute("user");
@@ -275,6 +341,52 @@ public class ProblemController {
 //		codeVO.setUser_id("admin");
 //		
 //		codeService.submitCode(codeVO);
+		
+		return map;
+	}
+	
+	@RequestMapping(value="/execute", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> getExecute (String code, String lang, HttpSession session) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserVO user = (UserVO)session.getAttribute("user");
+		//problem_id
+		int problem_id = (Integer) session.getAttribute("problem_id");
+		
+		//user_id
+		String user_id = user.getUser_id();
+		
+		// input, output 리스트를 받아온다.
+		List<String> tvoInput = testcaseService.getTestCaseInput(problem_id);
+		List<String> tvoOutput = testcaseService.getTestCaseOutput(problem_id);
+				
+		// console 창 출력
+		System.out.println("<UserID>");
+		System.out.println(user_id);
+	
+		System.out.println("<ProblemID>");
+		System.out.println(problem_id);
+		
+		System.out.println("<TestCase Input>");
+		for(String input : tvoInput) {
+			System.out.println(input);
+		}
+		System.out.println("<TestCase Output>");
+		for(String output : tvoOutput) {
+			System.out.println(output);
+		}
+				
+		System.out.println("<Code>");
+		System.out.println(code);
+		System.out.println("<Lang>");
+		System.out.println(lang);
+		
+		String result = code;
+		
+		map.put("result", result);
+		
+		// code테이블 넣는거 추가하시면 되여
 		
 		return map;
 	}
