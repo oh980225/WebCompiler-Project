@@ -38,9 +38,12 @@
 		function getBoardList(page){	
 			var level = document.getElementById("problem_level")
 			var category = document.getElementById("category_name");
+			const searchBtn = document.getElementById("searchBtn");
+			const searchCategory = document.getElementById("demo-category2");
 
 			var level_value = level.options[level.selectedIndex].value;
 			var category_value = category.options[category.selectedIndex].value;
+			
 			$.ajax({
 	            url: "./problem.do",
 	            type: "GET",
@@ -48,7 +51,7 @@
 	            data: {
 			            "problem_level": level_value,
 			            "category_name": category_value,
-			            "page": page//page
+			            "page": page//page,
 			        },
 	            success: function(data){	           
 		            var problem = data.list;
@@ -183,6 +186,7 @@
                         </select>
                         <div class="select_arrow"></div>
                     </div>
+                    <button id="searchBtn" class="searchBtn">검색</button>
                    <div class="col-12 name">
 						<select name="demo-category" id="demo-category2">
 						<option value="">-- 선택 --</option>

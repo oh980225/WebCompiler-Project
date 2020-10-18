@@ -85,7 +85,15 @@ public class ProblemController {
 	
 	@RequestMapping(value = "/problem.do", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> categorytest_test(HttpSession session,Locale locale, Model model, Criteria cri, int problem_level, String category_name) throws Exception {		
+	public Map<String, Object> categorytest_test(
+			HttpSession session,
+			Locale locale, 
+			Model model, 
+			Criteria cri, 
+			int problem_level, 
+			String category_name, 
+			String search_category,
+			String search) throws Exception {		
 		logger.info("categorytest_test");
 		Map<String, Object> map = new HashMap<String, Object>();
 		UserVO user = (UserVO) session.getAttribute("user");
@@ -138,8 +146,6 @@ public class ProblemController {
 			for(ProblemVO problem : pvo) {
 				successList[index++] = codeService.IsSuccess(user.getUser_id(), problem.getProblem_id());
 			}
-			
-			System.out.println("successList: " + successList);
 			
 			map.put("pageMaker", pageMaker);
 			map.put("list", pvo);
