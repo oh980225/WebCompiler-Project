@@ -4,16 +4,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
 
-<%	
+<%
 	String imgURL = "";
-	if(request.getAttribute("user") !=null) {
-		UserVO user = (UserVO)request.getAttribute("user");
-		if(user.getUser_img() == null) {
-			imgURL = (String)request.getContextPath() + "/resources/images/user.png";
-		} else {
-			imgURL = "/getByteImage/" + user.getUser_id();
-		}
+if (request.getAttribute("user") != null) {
+	UserVO user = (UserVO) request.getAttribute("user");
+	if (user.getUser_img() == null) {
+		imgURL = (String) request.getContextPath() + "/resources/images/user.png";
+	} else {
+		imgURL = "/getByteImage/" + user.getUser_id();
 	}
+}
 %>
 <!DOCTYPE HTML>
 <!--
@@ -37,7 +37,7 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/custom_main.css"
 	type="text/css" />
-	<link rel="stylesheet"
+<link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <!-- 이게 Font Awesome 5 Free를 사용하게 해주는거 같아요. 이거덕에 사이드바 모양이 보여요! -->
 <link rel="stylesheet"
@@ -205,119 +205,129 @@
 			<div class="inner">
 				<!-- Content -->
 				<div class="left-side">
-			<div class="wrapper">
-			
-				
-				
-				
-					<div class="search_box">
-					
-					<div class="dropdown">
+					<div class="wrapper">
+
+
+
+
 						
-					<div class="default_option">번호</div>  
-						<ul>
-			              <li>번호</li>
-			              <li>제목</li>
-			            </ul>
+						<nav class="slidemenu">
+							<!-- Item 1 -->
+							<input type="checkbox" name="slideItem" id="slide-item-1"
+								value="1" class="slide-toggle" onclick="check_radio(this);" />
+							<label for="slide-item-1"><p class="icon">1</p> <!--<span>Home</span>--></label>
+
+							<!-- Item 2 -->
+							<input type="checkbox" name="slideItem" id="slide-item-2"
+								value="2" class="slide-toggle" onclick="check_radio(this);" />
+							<label for="slide-item-2"><p class="icon">2</p> <!--<span>About</span>--></label>
+
+							<!-- Item 3 -->
+							<input type="checkbox" name="slideItem" id="slide-item-3"
+								value="3" class="slide-toggle" onclick="check_radio(this);" /> <label
+								for="slide-item-3"><p class="icon">3</p> <!--<span>Folio</span>--></label>
+
+							<!-- Item 4 -->
+							<input type="checkbox" name="slideItem" id="slide-item-4"
+								value="4" class="slide-toggle" onclick="check_radio(this);" /> <label
+								for="slide-item-4"><p class="icon">4</p> <!--<span>Blog</span>--></label>
+							<input type="checkbox" name="slideItem" id="slide-item-5"
+								value="5" class="slide-toggle" onclick="check_radio(this);" />
+							<label for="slide-item-5"><p class="icon">5</p> <!--  <span>Blog</span>--></label>
+
+							<div class="clear"></div>
+
+							<!-- Bar -->
+							<div class="slider">
+								<div class="bar"></div>
+							</div>
+
+						</nav>
+
+
 					</div>
-				 <div class="search_field">
-			          <input type="text" class="input">
-			          <i class="fas fa-search"></i>
-			      </div>
-				</div>
-				<nav class="slidemenu">
-						<!-- Item 1 -->
-						<input type="checkbox" name="slideItem" id="slide-item-1" value="1"
-							class="slide-toggle" onclick="check_radio(this);" /> <label for="slide-item-1"><p class="icon">1</p>
-							<!--<span>Home</span>--></label>
+					<nav class="menu" id="menu">
 
-						<!-- Item 2 -->
-						<input type="checkbox" name="slideItem" id="slide-item-2" value="2"
-							class="slide-toggle" onclick="check_radio(this);" /> <label for="slide-item-2"><p class="icon">2</p>
-							<!--<span>About</span>--></label>
+						<ul>
+							<li><a href="#">자료구조</a>
+								<ul style="display: block;">
+									<li><a href="#">리스트</a></li>
+									<li><a href="#">스택</a></li>
+									<li><a href="#">큐</a></li>
 
-						<!-- Item 3 -->
-						<input type="checkbox" name="slideItem" id="slide-item-3" value="3"
-							class="slide-toggle" onclick="check_radio(this);"/> <label for="slide-item-3"><p class="icon">3</p>
-							<!--<span>Folio</span>--></label>
+								</ul></li>
+							<li><a href="#">정렬</a>
+								<ul style="display: block;">
+									<li><a href="#">선택정렬 삽입정렬 버블정렬</a></li>
+									<li><a href="#">합병정렬 퀵정렬</a></li>
+								</ul></li>
+							<li onclick="check_list(this.id);" id="CA_0016"><a href="#">수학</a></li>
+							<li><span class="opener">그래프</span>
+								<ul>
+									<li><a href="#">그래프</a></li>
+									<li class="test" onclick="check_list(this.id);" id="CA_0001"><a
+										href="#">깊이 우선 탐색</a></li>
+									<li onclick="check_list(this.id);" id="CA_0002"><a
+										href="#">너비 우선 탐색</a></li>
+								</ul></li>
+							<li><span class="opener">트리</span>
+								<ul>
+									<li><a href="#">트리</a></li>
+									<li><a href="#">힙</a></li>
+								</ul></li>
+							<li onclick="check_list(this.id);" id="CA_0003"><a href="#">다이나믹
+									프로그래밍</a></li>
+							<li onclick="check_list(this.id);" id="CA_0020"><a href="#">재귀
+									알고리즘</a></li>
+							<li onclick="check_list(this.id);" id="CA_0011"><span
+								class="opener">분할정복</span>
+								<ul>
+									<li><a href="#">트리</a></li>
+								</ul></li>
 
-						<!-- Item 4 -->
-						<input type="checkbox" name="slideItem" id="slide-item-4" value="4"
-							class="slide-toggle" onclick="check_radio(this);"/> <label for="slide-item-4"><p class="icon">4</p>
-							<!--<span>Blog</span>--></label>
-						<input type="checkbox" name="slideItem"
-							id="slide-item-5" value="5" class="slide-toggle" onclick="check_radio(this);" /> <label
-							for="slide-item-5"><p class="icon">5</p>
-							<!--  <span>Blog</span>--></label>
-
-						<div class="clear"></div>
-
-						<!-- Bar -->
-						<div class="slider">
-							<div class="bar"></div>
-						</div>
-
+							<li onclick="check_list(this.id);" id="CA_0006"><span
+								class="opener">최단경로</span>
+								<ul>
+									<li><a href="#">다익스트라</a></li>
+									<li><a href="#">플로이드 와샬</a></li>
+									<li><a href="#">벨만포드</a></li>
+								</ul></li>
+							<li onclick="check_list(this.id);" id="CA_0007"><span
+								class="opener active">최소 스패닝 트리</span>
+								<ul>
+									<li><a href="#">disjoint-set</a></li>
+									<li><a href="#">쿠르스칼</a></li>
+									<li><a href="#">프림</a></li>
+								</ul></li>
+							<li onclick="check_list(this.value);" id="CA_0009"><a
+								href="#">브루트포스</a></li>
+							<li><a href="#">백트래킹</a></li>
+						</ul>
 					</nav>
-					
-				
-			</div>
-				<nav class="menu" id="menu">
-					
-					<ul>
-						<li><a href="#">자료구조</a>
-							<ul style="display: block;">
-								<li><a href="#">리스트</a></li>
-								<li><a href="#">스택</a></li>
-								<li><a href="#">큐</a></li>
+				</div>
 
-							</ul></li>
-						<li><a href="#">정렬</a>
-							<ul style="display: block;">
-								<li><a href="#">선택정렬 삽입정렬 버블정렬</a></li>
-								<li><a href="#">합병정렬 퀵정렬</a></li>
-							</ul></li>
-						<li onclick="check_list(this.id);" id="CA_0016"><a href="#">수학</a></li>
-						<li><span class="opener">그래프</span>
-							<ul>
-								<li><a href="#">그래프</a></li>
-								<li class="test" onclick="check_list(this.id);" id="CA_0001"><a href="#">깊이 우선 탐색</a></li>
-								<li onclick="check_list(this.id);" id="CA_0002"><a href="#" >너비 우선 탐색</a></li>
-							</ul></li>
-						<li><span class="opener">트리</span>
-							<ul>
-								<li><a href="#">트리</a></li>
-								<li><a href="#">힙</a></li>
-							</ul></li>
-						<li onclick="check_list(this.id);" id="CA_0003"><a href="#">다이나믹 프로그래밍</a></li>
-						<li onclick="check_list(this.id);" id="CA_0020"><a href="#">재귀 알고리즘</a></li>
-						<li onclick="check_list(this.id);" id="CA_0011"><span class="opener">분할정복</span>
-							<ul>
-								<li><a href="#">트리</a></li>
-							</ul></li>
-
-						<li onclick="check_list(this.id);" id="CA_0006"><span class="opener">최단경로</span>
-							<ul>
-								<li><a href="#">다익스트라</a></li>
-								<li><a href="#">플로이드 와샬</a></li>
-								<li><a href="#">벨만포드</a></li>
-							</ul></li>
-						<li onclick="check_list(this.id);" id="CA_0007"><span class="opener active">최소 스패닝 트리</span>
-							<ul>
-								<li><a href="#">disjoint-set</a></li>
-								<li><a href="#">쿠르스칼</a></li>
-								<li><a href="#">프림</a></li>
-							</ul></li>
-						<li onclick="check_list(this.value);" id="CA_0009"><a href="#">브루트포스</a></li>
-						<li><a href="#">백트래킹</a></li>
-					</ul>
-				</nav>
-			</div>
-				
-					<!--
+				<!--
             <h3 class="problem_title">코드 조회</h3>
         -->
 
-<div class="right">
+				<div class="right">
+					<div class="wrapper">
+					<div class="search_box">
+
+						<div class="dropdown">
+
+							<div class="default_option">번호</div>
+							<ul>
+								<li>번호</li>
+								<li>제목</li>
+							</ul>
+						</div>
+						<div class="search_field">
+							<input type="text" class="input"> <i
+								class="fas fa-search"></i>
+						</div>
+					</div>
+					</div>
 					<div id="container" class="container">
 						<c:forEach var="problem" items="${problem}" varStatus="status">
 							<c:if test="${status.count%2 == 1 }">
@@ -358,8 +368,10 @@
 
 
 											<div class="problem_percent"
-												id="item_percent_${status.count}"> <script type="text/javascript">
-												getPercent(${problem.problem_submitnum}, ${problem.problem_successnum}, ${status.count})</script></div>
+												id="item_percent_${status.count}">
+												<script type="text/javascript">
+												getPercent(${problem.problem_submitnum}, ${problem.problem_successnum}, ${status.count})</script>
+											</div>
 										</div>
 										<div class="item_bottom">
 											<div class="problem_submit" id="item_submit_${status.count}">
@@ -415,7 +427,9 @@
 													${problem.problem_level}</div>
 											</c:if>
 											<div class="problem_percent"
-												id="item_percent_${status.count}"><script type="text/javascript"> getPercent(${problem.problem_submitnum}, ${problem.problem_successnum}, ${status.count})</script></div>
+												id="item_percent_${status.count}">
+												<script type="text/javascript"> getPercent(${problem.problem_submitnum}, ${problem.problem_successnum}, ${status.count})</script>
+											</div>
 										</div>
 										<div class="item_bottom">
 											<div class="problem_submit" id="item_submit_${status.count}">
@@ -443,16 +457,16 @@
 							</c:if>
 							<c:forEach begin="${pageMaker.startPage}"
 								end="${pageMaker.endPage}" var="page">
-								
+
 								<c:if test="${cri.page eq page}">
 									<li class="page_num page_on"
-									onclick="javascript:getBoardList(this.value)" value="${page}"><a>${page}</a></li>
+										onclick="javascript:getBoardList(this.value)" value="${page}"><a>${page}</a></li>
 								</c:if>
 								<c:if test="${cri.page != page}">
 									<li class="page_num"
-									onclick="javascript:getBoardList(this.value)" value="${page}"><a>${page}</a></li>
+										onclick="javascript:getBoardList(this.value)" value="${page}"><a>${page}</a></li>
 								</c:if>
-								
+
 							</c:forEach>
 							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 								<li class="page_num"><a
@@ -461,8 +475,8 @@
 						</ul>
 					</div>
 
-</div>
-			
+				</div>
+
 
 			</div>
 		</div>

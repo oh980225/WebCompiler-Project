@@ -53,7 +53,7 @@
 							<label>PASSWORD</label>
 						</div>
 						<div class="signupHelp">
-							<span>계정이 없으신가요?</span> <a href="#">회원가입</a>
+							<span>계정이 없으신가요?</span> <a href="/join">회원가입</a>
 						</div>
 						<input type="submit" value="LOGIN">
 					</form>

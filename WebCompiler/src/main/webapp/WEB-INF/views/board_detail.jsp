@@ -231,7 +231,7 @@
 						<div class="board_info">
 							<a href="edit?id=${board.board_id}"><img
 								src="<%=request.getContextPath()%>/resources/images/write.png">글쓰기</a>
-							<a href="board" style="vertical-align: middle"><img
+							<a href="/board" style="vertical-align: middle"><img
 								src="<%=request.getContextPath()%>/resources/images/board_list.png"
 								style="vertical-align: middle">목록</a>
 						</div>

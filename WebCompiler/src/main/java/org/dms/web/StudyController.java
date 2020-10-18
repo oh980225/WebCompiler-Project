@@ -2,6 +2,7 @@ package org.dms.web;
 
 import javax.servlet.http.HttpSession;
 
+import org.dms.web.domain.UserVO;
 import org.dms.web.domain.test;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,8 +18,8 @@ public class StudyController {
 		t.assign();
 		t.setLowData();
 		
-		
-		
+		UserVO user = (UserVO)session.getAttribute("user");
+		model.addAttribute("user", user);
 		model.addAttribute("category", t);
 		return "study";	
 	}

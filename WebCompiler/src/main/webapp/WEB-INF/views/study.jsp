@@ -65,7 +65,7 @@ header#header {
 			</jsp:include>
 
 			<div>
-			
+
 				<nav class="menu" id="menu">
 					<ul>
 						<li><span class="opener">자료구조</span>
@@ -119,26 +119,50 @@ header#header {
 						<li><a href="#">백트래킹</a></li>
 					</ul>
 				</nav>
-		
-			
+
+
 				<div class="right">
-					<span> ${category.high}</span>
+					<!--  <span> ${category.high}</span>
 					<c:forEach items="${category.low}" var="city">
 
-                    <p>${city.name}
-                    <p>${city.price}
-   
-                </c:forEach>
-					<table>
+						<p>${city.name}
+						<p>${city.price}
+					</c:forEach>
+					-->
+					<div class="table-wrapper">
+						<table>
 							<thead>
 								<tr>
-								    <th>번호</th>
+									<th>번호</th>
 									<th>문제</th>
+
 									<th>난이도</th>
+									<th>정답률</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="problem" items="${board}">
+								<tr>
+									<td class="problem_id">1431</td>
+									<td>시리얼 번호</td>
+									<td><div class="problem_level"
+											style="background-color: #FFCC80">LEVEL 1</div></td>
+									<td>51.2%</td>
+								</tr>
+								<tr>
+									<td class="problem_id">1431</td>
+									<td>시리얼 번호</td>
+									<td><div class="problem_level"
+											style="background-color: #7BC379">LEVEL 2</div></td>
+									<td>51.2%</td>
+								</tr>
+																<tr>
+									<td class="problem_id">1431</td>
+									<td>시리얼 번호</td>
+									<td><div class="problem_level"
+											style="background-color: #7BC379">LEVEL 2</div></td>
+									<td>51.2%</td>
+								</tr>
+								<!--<c:forEach var="problem" items="${board}">
 									<tr>
 										<td class="board_title" style="text-align: left;"><a
 											href="/board/${board.board_id}"
@@ -155,12 +179,35 @@ header#header {
 											<td><c:out value="" /></td>
 										</c:if>
 									</tr>
-								</c:forEach>
+								</c:forEach>-->
 
 							</tbody>
 						</table>
-				
-				
+
+					</div>
+					<div class="title" >
+						<div class="title_color" >
+							01
+						</div>
+						<div class="title_name">
+						개념</div>
+					</div>
+					
+					<div class="title" >
+						<div class="title_color" >
+							02
+						</div>
+						<div class="title_name">
+						적용</div>
+					</div>
+					
+					<div class="title" >
+						<div class="title_color" >
+							03
+						</div>
+						<div class="title_name">
+						코드</div>
+					</div>
 				</div>
 
 
