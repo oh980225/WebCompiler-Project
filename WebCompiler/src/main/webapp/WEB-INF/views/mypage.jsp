@@ -199,7 +199,8 @@
 				          					<div class="modal_content">
 				            					<header class="modal_header">
 													<span class="title">코드조회</span>
-													<img class="close" src="<%=request.getContextPath()%>/resources/images/close.png" width="15em" height="15em" alt="닫기">
+													<div class="close"></div>
+													
 				            					</header>
 												<div class="modal_left">
 													<h3 class="problem_name"></h3>
