@@ -1,7 +1,9 @@
 package org.dms.web;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +56,13 @@ public class RestCommentController {
 	 @RequestMapping(value="/comment.insert", method=RequestMethod.POST)
 	 public String insertComments(@RequestBody CommentsVO comment) throws Exception {
 			logger.info("글내용: " + comment.getComments_content());
-			comment.setComments_upload(Timestamp.valueOf(LocalDateTime.now()));
+			
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		      Calendar cal = Calendar.getInstance();
+		      String today = null;
+		      today = formatter.format(cal.getTime());
+		     Timestamp ts = Timestamp.valueOf(today);
+			comment.setComments_upload(ts);
 			comment.setComments_content(comment.getComments_content().replace("\r\n", "<br>"));
 			commentService.insertComment(comment);
 			return "success";

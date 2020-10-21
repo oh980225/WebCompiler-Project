@@ -3,6 +3,7 @@ package org.dms.web;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -90,8 +91,13 @@ public class BoardController {
 	
 	@RequestMapping(value = "/board/insert.do", method=RequestMethod.POST)
 	public String boardInsertPost(@ModelAttribute("board") BoardVO bvo, Model model, HttpSession session) throws Exception {
-		
-		bvo.setBoard_upload(Timestamp.valueOf(LocalDateTime.now()));
+		  SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	      Calendar cal = Calendar.getInstance();
+	      String today = null;
+	      today = formatter.format(cal.getTime());
+	      Timestamp ts = Timestamp.valueOf(today);
+	      
+		bvo.setBoard_upload(ts);
 		logger.info("문제번호:" + (int)bvo.getProblem_id());
 		
 		

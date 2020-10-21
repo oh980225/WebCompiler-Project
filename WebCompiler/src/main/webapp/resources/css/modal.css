@@ -29,14 +29,16 @@ tr.open:hover {
 }
 
 .modal_content {
-  background-color: white;
+
   text-align: center;
-  position: relative;
-  top: 0;
-  width: 65em;
-  max-width:65em;
-  height: 40em;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  background-color: white;
+    position: relative;
+    top: 0;
+    width: 65em;
+    max-width: 65em;
+    height: 40em;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    border-radius: 1.4em;
 }
 
 .modal_content header.modal_header {
@@ -44,13 +46,19 @@ tr.open:hover {
   background-color: rgb(47, 47, 74);
   height: 2em;
   color: white;
+  
+  width: 100%;
+    background-color: #2E2E3B;
+    height: 2.4em;
+    color: white;
+    border-radius: 1.4em 1.4em 0 0;
 }
 
 header.modal_header span.title {
   float: left;
   font-weight: bold;
-  margin-top: 0.2em;
-  margin-left: 1em;
+  margin-top: 0.4em;
+    margin-left: 1.5em;
 }
 
 header.modal_header img.close {
@@ -58,6 +66,17 @@ header.modal_header img.close {
   margin-top: 0.4em;
   margin-right: 1em;
   cursor: pointer;
+}
+
+header.modal_header .close{
+	background-color: #EA7862;
+	width:1.2em;
+	height:1.2em;
+	border-radius:100%;
+	float: right;
+  	margin-top: 0.6em;
+  	margin-right: 1em;
+  	cursor: pointer;
 }
 
 .hidden{

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="org.dms.web.domain.UserVO"%>
 <%	
 	String imgURL = "";
@@ -91,9 +92,9 @@
 								<tr>
 
 									<th class="board_title">제목</th>
-									<th>작성자</th>
-									<th>게시일</th>
-									<th>문제번호</th>
+									<th style="width:15%">작성자</th>
+									<th style="width:10%">게시일</th>
+									<th style="width:10%">문제번호</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -105,8 +106,8 @@
 											href="/board/${board.board_id}"
 											style="color: black; border: 0"><c:out
 													value="${board.board_title}" /></a></td>
-										<td><c:out value="${board.user_id}" /></td>
-										<td><c:out value="${board.board_upload}" /></td>
+										<td ><c:out value="${board.user_id}" /></td>
+										<td ><fmt:formatDate pattern="yyyy.MM.dd" value="${board.board_upload}"/></td>
 										<c:if test="${board.problem_id > 0}">
 											<td class="problem_id"><a
 												href="/problem/${board.problem_id}" style="border: 0"><c:out
