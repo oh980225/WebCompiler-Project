@@ -422,6 +422,7 @@ textarea {
 			}
 			
 			.chat_data_me .comment_content{
+				margin-bottom: 1.5em;
 				display: block;
 			    float: right;
 			    width: 40em;

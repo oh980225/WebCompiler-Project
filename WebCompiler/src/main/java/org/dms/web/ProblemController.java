@@ -247,8 +247,10 @@ public class ProblemController {
 	}
 	
 	@RequestMapping(value="/problem/insert", method = RequestMethod.GET)
-	public String problemInsert(Locale locale, Model model) throws Exception {
+	public String problemInsert(Locale locale, Model model, HttpSession session) throws Exception {
+		UserVO user = (UserVO)session.getAttribute("user");
 		List<CategoryVO> vo = categoryService.readCategoryList();
+		model.addAttribute("user", user);
 		model.addAttribute("category", vo);
 		return "problem_insert";
 	}
@@ -263,8 +265,11 @@ public class ProblemController {
 		problemService.insertProblem(pvo);
 		return "redirect:/problem/insert";
 	}
+	
 	@RequestMapping(value="/testcase", method = RequestMethod.GET)
-	public String testcaseInsert(Locale locale, Model model) throws Exception {
+	public String testcaseInsert(Locale locale, Model model, HttpSession session) throws Exception {
+		UserVO user = (UserVO)session.getAttribute("user");
+		model.addAttribute("user", user);
 		return "testcase_insert";
 	}
 	

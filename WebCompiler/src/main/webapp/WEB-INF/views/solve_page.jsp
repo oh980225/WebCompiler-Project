@@ -221,7 +221,7 @@
 	}
 
 	function connect(){
-		websocket = new WebSocket("ws://localhost:8080/ws/chat.do");
+		websocket = new WebSocket("ws://localhost:8080/chat.do");
 		//웹 소켓에 이벤트가 발생했을 때 호출될 함수 등록
 		websocket.onopen = onOpen;
 		websocket.onmessage = onMessage;
