@@ -190,9 +190,11 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+	console.log("socket make");
 	one = document.getElementById("one");
 	two = document.getElementById("two");
-	
+
+	var flag = false;
 	var u_id = "${user.user_id}";
 	var chat_count = 1;
 	var p_id="${problem.problem_id}";
@@ -223,10 +225,15 @@
 	function connect(){
 		//websocket = new WebSocket("ws://localhost:8080/ws/chat.do");
 		//웹 소켓에 이벤트가 발생했을 때 호출될 함수 등록
-		websocket = new WebSocket(((window.location.protocol === "https:") ? "wss://" : "ws://") + window.location.host + "/chat.do");
-		websocket.onopen = onOpen;
-		websocket.onmessage = onMessage;
-		websocket.onclose = onClose;
+		if(!flag){
+			websocket = new WebSocket(((window.location.protocol === "https:") ? "wss://" : "ws://") + window.location.host + "/chat.do");
+			websocket.onopen = onOpen;
+			websocket.onmessage = onMessage;
+			websocket.onclose = onClose;
+			flag = true;
+		}
+
+		console.log("socket connect");
 	}
 	//퇴장 버튼을 눌렀을 때 호출되는 함수
 	function disconnect(){
@@ -289,10 +296,15 @@
 						$("#" +comment_id +  " div.comment_content").append("<p class='comment_date'>"+ formatDate(this.chat_date) +"</p>");
 
 						chat_count++;
+						
 
 						});
+
+						$("#chat_list").stop()
+						.animate({ scrollTop: $('#chat_list')[0].scrollHeight }, 1000);
 					},
 					error:function(){
+
 					}
 		 	});
 		 	
@@ -327,9 +339,12 @@
 		$("#" +comment_id +  " div.comment_content").append("<p class='comment_date'>"+ chat_date +"</p>");
 
 		chat_count++;
+		$("#chat_list").stop()
+		.animate({ scrollTop: $('#chat_list')[0].scrollHeight }, 100);
 	}
 	function onClose(){
-
+		console.log("연결끊김");
+		flag =  false;
 	}
 </script>
 	<script type="text/javascript">

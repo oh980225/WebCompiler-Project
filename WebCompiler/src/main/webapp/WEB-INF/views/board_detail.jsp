@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="org.dms.web.domain.UserVO"%>
 <%	
 	String imgURL = "";
@@ -242,7 +243,7 @@
 					</div>
 					<div></div>
 					<div class="content">
-						<p id="board_upload">${board.board_upload}</p>
+						<p id="board_upload"><fmt:formatDate pattern="yyyy.MM.dd HH:mm:ss" value="${board.board_upload}"/></p>
 
 						<div class="content_box">
 							<p>${board.board_content}<br>

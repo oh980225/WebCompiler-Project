@@ -1,6 +1,8 @@
 package org.dms.web.domain;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class BoardVO {
 	private int board_id;
@@ -30,6 +32,14 @@ public class BoardVO {
 	}
 	public Timestamp getBoard_upload() {
 		return board_upload;
+	}
+	public void setBoard_upload() {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		Calendar cal = Calendar.getInstance();
+	    String today = null;
+	    today = formatter.format(cal.getTime());
+	    Timestamp ts = Timestamp.valueOf(today);
+	    this.board_upload = ts;
 	}
 	public void setBoard_upload(Timestamp board_upload) {
 		this.board_upload = board_upload;
