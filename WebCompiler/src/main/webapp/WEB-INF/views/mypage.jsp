@@ -668,7 +668,7 @@
 			            
 			            for(var i=pageMaker.startPage; i < pageMaker.endPage + 1; i++) {
 				            if(page_ == i){
-				            	$("#pagenav").append('<li class="page_num page_on" onclick="getBoardList(' + i + ')" value="' + i + '">' + '<a style="color:black !important;">' + i+ "</a>" + '</li>');
+				            	$("#pagenav").append('<li class="page_num page_on" onclick="getBoardList(' + i + ')" value="' + i + '">' + '<a style="color:white !important;">' + i+ "</a>" + '</li>');
 					        }
 				            else{
 				            	$("#pagenav").append('<li class="page_num" onclick="getBoardList(' + i + ')" value="' + i + '">' + "<a>" + i+ "</a>" +'</li>');
