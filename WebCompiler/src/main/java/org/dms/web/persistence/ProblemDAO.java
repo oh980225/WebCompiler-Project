@@ -19,4 +19,6 @@ public interface ProblemDAO {
 	List<ProblemVO> readList(String category, Criteria criteria) throws Exception;
 	List<ProblemVO> readList(int level, Criteria criteria) throws Exception;
 	public int ProblemCount(String category) throws Exception;
+	public void addSubmit (int problem_id);
+	public void addSuccess (int problem_id);
 }

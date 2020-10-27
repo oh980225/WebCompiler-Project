@@ -14,6 +14,10 @@ public interface ProblemService {
 	public void insertProblem(ProblemVO problem) throws Exception;
 	public List<ProblemVO> test() throws Exception;
 	
+	// 문제 제출, 성공횟수 증가
+	public void addSuccess (int problem_id);
+	public void addSubmit (int problem_id);
+	
 	// 문제 총 갯수
 	public int ProblemCount() throws Exception;
 	public int ProblemCount(int level, String category) throws Exception;

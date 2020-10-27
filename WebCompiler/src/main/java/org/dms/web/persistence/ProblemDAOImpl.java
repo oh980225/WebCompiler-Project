@@ -27,6 +27,16 @@ public class ProblemDAOImpl implements ProblemDAO {
 	}
 	
 	@Override
+	public void addSubmit (int problem_id) {
+		sqlSession.update(namespace + ".problem_add_submit", problem_id);
+	}
+	
+	@Override
+	public void addSuccess (int problem_id) {
+		sqlSession.update(namespace + ".problem_add_success", problem_id);
+	}
+	
+	@Override
 	public List<ProblemVO> readList() throws Exception {
 		// TODO Auto-generated method stub		
 		List<ProblemVO> problemList = new ArrayList<ProblemVO>();

@@ -110,6 +110,14 @@
     	select * from problem where problem_id = #{problem_id}
     </select>
     
+    <update id="problem_add_submit" parameterType="int"> 
+   		update problem set problem_submitnum = problem_submitnum + 1 where problem_id=#{problem_id};
+     </update>
+    
+    <update id="problem_add_success" parameterType="int"> 
+   		update problem set problem_successnum = problem_successnum + 1 where problem_id=#{problem_id};
+     </update>
+    
     <select id="listPaging" resultType="ProblemVO">
     	select * from problem limit #{page}, 8
     </select>

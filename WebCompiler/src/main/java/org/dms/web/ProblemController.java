@@ -296,6 +296,11 @@ public class ProblemController {
 		//problem_id
 		int problem_id = (Integer) session.getAttribute("problem_id");
 		
+		// 성공시 성공횟수 증가시키는 작업 필요
+		
+		// 제출시 제출횟수 증가
+		problemService.addSubmit(problem_id);
+		
 		//user_id
 		String user_id = user.getUser_id();
 		
