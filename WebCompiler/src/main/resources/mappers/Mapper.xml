@@ -209,8 +209,8 @@
     	select category_id from problem where problem_id = #{problem_id}
     </select>
     
-    <select id="codeboard_code_success" resultType="byte"> 
-    	select code_success from code where problem_id = #{problem_id} and code_success=1 limit 1
+    <select id="codeboard_code_success" parameterType="hashmap" resultType="byte"> 
+    	select code_success from code where problem_id = #{problem_id} and user_id = #{user_id} and code_success=1 limit 1
     </select>
 	
 	<select id="codeboard_code_date" resultType="Date"> 
