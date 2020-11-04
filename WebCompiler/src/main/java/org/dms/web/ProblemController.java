@@ -140,9 +140,8 @@ public class ProblemController {
 			Model model, 
 			Criteria cri, 
 			int problem_level, 
-			String category_name, 
-			String search_category,
-			String search) throws Exception {		
+			String category_name,
+			boolean isSearch) throws Exception {		
 		logger.info("categorytest_test");
 		Map<String, Object> map = new HashMap<String, Object>();
 		UserVO user = (UserVO) session.getAttribute("user");
@@ -174,6 +173,9 @@ public class ProblemController {
 			for(ProblemVO vo : pvo) {
 				logger.info(vo.getProblem_id() + " : " + vo.getProblem_title());
 			}
+			
+			System.out.println("isSearch? : " + isSearch);
+			
 			return map;
 		}
 		else if (problem_level == 0 && category_name != "unselected") {
@@ -296,7 +298,7 @@ public class ProblemController {
 		//problem_id
 		int problem_id = (Integer) session.getAttribute("problem_id");
 		
-		// 성공시 성공횟수 증가시키는 작업 필요
+		// 성공시 성공횟수 증가시키는 작업 필요(동건씨)
 		
 		// 제출시 제출횟수 증가
 		problemService.addSubmit(problem_id);

@@ -26,17 +26,17 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 
-	@RequestMapping(value = "/")
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getMainPage(Model model, HttpSession session) throws Exception {
 		UserVO user = (UserVO) session.getAttribute("user");
 		model.addAttribute("user", user);
 		return "main";		
 	}
 	
-	@RequestMapping(value = "/login")
-	public String login(Model model, HttpSession session) throws Exception {
-		return "signin";		
-	}
+//	@RequestMapping(value = "/login", method = RequestMethod.GET)
+//	public String login(Model model, HttpSession session) throws Exception {
+//		return "signin";		
+//	}
 	
 	
 }

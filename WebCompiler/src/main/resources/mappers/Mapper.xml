@@ -113,7 +113,7 @@
     <update id="problem_add_submit" parameterType="int"> 
    		update problem set problem_submitnum = problem_submitnum + 1 where problem_id=#{problem_id};
      </update>
-    
+     
     <update id="problem_add_success" parameterType="int"> 
    		update problem set problem_successnum = problem_successnum + 1 where problem_id=#{problem_id};
      </update>
@@ -194,7 +194,7 @@
     </select>
     
     <select id="codeboard_problem_id_list_by_problem_id" parameterType="hashmap" resultType="Integer"> 
-    	select distinct problem_id  from code where user_id = #{user_id} and problem_id LIKE CONCAT('%',#{search_id},'%')
+    	select distinct problem_id  from code where user_id = #{user_id} and problem_id LIKE CONCAT('%',#{search_id},'%')         
     </select>
     
     <select id="codeboard_problem_id_list_by_problem_id_criteria" parameterType="hashmap" resultType="Integer"> 

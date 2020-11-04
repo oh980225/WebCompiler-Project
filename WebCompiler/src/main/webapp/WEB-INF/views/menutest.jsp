@@ -48,9 +48,26 @@ if (request.getAttribute("user") != null) {
 <script>
 		var l_value = 0;
 		var c_value = "unselected";
+		let isSearch = false;
+		
 		function link( event ) {
 			location.href = '/problem/' + event.data.problem_id ;
 		}
+
+		function searchProblem() {
+			const searchBtn = document.getElementById("searchBtn");
+			const searchInput = document.getElementById("searchInput");
+			const searchType = document.getElementById("search_option");
+			
+			const searchType_value = searchType.innerText;
+			const searchInput_value = searchInput.value;
+
+			isSearch = true;
+
+			console.log("searchType_value: " + searchType_value);
+			console.log("searchInput_value: " + searchInput_value);
+		}
+		
 		function check_radio(chk){
 			l_value = chk.value;
 
@@ -110,7 +127,8 @@ if (request.getAttribute("user") != null) {
 		            data: {
 				            "problem_level": level_value,
 				            "category_name": category_value,
-				            "page": page
+				            "page": page,
+				            "isSearch": isSearch
 				        },
 		            success: function(data){	           
 			            var problem = data.list;
@@ -209,10 +227,6 @@ if (request.getAttribute("user") != null) {
 				<!-- Content -->
 				<div class="left-side">
 					<div class="wrapper">
-
-
-
-
 						
 						<nav class="slidemenu">
 							<!-- Item 1 -->
@@ -320,14 +334,14 @@ if (request.getAttribute("user") != null) {
 						<div class="dropdown">
 
 							<div class="default_option" id="search_option">번호</div>
-							<ul>
+							<ul id="searchType">
 								<li>번호</li>
 								<li>제목</li>
 							</ul>
 						</div>
 						<div class="search_field">
-							<input type="text" class="input"> <i
-								class="fas fa-search" id="searchBtn"></i>
+							<input id="searchInput" type="text" class="input"> <i
+								class="fas fa-search" id="searchBtn" onclick="searchProblem()"></i>
 						</div>
 					</div>
 					</div>
