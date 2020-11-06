@@ -53,20 +53,6 @@ if (request.getAttribute("user") != null) {
 		function link( event ) {
 			location.href = '/problem/' + event.data.problem_id ;
 		}
-
-		function searchProblem() {
-			const searchBtn = document.getElementById("searchBtn");
-			const searchInput = document.getElementById("searchInput");
-			const searchType = document.getElementById("search_option");
-			
-			const searchType_value = searchType.innerText;
-			const searchInput_value = searchInput.value;
-
-			isSearch = true;
-
-			console.log("searchType_value: " + searchType_value);
-			console.log("searchInput_value: " + searchInput_value);
-		}
 		
 		function check_radio(chk){
 			l_value = chk.value;
@@ -84,6 +70,9 @@ if (request.getAttribute("user") != null) {
 		    if(is_check == false){
 		    	l_value=0;
 			}
+
+		    console.log("select level: " + l_value);
+			
 			getBoardList(1);
 		}
 		function check_list(ref){
@@ -97,6 +86,7 @@ if (request.getAttribute("user") != null) {
 				c_value="unselected";
 			}
 			
+			console.log("select category: " + c_value);
 			
 			//$("#" + ref).addClass('selected');
 			getBoardList(1);
@@ -206,6 +196,37 @@ if (request.getAttribute("user") != null) {
 		                alert("simpleWithObject err");
 		            }
 		        });
+		}
+
+		function searchProblem() {
+			const searchBtn = document.getElementById("searchBtn");
+			const searchInput = document.getElementById("searchInput");
+			const searchType = document.getElementById("search_option");
+			
+			const searchType_value = searchType.innerText;
+			const searchInput_value = searchInput.value;
+
+			isSearch = true;
+
+			console.log("searchType_value: " + searchType_value);
+			console.log("searchInput_value: " + searchInput_value);
+
+			$.ajax({
+	            url: "/searchProblem",
+	            type: "POST",
+	            data: {
+			            "searchInput": searchInput_value,
+			            "searchType": searchType_value
+			        },
+	            success: function(){	           
+		            console.log("search success!");
+	            },
+	            error: function(){
+	                console.log("search error!");
+	            }
+	        });
+
+			getBoardList(1);
 		}
 
 		</script>

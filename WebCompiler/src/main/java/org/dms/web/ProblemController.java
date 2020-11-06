@@ -16,6 +16,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.dms.web.domain.CategoryVO;
+import org.dms.web.domain.CodeBoardVO;
 import org.dms.web.domain.CodeVO;
 import org.dms.web.domain.Criteria;
 import org.dms.web.domain.PageMaker;
@@ -141,7 +142,11 @@ public class ProblemController {
 			Criteria cri, 
 			int problem_level, 
 			String category_name,
-			boolean isSearch) throws Exception {		
+			boolean isSearch) throws Exception {
+		if(isSearch) {
+			System.out.println("searchInput in Session: " + session.getAttribute("searchInput"));
+			System.out.println("searchType in Session: " + session.getAttribute("searchType"));
+		}
 		logger.info("categorytest_test");
 		Map<String, Object> map = new HashMap<String, Object>();
 		UserVO user = (UserVO) session.getAttribute("user");
@@ -150,8 +155,19 @@ public class ProblemController {
 			logger.info("level: " + problem_level);
 			logger.info("category: " + category_name);
 			
-			List<ProblemVO> pvo = problemService.readProblemList(cri);
-			int count = problemService.ProblemCount();
+			List<ProblemVO> pvo = new ArrayList<ProblemVO>();;
+			int count = 0;
+			String searchInput = (String) session.getAttribute("searchInput");
+			String searchType = (String) session.getAttribute("searchType");
+			
+			if(isSearch) {
+				pvo = problemService.searchProblemList(searchType, searchInput, cri);
+				count = problemService.searchProblemCount(searchType, searchInput);
+			} else {
+				pvo = problemService.readProblemList(cri);
+				count = problemService.ProblemCount();
+			}
+			
 			PageMaker pageMaker = new PageMaker();
 			cri.setPerPageNum(8);
 			pageMaker.setCri(cri);
@@ -181,15 +197,37 @@ public class ProblemController {
 		else if (problem_level == 0 && category_name != "unselected") {
 			logger.info("category: " + category_name);
 			
-			List<ProblemVO> pvo = problemService.readProblemList(category_name, cri);
-			int count = problemService.ProblemCount(category_name);
+			List<ProblemVO> pvo = new ArrayList<ProblemVO>();;
+			int count = 0;
+			String searchInput = (String) session.getAttribute("searchInput");
+			String searchType = (String) session.getAttribute("searchType");
+			
+			if(isSearch) {
+				pvo = problemService.searchProblemListByCategory(searchType, searchInput, category_name, cri);
+				count = problemService.searchProblemCountByCategory(searchType, searchInput, category_name);
+			} else {
+				pvo = problemService.readProblemList(category_name, cri);
+				count = problemService.ProblemCount(category_name);
+			}
+			
+//			List<ProblemVO> pvo = problemService.readProblemList(category_name, cri);
+//			int count = problemService.ProblemCount(category_name);
+			
 			PageMaker pageMaker = new PageMaker();
 			cri.setPerPageNum(8);
 			pageMaker.setCri(cri);
 			pageMaker.setTotalCount(count);
 			
+			boolean[] successList = new boolean[8];
+			int index = 0;
+			
+			for(ProblemVO problem : pvo) {
+				successList[index++] = codeService.IsSuccess(user.getUser_id(), problem.getProblem_id());
+			}
+			
 			map.put("pageMaker", pageMaker);
 			map.put("list", pvo);
+			map.put("successList", successList);
 			
 			logger.info("count: " + count);
 			for(ProblemVO vo : pvo) {
@@ -203,8 +241,19 @@ public class ProblemController {
 			logger.info("page:" +  cri.getPage());
 			logger.info("perPageNum:" +  cri.getPerPageNum());
 			
-			List<ProblemVO> pvo = problemService.readProblemList(problem_level, category_name, cri); // 추가
-			int count = problemService.ProblemCount(problem_level, category_name);
+			List<ProblemVO> pvo = new ArrayList<ProblemVO>();;
+			int count = 0;
+			String searchInput = (String) session.getAttribute("searchInput");
+			String searchType = (String) session.getAttribute("searchType");
+			
+			if(isSearch) {
+				pvo = problemService.searchProblemListByCategoryAndLevel(searchType, searchInput, category_name, problem_level, cri);
+				count = problemService.searchProblemCountByCategoryAndLevel(searchType, searchInput, category_name, problem_level);
+			} else {
+				pvo = problemService.readProblemList(problem_level, category_name, cri);
+				count = problemService.ProblemCount(problem_level, category_name);
+			}
+			
 			PageMaker pageMaker = new PageMaker();
 			cri.setPerPageNum(8);
 			pageMaker.setCri(cri);
@@ -404,5 +453,14 @@ public class ProblemController {
 		
 		return map;
 	}
-		
+	
+	@RequestMapping(value = "/searchProblem", method = RequestMethod.POST)
+	@ResponseBody
+	public void searchProblem(
+			HttpSession session,
+			String searchInput,
+			String searchType) throws Exception {			
+		session.setAttribute("searchInput", searchInput);
+		session.setAttribute("searchType", searchType);
+	}
 }

@@ -21,4 +21,16 @@ public interface ProblemDAO {
 	public int ProblemCount(String category) throws Exception;
 	public void addSubmit (int problem_id);
 	public void addSuccess (int problem_id);
+	// 검색
+	public List<ProblemVO> searchProblemList(String searchType, String searchInput, Criteria criteria) throws Exception;
+	public int searchProblemCount(String searchType, String searchInput) throws Exception;
+	// 검색 + 카테고리
+	public List<ProblemVO> searchProblemListByCategory(String searchType, String searchInput, String category, Criteria criteria) throws Exception;
+	public int searchProblemCountByCategory(String searchType, String searchInput, String category) throws Exception;
+	// 검색 + 레벨
+	public List<ProblemVO> searchProblemListByLevel(String searchType, String searchInput, int level, Criteria criteria) throws Exception;
+	public int searchProblemCountByLevel(String searchType, String searchInput, int level) throws Exception;
+	// 검색 + 카테고리 + 레벨
+	public List<ProblemVO> searchProblemListByCategoryAndLevel(String searchType, String searchInput, String category, int level, Criteria criteria) throws Exception;
+	public int searchProblemCountByCategoryAndLevel(String searchType, String searchInput, String category, int level) throws Exception;
 }
