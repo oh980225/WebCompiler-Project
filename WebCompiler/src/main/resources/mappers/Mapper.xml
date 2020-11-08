@@ -61,6 +61,10 @@
 		delete from user where user_id = #{id}
     </delete>
     
+    <select id="check_user_id" resultType="UserVO">
+     	select * from user where user_id = #{value};
+     </select>
+    
     <insert id="board_insert_free">
     	insert into board (board_title, board_content, board_upload, user_id, problem_id) values (#{board_title}, #{board_content}, #{board_upload}, #{user_id}, #{problem_id})
     </insert>
@@ -126,6 +130,14 @@
     	select * from problem where problem_id = #{problem_id}
     </select>
     
+    <update id="problem_add_submit" parameterType="int"> 
+   		update problem set problem_submitnum = problem_submitnum + 1 where problem_id=#{problem_id};
+     </update>
+     
+    <update id="problem_add_success" parameterType="int"> 
+   		update problem set problem_successnum = problem_successnum + 1 where problem_id=#{problem_id};
+     </update>
+    
     <select id="listPaging" resultType="ProblemVO">
     	select * from problem limit #{page}, 8
     </select>
@@ -149,8 +161,73 @@
     </select>
     
     <select id="problem_selectByCategory" resultType="ProblemVO">
-    	select * from problem where category_id = #{category_id}  limit #{pageStart}, #{perPageNum}
+    	select * from problem where category_id = #{category_id} limit #{pageStart}, #{perPageNum}
     </select>
+    <!-- 검색 -->
+    <select id="problem_search_by_id" parameterType="hashmap" resultType="ProblemVO">
+    	select * from problem where problem_id LIKE CONCAT('%',#{problem_id},'%') limit #{pageStart}, #{perPageNum}
+    </select>
+    
+    <select id="problem_search_by_title" parameterType="hashmap" resultType="ProblemVO">
+    	select * from problem where problem_title LIKE CONCAT('%',#{problem_title},'%') limit #{pageStart}, #{perPageNum}
+    </select>
+    
+    <select id="count_search_by_id" resultType="int">
+    	select COUNT(problem_id) from problem where problem_id LIKE CONCAT('%',#{searchInput},'%')
+    </select>
+    
+    <select id="count_search_by_title" resultType="int">
+    	select COUNT(problem_id) from problem where problem_title LIKE CONCAT('%',#{searchInput},'%')
+    </select>
+    <!-- 검색 + 카테고리 -->
+    <select id="problem_search_by_id_by_category" parameterType="hashmap" resultType="ProblemVO">
+    	select * from problem where problem_id LIKE CONCAT('%',#{problem_id},'%') and category_id = #{category} limit #{pageStart}, #{perPageNum}
+    </select>
+    
+    <select id="problem_search_by_title_by_category" parameterType="hashmap" resultType="ProblemVO">
+    	select * from problem where problem_title LIKE CONCAT('%',#{problem_title},'%') and category_id = #{category} limit #{pageStart}, #{perPageNum}
+    </select>
+    
+    <select id="count_search_by_id_by_category" parameterType="hashmap" resultType="int">
+    	select COUNT(problem_id) from problem where problem_id LIKE CONCAT('%',#{searchInput},'%') and category_id = #{category}
+    </select>
+    
+    <select id="count_search_by_title_by_category" parameterType="hashmap" resultType="int">
+    	select COUNT(problem_id) from problem where problem_title LIKE CONCAT('%',#{searchInput},'%') and category_id = #{category}
+    </select>
+    <!-- 검색 + 레벨 -->
+    <select id="problem_search_by_id_by_level" parameterType="hashmap" resultType="ProblemVO">
+    	select * from problem where problem_id LIKE CONCAT('%',#{problem_id},'%') and problem_level = #{level} limit #{pageStart}, #{perPageNum}
+    </select>
+    
+    <select id="problem_search_by_title_by_level" parameterType="hashmap" resultType="ProblemVO">
+    	select * from problem where problem_title LIKE CONCAT('%',#{problem_title},'%') and problem_level = #{level} limit #{pageStart}, #{perPageNum}
+    </select>
+    
+    <select id="count_search_by_id_by_level" parameterType="hashmap" resultType="int">
+    	select COUNT(problem_id) from problem where problem_id LIKE CONCAT('%',#{searchInput},'%') and problem_level = #{level}
+    </select>
+    
+    <select id="count_search_by_title_by_level" parameterType="hashmap" resultType="int">
+    	select COUNT(problem_id) from problem where problem_title LIKE CONCAT('%',#{searchInput},'%') and problem_level = #{level}
+    </select>
+    <!-- 검색 + 카테고리 + 레벨 -->
+    <select id="problem_search_by_id_by_category_and_level" parameterType="hashmap" resultType="ProblemVO">
+    	select * from problem where problem_id LIKE CONCAT('%',#{problem_id},'%') and category_id = #{category} and problem_level = #{level} limit #{pageStart}, #{perPageNum}
+    </select>
+    
+    <select id="problem_search_by_title_by_category_and_level" parameterType="hashmap" resultType="ProblemVO">
+    	select * from problem where problem_title LIKE CONCAT('%',#{problem_title},'%') and category_id = #{category} and problem_level = #{level} limit #{pageStart}, #{perPageNum}
+    </select>
+    
+    <select id="count_search_by_id_by_category_and_level" parameterType="hashmap" resultType="int">
+    	select COUNT(problem_id) from problem where problem_id LIKE CONCAT('%',#{searchInput},'%') and category_id = #{category} and problem_level = #{level}
+    </select>
+    
+    <select id="count_search_by_title_by_category_and_level" parameterType="hashmap" resultType="int">
+    	select COUNT(problem_id) from problem where problem_title LIKE CONCAT('%',#{searchInput},'%') and category_id = #{category} and problem_level = #{level}
+    </select>
+    
     <!-- 채팅  -->
     <insert id="chat_insert">
     	insert into chat (chat_content, chat_date, user_id, problem_id) values (#{chat_content}, #{chat_date}, #{user_id}, #{problem_id})
@@ -202,7 +279,7 @@
     </select>
     
     <select id="codeboard_problem_id_list_by_problem_id" parameterType="hashmap" resultType="Integer"> 
-    	select distinct problem_id  from code where user_id = #{user_id} and problem_id LIKE CONCAT('%',#{search_id},'%')
+    	select distinct problem_id  from code where user_id = #{user_id} and problem_id LIKE CONCAT('%',#{search_id},'%')         
     </select>
     
     <select id="codeboard_problem_id_list_by_problem_id_criteria" parameterType="hashmap" resultType="Integer"> 
@@ -225,8 +302,8 @@
     	select category_id from problem where problem_id = #{problem_id}
     </select>
     
-    <select id="codeboard_code_success" resultType="byte"> 
-    	select code_success from code where problem_id = #{problem_id} and code_success=1 limit 1
+    <select id="codeboard_code_success" parameterType="hashmap" resultType="byte"> 
+    	select code_success from code where problem_id = #{problem_id} and user_id = #{user_id} and code_success=1 limit 1
     </select>
 	
 	<select id="codeboard_code_date" resultType="Date"> 

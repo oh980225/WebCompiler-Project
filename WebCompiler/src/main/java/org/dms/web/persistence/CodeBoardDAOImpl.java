@@ -77,16 +77,17 @@ public class CodeBoardDAOImpl implements CodeBoardDAO {
 			String category_id = sqlSession.selectOne(namespace + ".codeboard_category_id", problem_id); 
 			String problem_title = sqlSession.selectOne(namespace + ".codeboard_problem_title", problem_id); 
 			byte code_success;
-			if(sqlSession.selectOne(namespace + ".codeboard_code_success", problem_id) == null) {
+			
+			Map<String, Object> param = new HashMap<String,Object>();
+			param.put("user_id", user_id);
+			param.put("problem_id", problem_id);
+			
+			if(sqlSession.selectOne(namespace + ".codeboard_code_success", param) == null) {
 				code_success = 0;
 			} else {
 				code_success = 1;
 			}
 			int problem_level = sqlSession.selectOne(namespace + ".codeboard_problem_level", problem_id);
-			
-			Map<String, Object> param = new HashMap<String,Object>();
-			param.put("user_id", user_id);
-			param.put("problem_id", problem_id);
 			
 			List<CodeVO> codeList = sqlSession.selectList(namespace + ".codeboard_codeList", param);
 			Date code_date = sqlSession.selectOne(namespace + ".codeboard_code_date", problem_id);
@@ -256,12 +257,16 @@ public class CodeBoardDAOImpl implements CodeBoardDAO {
 		List<CodeBoardVO> codeBoardVOList = new ArrayList<CodeBoardVO>();
 		
 		for(int problem_id : problemIdList) {
+			Map<String, Object> otherListParam = new HashMap<String, Object>();
+			
+			otherListParam.put("user_id", user_id);
+			otherListParam.put("problem_id", problem_id);
 			System.out.println(problemIdList);
 			
 			String category_id = sqlSession.selectOne(namespace + ".codeboard_category_id", problem_id); 
 			String problem_title = sqlSession.selectOne(namespace + ".codeboard_problem_title", problem_id); 
 			byte code_success;
-			if(sqlSession.selectOne(namespace + ".codeboard_code_success", problem_id) == null) {
+			if(sqlSession.selectOne(namespace + ".codeboard_code_success", otherListParam) == null) {
 				code_success = 0;
 			} else {
 				code_success = 1;
@@ -332,10 +337,15 @@ public class CodeBoardDAOImpl implements CodeBoardDAO {
 		for(int problem_id : problemIdList) {
 			System.out.println(problemIdList);
 			
+			Map<String, Object> otherListParam = new HashMap<String, Object>();
+			
+			otherListParam.put("user_id", user_id);
+			otherListParam.put("problem_id", problem_id);
+			
 			String category_id = sqlSession.selectOne(namespace + ".codeboard_category_id", problem_id); 
 			String problem_title = sqlSession.selectOne(namespace + ".codeboard_problem_title", problem_id); 
 			byte code_success;
-			if(sqlSession.selectOne(namespace + ".codeboard_code_success", problem_id) == null) {
+			if(sqlSession.selectOne(namespace + ".codeboard_code_success", otherListParam) == null) {
 				code_success = 0;
 			} else {
 				code_success = 1;

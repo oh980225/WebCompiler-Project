@@ -43,16 +43,30 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css" />
 <script>
+		let isSearch = false;
+
 		function link( event ) {
 			location.href = '/problem/' + event.data.problem_id ;
+		}
+
+		function searchProblem() {
+			const searchBtn = document.getElementById("searchBtn");
+			const searchInput = document.getElementById("searchInput");
+			const searchType = document.getElementById("demo-category2");
+			
+			const searchType_value = searchType.options[searchType.selectedIndex].value;
+			const searchInput_value = searchInput.value;
+
+			isSearch = true;
+
+			console.log("searchType_value: " + searchType_value);
+			console.log("searchInput_value: " + searchInput_value);
 		}
 		
 		function getBoardList(page){	
 			var level = document.getElementById("problem_level")
 			var category = document.getElementById("category_name");
-			const searchBtn = document.getElementById("searchBtn");
-			const searchCategory = document.getElementById("demo-category2");
-
+			
 			var level_value = level.options[level.selectedIndex].value;
 			var category_value = category.options[category.selectedIndex].value;
 			
@@ -63,7 +77,8 @@
 	            data: {
 			            "problem_level": level_value,
 			            "category_name": category_value,
-			            "page": page//page,
+			            "page": page,//page,
+			            "isSearch": isSearch
 			        },
 	            success: function(data){	           
 		            var problem = data.list;
@@ -192,7 +207,7 @@
                         </select>
                         <div class="select_arrow"></div>
                     </div>
-                    <button id="searchBtn" class="searchBtn">검색</button>
+                    <button id="searchBtn" class="searchBtn" onclick="searchProblem()">검색</button>
                    <div class="col-12 name">
 						<select name="demo-category" id="demo-category2">
 							<option value="">-- 선택 --</option>
@@ -201,7 +216,7 @@
 						</select>
 						<div class="small_arrow"></div>
 					</div>
-					<input class="search" type="text" name="search" placeholder="검색">
+					<input id="searchInput" class="search" type="text" name="search" placeholder="검색">
 
 					<br>
 					

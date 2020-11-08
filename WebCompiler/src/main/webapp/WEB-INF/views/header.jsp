@@ -28,7 +28,7 @@
 			<img class="img" src=<%=imgURL%> >
 			<div class="name_intro">
 				<div class="header_name">
-					<a href="?name=Mr.O">${user.user_name}</a>
+					<a href="/mypage">${user.user_name}</a>
 				</div>
 				<div class="header_intro">${user.user_introduce}</div>
 			</div>

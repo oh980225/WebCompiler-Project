@@ -84,11 +84,69 @@ public class ProblemServiceImpl implements ProblemService {
 		// TODO Auto-generated method stub
 		return problemDAO.readList(level, category, cri);
 	}
+	
 	@Override
 	public List<ProblemVO> readProblemList(String category, Criteria cri) throws Exception {
 		// TODO Auto-generated method stub
 		return problemDAO.readList(category, cri);
 	}
 	
+	@Override
+	public void addSuccess (int problem_id) {
+		problemDAO.addSuccess(problem_id);
+	}
+	
+	@Override
+	public void addSubmit (int problem_id) {
+		problemDAO.addSubmit(problem_id);
+	}
+	
+	// 검색
+	@Override
+	public List<ProblemVO> searchProblemList(String searchType, String searchInput, Criteria criteria) throws Exception {
+		return problemDAO.searchProblemList(searchType, searchInput, criteria);
+	}
+	
+	@Override
+	public int searchProblemCount(String searchType, String searchInput) throws Exception {
+		return problemDAO.searchProblemCount(searchType, searchInput);
+	}
+
+	// 검색 + 카테고리
+	@Override
+	public List<ProblemVO> searchProblemListByCategory(String searchType, String searchInput, String category,
+			Criteria criteria) throws Exception {
+		return problemDAO.searchProblemListByCategory(searchType, searchInput, category, criteria);
+	}
+
+	@Override
+	public int searchProblemCountByCategory(String searchType, String searchInput, String category) throws Exception {
+		return problemDAO.searchProblemCountByCategory(searchType, searchInput, category);
+	}
+
+	// 검색 + 레벨
+	@Override
+	public List<ProblemVO> searchProblemListByLevel(String searchType, String searchInput, int level, Criteria criteria)
+			throws Exception {
+		return problemDAO.searchProblemListByLevel(searchType, searchInput, level, criteria);
+	}
+
+	@Override
+	public int searchProblemCountByLevel(String searchType, String searchInput, int level) throws Exception {
+		return problemDAO.searchProblemCountByLevel(searchType, searchInput, level);
+	}
+
+	// 검색 + 카테고리 + 레벨
+	@Override
+	public List<ProblemVO> searchProblemListByCategoryAndLevel(String searchType, String searchInput, String category,
+			int level, Criteria criteria) throws Exception {
+		return problemDAO.searchProblemListByCategoryAndLevel(searchType, searchInput, category, level, criteria);
+	}
+
+	@Override
+	public int searchProblemCountByCategoryAndLevel(String searchType, String searchInput, String category, int level)
+			throws Exception {
+		return problemDAO.searchProblemCountByCategoryAndLevel(searchType, searchInput, category, level);
+	}
 
 }

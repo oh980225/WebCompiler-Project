@@ -55,7 +55,7 @@ public class MyPageController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MyPageController.class);
 
-	@RequestMapping(value = "/mypage")
+	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String getMyPage(Model model, HttpSession session, Criteria criteria) throws Exception {
 		UserVO user = (UserVO)session.getAttribute("user");
 		List<CodeVO> codeList = userService.getCodeList(user.getUser_id());
@@ -140,7 +140,7 @@ public class MyPageController {
 	}
 	
 	// 회원 탈퇴 기능
-	@RequestMapping(value="/mypage/delete/{user_id}")
+	@RequestMapping(value="/mypage/delete/{user_id}", method = RequestMethod.POST)
 	public String withdrawUser(@PathVariable("user_id") String userId, HttpSession session) throws Exception {
 		userService.deleteUser(userId);
 		session.invalidate();

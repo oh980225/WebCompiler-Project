@@ -1,6 +1,10 @@
 package org.dms.web;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.dms.web.domain.UserVO;
 import org.dms.web.service.UserService;
@@ -61,6 +65,17 @@ public class UserController {
 		public String logout(@ModelAttribute("user") UserVO uvo, HttpServletRequest request) throws Exception{
 			request.getSession().removeAttribute("user");
 			return "redirect:/";
+		}
+		
+		@RequestMapping(value="/checkDuplicating", method = RequestMethod.POST)
+		@ResponseBody
+		public Map<String, Object> checkDuplicating(String value) throws Exception {
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			boolean isRight = userService.checkId(value);
+			map.put("isRight", isRight);
+			
+			return map;
 		}
 		
 }

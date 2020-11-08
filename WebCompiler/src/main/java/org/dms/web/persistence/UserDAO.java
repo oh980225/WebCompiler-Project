@@ -15,4 +15,5 @@ public interface UserDAO {
 	public int update(UserVO user) throws Exception;
 	public int saveImg(UserVO user) throws Exception;
 	public List<CodeVO> getCodeList(String id) throws Exception;
+	public boolean checkId(String value) throws Exception;
 }
