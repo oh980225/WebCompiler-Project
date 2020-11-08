@@ -1,14 +1,21 @@
 package org.dms.web;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.dms.web.domain.CategoryVO;
 import org.dms.web.domain.CodeBoardVO;
+import org.dms.web.domain.CodeFilterVO;
 import org.dms.web.domain.CodeVO;
 import org.dms.web.domain.Criteria;
 import org.dms.web.domain.PageMaker;
@@ -20,6 +27,7 @@ import org.dms.web.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -103,10 +111,29 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value="/getByteImage/{user_id}")
-	public ResponseEntity<byte[]> getByteImage(@PathVariable("user_id") String userId) throws Exception {
+	public ResponseEntity<byte[]> getByteImage(@PathVariable("user_id") String userId, HttpServletRequest request) throws Exception {
 		System.out.println(userId);
 		UserVO user = userService.readUser(userId);
 		byte[] imageContent = user.getUser_img();
+		
+		
+
+		if(imageContent == null) {
+				
+			//ClassPathResource resource = new ClassPathResource("webapp/images/user.png");
+			String path = request.getSession().getServletContext().getRealPath("/resources/images/user.png");
+			BufferedImage originalImage = ImageIO.read(new File(path));
+			//BufferedImage originalImage = ImageIO.read(resource.getFile());
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ImageIO.write(originalImage, "png", baos);
+			baos.flush();
+			 
+			imageContent = baos.toByteArray();
+			System.out.println(Arrays.toString(imageContent));
+			 
+			baos.close();
+
+		}
 		
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.IMAGE_PNG);
@@ -166,6 +193,8 @@ public class MyPageController {
 		System.out.println("problem_level: " + problem_level);
 		System.out.println("category_name: " + category_name);
 		System.out.println("search_category: " + search_category);
+		System.out.println("startpage: " + criteria.getPageStart());
+		System.out.println("perpage: " + criteria.getPerPageNum());
 		System.out.println("search: " + search);
 		logger.info("categorytest_test");
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -175,7 +204,9 @@ public class MyPageController {
 		
 		logger.info("level: " + problem_level);
 		logger.info("category: " + category_name);
+	
 		
+		// 검색
 		if(search != "") {
 			List<CodeBoardVO> codeBoardList_ = codeBoardService.getCodeBoardListBySearch(user.getUser_id(), search_category, search);
 			criteria.setPerPageNum(5);
@@ -192,7 +223,9 @@ public class MyPageController {
 			map.put("list", codeBoardList);
 			
 			return map;
-		} else {
+		}
+		
+		/*else {
 			
 			List<CodeBoardVO> codeBoardList_ = codeBoardService.getCodeBoardList(user.getUser_id());
 			criteria.setPerPageNum(5);
@@ -207,7 +240,45 @@ public class MyPageController {
 			map.put("list", codeBoardList);
 			
 			return map;
+		}*/
+		
+		if(problem_level == 0 && category_name.equals("unselected")){	
+			criteria.setPerPageNum(5);
+			criteria.setPage(page);
+			pageMaker.setCri(criteria);
+			
+			List<CodeBoardVO> codeBoardList_ = codeBoardService.getCodeBoardList(user.getUser_id());
+			
+			System.out.println("codeBoardList_.size() : " + codeBoardList_.size());
+			pageMaker.setTotalCount(codeBoardList_.size());
+			
+			List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id(), criteria);
+			
+			map.put("pageMaker", pageMaker);
+			map.put("list", codeBoardList);
+			
+			return map;
 		}
+		else {
+			criteria.setPerPageNum(5);
+			criteria.setPage(page);
+			pageMaker.setCri(criteria);
+			
+			List<CodeBoardVO> codeBoardList = codeBoardService.getCodeBoardList_filter(user.getUser_id(), criteria, problem_level, category_name);
+			System.out.println("codeBoardList_.size() : " + codeBoardList.size());
+			pageMaker.setTotalCount(codeBoardList.size());
+			
+			map.put("pageMaker", pageMaker);
+			map.put("list", codeBoardList);
+			
+			return map;
+		}
+		
 	}
+	
+	
+	
+
+	
 	
 }

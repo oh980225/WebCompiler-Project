@@ -102,7 +102,6 @@ public class ProblemController {
 			
 			//return "problem_list";
 			return "menutest";
-
 		}
 
 		//PageMaker pageMaker = new PageMaker();
@@ -190,6 +189,18 @@ public class ProblemController {
 			map.put("list", pvo);
 			
 			logger.info("count: " + count);
+			
+			boolean[] successList = new boolean[8];
+			int index = 0;
+			
+			for(ProblemVO problem : pvo) {
+				successList[index++] = codeService.IsSuccess(user.getUser_id(), problem.getProblem_id());
+			}
+			
+			System.out.println("successList: " + successList);
+			map.put("successList", successList);
+			
+			
 			for(ProblemVO vo : pvo) {
 				logger.info(vo.getProblem_id() + " : " + vo.getProblem_title());
 			}

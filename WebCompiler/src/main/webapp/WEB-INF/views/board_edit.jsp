@@ -15,6 +15,7 @@
 %>
 <!DOCTYPE html>
 <html>
+<title>CODE SPACE</title>
 <head>
 <meta charset="utf-8" />
 <meta name="viewport"

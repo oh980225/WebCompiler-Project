@@ -452,7 +452,7 @@ textarea {
 				box-sizing: border-box;
 			    border: 2px solid #EA7862;
 			    padding: 0.7em 0.9em 0.7em 0.9em;
-			    border-radius: 0 2em 2em 2em;
+			    border-radius: 2em 0 2em 2em;
 			    width:auto;
 			}
 			.chat_data_me .comment_content p{

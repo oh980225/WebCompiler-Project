@@ -39,6 +39,14 @@ section.profile div.profile_img {
   float: left;
 }
 
+section.profile label {
+    color: #79BCC3;
+    display: block;
+    font-size: 0.9em;
+    font-weight: 600;
+    margin: 0 0 0.25em 0;
+}
+
 section.profile div.profile_img img.img {
   width: 20em;
   height: 20em;
@@ -213,6 +221,7 @@ form#name_form div.editBox {
 div.editBox input[type="text"] {
   border: 1px solid grey;
   background: white;
+  font-size:0.9em;
   border-radius: 0 20px 20px 10px;
 }
 
@@ -240,6 +249,7 @@ form#intro_form div.editBox textarea {
   border: 1px solid grey;
   background: white;
   border-radius: 0 20px 20px 10px;
+  font-size:0.9em;
 }
 
 form#intro_form div.editBox button {

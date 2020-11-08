@@ -30,9 +30,10 @@
 		
 	<interceptors>
 		<interceptor>
-			<mapping path="/category"/>
-			<mapping path="/vul_check"/>
-			<mapping path="/problem"/>
+			<mapping path="/board/**"/>
+			<mapping path="/testcase"/>
+			<mapping path="/problem/**"/>
+			<mapping path="/problem/insert"/>
 			<!-- <mapping path="/board/**"/> -->
 			<mapping path="/mypage"/>
 			<beans:ref bean="LoginInterceptor"/>

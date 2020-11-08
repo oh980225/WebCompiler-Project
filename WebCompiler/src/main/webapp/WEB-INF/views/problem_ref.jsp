@@ -9,8 +9,8 @@
 -->
 <html>
 
-<head>rm 
-	<title>JAVA 버전 컴파일러 화면</title>
+<head>
+	<title>CODE SPACE</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css" />

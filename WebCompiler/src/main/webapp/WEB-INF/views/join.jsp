@@ -166,7 +166,7 @@
                                                 <span>비밀번호</span>
                                             </td>
                                             <td class="table_value">
-                                                <input type="text" name="user_passwd" id="user_passwd" value="" onchange="passwd_validate()" />
+                                                <input type="password" name="user_passwd" id="user_passwd" value="" onchange="passwd_validate()" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -179,7 +179,7 @@
                                                 <span>비밀번호 확인</span>
                                             </td>
                                             <td>
-                                                <input type="text" id="passwd_check" onchange="passwdcheck()" />
+                                                <input type="password" id="passwd_check" onchange="passwdcheck()" />
                                             </td>
                                         </tr>
                                         <tr>

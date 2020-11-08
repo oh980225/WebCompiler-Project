@@ -6,6 +6,22 @@
 
 <mapper namespace="org.dms.web.mapper.Mapper">
 
+<resultMap type="CodeVO" id="CodeVO">
+	<result column="problem_id" property="problem_id"/>
+	<result column="user_id" property="user_id"/>
+</resultMap>
+<resultMap type="ProblemVO" id="ProblemVO">
+	<result column="problem_id" property="problem_id"/>
+	<result column="problem_title" property="problem_title"/>
+	<result column="problem_level" property="problem_level"/>
+	<result column="category_id" property="category_id"/>
+</resultMap>
+
+<resultMap type="CodeFilterVO" id="CodeFilterVO">
+	<collection property="pvo" resultMap="ProblemVO"></collection>
+	<collection property="cvo" resultMap="CodeVO"></collection>
+</resultMap>
+
   
  	<select id="getTime" resultType="string">
  		select now()
@@ -228,6 +244,25 @@
      <select id="codeboard_problem_id_list_criteria" parameterType="hashmap" resultType="Integer">
     	select distinct problem_id  from code where user_id = #{user_id} limit #{pageStart}, #{perPageNum}
      </select>
+     
+     <select id="codeboard_filter_category" resultType="CodeBoardVO">   
+    	select c.problem_id, c.user_id, p.problem_title, p.problem_level, p.category_id from code as c
+    	join problem as p
+    	on (p.problem_id = c.problem_id and user_id =#{user_id})
+    	where p.category_id = #{category_id} limit #{pageStart}, #{perPageNum}	
+     </select>
+ 
+     <select id="codeboard_filter_level" resultType="CodeBoardVO">
+    	select c.problem_id, c.user_id, p.problem_title, p.problem_level, p.category_id from code as c join problem as p on p.problem_id = c.problem_id and user_id = #{user_id}
+    	where p.problem_level = #{problem_level} limit #{pageStart}, #{perPageNum}
+     </select>
+ 
+     <select id="codeboard_filter_all" resultType="CodeBoardVO">   
+    	select c.problem_id, c.user_id, p.problem_title, p.problem_level, p.category_id from code as c join problem as p on (p.problem_id = c.problem_id and user_id = #{user_id})
+    	where p.category_id = #{category_id} and p.problem_level = #{problem_level}
+    	limit #{pageStart}, #{perPageNum}	
+     </select>
+
      <!-- select distinct problem_id  from code where user_id = #{user_id} order by code_date desc limit #{pageStart}, #{perPageNum} -->
    
     <!-- 코드테이블 관련 -->

@@ -60,8 +60,10 @@ public class BoardController {
 		return "board";
 	}
 	
-	@RequestMapping(value = "/board/insert")
-	public String boardInsertGet(Model model) throws Exception {
+	@RequestMapping(value = "/board/insert", method=RequestMethod.GET)
+	public String boardInsertGet(Model model, HttpSession session) throws Exception {
+		UserVO user = (UserVO)session.getAttribute("user");
+		model.addAttribute("user", user);
 		return "board_insert";
 	}
 	
@@ -78,7 +80,7 @@ public class BoardController {
 	@RequestMapping(value = "/board/delete", method=RequestMethod.GET)
 	public String boardDeleteGet(@ModelAttribute("board_id") int board_id, Model model) throws Exception {
 		boardService.deleteBoard(board_id);
-		return "board";
+		return "redirect:/board";
 	}
 	
 	@RequestMapping(value = "/board/edit.do", method=RequestMethod.POST)
