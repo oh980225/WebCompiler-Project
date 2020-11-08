@@ -24,7 +24,7 @@
 <html>
 
 <head>
-<title>JAVA 버전 컴파일러 화면</title>
+<title>CODESPACE</title>
 
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

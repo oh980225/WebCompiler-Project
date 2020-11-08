@@ -22,7 +22,7 @@
 -->
 <html>
 <head>
-<title>코드 스페이스</title>
+<title>CODE SPACE</title>
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -142,7 +142,6 @@
 
 				}
 			function comment_delete(comments_id){
-				alert(comments_id)
 				$.ajax({
 					url: "/board/" + ${board.board_id}+"/comment.delete/" + comments_id,
 					type: "DELETE",
@@ -154,6 +153,7 @@
 
 					}
 				});
+				alert("삭제완료")
 			}
 			
 			function resize(obj) {
@@ -230,7 +230,7 @@
 
 						</div>
 						<div class="board_info">
-							<a href="edit?id=${board.board_id}"><img
+							<a href="insert"><img
 								src="<%=request.getContextPath()%>/resources/images/write.png">글쓰기</a>
 							<a href="/board" style="vertical-align: middle"><img
 								src="<%=request.getContextPath()%>/resources/images/board_list.png"
@@ -259,8 +259,11 @@
 								<c:if test="${user.user_id == board.user_id}">
 									<a href="edit?id=${board.board_id}" style="color: black"><img
 										src="<%=request.getContextPath()%>/resources/images/edit.png"></a>
-									<a href="delete" style="color: black"><img
-										src="<%=request.getContextPath()%>/resources/images/delete.png"></a>
+									<%-- <a href="delete" style="color: black"><img
+										src="<%=request.getContextPath()%>/resources/images/delete.png"></a> --%>
+									<a onclick="return alert('정말로 삭제하시겠습니까?')"
+										href="delete?board_id=${board.board_id}" ><img
+										src="<%=request.getContextPath()%>/resources/images/delete.png">삭제</a>
 								</c:if>
 
 							</div>

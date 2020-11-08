@@ -21,7 +21,7 @@ if (request.getAttribute("user") != null) {
 -->
 <html>
 <head>
-<title>코드 스페이스</title>
+<title>CODE SPACE</title>
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />

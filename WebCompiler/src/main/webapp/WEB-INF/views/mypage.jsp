@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>My Page</title>
+<title>CODE SPACE</title>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/main.css" />
 <link rel="stylesheet"
@@ -26,6 +26,7 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/custom_code.css" />
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
 </head>
 
 <%	
@@ -37,6 +38,7 @@
 		imgURL = "/getByteImage/" + user.getUser_id();
 	}
 %>
+
 
 <body class="is-preload">
 	<!-- Wrapper -->
@@ -61,6 +63,7 @@
 						</form>
 					</div>
 					<div class="profile_name">
+						<label> 이름 </label>
 						<form id="name_form" method="post">
 							<div class="editBox">
 								<input type="text" name="user_name" value="${user.user_name}">
@@ -71,6 +74,7 @@
 						</form>
 					</div>
 					<div class="profile_introduce">
+						<label> 자기소개 </label>
 						<form id="intro_form" method="post">
 							<div class="editBox">
 								<textarea name="user_introduce" rows="4" cols="50">${user.user_introduce}</textarea>
@@ -89,7 +93,8 @@
 					</h3>
 					<!-- Break -->
 						<div style="clear: both;" class="col-12 level">
-							<select name="problem_level" id="problem_level">
+							<select name="problem_level" id="problem_level"			
+							onchange="getBoardList(1)">
 								<option value="0">------ 선택 ------</option>
 								<option value="1">LEVEL 1</option>
 								<option value="2">LEVEL 2</option>
@@ -101,7 +106,7 @@
 						</div>
 						<!-- Break -->
 							<div class="col-12 kind">
-								<select name="category_name" id="category_name">
+								<select name="category_name" id="category_name" onchange="getBoardList(1)">
 									<option value="unselected">------ 선택 ------</option>
                             		<c:forEach var="category" items="${category}">
 									<option value="${category.category_id}">${category.category_name}</option>
@@ -502,6 +507,7 @@
 			btn.addEventListener("click", openModal);
 		}
 
+
 		function getBoardList(page){
 			page_ = page;	
 			var level = document.getElementById("problem_level")
@@ -516,7 +522,7 @@
 	            data: {
 			            "problem_level": level_value,
 			            "category_name": category_value,
-			            "page": page,
+			            "page": page_,
 			            "search_category": search_category,
 						"search": search
 			        },
@@ -552,7 +558,15 @@
 		            }
 		            // 나머지 요소 숨기기 
 		            console.log("codeList.length: " + codeList.length);
-					if(codeList.length < 5){
+
+		            for(var i=0; i < codeList.length; i++) {
+						$("#tr"+i).css("display","");
+					}
+		            for(var i=codeList.length; i < 5; i++) {
+						$("#tr"+i).css("display","none");
+					}
+					
+					/* if(codeList.length < 5){
 						for(var i=codeList.length; i < 5; i++){
 							$("#tr"+i).css("display","none");
 						}
@@ -560,7 +574,8 @@
 						for(var i=0; i < codeList.length; i++){
 							$("#tr"+i).css("display","");
 						}
-					}
+					} */
+					
 		            var elem = '';
 		            //var num = 0;
 		            // start

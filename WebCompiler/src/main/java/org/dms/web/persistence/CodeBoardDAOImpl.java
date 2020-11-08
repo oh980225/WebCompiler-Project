@@ -8,9 +8,11 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.dms.web.domain.CodeBoardVO;
+import org.dms.web.domain.CodeFilterVO;
 import org.dms.web.domain.CodeVO;
 import org.dms.web.domain.Criteria;
 import org.dms.web.domain.ParamVO;
+import org.dms.web.domain.ProblemVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -97,7 +99,128 @@ public class CodeBoardDAOImpl implements CodeBoardDAO {
 		
 		return codeBoardVOList;
 	}
+
+	@Override
+	public List<CodeBoardVO> codeFilter_level(String user_id, Criteria criteria, int level) throws Exception {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user_id", user_id);
+		map.put("problem_level", level);		
+		map.put("pageStart", criteria.getPageStart());
+		map.put("perPageNum", criteria.getPerPageNum());
+		List<CodeBoardVO> list = sqlSession.selectList(namespace + ".codeboard_filter_level", map);
+		
+//		List<CodeFilterVO> list = sqlSession.selectList(namespace + ".codeboard_filter_level", map);
+		
+		for(int i =0; i<list.size(); i++) {
+			CodeBoardVO ref = list.get(i).getSelf();   
+
+			int problem_id = list.get(i).getProblem_id();
+			
+			byte code_success;
+			if(sqlSession.selectOne(namespace + ".codeboard_code_success", problem_id) == null) {
+				code_success = 0;
+			} else {
+				code_success = 1;
+			}		
+			
+			Map<String, Object> param = new HashMap<String,Object>();
+			param.put("user_id", user_id);
+			param.put("problem_id", problem_id);
+			
+			List<CodeVO> codeList = sqlSession.selectList(namespace + ".codeboard_codeList", param);
+			Date code_date = sqlSession.selectOne(namespace + ".codeboard_code_date", problem_id);
+			
+			ref.setCodeList(codeList);
+			ref.setCode_success(code_success);
+			ref.setCode_date(code_date);	
+			
+		}
+		
+
+		for(int i =0; i<list.size(); i++) {
+			System.out.println(list);	
+		}
+		
+//		return codeBoardVOList;
+		return list;
 	
+	}
+	// select c.problem_id, p.problem_title, p.problem_level, p.category_id, c.user_id
+	 @Override
+	   public List<CodeBoardVO> codeFilter_category(String user_id, Criteria criteria, String category) throws Exception {
+	      Map<String, Object> map = new HashMap<String, Object>();
+	      map.put("user_id", user_id);
+	      map.put("category_id", category);      
+	      map.put("pageStart", criteria.getPageStart());
+	      map.put("perPageNum", criteria.getPerPageNum());
+	      
+	      List<CodeBoardVO> list = sqlSession.selectList(namespace + ".codeboard_filter_category", map);
+	            
+	      for(int i =0; i<list.size(); i++) {
+	         CodeBoardVO ref = list.get(i).getSelf();   
+	         int problem_id = list.get(i).getProblem_id();
+	         
+	         byte code_success;
+	         if(sqlSession.selectOne(namespace + ".codeboard_code_success", problem_id) == null) {
+	            code_success = 0;
+	         } else {
+	            code_success = 1;
+	         }      
+	         
+	         Map<String, Object> param = new HashMap<String,Object>();
+	         param.put("user_id", user_id);
+	         param.put("problem_id", problem_id);
+	         
+	         List<CodeVO> codeList = sqlSession.selectList(namespace + ".codeboard_codeList", param);
+	         Date code_date = sqlSession.selectOne(namespace + ".codeboard_code_date", problem_id);
+
+	         ref.setCodeList(codeList);
+	         ref.setCode_success(code_success);
+	         ref.setCode_date(code_date);
+	         
+	      }
+	      return list;
+	      
+	   }
+	
+	@Override
+	public List<CodeBoardVO> codeFilter_all(String user_id, Criteria criteria, int level, String category) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+	      map.put("user_id", user_id);
+	      map.put("category_id", category);    
+	      map.put("problem_level", level);    
+	      map.put("pageStart", criteria.getPageStart());
+	      map.put("perPageNum", criteria.getPerPageNum());
+	      
+	      List<CodeBoardVO> list = sqlSession.selectList(namespace + ".codeboard_filter_all", map);
+	            
+	      for(int i =0; i<list.size(); i++) {
+	         CodeBoardVO ref = list.get(i).getSelf();   
+	         int problem_id = list.get(i).getProblem_id();
+	         
+	         byte code_success;
+	         if(sqlSession.selectOne(namespace + ".codeboard_code_success", problem_id) == null) {
+	            code_success = 0;
+	         } else {
+	            code_success = 1;
+	         }      
+	         
+	         Map<String, Object> param = new HashMap<String,Object>();
+	         param.put("user_id", user_id);
+	         param.put("problem_id", problem_id);
+	         
+	         List<CodeVO> codeList = sqlSession.selectList(namespace + ".codeboard_codeList", param);
+	         Date code_date = sqlSession.selectOne(namespace + ".codeboard_code_date", problem_id);
+
+	         ref.setCodeList(codeList);
+	         ref.setCode_success(code_success);
+	         ref.setCode_date(code_date);
+	         
+	      }
+	      return list;
+		
+	}
 	@Override
 	public List<CodeBoardVO> getCodeBoardListBySearch(String user_id, String category, String search) throws Exception {
 		

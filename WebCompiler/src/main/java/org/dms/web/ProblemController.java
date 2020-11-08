@@ -103,7 +103,6 @@ public class ProblemController {
 			
 			//return "problem_list";
 			return "menutest";
-
 		}
 
 		//PageMaker pageMaker = new PageMaker();
@@ -230,6 +229,13 @@ public class ProblemController {
 			map.put("successList", successList);
 			
 			logger.info("count: " + count);
+			
+
+			
+			System.out.println("successList: " + successList);
+			map.put("successList", successList);
+			
+			
 			for(ProblemVO vo : pvo) {
 				logger.info(vo.getProblem_id() + " : " + vo.getProblem_title());
 			}
