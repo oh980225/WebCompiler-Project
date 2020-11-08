@@ -46,9 +46,10 @@
 							<label>USER ID</label>
 						</div>
 						<div class="inputBox">
-							<input id="temp_password"
+							<input type="password" style="all: initial !important; border-bottom: 1px solid black !important; width: 100% !important;" name="user_passwd" onclick="alert_event()">
+							<!-- <input id="temp_password"
 								style="-webkit-text-security: square !important;" type="text"
-								name="user_passwd" onclick="alert_event()">
+								name="user_passwd" onclick="alert_event()"> -->
 							<!-- <input id="password" type="text" name="user_passwd" style="display: none !important;"> -->
 							<label>PASSWORD</label>
 						</div>

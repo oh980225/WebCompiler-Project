@@ -117,6 +117,36 @@
             }
 
         }
+        async function checkDuplicating(e) {
+        	e.preventDefault();
+            const inputId = document.getElementById("user_id");
+            const idValue = inputId.value;
+            const form = document.getElementsByTagName("form");
+            let signUp = true;
+        	await $.ajax({
+	            url: "/checkDuplicating",
+	            type: "POST",
+	            data: {
+			            "value": idValue
+			        },
+	            success: function(data){
+		            if(!data.isRight) {
+		            	signUp = false;
+			            alert("아이디가 중복됬습니다.");
+			            inputId.value = "";
+			        }	       
+		            console.log("signUp : " + signUp);
+		            console.log("checkDuplicating success!");
+	            },
+	            error: function(){
+	                console.log("checkDuplicating error!");
+	            }
+	        });
+	        console.log(signUp);
+	        if(signUp) {
+		        form[0].submit();
+		    }
+        }
     </script>
 </head>
 <body class="is-preload">
@@ -223,7 +253,7 @@
                                 </table>
                             </div>
                             </div>
-                            <button type="submit" class="board_submit" id="board_submit">등록</button>
+                            <button type="button" class="board_submit" id="board_submit" onclick="checkDuplicating(event)">등록</button>
                     </form>
                 </section>
             </div>

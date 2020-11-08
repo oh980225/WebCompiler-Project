@@ -66,5 +66,10 @@ public class UserServiceImpl implements UserService {
 		return userDAO.getCodeList(id);
 	}
 
+	@Override
+	public boolean checkId(String value) throws Exception {
+		return userDAO.checkId(value);
+	}
+
 
 }

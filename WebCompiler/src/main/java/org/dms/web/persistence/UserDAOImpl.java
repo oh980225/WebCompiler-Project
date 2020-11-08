@@ -91,4 +91,15 @@ public class UserDAOImpl implements UserDAO {
 		return codeList;
 	}
 
+	@Override
+	public boolean checkId(String value) throws Exception {
+		UserVO user = sqlSession.selectOne(namespace + ".check_user_id", value);
+		System.out.println("checkID User: " + user);
+		
+		if(user != null) {
+			return false;
+		}
+		return true;
+	}
+
 }

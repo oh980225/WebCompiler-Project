@@ -16,5 +16,5 @@ public interface UserService {
 	public void updateUser(UserVO user) throws Exception;
 	public void saveImage(UserVO user) throws Exception;
 	public List<CodeVO> getCodeList(String id) throws Exception;
-	
+	public boolean checkId(String value) throws Exception;
 }

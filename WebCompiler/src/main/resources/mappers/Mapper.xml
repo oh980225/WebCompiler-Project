@@ -45,6 +45,10 @@
 		delete from user where user_id = #{id}
     </delete>
     
+    <select id="check_user_id" resultType="UserVO">
+     	select * from user where user_id = #{value};
+     </select>
+    
     <insert id="board_insert_free">
     	insert into board (board_title, board_content, board_upload, user_id, problem_id) values (#{board_title}, #{board_content}, #{board_upload}, #{user_id}, #{problem_id})
     </insert>
