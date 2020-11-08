@@ -116,10 +116,8 @@ public class MyPageController {
 		UserVO user = userService.readUser(userId);
 		byte[] imageContent = user.getUser_img();
 		
-		
-
-		if(imageContent == null) {
-				
+	
+		if(imageContent == null) {				
 			//ClassPathResource resource = new ClassPathResource("webapp/images/user.png");
 			String path = request.getSession().getServletContext().getRealPath("/resources/images/user.png");
 			BufferedImage originalImage = ImageIO.read(new File(path));
