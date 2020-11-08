@@ -3,6 +3,8 @@ package org.dms.web.domain;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class CodeBoardVO {
 	
 	private int problem_id; // O
@@ -13,6 +15,15 @@ public class CodeBoardVO {
 	private Date code_date; // O
 	private byte code_success; // O
 	private List<CodeVO> codeList;
+	
+	/*c.problem_id, c.user_id, p.problem_title, p.problem_level, p.category_id*/
+	public CodeBoardVO(int problem_id, String user_id, String problem_title, int problem_level, String category_id) {
+		this.problem_id = problem_id;
+		this.user_id = user_id;
+		this.category_id = category_id;
+		this.problem_title = problem_title;
+		this.problem_level = problem_level;
+	}
 	
 	public CodeBoardVO(int problem_id, String user_id, String category_id, String problem_title, Date code_date,
 			byte code_success, int problem_level, List<CodeVO> codeList) {
@@ -83,5 +94,11 @@ public class CodeBoardVO {
 				+ ", problem_title=" + problem_title + ", problem_level=" + problem_level + ", code_date=" + code_date
 				+ ", code_success=" + code_success + ", codeList=" + codeList + "]";
 	}
+	
+	@JsonIgnore
+	public CodeBoardVO getSelf() {
+		return this;
+	}
+	
 	
 }

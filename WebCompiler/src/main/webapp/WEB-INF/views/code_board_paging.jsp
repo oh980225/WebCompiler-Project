@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Paging</title>
+<title>CODE SPACE</title>
 </head>
 <body>
 	<div id="paging">

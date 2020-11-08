@@ -24,7 +24,7 @@ if (request.getAttribute("user") != null) {
 <html>
 
 <head>
-<title>JAVA 버전 컴파일러 화면</title>
+<title>CODE SPACE</title>
 
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -248,7 +248,7 @@ if (request.getAttribute("user") != null) {
 				<!-- Content -->
 				<div class="left-side">
 					<div class="wrapper">
-						
+
 						<nav class="slidemenu">
 							<!-- Item 1 -->
 							<input type="checkbox" name="slideItem" id="slide-item-1"
@@ -289,57 +289,57 @@ if (request.getAttribute("user") != null) {
 						<ul>
 							<li><a href="#">자료구조</a>
 								<ul style="display: block;">
-									<li><a href="#">리스트</a></li>
-									<li><a href="#">스택</a></li>
-									<li><a href="#">큐</a></li>
+									<li><a>리스트</a></li>
+									<li><a>스택</a></li>
+									<li><a>큐</a></li>
 
 								</ul></li>
 							<li><a href="#">정렬</a>
 								<ul style="display: block;">
-									<li><a href="#">선택정렬 삽입정렬 버블정렬</a></li>
-									<li><a href="#">합병정렬 퀵정렬</a></li>
+									<li onclick="check_list(this.id);" id="CA_0004"><a>선택정렬 삽입정렬 버블정렬</a></li>
+									<li onclick="check_list(this.id);" id="CA_0004"><a>합병정렬 퀵정렬</a></li>
 								</ul></li>
-							<li onclick="check_list(this.id);" id="CA_0016"><a href="#">수학</a></li>
+							<li onclick="check_list(this.id);" id="CA_0016"><a>수학</a></li>
 							<li><span class="opener">그래프</span>
 								<ul>
-									<li><a href="#">그래프</a></li>
+									<li><a>그래프</a></li>
 									<li class="test" onclick="check_list(this.id);" id="CA_0001"><a
-										href="#">깊이 우선 탐색</a></li>
+										>깊이 우선 탐색</a></li>
 									<li onclick="check_list(this.id);" id="CA_0002"><a
-										href="#">너비 우선 탐색</a></li>
+										>너비 우선 탐색</a></li>
 								</ul></li>
 							<li><span class="opener">트리</span>
 								<ul>
-									<li><a href="#">트리</a></li>
-									<li><a href="#">힙</a></li>
+									<li><a>트리</a></li>
+									<li><a>힙</a></li>
 								</ul></li>
-							<li onclick="check_list(this.id);" id="CA_0003"><a href="#">다이나믹
+							<li onclick="check_list(this.id);" id="CA_0003"><a>다이나믹
 									프로그래밍</a></li>
-							<li onclick="check_list(this.id);" id="CA_0020"><a href="#">재귀
+							<li onclick="check_list(this.id);" id="CA_0020"><a>재귀
 									알고리즘</a></li>
-							<li onclick="check_list(this.id);" id="CA_0011"><span
-								class="opener">분할정복</span>
+							<li><span>분할정복</span>
 								<ul>
-									<li><a href="#">트리</a></li>
+									<li onclick="check_list(this.id);" id="CA_0011"><a
+										>분할 정복</a></li>
+									<li onclick="check_list(this.id);" id="CA_0017"><a>트리</a></li>
+									
 								</ul></li>
 
-							<li onclick="check_list(this.id);" id="CA_0006"><span
-								class="opener">최단경로</span>
+							<li><span>최단경로</span>
 								<ul>
-									<li><a href="#">다익스트라</a></li>
-									<li><a href="#">플로이드 와샬</a></li>
-									<li><a href="#">벨만포드</a></li>
+									<li><a>다익스트라</a></li>
+									<li><a>플로이드 와샬</a></li>
+									<li><a>벨만포드</a></li>
 								</ul></li>
-							<li onclick="check_list(this.id);" id="CA_0007"><span
-								class="opener active">최소 스패닝 트리</span>
+							<li><span>최소 스패닝 트리</span>
 								<ul>
-									<li><a href="#">disjoint-set</a></li>
-									<li><a href="#">쿠르스칼</a></li>
-									<li><a href="#">프림</a></li>
+									<li><a>disjoint-set</a></li>
+									<li><a>쿠르스칼</a></li>
+									<li><a>프림</a></li>
 								</ul></li>
 							<li onclick="check_list(this.value);" id="CA_0009"><a
-								href="#">브루트포스</a></li>
-							<li><a href="#">백트래킹</a></li>
+								>브루트포스</a></li>
+							<li><a>백트래킹</a></li>
 						</ul>
 					</nav>
 				</div>

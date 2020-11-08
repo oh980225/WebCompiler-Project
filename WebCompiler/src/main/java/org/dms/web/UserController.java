@@ -41,10 +41,13 @@ public class UserController {
 			return "signin";
 		}
 		
+			
+		
+		
 		@RequestMapping(value = "/login.do", method=RequestMethod.POST)
 		public String loginPost(@ModelAttribute("user") UserVO uvo, Model model, HttpServletRequest request, RedirectAttributes attr) throws Exception{
 			UserVO user = userService.readUser(uvo);
-	
+			logger.info("/login.do");
 			if(user != null && !user.getUser_id().equals("") && !user.getUser_passwd().equals("")) {
 				logger.info("아이디: " + user.getUser_id());
 				logger.info("비밀번호: " + user.getUser_passwd());

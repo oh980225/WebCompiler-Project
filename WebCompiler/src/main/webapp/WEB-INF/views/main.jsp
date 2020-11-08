@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%	
 	String imgURL = "";
 	if(request.getAttribute("user") !=null) {
@@ -19,7 +19,7 @@
 
 <html>
 <head>
-<title>코드 스페이스</title>
+<title>CODE SPACE</title>
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -117,6 +117,7 @@
 
 		<!-- Main -->
 		<div id="main">
+	   
 			<jsp:include page="header.jsp" flush="true">
 				<jsp:param name="imgURL" value="<%=imgURL%>" />
 			</jsp:include>
