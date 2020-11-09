@@ -174,6 +174,22 @@
                         </div>
                         </div>
                 </div>
+                
+          <div class="infomodal hidden">
+                <div class="infomodal_overlay">
+                 </div>
+                 <div class="correct_modal">
+                        <header class="modal_header">
+                        	<div class="infomodal_close"></div>
+                        </header>
+                        <div class="info">
+                        	<img src="/resources/images/correctinfo.png"></img>
+                        	<p> 정답이에요! </p>
+                        	<p> 다른문제도 풀어볼까요?</p>
+                        	<button type="button" class="modal_ok" id="modal_ok"><img src="/resources/images/check.png"></button>
+                        </div>
+                </div>         
+           </div>
 			</div>
 			<div class="result_main">
 				<%-- ${result == null ? 'null' : result} --%>

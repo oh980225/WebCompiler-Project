@@ -106,37 +106,39 @@
 	async function id_check(e) {
 		e.preventDefault();
 		var problem_id = $('#problem_id').val();
-		if(!check){
-			await $.ajax({
-	            url: "/problem/idcheck.do",
-	            type: "POST",
-	            data: {
-			            "problem_id": problem_id
-			        },
-	            success: function(data){
-	            	
-		            // 있는 문제
-		            if(!data.flag){
-		            	alert("이미 있는 문제입니다.");
-			            problem_id.value = "";
-			            check = false;
-			        }
-		            // 없는 문제
-		            else {
-		            	$("#id_check_alert").html("<img id='alert_img' style='vertical-align: middle; margin-right:0.2em;' width='15' height='15' src='/resources/images/check.png'></img>문제확인 완료");
-			            $("#id_check_alert").css("visibility","visible");
-			            $("#id_check_alert").css("color","#7BC379");
-		            	check = true;
-			         }
+		if(problem_id == ""){ 
+            return false;
+        }
+		await $.ajax({
+            url: "/problem/idcheck.do",
+            type: "POST",
+            data: {
+		            "problem_id": problem_id
+		        },
+            success: function(data){
+            	
+	            // 있는 문제
+	            if(!data.flag){
+	            	$("#id_check_alert").html("<img id='alert_img' style='vertical-align: middle; margin-right:0.2em;' width='15' height='15' src='/resources/images/alert.png'></img>등록되지 않은 문제입니다.");
+		            $("#id_check_alert").css("visibility","visible");
+		            $("#id_check_alert").css("color","red");
+		            problem_id.value = "";
+		            check = false;
+		        }
+	            // 없는 문제
+	            else {
+	            	$("#id_check_alert").html("<img id='alert_img' style='vertical-align: middle; margin-right:0.2em;' width='15' height='15' src='/resources/images/check.png'></img>문제확인 완료");
+		            $("#id_check_alert").css("visibility","visible");
+		            $("#id_check_alert").css("color","#7BC379");
+	            	check = true;
+		         }
 
-		            console.log("checkDuplicating success!");
-	            },
-	            error: function(){
-	                console.log("checkDuplicating error!");
-	            }
-	        });
-
-		}
+	            console.log("checkDuplicating success!");
+            },
+            error: function(){
+                console.log("checkDuplicating error!");
+            }
+        });
 		
 	}	
 	function validate() {
@@ -162,9 +164,11 @@
         msg.style.visibility = "hidden";
         
        if(!check){
+    	   $("#id_check_alert").html("<img id='alert_img' style='vertical-align: middle; margin-right:0.2em;' width='15' height='15' src='/resources/images/alert.png'></img>문제 확인 필요");
+       	$("#id_check_alert").css("color","red");
     	   $("#id_check_alert").css("visibility","visible");
     	   return false;
-         }
+        }
 
 
        

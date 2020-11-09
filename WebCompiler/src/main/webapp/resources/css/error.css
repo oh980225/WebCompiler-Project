@@ -1,5 +1,12 @@
+header#header {
+    height: 3.5em;
+    display: block;
+    padding: 0;
+    background-color: rgb(17, 20, 31);
+     margin-bottom: 0em; 
+}
 div.inner img{
-    width: 28em;
+    width: 25em;
     margin: 0 auto;
     display: block;
     margin-bottom: 1.5em;
@@ -10,14 +17,16 @@ div.inner img{
 }
 
 div.inner .red{
+	font-family: "UhBeemysen";
 	margin-bottom: 1em;
 	color: #EA7862;
 }
 
 div.inner p.info{
+	font-family: "UhBeemysen";
 	text-align:center;
     margin: 0 auto;
-    font-size:2em;
+    font-size:4em;
 }
 div.inner a.move{
 	margin-top: 1.5em;

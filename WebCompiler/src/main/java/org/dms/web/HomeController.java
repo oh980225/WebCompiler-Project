@@ -35,7 +35,7 @@ public class HomeController {
 	
 	@RequestMapping(value = "/404", method = RequestMethod.GET)
 	public String error(Model model, HttpSession session) throws Exception {
-		return "error_404";		
+		return "modaltest";		
 	}
 	
 //	@RequestMapping(value = "/login", method = RequestMethod.GET)

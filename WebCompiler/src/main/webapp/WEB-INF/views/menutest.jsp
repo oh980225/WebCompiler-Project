@@ -483,8 +483,8 @@ if (request.getAttribute("user") != null) {
 											<div class="problem_answer" id="item_success_${status.count}">
 												맞은사람: ${problem.problem_successnum}</div>
 											<div class="problem_language">
-												<img src="<%=request.getContextPath()%>/resources/images/cpp.png" style="width:2em; height:2.5em;"/>
 												<img src="<%=request.getContextPath()%>/resources/images/c.png" style="width:2em; height:2.5em;"/>
+												<img src="<%=request.getContextPath()%>/resources/images/cpp.png" style="width:2em; height:2.5em;"/>
 												<img src="<%=request.getContextPath()%>/resources/images/java.png" style="width:2em; height:2.5em;"/>
 												<img src="<%=request.getContextPath()%>/resources/images/py.png" style="width:2em; height:2.5em;"/>
 												<img src="<%=request.getContextPath()%>/resources/images/js.png" style="width:2em; height:2.5em;"/>

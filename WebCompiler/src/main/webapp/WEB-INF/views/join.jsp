@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" /> <!-- 이게 Font Awesome 5 Free를 사용하게 해주는거 같아요. 이거덕에 사이드바 모양이 보여요! -->
 
     <script>
+    	var flag = false;
     	function id_validate(){
     		var regul_id = /^[a-zA-Z0-9]{5,12}$/;
     		var id = document.getElementById("user_id");
@@ -85,7 +86,13 @@
                 id.focus();
                 return false;
             }
-           
+            
+           if(!flag){ 
+          	 	$("#id_check_alert").html("<img id='alert_img' style='vertical-align: middle; margin-right:0.2em;' width='15' height='15' src='/resources/images/alert.png'></img>아이디 중복확인 필요");
+	            $("#id_check_alert").css("visibility","visible");
+	            $("#id_check_alert").css("color","red");
+          	   return false;
+            } 
 
             if ((passwd.value) == "") {
                 var msg = document.getElementById("passwd_alert");
@@ -122,7 +129,12 @@
             const inputId = document.getElementById("user_id");
             const idValue = inputId.value;
             const form = document.getElementsByTagName("form");
-            let signUp = true;
+
+            if(idValue == ""){ 
+                return false;
+            }
+            
+
         	await $.ajax({
 	            url: "/checkDuplicating",
 	            type: "POST",
@@ -131,21 +143,25 @@
 			        },
 	            success: function(data){
 		            if(!data.isRight) {
-		            	signUp = false;
-			            alert("중복된 아이디입니다. 다른 아이디를 입력해주세요!");
-			            inputId.value = "";
-			        }	       
-		            console.log("signUp : " + signUp);
+		            	$("#id_check_alert").html("<img id='alert_img' style='vertical-align: middle; margin-right:0.2em;' width='15' height='15' src='/resources/images/alert.png'></img>중복된 아이디입니다.");
+			            $("#id_check_alert").css("visibility","visible");
+			            $("#id_check_alert").css("color","red");
+			            flag=false; 
+		            }
+		            else{
+		            	$("#id_check_alert").html("<img id='alert_img' style='vertical-align: middle; margin-right:0.2em;' width='15' height='15' src='/resources/images/check.png'></img>사용가능한 아이디입니다.");
+			            $("#id_check_alert").css("visibility","visible");
+			            $("#id_check_alert").css("color","#7BC379");
+			            flag=true; 
+			        }     
+
 		            console.log("checkDuplicating success!");
 	            },
 	            error: function(){
 	                console.log("checkDuplicating error!");
 	            }
 	        });
-	        console.log(signUp);
-	        if(signUp) {
-		        form[0].submit();
-		    }
+
         }
     </script>
 </head>
@@ -183,10 +199,15 @@
                                             </td>
                                             <td class="table_value">
                                                 <input type="text" name="user_id" id="user_id"  onchange="id_validate()"/>
-                                                <!--<input class="id_button" type="button" id="" name="board_title" />  -->
+                                                												<input type="button" onclick="checkDuplicating(event)" class="id_check" value="중복확인">
+												
+												<span class="alert_msg" id="id_check_alert" style="color:red;">
+												<img class="alert_img" id="alert_img"  src="<%=request.getContextPath()%>/resources/images/alert.png"
+												width="15" height="15" /> 
+												중복확인 안됨</span>
                                             </td>
-
-                                        </tr>
+                     
+                                        	</tr>
                                         <!-- 필수입력 -->
                                         <tr>
                                             <td></td>
@@ -255,7 +276,7 @@
                                 </table>
                             </div>
                             </div>
-                            <button type="button" class="board_submit" id="board_submit" onclick="checkDuplicating(event)">등록</button>
+                            <button type="submit" class="board_submit">등록</button>
                     </form>
                 </section>
             </div>

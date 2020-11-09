@@ -36,6 +36,8 @@ if (request.getAttribute("user") != null) {
 <!-- 이게 Font Awesome 5 Free를 사용하게 해주는거 같아요. 이거덕에 사이드바 모양이 보여요! -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/study.css" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/css/custom_problem2.css" />
 
 
 <style>
@@ -68,56 +70,60 @@ header#header {
 
 				<nav class="menu" id="menu">
 					<ul>
-						<li><span class="opener">자료구조</span>
-							<ul style="display: block;">
-								<li><a href="#">리스트</a></li>
-								<li><a href="#">스택</a></li>
-								<li><a href="#">큐</a></li>
+							<li><a href="#">자료구조</a>
+								<ul style="display: block;">
+									<li><a>리스트</a></li>
+									<li><a>스택</a></li>
+									<li><a>큐</a></li>
 
-							</ul></li>
-						<li><span class="opener">정렬</span>
-							<ul style="display: block;">
-								<li><a href="#">선택정렬 삽입정렬 버블정렬</a></li>
-								<li><a href="#">합병정렬 퀵정렬</a></li>
-							</ul></li>
-						<li><a href="generic.html">수학</a></li>
-						<li><span class="opener">그래프</span>
-							<ul>
-								<li><a href="#">그래프</a></li>
-								<li class="test"><a href="#">깊이 우선 탐색</a></li>
-								<li><a href="#">너비 우선 탐색</a></li>
-							</ul></li>
-						<li><span class="opener">트리</span>
-							<ul>
-								<li><a href="#">트리</a></li>
-								<li><a href="#">힙</a></li>
-								<li><a href="#">너비 우선 탐색</a></li>
-							</ul></li>
-						<li><a href="#">다이나믹 프로그래밍</a></li>
-						<li><a href="#">재귀 알고리즘</a></li>
-						<li><span class="opener active">분할정복</span>
-							<ul>
-								<li><a href="#">트리</a></li>
-								<li><a href="#">힙</a></li>
-								<li><a href="#">너비 우선 탐색</a></li>
-							</ul></li>
+								</ul></li>
+							<li><a href="#">정렬</a>
+								<ul style="display: block;">
+									<li onclick="check_list(this.id);" id="CA_0004"><a>선택정렬 삽입정렬 버블정렬</a></li>
+									<li onclick="check_list(this.id);" id="CA_0004"><a>합병정렬 퀵정렬</a></li>
+								</ul></li>
+							<li onclick="check_list(this.id);" id="CA_0016"><a>수학</a></li>
+							<li><span class="opener">그래프</span>
+								<ul>
+									<li><a>그래프</a></li>
+									<li onclick="check_list(this.id);" id="CA_0001"><a
+										>깊이 우선 탐색</a></li>
+									<li onclick="check_list(this.id);" id="CA_0002"><a
+										>너비 우선 탐색</a></li>
+								</ul></li>
+							<li><span class="opener">트리</span>
+								<ul>
+									<li><a>트리</a></li>
+									<li><a>힙</a></li>
+								</ul></li>
+							<li onclick="check_list(this.id);" id="CA_0003"><a>다이나믹
+									프로그래밍</a></li>
+							<li onclick="check_list(this.id);" id="CA_0020"><a>재귀
+									알고리즘</a></li>
+							<li><span>분할정복</span>
+								<ul>
+									<li onclick="check_list(this.id);" id="CA_0011"><a
+										>분할 정복</a></li>
+									<li onclick="check_list(this.id);" id="CA_0017"><a>트리</a></li>
+									
+								</ul></li>
 
-						<li><span class="opener active">최단경로</span>
-							<ul>
-								<li><a href="#">다익스트라</a></li>
-								<li><a href="#">플로이드 와샬</a></li>
-								<li><a href="#">벨만포드</a></li>
-							</ul></li>
-						<li><span class="opener active">최소 스패닝 트리</span>
-							<ul>
-								<li><a href="#">최소 스패닝 트리</a></li>
-								<li><a href="#">disjoint-set</a></li>
-								<li><a href="#">쿠르스칼</a></li>
-								<li><a href="#">프림</a></li>
-							</ul></li>
-						<li><a href="#">브루트포스</a></li>
-						<li><a href="#">백트래킹</a></li>
-					</ul>
+							<li><span>최단경로</span>
+								<ul>
+									<li><a>다익스트라</a></li>
+									<li><a>플로이드 와샬</a></li>
+									<li><a>벨만포드</a></li>
+								</ul></li>
+							<li><span>최소 스패닝 트리</span>
+								<ul>
+									<li><a>disjoint-set</a></li>
+									<li><a>쿠르스칼</a></li>
+									<li><a>프림</a></li>
+								</ul></li>
+							<li onclick="check_list(this.value);" id="CA_0009"><a
+								>브루트포스</a></li>
+							<li><a>백트래킹</a></li>
+						</ul>
 				</nav>
 
 
@@ -233,7 +239,24 @@ header#header {
 	<script src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 
-
+	<script>
+		var c_value = "unselected";
+		function check_list(ref){
+			$("#"+c_value).removeClass('selected');
+			
+			if(ref != c_value){
+				$("#"+ref).addClass('selected');
+				c_value = ref;
+			}
+			else{
+				c_value="unselected";
+			}
+			
+			console.log("select category: " + c_value);
+			
+			//$("#" + ref).addClass('selected');
+		}
+	</script>
 
 </body>
 </html>

@@ -33,7 +33,7 @@
             
             <div class="inner">
 				<p class="info red" > 앗! </p>
-				<p class="info" style="font-size:1.5em; margin-bottom:1em;">문제가 생겼어요  ( ´•̥×•̥` )</p>
+				<p class="info" style="font-size:2.5em; margin-bottom:1em;">문제가 생겼어요  ( ´•̥×•̥` )</p>
                     <img
 		src="<%=request.getContextPath()%>/resources/images/404.png"/>
 		<p> <a href="/" class="move">홈으로 이동합니다</a>

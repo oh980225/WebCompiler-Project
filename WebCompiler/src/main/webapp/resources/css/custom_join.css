@@ -207,9 +207,12 @@ section button.board_submit{
 }
 
 div.content_box p.alert_msg {
+
     color: red;
-    visibility: hidden;
+  visibility: hidden; 
     margin-bottom: 0;
+    font-weight: 500;
+
 }
 div.content_box span.board_content {
     margin-bottom: 0;
@@ -258,4 +261,30 @@ input.submit-button {
 }
 .id_button{
     background-color:red;
+}
+
+span.alert_msg {
+    color: red;
+  visibility: hidden; 
+    margin-bottom: 0;
+    font-weight: 500;
+}
+input.id_check{
+    color: #484848 !important;
+    cursor: pointer;
+    display: inline-block;
+    font-family: sans-serif;
+    font-size: 0.8em;
+    font-weight: 700;
+    height: 3em;
+    letter-spacing: 0em;
+line-height: 2.5em;
+    padding: 0 1.5em;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border: 1px solid #484848;
+    margin: 0 10px;
+    background-color: #ffffff;
 }
