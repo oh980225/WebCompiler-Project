@@ -92,6 +92,12 @@ public class ProblemServiceImpl implements ProblemService {
 	}
 	
 	@Override
+	public List<ProblemVO> readProblemList(int level, Criteria cri) throws Exception {
+		// TODO Auto-generated method stub
+		return problemDAO.readList(level, cri);
+	}
+	
+	@Override
 	public void addSuccess (int problem_id) {
 		problemDAO.addSuccess(problem_id);
 	}

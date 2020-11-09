@@ -1,0 +1,30 @@
+div.inner img{
+    width: 28em;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 1.5em;
+}
+
+#main > .inner > section {
+    padding: 5em 0 0 0;
+}
+
+div.inner .red{
+	margin-bottom: 1em;
+	color: #EA7862;
+}
+
+div.inner p.info{
+	text-align:center;
+    margin: 0 auto;
+    font-size:2em;
+}
+div.inner a.move{
+	margin-top: 1.5em;
+    text-align: center;
+    width: 28em;
+    margin: 1em auto;
+    display: block;
+    color: #79BCC3;
+    font-size: 1.5em;
+}

@@ -193,6 +193,54 @@ public class ProblemController {
 			
 			return map;
 		}
+		else if (problem_level != 0 && category_name.equals("unselected")) {
+			logger.info("level: " + problem_level);
+			
+			List<ProblemVO> pvo = new ArrayList<ProblemVO>();
+			int count = 0;
+			String searchInput = (String) session.getAttribute("searchInput");
+			String searchType = (String) session.getAttribute("searchType");
+			
+			if(isSearch) {
+				pvo = problemService.searchProblemListByLevel(searchType, searchInput, problem_level, cri);
+				count = problemService.searchProblemCountByLevel(searchType, searchInput, problem_level);
+			} else {
+				pvo = problemService.readProblemList(problem_level, cri);
+				count = pvo.size();
+			}
+			
+//			List<ProblemVO> pvo = problemService.readProblemList(category_name, cri);
+//			int count = problemService.ProblemCount(category_name);
+			
+			PageMaker pageMaker = new PageMaker();
+			cri.setPerPageNum(8);
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(count);
+			
+			boolean[] successList = new boolean[8];
+			int index = 0;
+			
+			for(ProblemVO problem : pvo) {
+				successList[index++] = codeService.IsSuccess(user.getUser_id(), problem.getProblem_id());
+			}
+			
+			map.put("pageMaker", pageMaker);
+			map.put("list", pvo);
+			map.put("successList", successList);
+			
+			logger.info("count: " + count);
+			
+
+			
+			System.out.println("successList: " + successList);
+			map.put("successList", successList);
+			
+			
+			for(ProblemVO vo : pvo) {
+				logger.info(vo.getProblem_id() + " : " + vo.getProblem_title());
+			}
+			return map;
+		}
 		else if (problem_level == 0 && category_name != "unselected") {
 			logger.info("category: " + category_name);
 			
@@ -341,7 +389,7 @@ public class ProblemController {
 		tvo.setTestcase_output(tvo.getTestcase_output().replace("\r\n", "<br>"));
 		
 		testcaseService.insertTestcase(tvo);
-		return "testcase_insert";
+		return "redirect:/testcase";
 	}
 	
 	@RequestMapping(value="/submit", method = RequestMethod.POST)
@@ -475,4 +523,18 @@ public class ProblemController {
 		session.setAttribute("searchInput", searchInput);
 		session.setAttribute("searchType", searchType);
 	}
+	
+	@RequestMapping(value="/problem/idcheck.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> problemcheck(String value) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		boolean flag = false; // 없는문제
+//		isRight = problemService.checkId(value);
+//		flag = true; // 있는문제~~
+		map.put("flag", flag);
+	
+		return map;
+	}
+
 }

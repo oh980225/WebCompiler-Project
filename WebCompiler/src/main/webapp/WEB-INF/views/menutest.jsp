@@ -416,9 +416,11 @@ if (request.getAttribute("user") != null) {
 												제출: ${problem.problem_submitnum}</div>
 											<div class="problem_answer" id="item_success_${status.count}">
 												맞은사람: ${problem.problem_successnum}</div>
+											
 											<div class="problem_check" id="item_check_${status.count}">
 												<img src="<%=request.getContextPath()%>/resources/images/${successList[status.count-1] ? 'check.png' : 'notCheck.png'}" width="20em" height="20em" alt="O">
 											</div>
+										
 										</div>
 									</div>
 								</div>
@@ -468,13 +470,28 @@ if (request.getAttribute("user") != null) {
 											</div>
 										</div>
 										<div class="item_bottom">
+											
+											
+											<div class="problem_check" id="item_check_${status.count}">
+												
+												<img src="<%=request.getContextPath()%>/resources/images/${successList[status.count-1] ? 'check.png' : 'notCheck.png'}" width="20em" height="20em" alt="O">
+											</div>
+											<br>
+											<div style="margin: auto 0;">
 											<div class="problem_submit" id="item_submit_${status.count}">
 												제출: ${problem.problem_submitnum}</div>
 											<div class="problem_answer" id="item_success_${status.count}">
 												맞은사람: ${problem.problem_successnum}</div>
-											<div class="problem_check" id="item_check_${status.count}">
-												<img src="<%=request.getContextPath()%>/resources/images/${successList[status.count-1] ? 'check.png' : 'notCheck.png'}" width="20em" height="20em" alt="O">
+											<div class="problem_language">
+												<img src="<%=request.getContextPath()%>/resources/images/cpp.png" style="width:2em; height:2.5em;"/>
+												<img src="<%=request.getContextPath()%>/resources/images/c.png" style="width:2em; height:2.5em;"/>
+												<img src="<%=request.getContextPath()%>/resources/images/java.png" style="width:2em; height:2.5em;"/>
+												<img src="<%=request.getContextPath()%>/resources/images/py.png" style="width:2em; height:2.5em;"/>
+												<img src="<%=request.getContextPath()%>/resources/images/js.png" style="width:2em; height:2.5em;"/>
 											</div>
+											</div>
+											
+											
 										</div>
 									</div>
 								</div>

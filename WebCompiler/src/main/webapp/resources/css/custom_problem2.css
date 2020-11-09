@@ -509,6 +509,10 @@ div.problem_item div.problem_check{
   float: right;
   display: inline-block;
 }
+div.problem_item div.problem_language{
+   float: right;display: inline-block;
+   margin-top: 0.5em;
+}
 
 div.problem_check img {
     padding: 0;

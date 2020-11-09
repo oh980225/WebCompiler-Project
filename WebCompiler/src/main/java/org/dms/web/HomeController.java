@@ -33,6 +33,11 @@ public class HomeController {
 		return "main";		
 	}
 	
+	@RequestMapping(value = "/404", method = RequestMethod.GET)
+	public String error(Model model, HttpSession session) throws Exception {
+		return "error_404";		
+	}
+	
 //	@RequestMapping(value = "/login", method = RequestMethod.GET)
 //	public String login(Model model, HttpSession session) throws Exception {
 //		return "signin";		

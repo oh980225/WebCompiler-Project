@@ -222,7 +222,12 @@ div.editBox input[type="text"] {
   border: 1px solid grey;
   background: white;
   font-size:0.9em;
+  width:40.5em;
   border-radius: 0 20px 20px 10px;
+}
+
+div.editBox textarea {
+	padding: 0.5em 1em;
 }
 
 div.editBox button {
@@ -235,7 +240,7 @@ div.editBox button {
   background-size: contain;
   border: none;
   top: 1em;
-  right: 1em;
+  right: -7em;
   padding: 0;
 }
 
@@ -246,10 +251,11 @@ form#intro_form div.editBox {
 
 form#intro_form div.editBox textarea {
   width: 100%;
-  border: 1px solid grey;
+  border: 1px solid black;
   background: white;
   border-radius: 0 20px 20px 10px;
   font-size:0.9em;
+  color:black;
 }
 
 form#intro_form div.editBox button {
@@ -261,7 +267,7 @@ form#intro_form div.editBox button {
 /*  background: url('/resources/images/edit_icon.png') no-repeat; */
   background-size: contain;
   border: none;
-  top: 80%;
+  top: 75%;
   right: 2%;
   padding: 0;
 }

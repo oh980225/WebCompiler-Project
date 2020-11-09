@@ -137,7 +137,7 @@ public class ProblemDAOImpl implements ProblemDAO {
 				map.put("perPageNum", criteria.getPerPageNum());
 				
 				List<ProblemVO> problemList = new ArrayList<ProblemVO>();
-				problemList = sqlSession.selectList(namespace + ".listCriteriaFilter", map);
+				problemList = sqlSession.selectList(namespace + ".problem_selectByLevel", map);
 				return problemList;
 	}
 	@Override

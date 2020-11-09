@@ -1539,7 +1539,7 @@ button,
   input[type="button"]:hover,
   button:hover,
   .button:hover {
-    background-color: rgba(202, 199, 199, 0.733); }
+     }
   input[type="submit"]:active,
   input[type="reset"]:active,
   input[type="button"]:active,

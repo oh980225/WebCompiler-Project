@@ -132,7 +132,7 @@
 	            success: function(data){
 		            if(!data.isRight) {
 		            	signUp = false;
-			            alert("아이디가 중복됬습니다.");
+			            alert("중복된 아이디입니다. 다른 아이디를 입력해주세요!");
 			            inputId.value = "";
 			        }	       
 		            console.log("signUp : " + signUp);
@@ -159,11 +159,13 @@
 			<jsp:include page="header.jsp" flush="true">
 				<jsp:param name="imgURL" value="" />
 			</jsp:include>
+			
             
             <div class="inner">
 
                 <section>
                     <h3>회원가입</h3>
+                    
                     <form action="/join.do" method="post" onsubmit="return validate()">
                         <div class="title_box" id="title_box">
 

@@ -25,6 +25,8 @@ public interface ProblemService {
 	// 문제 목록 조회
 	public List<ProblemVO> readProblemList(Criteria cri) throws Exception;
 	List<ProblemVO> readProblemList(String category, Criteria cri) throws Exception;
+	public List<ProblemVO> readProblemList(int level, Criteria cri) throws Exception;
+	
 	public int ProblemCount(String category) throws Exception;
 	// 검색
 	public List<ProblemVO> searchProblemList(String searchType, String searchInput, Criteria criteria) throws Exception;
@@ -38,4 +40,5 @@ public interface ProblemService {
 	// 검색 + 카테고리 + 레벨
 	public List<ProblemVO> searchProblemListByCategoryAndLevel(String searchType, String searchInput, String category, int level, Criteria criteria) throws Exception;
 	public int searchProblemCountByCategoryAndLevel(String searchType, String searchInput, String category, int level) throws Exception;
+	
 }
