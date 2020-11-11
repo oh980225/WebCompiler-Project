@@ -38,6 +38,24 @@
 
 	document.getElementById("category_id").value = category_value;
 }
+    	function testCheck(e) {
+        	e.preventDefault();
+        	const inputId = document.getElementById("problem_id");
+        	
+        	$.ajax({
+	            url: "/check",
+	            type: "POST",
+	            data: {
+			            "value": inputId.value
+			        },
+	            success: function(){	           
+		            console.log("check success!");
+	            },
+	            error: function(){
+	                console.log("check error!");
+	            }
+	        });
+        }
     </script>
 </head>
 <body class="is-preload">
@@ -73,7 +91,7 @@
 							<textarea name="problem_content" cols="100" rows="10"></textarea>
 							<br>
 						</div>
-						<button type="submit" class="board_submit" id="board_submit">등록</button>
+						<button type="submit" class="board_submit" id="board_submit" onclick="testCheck(event)">등록</button>
 					</form>
 				</section>
 			</div>

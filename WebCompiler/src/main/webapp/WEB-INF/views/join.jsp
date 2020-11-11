@@ -132,7 +132,7 @@
 	            success: function(data){
 		            if(!data.isRight) {
 		            	signUp = false;
-			            alert("아이디가 중복됬습니다.");
+			            alert("중복된 아이디입니다.");
 			            inputId.value = "";
 			        }	       
 		            console.log("signUp : " + signUp);

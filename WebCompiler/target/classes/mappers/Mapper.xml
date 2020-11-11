@@ -256,6 +256,11 @@
     	values (#{problem_id}, #{problem_title}, #{problem_content}, #{problem_hint}, #{problem_time},
     	#{problem_submitnum}, #{problem_successnum}, #{problem_failnum}, #{problem_level}, #{category_id})
     </insert>
+    
+    <select id="check_problem_exist" resultType="int">
+    	select COUNT(problem_id) from problem where problem_id = #{problem_id};
+    </select>
+    
     <!-- 테스트케이스 -->
     <select id="testcase_selectByid" resultType="TestcaseVO">
     	<!-- 테스트케이스 하나만 갖고옴 -->

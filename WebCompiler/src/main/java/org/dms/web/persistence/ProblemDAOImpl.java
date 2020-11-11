@@ -314,6 +314,15 @@ public class ProblemDAOImpl implements ProblemDAO {
 			return sqlSession.selectOne(namespace + ".count_search_by_title_by_category_and_level", listParam);
 		}
 	}
+
+	@Override
+	public boolean checkId(String value) throws Exception {
+		int checkNum = sqlSession.selectOne(namespace + ".check_problem_exist", value);
+		if(checkNum == 1) {
+			return true;
+		}
+		return false;
+	}
 	
 //	@Override
 //	public List<ProblemVO> listCriteria(Criteria criteria) throws Exception {

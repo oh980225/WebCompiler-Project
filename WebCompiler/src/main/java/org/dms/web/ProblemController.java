@@ -475,4 +475,12 @@ public class ProblemController {
 		session.setAttribute("searchInput", searchInput);
 		session.setAttribute("searchType", searchType);
 	}
+	
+	@RequestMapping(value = "/check", method = RequestMethod.POST)
+	@ResponseBody
+	public void testCheckId(String value) throws Exception {			
+		boolean isExist = problemService.checkId(value);
+		System.out.println("this problem isExist: " + isExist);
+	}
+	
 }
