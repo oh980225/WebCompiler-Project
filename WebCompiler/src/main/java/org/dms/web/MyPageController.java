@@ -169,7 +169,7 @@ public class MyPageController {
 	         codeBoardList = codeBoardService.getCodeBoardListBySearch(user.getUser_id(), search_category, search, criteria);
 	      }
 	      
-	      if(problem_level == 0 && category_name.equals("unselected")){   
+	      else if(problem_level == 0 && category_name.equals("unselected")){   
 	         codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id(), criteria);
 	      }
 	      
@@ -180,6 +180,8 @@ public class MyPageController {
 	      for(int  i = 0; i<codeBoardList.size(); i++) {
 	         logger.info(codeBoardList.toString());
 	      }
+	      
+	      System.out.println("modal: " + codeBoardList.get(index));
 
 	      map.put("codeBoard", codeBoardList.get(index));
 	      
