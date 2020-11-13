@@ -155,4 +155,9 @@ public class ProblemServiceImpl implements ProblemService {
 		return problemDAO.searchProblemCountByCategoryAndLevel(searchType, searchInput, category, level);
 	}
 
+	@Override
+	public boolean checkId(String value) throws Exception {
+		return problemDAO.checkId(value);
+	}
+
 }

@@ -155,6 +155,13 @@
 			            flag=true; 
 			        }     
 
+/* =======
+		            	signUp = false;
+			            alert("중복된 아이디입니다.");
+			            inputId.value = "";
+			        }	       
+		            console.log("signUp : " + signUp);
+>>>>>>> seungjae */
 		            console.log("checkDuplicating success!");
 	            },
 	            error: function(){

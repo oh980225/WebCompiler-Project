@@ -21,10 +21,12 @@
 	 
 	 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://127.0.0.1:3306/kko?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;serverTimezone=UTC" />
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/kko?autoReconnection=true;allowPublicKeyRetrieval=true&amp;useSSL=false&amp;serverTimezone=UTC" />
         <property name="username" value="webcompiler" />
         <property name="password" value="admin" />
         <property name="maxActive" value="5" />
+        <property name="validationQuery" value="SELECT 1" />
+        <property name="testWhileIdle" value="true" />
     </bean>
     
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
