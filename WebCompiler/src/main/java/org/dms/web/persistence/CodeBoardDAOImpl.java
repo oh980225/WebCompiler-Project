@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.apache.ibatis.session.SqlSession;
 import org.dms.web.domain.CodeBoardVO;
@@ -239,15 +240,14 @@ public class CodeBoardDAOImpl implements CodeBoardDAO {
 			System.out.println("my Search List(Id): " +  sqlSession.selectList(namespace + ".codeboard_problem_id_list_by_problem_id", listParam));
 			
 			problemIdList = sqlSession.selectList(namespace + ".codeboard_problem_id_list_by_problem_id", listParam);
-		} else {
+		} else { 
 			List<Integer> problemIdListByTitle = sqlSession.selectList(namespace + ".codeboard_problem_id_list_by_search_title", search); // 이건 일단 그 이름이 포함된 문제 다 가져온것!
 			List<Integer> problemIdListByUser = sqlSession.selectList(namespace + ".codeboard_problem_id_list", user_id);
 			Iterator<Integer> iter = problemIdListByTitle.iterator(); 
 			
 			while(iter.hasNext()) {
-				int problemId = iter.next();
-				if(!(problemIdListByUser.contains((Integer)problemId))) {
-					problemIdListByTitle.remove((Integer)problemId);
+				if(!(problemIdListByUser.contains(iter.next()))) {
+					iter.remove();
 				}
 			}
 			
@@ -312,10 +312,11 @@ public class CodeBoardDAOImpl implements CodeBoardDAO {
 		} else {
 			List<Integer> problemIdListByTitle = sqlSession.selectList(namespace + ".codeboard_problem_id_list_by_search_title", search); // 이건 일단 그 이름이 포함된 문제 다 가져온것!
 			List<Integer> problemIdListByUser = sqlSession.selectList(namespace + ".codeboard_problem_id_list", user_id);
+			Iterator<Integer> iter = problemIdListByTitle.iterator(); 
 			
-			for(int problemId : problemIdListByTitle) {
-				if(!problemIdListByUser.contains(problemId)) {
-					problemIdListByTitle.remove(problemId);
+			while(iter.hasNext()) {
+				if(!(problemIdListByUser.contains(iter.next()))) {
+					iter.remove();
 				}
 			}
 			
