@@ -9,8 +9,8 @@
 <header id="header">
 	<a class="main_logo" href="/"><img
 		src="<%=request.getContextPath()%>/resources/images/main_logo.png"
-		alt="메인페이지" /></a>   <a class="header_study" href="/study"><img
-		src="/resources/images/header_problem.png" />개념다잡기</a> <a class="header_problem" href="/problem"><img
+		alt="메인페이지" /></a>   <!-- <a class="header_study" href="/study"><img
+		src="/resources/images/header_problem.png" />개념다잡기</a> --> <a class="header_problem" href="/problem"><img
 		src="<%=request.getContextPath()%>/resources/images/coding.png"
 		alt="문제 페이지" />문제풀기</a> <a class="header_board" href="/board"><img
 		src="<%=request.getContextPath()%>/resources/images/header_board.png"
@@ -35,7 +35,7 @@
 		</div>
 	</c:if>
 	
-	<c:if test="${user.user_authority == 'ROLE_ADMIN'}">
+	<c:if test="${user.user_authority == 'admin'}">
 		<a
 		class="header_testcase" href="/testcase"><img
 		src="/resources/images/testcase.png" />테스트케이스</a>

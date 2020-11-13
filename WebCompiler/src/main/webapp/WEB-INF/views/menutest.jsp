@@ -287,59 +287,65 @@ if (request.getAttribute("user") != null) {
 					<nav class="menu" id="menu">
 
 						<ul>
-							<li><a href="#">자료구조</a>
+							<li><a>기초</a>
 								<ul style="display: block;">
-									<li><a>리스트</a></li>
-									<li><a>스택</a></li>
-									<li><a>큐</a></li>
+									<li onclick="check_list(this.id);" id="CA_0022"><a>입출력</a></li>
+									<li onclick="check_list(this.id);" id="CA_0023"><a>조건</a></li>
+									<li onclick="check_list(this.id);" id="CA_0024"><a>반복</a></li>
+								</ul></li>
+							<li><a>자료구조</a>
+								<ul style="display: block;">
+									<li onclick="check_list(this.id);" id="CA_0001"><a>리스트</a></li>
+									<li onclick="check_list(this.id);" id="CA_0002"><a>스택</a></li>
+									<li onclick="check_list(this.id);" id="CA_0003"><a>큐</a></li>
 
 								</ul></li>
-							<li><a href="#">정렬</a>
-								<ul style="display: block;">
+							<li onclick="check_list(this.id);" id="CA_0004"><a>정렬</a>
+								<!-- <ul style="display: block;">
 									<li onclick="check_list(this.id);" id="CA_0004"><a>선택정렬 삽입정렬 버블정렬</a></li>
 									<li onclick="check_list(this.id);" id="CA_0004"><a>합병정렬 퀵정렬</a></li>
-								</ul></li>
-							<li onclick="check_list(this.id);" id="CA_0016"><a>수학</a></li>
+								</ul> --></li>
+							<li onclick="check_list(this.id);" id="CA_0005"><a>수학</a></li>
 							<li><span class="opener">그래프</span>
 								<ul>
-									<li><a>그래프</a></li>
-									<li class="test" onclick="check_list(this.id);" id="CA_0001"><a
+									<li onclick="check_list(this.id);" id="CA_0006"><a>그래프</a></li>
+									<li onclick="check_list(this.id);" id="CA_0007"><a
 										>깊이 우선 탐색</a></li>
-									<li onclick="check_list(this.id);" id="CA_0002"><a
+									<li onclick="check_list(this.id);" id="CA_0008"><a
 										>너비 우선 탐색</a></li>
 								</ul></li>
 							<li><span class="opener">트리</span>
 								<ul>
-									<li><a>트리</a></li>
-									<li><a>힙</a></li>
+									<li onclick="check_list(this.id);" id="CA_0009" ><a>트리</a></li>
+									<li onclick="check_list(this.id);" id="CA_0010"><a>힙</a></li>
 								</ul></li>
-							<li onclick="check_list(this.id);" id="CA_0003"><a>다이나믹
+							<li onclick="check_list(this.id);" id="CA_0011"><a>다이나믹
 									프로그래밍</a></li>
-							<li onclick="check_list(this.id);" id="CA_0020"><a>재귀
-									알고리즘</a></li>
-							<li><span>분할정복</span>
-								<ul>
-									<li onclick="check_list(this.id);" id="CA_0011"><a
+							<li onclick="check_list(this.id);" id="CA_0021"><a>그리디 알고리즘</a></li>
+							<li onclick="check_list(this.id);" id="CA_0012"><a>재귀</a></li>
+							<li onclick="check_list(this.id);" id="CA_0013"><span>분할정복</span>
+								<!-- <ul>
+									<li onclick="check_list(this.id);" id="CA_0013"><a
 										>분할 정복</a></li>
-									<li onclick="check_list(this.id);" id="CA_0017"><a>트리</a></li>
+									<li onclick="check_list(this.id);" id="CA_0014"><a>트리</a></li>
 									
-								</ul></li>
+								</ul> --></li>
 
 							<li><span>최단경로</span>
 								<ul>
-									<li><a>다익스트라</a></li>
-									<li><a>플로이드 와샬</a></li>
-									<li><a>벨만포드</a></li>
+									<li onclick="check_list(this.id);" id="CA_0014"><a>다익스트라</a></li>
+									<li onclick="check_list(this.id);" id="CA_0015"><a>플로이드 와샬</a></li>
+									<li onclick="check_list(this.id);" id="CA_0016"><a>벨만포드</a></li>
 								</ul></li>
 							<li><span>최소 스패닝 트리</span>
 								<ul>
-									<li><a>disjoint-set</a></li>
-									<li><a>쿠르스칼</a></li>
-									<li><a>프림</a></li>
+									<li onclick="check_list(this.id);" id="CA_0017"><a>disjoint-set</a></li>
+									<li onclick="check_list(this.id);" id="CA_0018"><a>쿠르스칼</a></li>
+									<li onclick="check_list(this.id);" id="CA_0019"><a>프림</a></li>
 								</ul></li>
-							<li onclick="check_list(this.value);" id="CA_0009"><a
+							<li onclick="check_list(this.value);" id="CA_0020"><a
 								>브루트포스</a></li>
-							<li><a>백트래킹</a></li>
+							<li onclick="check_list(this.id);" id="CA_0021"><a>백트래킹</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -470,28 +476,15 @@ if (request.getAttribute("user") != null) {
 											</div>
 										</div>
 										<div class="item_bottom">
-											
-											
-											<div class="problem_check" id="item_check_${status.count}">
-												
-												<img src="<%=request.getContextPath()%>/resources/images/${successList[status.count-1] ? 'check.png' : 'notCheck.png'}" width="20em" height="20em" alt="O">
-											</div>
-											<br>
-											<div style="margin: auto 0;">
 											<div class="problem_submit" id="item_submit_${status.count}">
 												제출: ${problem.problem_submitnum}</div>
 											<div class="problem_answer" id="item_success_${status.count}">
 												맞은사람: ${problem.problem_successnum}</div>
-											<div class="problem_language">
-												<img src="<%=request.getContextPath()%>/resources/images/c.png" style="width:2em; height:2.5em;"/>
-												<img src="<%=request.getContextPath()%>/resources/images/cpp.png" style="width:2em; height:2.5em;"/>
-												<img src="<%=request.getContextPath()%>/resources/images/java.png" style="width:2em; height:2.5em;"/>
-												<img src="<%=request.getContextPath()%>/resources/images/py.png" style="width:2em; height:2.5em;"/>
-												<img src="<%=request.getContextPath()%>/resources/images/js.png" style="width:2em; height:2.5em;"/>
-											</div>
-											</div>
 											
-											
+											<div class="problem_check" id="item_check_${status.count}">
+												<img src="<%=request.getContextPath()%>/resources/images/${successList[status.count-1] ? 'check.png' : 'notCheck.png'}" width="20em" height="20em" alt="O">
+											</div>
+										
 										</div>
 									</div>
 								</div>
