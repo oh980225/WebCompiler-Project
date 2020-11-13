@@ -91,7 +91,7 @@
 			</div>
 		</aside>
 		<section class="code">
-			<iframe id="iframe" onload="access()" src="<%=request.getContextPath()%>/resources/html/solve_editor.html" width="99.9%" height="100%"></iframe>
+			<iframe id="iframe" onload="access()" src="<%=request.getContextPath()%>/resources/html/solve_editor.html" width="100%" height="100%"></iframe>
 		</section>
 		<section class="result">
 			<div class="result_header">

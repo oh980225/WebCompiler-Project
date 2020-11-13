@@ -219,7 +219,7 @@
     		document.getElementById("problem_level").value = level_value;
 
     	}
-    	var check=false;
+    	let check=false;
     	async function id_check(e) {
     		e.preventDefault();
     		var problem_id = $('#problem_id').val();

@@ -149,31 +149,42 @@ public class MyPageController {
 	}
 	
 	// 해당 모달창 띄우기
-	@RequestMapping(value="/modal", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> openModal(
-			int index, 
-			int page, 
-			String search_category, 
-			String search, 
-			HttpSession session, 
-			Criteria criteria) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
-		UserVO user = (UserVO)session.getAttribute("user");
-		criteria.setPerPageNum(5);
-		criteria.setPage(page);
-		List<CodeBoardVO> codeBoardList = null;
-		if(search != "") {
-			codeBoardList = codeBoardService.getCodeBoardListBySearch(user.getUser_id(), search_category, search, criteria);
-		} else {
-			codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id(), criteria);
-		}
-		
-		
-		map.put("codeBoard", codeBoardList.get(index));
-		
-		return map;
-	}
+	   @RequestMapping(value="/modal", method = RequestMethod.POST)
+	   @ResponseBody
+	   public Map<String, Object> openModal(
+	         int index, 
+	         int page,
+	         int problem_level, 
+	         String category_name,
+	         String search_category, 
+	         String search, 
+	         HttpSession session, 
+	         Criteria criteria) throws Exception {
+	      Map<String, Object> map = new HashMap<String, Object>();
+	      UserVO user = (UserVO)session.getAttribute("user");
+	      criteria.setPerPageNum(5);
+	      criteria.setPage(page);
+	      List<CodeBoardVO> codeBoardList = null;
+	      if(search != "") {
+	         codeBoardList = codeBoardService.getCodeBoardListBySearch(user.getUser_id(), search_category, search, criteria);
+	      }
+	      
+	      if(problem_level == 0 && category_name.equals("unselected")){   
+	         codeBoardList = codeBoardService.getCodeBoardList(user.getUser_id(), criteria);
+	      }
+	      
+	      else {
+	         codeBoardList = codeBoardService.getCodeBoardList_filter(user.getUser_id(), criteria, problem_level, category_name);
+	      }
+	      
+	      for(int  i = 0; i<codeBoardList.size(); i++) {
+	         logger.info(codeBoardList.toString());
+	      }
+
+	      map.put("codeBoard", codeBoardList.get(index));
+	      
+	      return map;
+	   }
 	
 	@RequestMapping(value = "/codeBoardPaging", method = RequestMethod.POST)
 	@ResponseBody

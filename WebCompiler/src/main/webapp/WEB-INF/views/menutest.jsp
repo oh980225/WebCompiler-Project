@@ -341,11 +341,11 @@ if (request.getAttribute("user") != null) {
 								<ul>
 									<li onclick="check_list(this.id);" id="CA_0017"><a>disjoint-set</a></li>
 									<li onclick="check_list(this.id);" id="CA_0018"><a>쿠르스칼</a></li>
-									<li onclick="check_list(this.id);" id="CA_0019"><a>프림</a></li>
+									<li onclick="check_list(this.id);" id="CA_0025"><a>프림</a></li>
 								</ul></li>
-							<li onclick="check_list(this.value);" id="CA_0020"><a
+							<li onclick="check_list(this.value);" id="CA_0019"><a
 								>브루트포스</a></li>
-							<li onclick="check_list(this.id);" id="CA_0021"><a>백트래킹</a></li>
+							<li onclick="check_list(this.id);" id="CA_0020"><a>백트래킹</a></li>
 						</ul>
 					</nav>
 				</div>

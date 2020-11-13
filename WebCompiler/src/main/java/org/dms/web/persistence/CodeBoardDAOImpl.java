@@ -2,6 +2,7 @@ package org.dms.web.persistence;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -241,13 +242,14 @@ public class CodeBoardDAOImpl implements CodeBoardDAO {
 		} else {
 			List<Integer> problemIdListByTitle = sqlSession.selectList(namespace + ".codeboard_problem_id_list_by_search_title", search); // 이건 일단 그 이름이 포함된 문제 다 가져온것!
 			List<Integer> problemIdListByUser = sqlSession.selectList(namespace + ".codeboard_problem_id_list", user_id);
+			Iterator<Integer> iter = problemIdListByTitle.iterator(); 
 			
-			for(int problemId : problemIdListByTitle) {
+			while(iter.hasNext()) {
+				int problemId = iter.next();
 				if(!(problemIdListByUser.contains((Integer)problemId))) {
 					problemIdListByTitle.remove((Integer)problemId);
 				}
 			}
-			
 			
 			problemIdList = problemIdListByTitle;
 		}
