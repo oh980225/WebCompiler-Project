@@ -300,7 +300,7 @@
     	select distinct problem_id  from code where user_id = #{user_id} and problem_id LIKE CONCAT('%',#{search_id},'%') limit #{pageStart}, #{perPageNum}
     </select>
     
-    <select id="codeboard_problem_id_list_by_search_title" resultType="Integer"> 
+    <select id="codeboard_problem_id_list_by_search_title" parameterType="String" resultType="Integer"> 
     	select problem_id from problem where problem_title LIKE CONCAT('%',#{search},'%')
     </select>
     
