@@ -17,7 +17,7 @@
 </br>
 
 ## 4. Structure
-
+<img width="643" alt="스크린샷 2022-03-28 오후 11 53 45" src="https://user-images.githubusercontent.com/33858991/160425945-fd90092f-8d00-4ab7-b46c-269c9908ca7a.png">
 
 
 ## 5. Contributers
